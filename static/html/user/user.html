@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <link rel="import" href="../head.html?__inline">
+        <title>用戶中心-倍可盈</title>
+    	<!--SCRIPT_PLACEHOLDER-->
+        <link rel="import" href="../top/top-zendesk.html?__inline">
+    </head>
+    
+    <body>
+        <link rel="import" href="../top/top.html?__inline">
+		<div class="user-container">
+			<div class="left-wrap b_e bg_fff fl" id="left-wrap">
+				<link rel="import" href="./user-left.html?__inline">
+			</div>
+			<div class="right-wrap b_e bg_fff fr minheight p30">
+				<div class="userInfo-wrap over-hide wp100">
+					<div class="photoWrap fl mr30">
+						<div class="photo icon" id="photo" ></div>
+						<div class="wp100 tc tc_red_i cur-pointer" id="editPhoto">[ 更换头像 ]</div>
+					</div>
+					<div class="info fl">
+						<div class="nickname" id="nickname"></div>
+						<div class="txt" data-href="./identity.html">身份驗證：<samp id="idNo" class="userSelect_none"></samp></div>
+						<div class="txt">電子郵件：<samp id="email" class="userSelect_none"></samp></div>
+						<div class="txt">手機號碼：<samp id="mobile" class="userSelect_none"></samp></div>
+						<div class="txt">註冊時間：<samp id="createDatetime" class="userSelect_none"></samp></div>
+						<div class="txt">信任人數：被<samp id="beiXinRenCount" class="userSelect_none"></samp>人信任</div>
+						<div class="txt">好评数：被<samp id="beiHaoPingCount" class="userSelect_none"></samp>次好评</div>
+						<div class="txt">累計交易次數：<samp id="jiaoYiCount" class="userSelect_none"></samp></div>
+					</div>
+				</div>
+			</div>
+			
+			<!--评价弹窗-->
+		    <div class="am-modal-wrap dialog editPhoto-dialog hidden" id="editPhotoDialog">
+		        <div class="am-modal-mask"></div>
+	            <div class="am-modal">
+	                <div class="am-modal-content">
+	                    <div class="am-modal-header">
+	                    	<p>更换头像</p>
+	                    </div>
+	                    <div class="am-modal-body">
+	                    	<div class="fileBtn-wrap" id="photoFile-wrap">
+	                    		<samp class="am-button am-button-ghost">选择图片</samp>
+	                    		<input id="photoFile" type="file" class="input-file photoFile" accept="image/png,image/gif,image/jpg,image/jpeg" />
+	                    	</div>
+							<div class="img-wrap over-hide hidden">
+								<div class="photoWrap photoWrapSquare b_e fl">
+									<div class="photo icon"></div>
+								</div>
+								<div class="photoWrap photoWrapCircular b_e fl">
+									<div class="photo icon"></div>
+								</div>
+							</div>
+	                    </div>
+	                    <div class="am-modal-footer">
+	                    	<div class="am-button am-button-gray cancelBtn mr60">取消</div>
+	                    	<div class="am-button am-button-red subBtn" id="subBtn">提交</div>
+	                    </div>
+	                </div>
+	            </div>
+		    </div>
+		
+	    </div>
+        <link rel="import" href="../footer.html?__inline">
+        
+        <script type="text/javascript" src="../../js/lib/qiniu/plupload.full.min.js"></script>
+    	<script type="text/javascript" src="../../js/lib/qiniu/qiniu.min.js"></script>
+        <script>
+            require(['app/controller/user/User']);
+        </script>
+    </body>
+</html>

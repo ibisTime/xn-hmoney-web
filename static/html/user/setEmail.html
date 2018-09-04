@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <link rel="import" href="../head.html?__inline">
+        <title>郵箱-倍可盈</title>
+    	<!--SCRIPT_PLACEHOLDER-->
+        <link rel="import" href="../top/top-zendesk.html?__inline">
+    </head>
+    
+    <body>
+        <link rel="import" href="../top/top.html?__inline">
+		<div class="user-container">
+			<div class="left-wrap b_e bg_fff fl" id="left-wrap">
+				<link rel="import" href="./user-left.html?__inline">
+			</div>
+			<div class="right-wrap fr">
+				<div class="position">當前位置：
+					<samp class="goHref" data-href="./user.html">用戶中心></samp>
+					<samp class="goHref" data-href="./security.html">安全設置></samp>
+					郵箱
+				</div>
+				<div class="setSecurity-wrap tradePwd-wrap b_e bg_fff minheight p30">
+					<div class="title">設置郵箱</div>
+					<div class="setSecurity-from-wrap">
+						<form class="form-wrapper wp100" id="form-wrapper">
+							<div class="form-item b_e">
+								<i class="item-icon icon-email"></i>
+								<input type="text" class="input-item" id="email" name="email" placeholder="請輸入郵箱" />
+							</div>
+							<div class="form-item-sms wp100">
+								<div class="form-item b_e">
+									<i class="item-icon icon-sms"></i>
+									<input type="text" class="input-item" id="captcha" name="captcha"  placeholder="郵箱驗證碼" />
+								</div>
+								<button class="sms-button am-button am-button-red" id="getVerification">獲取郵箱驗證碼</button>
+							</div>
+							<div class="form-btn-item">
+								<div class="am-button am-button-red" id="subBtn">確定</div>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>		
+        <link rel="import" href="../footer.html?__inline">
+        <script>
+            require(['app/controller/user/SetEmail']);
+        </script>
+    </body>
+</html>

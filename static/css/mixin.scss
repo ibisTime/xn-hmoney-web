@@ -1,0 +1,132 @@
+@mixin border-bottom-1px($color) {
+    position: relative;
+
+    &:after {
+        display: block;
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        border-top: 1px solid $color;
+        content: ' ';
+    }
+}
+@mixin border-top-1px($color) {
+    position: relative;
+
+    &:before {
+        display: block;
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        border-top: 1px solid $color;
+        content: ' ';
+    }
+}
+@mixin border-right-1px($color) {
+    position: relative;
+
+    &:after {
+        display: block;
+        position: absolute;
+        right: 0;
+        top: 0;
+        height: 100%;
+        border-right: 1px solid $color;
+        content: ' ';
+    }
+}
+@mixin border-none() {
+    &:after {
+        display: none;
+    }
+    &:before {
+        display: none;
+    }
+}
+@mixin bg-image($url) {
+    background-image: url("../images/" + $url + "@2x.png");
+    @media (-webkit-min-device-pixel-ratio: 3), (min-device-pixel-ratio: 3) {
+        background-image: url("../images/" + $url + "@3x.png");
+    }
+}
+@media (-webkit-min-device-pixel-ratio: 1.5),(min-device-pixel-ratio: 1.5) {
+    .border-bottom-1px, .border-top-1px, .border-right-1px {
+        &::after {
+            -webkit-transform: scaleY(0.7);
+            transform: scaleY(0.7);
+        }
+    }
+}
+@media (-webkit-min-device-pixel-ratio: 2),(min-device-pixel-ratio: 2) {
+    .border-bottom-1px, .border-top-1px, .border-right-1px {
+        &::after {
+            -webkit-transform: scaleY(0.5);
+            transform: scaleY(0.5);
+        }
+    }
+}
+
+@media only screen and (max-width: 768px) {
+//  #head .head-wrap {
+//      width: 100% !important;
+//      padding: 0 15px;
+//  }
+    .index-section1 .section-item{
+        width: 100% !important;
+        border: 1px solid #eee;
+    }
+}
+
+
+@media only screen and (min-width: 768px) {
+}
+@media only screen and (min-width: 992px) {
+}
+
+@media only screen and (min-width: 1200px) {
+    .login-container{
+       height: 600px !important; 
+    }
+    .login-swiper{
+       height: 600px !important; 
+    }
+    .minheight{
+        min-height: 540px !important;
+    }
+    .articleHeight{
+        min-height: 640px !important;
+    }
+}
+@media only screen and (min-width: 1800px) {
+    .login-container{
+        height: 770px !important;
+    }
+    .login-swiper{
+        height: 770px !important;
+    }
+    .login-container .login-swiper{
+        height: 770px !important;
+    }
+    .minheight{
+        min-height: 790px !important;
+    }
+    .articleHeight{
+        min-height: 830px !important;
+    }
+}
+@media only screen and (min-width: 2100px) {
+    .login-container{
+        min-height: 1020px !important;
+    }
+    .login-swiper{
+        height: 1020px !important;
+    }
+    .minheight{
+        min-height: 1030px !important;
+    }
+    .articleHeight{
+        min-height: 1100px !important;
+    }
+}

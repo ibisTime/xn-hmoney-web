@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <link rel="import" href="../head.html?__inline">
+        <title>發佈廣告-倍可盈</title>
+    	<!--SCRIPT_PLACEHOLDER-->
+        <link rel="import" href="../top/top-zendesk.html?__inline">
+    </head>
+    
+    <body class="bg_fff">
+        <link rel="import" href="../top/top.html?__inline">
+        
+		<div class="advertise-container detail-container">
+			<div class="advertise-warn wp100">
+				<div class="titleWrap">
+					<i class="icon icon-advwarn"></i>
+					<samp>發佈交易廣告</samp>
+				</div>
+				<div class="content wp100" id="tradeWarn">
+				</div>
+			</div>
+			<div class="trade-type-wrap b_e_b">
+				<div class="advTitWrap"><samp>交易類型</samp></div>
+				<div class="explain">
+					<i>*</i>
+					<samp class="txt">選擇廣告類型：</samp>
+					<samp>您想要创建什么样的交易广告？如果您希望出售，请确保您在本网站的钱包中可用餘額充足。</samp>
+				</div>
+				<div class="trade-type over-hide userSelect_none">
+					<div class="item fl type on mr60">
+						<i class="icon icon-check"></i>
+						<samp>在線出售</samp>
+					</div>
+					<div class="item fl type">
+						<i class="icon icon-check"></i>
+						<samp>在線購買</samp>
+					</div>
+				</div>
+				<div class="explain">
+					<i>*</i>
+					<samp class="txt">選擇交易幣種：</samp>
+					<samp>您想要交易什麼幣種？</samp>
+				</div>
+				<div class="form-wrapper userSelect_none">
+					<div class="form-item form-item-select b_e">
+						<select id="tradeCoin" name="tradeCoin"></select>
+						<i class="icon icon-down"></i>
+					</div>
+				</div>
+			</div>
+			
+			<div class="advertise-info b_e_b">
+				<div class="advTitWrap mt20 mb10"><samp>更多信息</samp></div>
+				<form class="form-wrapper form-wrapper-noIcon" id="form-wrapper">
+					<div class="explain">
+						<i>*</i>
+						<samp class="txt">價格：</samp>
+						<samp id="priceExp"></samp>
+					</div>
+					<div class="form-item b_e">
+						<i class="item-unit">CNY</i>
+						<input type="text" class="input-item" id="price" name="truePrice" disabled="disabled" placeholder="" />
+					</div>
+					<div class="explain premiumRateExp-wrap">
+						<i>*</i>
+						<samp class="txt">溢價：</samp>
+						<samp id="premiumRateExp"></samp>
+					</div>
+					<div class="form-item b_e number-item-wrap premiumRateExp-wrap">
+						<i class="item-unit">%</i>
+						<input type="number" class="input-item number-item" id="premiumRate" name="premiumRate" placeholder="根據市場的溢價比例"/>
+					</div>
+					<div class="explain  premiumRateExp-wrap">
+						<i>*</i>
+						<samp class="txt">最低價格：</samp>
+						<samp id="protectPriceExp"></samp>
+					</div>
+					<div class="form-item b_e  premiumRateExp-wrap">
+						<i class="item-unit">CNY</i>
+						<input type="text" class="input-item" id="protectPrice" name="protectPrice" placeholder="廣告最高可成交的價格" />
+					</div>
+					<div class="explain">
+						<i>*</i>
+						<samp class="txt">最小量：</samp>
+						<samp id="minTradeExp"></samp>
+					</div>
+					<div class="form-item b_e">
+						<i class="item-unit">CNY</i>
+						<input type="text" class="input-item" id="minTrade" name="minTrade" placeholder="每筆交易的最小限額" />
+					</div>
+					<div class="explain">
+						<i>*</i>
+						<samp class="txt">最大量：</samp>
+						<samp id="maxTradeExp"></samp>
+					</div>
+					<div class="form-item b_e">
+						<i class="item-unit">CNY</i>
+						<input type="text" class="input-item" id="maxTrade" name="maxTrade" placeholder="每筆交易的最大限額" />
+					</div>
+					<div class="explain">
+						<i>*</i>
+						<samp class="txt">購買總量：</samp>
+						<samp id="totalCountExp"></samp>
+					</div>
+					<div class="accountCount">
+						<samp>賬戶可用餘額：<i class="accountLeftCountString"></i></samp>
+					</div>
+					<div class="form-item b_e">
+						<i class="item-unit" id="coin"></i>
+						<input type="text" class="input-item" id="totalCount" name="totalCount" placeholder="請輸入購買幣的總量" />
+					</div>
+					<div class="explain">
+						<i>*</i>
+						<samp class="txt">付款方式：</samp>
+						<samp id="payTypeExp"></samp>
+					</div>
+					<div class="form-item form-item-select b_e">
+						<select id="payType" name="payType">
+							<option value="0">支付寶</option>
+							<option value="1">微信</option>
+							<option value="2">銀行卡轉賬</option>
+						</select>
+						<i class="icon icon-down"></i>
+					</div>
+					<div class="explain">
+						<i>*</i>
+						<samp class="txt">付款期限：</samp>
+						<samp id="payLimitExp"></samp>
+					</div>
+					<div class="form-item form-item-select b_e">
+						<select id="payLimit" name="payLimit">
+						</select>
+						<i class="icon icon-down"></i>
+					</div>
+					<div class="explain">
+						<i>*</i>
+						<samp class="txt">廣告留言：</samp>
+					</div>
+					<div class="form-item form-item-textarea b_e">
+						<textarea style="resize: none;" class="textarea-item" id="leaveMessage" name="leaveMessage" placeholder="請說明有關您交易的相關條款或備註您的支付方式，謝謝"></textarea>
+					</div>
+				</form>
+			</div>
+			<div class="advertise-set">
+				<div class="set-wrap hidden">
+					<div class="advTitWrap mt20 mb10"><samp class="tc_red">顯示高級設置</samp></div>
+					<div class="set-item">
+						<p>僅粉絲：<samp id="trustExp"></samp></p>
+						<div class="check-wrap">
+							<div class="icon icon-only" id="onlyTrust"></div>
+						</div>
+					</div>
+					<div class="set-item time-type">
+						<p>開放時間：<samp id="displayTimeExp"></samp></p>
+						<div class="check-wrap over-hide">
+							<div class="item fl type all on">
+								<i class="icon icon-check"></i>
+								<samp>任何時候</samp>
+							</div>
+							<div class="item fl type ml60 userDefined">
+								<i class="icon icon-check"></i>
+								<samp>自定義</samp>
+							</div>
+						</div>
+					</div>
+					<div class="time-wrap b_e_b hide" id="timeWrap">
+						<div class="time-item over-hide">
+							<samp class="fl">星期一：</samp>
+							<div class="selectWrap fl">
+								<select class="startTime"></select>
+								<i class="icon icon-select"></i>
+							</div>
+							<div class="selectWrap fl">
+								<select class="endTime"></select>
+								<i class="icon icon-select"></i>
+							</div>
+						</div>
+						<div class="time-item over-hide">
+							<samp class="fl">星期二：</samp>
+							<div class="selectWrap fl">
+								<select class="startTime"></select>
+								<i class="icon icon-select"></i>
+							</div>
+							<div class="selectWrap fl">
+								<select class="endTime"></select>
+								<i class="icon icon-select"></i>
+							</div>
+						</div>
+						<div class="time-item over-hide">
+							<samp class="fl">星期三：</samp>
+							<div class="selectWrap fl">
+								<select class="startTime"></select>
+								<i class="icon icon-select"></i>
+							</div>
+							<div class="selectWrap fl">
+								<select class="endTime"></select>
+								<i class="icon icon-select"></i>
+							</div>
+						</div>
+						<div class="time-item over-hide">
+							<samp class="fl">星期四：</samp>
+							<div class="selectWrap fl">
+								<select class="startTime"></select>
+								<i class="icon icon-select"></i>
+							</div>
+							<div class="selectWrap fl">
+								<select class="endTime"></select>
+								<i class="icon icon-select"></i>
+							</div>
+						</div>
+						<div class="time-item over-hide">
+							<samp class="fl">星期五：</samp>
+							<div class="selectWrap fl">
+								<select class="startTime"></select>
+								<i class="icon icon-select"></i>
+							</div>
+							<div class="selectWrap fl">
+								<select class="endTime"></select>
+								<i class="icon icon-select"></i>
+							</div>
+						</div>
+						<div class="time-item over-hide">
+							<samp class="fl">星期六：</samp>
+							<div class="selectWrap fl">
+								<select class="startTime"></select>
+								<i class="icon icon-select"></i>
+							</div>
+							<div class="selectWrap fl">
+								<select class="endTime"></select>
+								<i class="icon icon-select"></i>
+							</div>
+						</div>
+						<div class="time-item over-hide">
+							<samp class="fl">星期日：</samp>
+							<div class="selectWrap fl">
+								<select class="startTime"></select>
+								<i class="icon icon-select"></i>
+							</div>
+							<div class="selectWrap fl">
+								<select class="endTime"></select>
+								<i class="icon icon-select"></i>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="advertise-hidden cur-pointer hide">顯示高級設置...</div>
+			</div>
+		
+			<div class="btnWrap">
+				<div class="am-button am-button-ghost" id="draftBtn">保存草稿</div>
+				<div class="am-button am-button-red" id="submitBtn">立即發佈</div>
+				<div class="am-button am-button-ghost hidden" id="doDownBtn">下架</div>
+			</div>
+		</div>
+		
+        <link rel="import" href="../footer.html?__inline">
+        <script>
+            require(['app/controller/trade/Advertising']);
+        </script>
+    </body>
+</html>

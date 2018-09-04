@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <link rel="import" href="../head.html?__inline">
+        <title>忘記密碼-倍可盈</title>
+    	<!--SCRIPT_PLACEHOLDER-->
+    </head>
+    
+    <body class="bg_fff">
+		<link rel="import" href="../top/top-index.html?__inline">
+		
+		<div class="register-container minheight">
+			<div class="container">
+				<div class="login-form">
+					<h3 class="title">忘記密碼</h3>
+					<form class="form-wrapper wp100" id="form-wrapper">
+						<div class="form-item b_e">
+							<i class="item-icon icon-phone"></i>
+							<input type="text" class="input-item" id="mobile" name="mobile" placeholder="請輸入手機號" />
+						</div>
+						<div class="form-item-sms wp100">
+							<div class="form-item b_e">
+								<i class="item-icon icon-sms"></i>
+								<input type="text" class="input-item" id="smsCaptcha" name="smsCaptcha"  placeholder="驗證碼" />
+							</div>
+							<button class="sms-button am-button am-button-red b_radius2_i" id="getVerification">獲取驗證碼</button>
+						</div>
+						<div class="form-item b_e">
+							<i class="item-icon icon-pwd"></i>
+							<input type="password" class="input-item" id="newLoginPwd" name="newLoginPwd"  placeholder="請輸入密碼，密碼不少於6位" />
+						</div>
+						<div class="form-item b_e">
+							<i class="item-icon icon-pwd"></i>
+							<input type="password" class="input-item" id="reNewLoginPwd" name="reNewLoginPwd"  placeholder="請確認密碼" />
+						</div>
+						<div class="form-btn-item">
+							<div class="am-button am-button-red b_radius2_i" id="subBtn">確定</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+		
+        <link rel="import" href="../footer.html?__inline">
+        <script>
+            require(['app/controller/user/FindPwd']);
+        </script>
+    </body>
+</html>

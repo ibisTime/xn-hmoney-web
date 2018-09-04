@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <link rel="import" href="../head.html?__inline">
+        <title></title>
+    	<!--SCRIPT_PLACEHOLDER-->
+        <link rel="import" href="../top/top-zendesk.html?__inline">
+    </head>
+    
+    <body>
+        <link rel="import" href="../top/top.html?__inline">
+		<div class="user-container">
+			<div class="left-wrap b_e bg_fff fl" id="left-wrap">
+				<link rel="import" href="./user-left.html?__inline">
+			</div>
+			<div class="right-wrap b_e bg_fff fr minheight">
+				<div class="trust-wrap over-hide wp100">
+					<table id="content" class="wp100 trust-form" cellpadding="0" cellspacing="0">
+						<!--<tr>-->
+							<!--<td>-->
+								<!--<div class="photoWrap">-->
+									<!--<div class="photo"><div class="noPhoto">J</div></div>-->
+								<!--</div>-->
+							<!--</td>-->
+							<!--<td><div class="txt1">junxi</div></td>-->
+							<!--<td>-->
+								<!--<div class="txt2"><p>30</p><samp>交易次數</samp></div>-->
+							<!--</td>-->
+							<!--<td>-->
+								<!--<div class="txt2"><p>30</p><samp>信任人數</samp></div>-->
+							<!--</td>-->
+							<!--<td>-->
+								<!--<div class="txt2"><p>30</p><samp>好評度</samp></div>-->
+							<!--</td>-->
+							<!--<td>-->
+								<!--<div class="txt2"><p>30</p><samp>歷史成交</samp></div>-->
+							<!--</td>-->
+							<!--<td class="jiaoYiCount">-->
+								<!--<div class="txt1 tr">跟TA交易過<samp>0</samp>次</div>-->
+							<!--</td>-->
+						<!--</tr>-->
+					</table>
+				</div>
+				<div id="pagination" class="wp100 pagination-wrap tc">
+					<p class="pagination"></p>
+				</div>
+			</div>
+		</div>		
+        <link rel="import" href="../footer.html?__inline">
+        <script>
+            require(['app/controller/user/Trust']);
+        </script>
+    </body>
+</html>

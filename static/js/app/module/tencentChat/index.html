@@ -1,0 +1,129 @@
+<div class="tencentChatContainer-wrap" id="TencentChatContainer">
+	<div class="tencentChatContainer-top">
+		<div class="icon close"></div>
+		<div class="advertise-info">
+			<p class="nickname"></p>
+			<p class="truePrice"></p>
+			<p class="limit"></p>
+		</div>
+	</div>
+	<div class="chat-container">
+		<div class="wrap chat-wrap">
+			<div class="msgflow" id="msgflow"></div>
+			<div class="btnWrap">
+				<textarea type="text" id="msgedit" class="msgedit" placeholder="輸入聊天內容" ></textarea>
+				<button id="msgImg" class="msgImg"></button>
+				<button id="openPic" class="openPic"></button>
+				<button id="send" class="am-button am-button-red send">发送</button>
+				<div class="emotionUL-wrap hidden">
+					<ul id="emotionUL" class="wp100"></ul>
+				</div>
+			</div>
+		</div>
+							
+		<!-- 发送图片ie -->
+		<div class="am-modal-wrap pic-dialog" id="upload_pic_low_ie_dialog" style="display:none;">
+			<div class="am-modal-mask"></div>
+			<div class="am-modal">
+				<div class="am-modal-content">
+					<div class="am-modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+						<h4 class="modal-title" id="upload_pic_low_ie_dialog_label"> 发送图片</h4>
+					</div>
+					<div class="am-modal-body">
+						<form id="updli_form" enctype="multipart/form-data" class="form-horizontal" onkeydown="if(event.keyCode==13)return false;">
+							<div class="form-group file-wrap">
+								<label for="File" class="col-sm-2 control-label">选择</label>
+								<div class="col-sm-10">
+									<input type="file"  class="file"  accept="image/*" id="updli_file" />
+								</div>
+								<div class="am-button am-button-ghost">选择图片</div>
+							</div>
+						</form>
+					</div>
+					<div class="am-modal-footer">
+						<button type="button" class="am-button am-button-gray" id="updli_close"> 关闭</button>
+						<button type="button" class="am-button am-button-red ml20" id="updli_send"> 发送</button>
+					</div>
+				</div>
+				<!-- /.modal-content -->
+			</div>
+			<!-- /.modal-dialog -->
+		</div>
+		<!-- 发送图片 -->
+		<div class="am-modal-wrap pic-dialog" id="upload_pic_dialog" style="display:none;">
+			<div class="am-modal-mask"></div>
+			<div class="am-modal">
+				<div class="am-modal-content">
+					<div class="am-modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+						<h4 class="modal-title" id="upload_pic_dialog_label">发送图片</h4>
+					</div>
+					<div class="am-modal-body">
+		
+						<form class="form-horizontal" role="form" onkeydown="if(event.keyCode==13)return false;" id="upd_form" name="upd_form">
+							<div class="form-group file-wrap">
+								<div class="col-sm-10">
+									<input class="file" type="file" accept="image/*" id="upd_pic" />
+								</div>
+								<div class="am-button am-button-ghost">选择图片</div>
+							</div>
+							<div class="form-group">
+								<label for="File" class="col-sm-2 control-label">预览</label>
+								<div class="col-sm-10">
+									<div id="previewPicDiv"></div>
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="upd_progress" class="col-sm-2 control-label">进度</label>
+								<div class="col-sm-10">
+									<progress id="upd_progress" value="0" max="100"></progress>
+								</div>
+							</div>
+		
+						</form>
+					</div>
+					<div class="am-modal-footer">
+						<button type="button" class="am-button am-button-gray" id="upd_close">关闭</button>
+						<button type="button" class="am-button am-button-red ml20" id="upd_send">发送</button>
+					</div>
+				</div>
+				<!-- /.modal-content -->
+			</div>
+			<!-- /.modal-dialog -->
+		</div>
+		<!-- 查看图片 -->
+		<div class="am-modal-wrap pic-dialog" style="display:none;" id="click_pic_dialog">
+			<div class="am-modal-mask"></div>
+			<div class="am-modal">
+				<div class="am-modal-content">
+					<div class="am-modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+						<h4 class="modal-title" id="click_pic_dialog_label">查看图片</h4>
+					</div>
+					<div class="am-modal-body">
+						<form class="form-horizontal" role="form">
+							<div class="form-group">
+								<div class="col-sm-12">
+									<div id="bigPicDiv"></div>
+								</div>
+							</div>
+						</form>
+					</div>
+					<div class="am-modal-footer">
+						<button type="button" class="am-button am-button-red" id="click_pic_dialog_close">关闭</button>
+						<!--<button type="button" class="btn btn-primary" id="viewOriPicBt">查看原图</button>-->
+					</div>
+				</div>
+				<!-- /.modal-content -->
+			</div>
+			<!-- /.modal-dialog -->
+		</div>
+		
+	</div>
+
+	
+</div>
+
+			
+		

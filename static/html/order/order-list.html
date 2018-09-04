@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <link rel="import" href="../head.html?__inline">
+        <title>訂單管理-倍可盈</title>
+    	<!--SCRIPT_PLACEHOLDER-->
+        <link rel="import" href="../top/top-zendesk.html?__inline">
+    </head>
+    
+    <body>
+        <link rel="import" href="../top/top.html?__inline">
+		<div class="public-container trade-container order-container b_e bg_fff minheight tradeDetail-container">
+			<div class="titleWrap wp100 over-hide b_e_b">
+				<div class="fl wrap">
+					<i class="icon icon-order fl"></i><samp class="fl">訂單管理</samp>
+				</div>
+				<div class="fr">
+					<ul class="titleStatus over-hide">
+						<li class="on" data-status="inProgress">進行中</li>
+						<li data-status="end">已結束</li>
+					</ul>
+				</div>
+			</div>
+			<div class="trade-list-wrap userSelect_none">
+				<div class="trade-wrap wp100">
+					<table class="wp100 trade-form b_e_b" cellpadding="0" cellspacing="0">
+						<thead>
+							<tr>
+								<td class="nickname">交易夥伴</td>
+								<td class="code">訂單編號</td>
+								<td class="type">類型</td>
+								<td class="amount">交易金額</td>
+								<td class="quantity">交易數量</td>
+								<td class="createDatetime">創建時間</td>
+								<td class="status">交易狀態</td>
+								<td class="operation">交易操作</td>
+								<td class="goDetail"></td>
+							</tr>
+						</thead>
+						<tbody id="content">
+							<!--<tr>
+								<td class="nickname">
+									<div class="photoWrap fl goHref" data-href="../user/user-detail.html" >
+										<div class="photo"><div class="noPhoto">J</div></div>
+									</div>
+									<samp class="name">junxi</samp>
+								</td>
+								<td class="code">44613740</td>
+								<td class="type">購買ETH</td>
+								<td class="amount">1000000CNY</td>
+								<td class="quantity">1.0001200ETH</td>
+								<td class="createDatetime">2018-01-04 20:15:11</td>
+								<td class="status">已釋放待評價</td>
+								<td class="operation">
+									<div class="am-button am-button-red">標記付款</div>
+									<div class="am-button am-button-gray ml5">取消交易</div>
+								</td>
+								<td class="goDetail"><i class="icon icon-detail goHref" data-href="../order/order-detail.html"></i></td>
+							</tr>-->
+						</tbody>
+					</table>
+					<div class="no-data b_e_t hidden">
+						<img src="../../images/暂无明细.png" />
+						<p>暫無訂單</p>
+					</div>
+				</div>
+				<div id="pagination" class="wp100 pagination-wrap tc">
+					<p class="pagination"></p>
+				</div>
+			</div>
+			
+			<!--申請仲裁弹窗-->
+		    <div class="am-modal-wrap dialog submit-dialog arbitration-dialog hidden" id="arbitrationDialog">
+		        <div class="am-modal-mask"></div>
+	            <div class="am-modal">
+	                <div class="am-modal-content">
+	                    <div class="am-modal-header">
+	                    	<p class="iconWrap"><i class="icon icon-order"></i></p>
+	                    	<p>申請仲裁</p>
+	                    </div>
+	                    <div class="am-modal-body">
+	                    	<div class="arbitration-content">
+	                    		<form class="form-wrapper form-wrapper-noIcon" id="form-wrapper">
+	                    			<div class="form-item form-item-textarea b_e">
+										<textarea style="resize: none;" class="textarea-item" name="reason" placeholder="請填寫您申請仲裁的理由"></textarea>
+									</div>
+                    			</form>
+	                    	</div>
+	                    </div>
+	                    <div class="am-modal-footer">
+	                    	<div class="am-button am-button-gray mr40 closeBtn">放棄</div>
+	                    	<div class="am-button am-button-red subBtn">確認申請</div>
+	                    </div>
+	                </div>
+	            </div>
+		    </div>
+		</div>	
+		
+		<!--评价弹窗-->
+	    <div class="am-modal-wrap dialog comment-dialog hidden" id="commentDialog">
+	        <div class="am-modal-mask"></div>
+            <div class="am-modal">
+                <div class="am-modal-content">
+                    <div class="am-modal-header">
+                    	<p>交易評價</p>
+                    </div>
+                    <div class="am-modal-body">
+                    	<p class="title">交易有何印象？快來評價吧</p>
+                    	<div class="comment-Wrap">
+                    		<div class="item on" data-value="2">
+                    			<div class="icon icon-good"></div>
+                    			<p>好評</p>
+                    		</div>
+                    		<div class="item ml20" data-value="0">
+                    			<div class="icon icon-bad"></div>
+                    			<p>差評</p>
+                    		</div>
+                    	</div>
+                    </div>
+                    <div class="am-modal-footer">
+                    	<div class="am-button am-button-red subBtn">提交</div>
+                    </div>
+                </div>
+            </div>
+	    </div>
+		
+        <link rel="import" href="../footer.html?__inline">
+        <script>
+            require(['app/controller/order/OrderList']);
+        </script>
+    </body>
+</html>

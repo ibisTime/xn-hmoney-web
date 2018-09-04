@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <link rel="import" href="head.html?__inline">
+        <title>倍可盈</title>
+    	<!--SCRIPT_PLACEHOLDER-->
+        <link rel="import" href="top/top-zendesk.html?__inline">
+    </head>
+    
+    <body class="bg_fff">
+        <link rel="import" href="top/top-index.html?__inline">
+		<div id="swiper" class="wp100 swiper-container index-swiper">
+		    <div class="arrow arrow-left"></div> 
+		    <div class="arrow arrow-right"></div>
+			<div class="swiper-wrapper"></div>
+			<div class="swiper-pagination"></div>
+		</div>
+		
+		<div class="index-section1 container">
+			<div class="section-item">
+				<div class="image"><img src="../images/cart.png"></div>
+                <div class="caption">
+                    <h3>極速認證</h3>
+                    <p>基於芝麻信用的kyc人臉識別認證<br/>技術，讓入場不再繁瑣</p>
+                </div>
+			</div>
+			<div class="section-item">
+				<div class="image"><img src="../images/suo.png"></div>
+                <div class="caption">
+                    <h3>安全可靠</h3>
+                    <p>evssl銀行級安全技術保障買賣<br/>雙方資產安全</p>
+                </div>
+			</div>
+			<div class="section-item">
+				<div class="image"><img src="../images/search.png"></div>
+                <div class="caption">
+                    <h3>及時掌控</h3>
+                    <p>WEB、安卓、IOS多終端，隨時<br/>隨地，暢快交易</p>
+                </div>
+			</div>
+		</div>
+		
+		<div class="index-section2">
+			<div class="container wrap">
+				<div class="index-section2-phone">
+					<img src="../images/phone.png" />
+				</div>
+				<div class="qrcode fr">
+					<div class="img">
+						<img id="downImg"  alt="app下載二維碼"/>
+					</div>
+					<p>掃一掃下載倍可盈</p>
+				</div>
+				<div class="upload fr">
+					<h2>Bcoin 倍可盈APP</h2>
+					<p>簡單 · 安全 · 有效</p>
+					<div class="button-wrap">
+						<div class="button goHref mr40" data-href="../public/guide-uploadIos.html"><i class="icon icon-ios"></i><samp>iPhone版下載</samp></div>
+						<div class="button goHref" id="androidDown"><i class="icon icon-and"></i><samp>Android版下載</samp></div>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+        <link rel="import" href="footer.html?__inline">
+        <script>
+            require(['app/controller/Index']);
+        </script>
+    </body>
+</html>

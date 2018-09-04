@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <link rel="import" href="../head.html?__inline">
+        <title>個人主頁-倍可盈</title>
+    	<!--SCRIPT_PLACEHOLDER-->
+        <link rel="import" href="../top/top-zendesk.html?__inline">
+    </head>
+    
+    <body>
+        <link rel="import" href="../top/top.html?__inline">
+        
+        <div class="userDetail-container">
+        	<div class="userDetail-top wp100 bg_fff b_e over-hide mt20">
+				<div class="photoWrap-wrap fl">
+					<div class="photoWrap">
+						<!--<div class="photo icon" id="photo" ></div>-->
+						<!--<div class="photo"><div class="noPhoto"></div></div>-->
+					</div>
+				</div>
+				<div class="infoWrap fl">
+					<div class="wrap">
+						<samp class="nickname fl ml20 mr40"></samp>
+						<samp class="am-button am-button-red fl mr20 trust"></samp>
+						<samp class="am-button am-button-gray fl black"></samp>
+					</div>
+					<div class="statistics">
+						<div class="item">
+							<p class="jiaoYiCount"></p>
+							<samp>交易次數</samp>
+						</div>
+						<div class="item">
+							<p class="beiXinRenCount"></p>
+							<samp>信任人數</samp>
+						</div>
+                        <div class="item">
+                            <p class="beiHaoPingCount"></p>
+                             <samp>好評度</samp>
+                        </div>
+						<div class="item">
+							<p class="totalTradeCount"></p>
+							<samp>歷史交易</samp>
+						</div>
+					</div>
+				</div>
+				
+				<div class="bindWrap">
+					<div class="item email">
+						<i class="icon icon-email"></i>
+						<samp></samp>
+					</div>
+					<div class="item mobile">
+						<i class="icon icon-mobile"></i>
+						<samp></samp>
+					</div>
+					<div class="item identity">
+						<i class="icon icon-identity"></i>
+						<samp></samp>
+					</div>
+				</div>
+        	</div>
+        	
+        	<div class="public-container trade-container order-container b_e bg_fff">
+				<div class="titleWrap wp100 over-hide b_e_b">
+					<div class="fl wrap">
+						<samp class="fl tc_red_i userName"></samp><samp class="fl">發佈的廣告</samp>
+					</div>
+					<div class="fr">
+						<ul class="titleStatus over-hide">
+							<li class="on buy">在線購買</li>
+							<li class="sell">在線出售</li>
+						</ul>
+					</div>
+				</div>
+				<div class="trade-list-wrap userSelect_none">
+					<div class="trade-wrap wp100">
+						<table class="wp100 trade-form b_e_b" cellpadding="0" cellspacing="0">
+							<thead>
+								<tr>
+									<td class="currency">交易幣種</td>
+									<td class="oayType">付款方式</td>
+									<td class="limit">交易限額</td>
+									<td class="price">價格</td>
+									<td class="operation"></td>
+								</tr>
+							</thead>
+							<tbody id="content">
+
+							</tbody>
+						</table>
+						<div class="no-data b_e_t hidden">
+							<img src="../../images/暂无明细.png" />
+							<p>暫無广告</p>
+						</div>
+					</div>
+					<!--<div id="pagination" class="wp100 pagination-wrap tc">-->
+						<!--<p class="pagination"><a href="javascript:;" class="prev"><img src="/static/images/arrow-&#45;&#45;left.png"></a><span class="active">1</span><a href="javascript:;" data-page="2">2</a><a href="javascript:;" class="next"><img src="/static/images/arrow-&#45;&#45;right.png"></a><samp>共2页</samp><samp>到第</samp><input type="text" class="pagination-ipt"><samp>页</samp><a href="javascript:;" class="pagination-btn">确定</a></p>-->
+					<!--</div>-->
+					<div id="pagination" class="wp100 pagination-wrap tc">
+						<p class="pagination"></p>
+					</div>
+				</div>
+				
+			</div>
+        	
+        	
+        </div>
+		
+        <link rel="import" href="../footer.html?__inline">
+        <script>
+            require(['app/controller/user/UserDetail']);
+        </script>
+    </body>
+</html>

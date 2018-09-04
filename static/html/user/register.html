@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <link rel="import" href="../head.html?__inline">
+    <title>註冊-倍可盈</title>
+    <!--SCRIPT_PLACEHOLDER-->
+    <link rel="import" href="../top/top-zendesk.html?__inline">
+</head>
+
+<body class="bg_fff">
+    <!--<link rel="import" href="../top/top-loginRegister.html?__inline">-->
+    <link rel="import" href="../top/top-index.html?__inline">
+    <div class="register-container minheight">
+
+        <div class="container">
+
+            <div class="login-form">
+                <h3 class="title">注册</h3>
+                <ul class="sel-mod">
+                    <li class="sel-phone sel-li_m">手机注册</li>
+                    <li class="sel-eml">邮箱注册</li>
+                </ul>
+                <div class="phone-reg">
+                    <form class="form-wrapper wp100" id="register-form">
+                        <div class="form-item b_e">
+                            <i class="item-icon icon-user"></i>
+                            <input type="text" class="input-item" id="nickname" name="nickname" placeholder="请输入英文用户名" />
+                        </div>
+                        <div class="form-wrapper userSelect_none">
+                            <div class="form-item form-item-select b_e po-sele">
+                                <select id="tradeCoin" name="tradeCoin">
+											<option value="BTC">中国 86</option>
+										</select>
+                                <i class="icon icon-up"></i>
+                            </div>
+                        </div>
+                        <div class="form-item b_e">
+                            <i class="item-icon icon-phone"></i>
+                            <input type="text" class="input-item" id="mobile" name="mobile" placeholder="请输入手机号" />
+                        </div>
+                        <div class="form-item b_e">
+                            <i class="item-icon icon-sms"></i>
+                            <input type="text" class="input-item" id="smsCaptcha" name="smsCaptcha" placeholder="请输入验证码" />
+                            <button class="b_radius2_i fs-yanz" id="getVerification">发送验证码</button>
+                        </div>
+                        <div class="form-item b_e">
+                            <i class="item-icon icon-pwd"></i>
+                            <input type="password" class="input-item" id="loginPwd" name="loginPwd" placeholder="请输入6-16位的登录密码" />
+                        </div>
+                        <div class="text-wrap over-hide wp100">
+                            <div class="checkTxt">
+                                <i class="icon active" id="subFlag"></i>
+                                <p>我已阅读并接受<samp class="protocol">《fun mvp产品服务条款》</samp></p>
+                            </div>
+                        </div>
+                        <div class="form-btn-item">
+                            <div class="am-button am-button-red b_radius2_i" id="subBtn" style="width: 50%;">註冊</div>
+                        </div>
+                    </form>
+                </div>
+                <div class="eml-reg none">
+                    <form class="form-wrapper wp100" id="register-form">
+                        <div class="form-item b_e">
+                            <i class="item-icon icon-user"></i>
+                            <input type="text" class="input-item" id="nickname" name="nickname" placeholder="请输入英文用户名" />
+                        </div>
+                        <div class="form-item b_e">
+                            <i class="item-icon icon-email"></i>
+                            <input type="text" class="input-item" id="mobile" name="mobile" placeholder="请输入邮箱" />
+                        </div>
+                        <div class="form-item b_e">
+                            <i class="item-icon icon-pwd"></i>
+                            <input type="password" class="input-item" id="loginPwd" name="loginPwd" placeholder="请输入6-16位的登录密码" />
+                        </div>
+                        <div class="text-wrap over-hide wp100">
+                            <div class="checkTxt">
+                                <i class="icon active" id="subFlag"></i>
+                                <p>我已阅读并接受<samp class="protocol">《fun mvp产品服务条款》</samp></p>
+                            </div>
+                        </div>
+                        <div class="form-btn-item">
+                            <div class="am-button am-button-red b_radius2_i" id="subBtn" style="width: 50%;">註冊</div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="showProtocol"></div>
+        </div>
+
+        <!--註冊協議弹窗-->
+        <div class="am-modal-wrap dialog register-dialog hidden" id="registerDialog">
+            <div class="am-modal-mask"></div>
+            <div class="am-modal">
+                <div class="am-modal-content">
+                    <div class="am-modal-header">
+                        <p>註冊協議</p>
+                    </div>
+                    <div class="am-modal-body">
+                        <div id="content"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <link rel="import" href="../footer.html?__inline">
+    <script>
+        require(['app/controller/user/Register']);
+    </script>
+</body>
+
+</html>

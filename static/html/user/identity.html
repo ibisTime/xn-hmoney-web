@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <link rel="import" href="../head.html?__inline">
+        <title>身份驗證-倍可盈</title>
+    	<!--SCRIPT_PLACEHOLDER-->
+        <link rel="import" href="../top/top-zendesk.html?__inline">
+    </head>
+    
+    <body>
+        <link rel="import" href="../top/top.html?__inline">
+		<div class="user-container">
+			<div class="left-wrap b_e bg_fff fl" id="left-wrap">
+				<link rel="import" href="./user-left.html?__inline">
+			</div>
+			<div class="right-wrap b_e bg_fff fr minheight">
+				<div class="identity-wrap wp100">
+					<div class="identity-top over-hide">
+						<i class="icon icon-warning fl"></i>
+						<p class="fl">為確保交易安全，保障您的合法權益，請您完成身份驗證！
+							我們提供安全高效實時聯網的官方身份認證服務，具有更高級別的安全保護。
+							身份驗證一旦成功，不予修改和解除認證。建議您謹慎選擇，真實填寫。</p>
+					</div>
+					<div class="identity-warn hidden" id="goAppIdentity">
+						<h3>請前往APP進行實名認證</h3>
+						<div class="img b_e"><img id="downImg"/></div>
+						<p>掃一掃下載倍可盈</p>
+					</div>
+					<div class="identity-content b_e hidden" id="alreadyIdentity">
+						<div class="top b_e_b over-hide">
+							<i class="icon icon-identity fl"></i>
+							<div class="fl">
+								<div class="txtWrap over-hide">
+									<samp class="txt fl">中國大陸身份證</samp><samp class="fl am-button am-button-ghost am-button-small">已認證</samp>
+								</div>
+								<samp class="txt2">適用于大多數中國大陸用戶</samp>
+							</div>
+						</div>
+						<div class="identity-from-wrap">
+							<form class="form-wrapper form-wrapper-38 wp100" id="form-wrapper">
+								<div class="form-item-wrap">
+									<samp class="label">姓名：</samp>
+									<div class="form-item b_e">
+										<input type="text" class="input-item" id="realName" name="realName" placeholder="請輸入姓名" disabled />
+									</div>
+								</div>
+								<div class="form-item-wrap">
+									<samp class="label">身份證號：</samp>
+									<div class="form-item b_e">
+										<input type="text" class="input-item" id="idNo" name="idNo" placeholder="請輸入身份證號" disabled />
+									</div>
+								</div>
+								<!--<div class="form-btn-item">
+									<div class="am-button am-button-red" id="subBtn">確定</div>
+								</div>-->
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>		
+        <link rel="import" href="../footer.html?__inline">
+        <script>
+            require(['app/controller/user/Identity']);
+        </script>
+    </body>
+</html>

@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <link rel="import" href="../head.html?__inline">
+        <title>出售详情-倍可盈</title>
+    	<!--SCRIPT_PLACEHOLDER-->
+        <link rel="import" href="../top/top-zendesk.html?__inline">
+    </head>
+    
+    <body class="bg_fff">
+        <link rel="import" href="../top/top.html?__inline">
+        
+        <div class="detail-container tradeDetail-container minheight">
+        	<div class="detail-container-wrap">
+				<div class="userInfo-wrap b_e_b">
+					<div class="top over-hide">
+						<div class="photoWrap fl">
+							<div class="photo" id="photo"></div>
+						</div>
+						<div class="name fl">
+							<samp id="nickname"></samp>
+							<i class="icon icon-chat hidden" id="chatBtn"></i>
+							<samp class="am-button am-button-red am-button-small hidden" id="doDownBtn">下架</samp>
+						</div>
+					</div>
+					<div class="statistics mb20">
+						<div class="item">
+							<p id="jiaoYiCount"></p>
+							<samp>交易次數</samp>
+						</div>
+						<div class="item">
+							<p id="beiXinRenCount"></p>
+							<samp>信任人數</samp>
+						</div>
+						<div class="item">
+							<p id="beiHaoPingCount"></p>
+							<samp>好評率</samp>
+						</div>
+						<div class="item">
+							<p id="totalTradeCount"></p>
+							<samp>歷史成交</samp>
+						</div>
+					</div>
+				</div>
+				<div class="price-wrap">
+					<div class="item">
+						<samp class="tit">報價:</samp><samp id="truePrice"></samp>
+					</div>
+					<div class="item">
+						<samp class="tit">交易限額:</samp><samp id="limit"></samp><samp class="ml5">CNY</samp>
+					</div>
+					<div class="item">
+						<samp class="tit">付款方式:</samp><samp id="payType"></samp>
+					</div>
+					<div class="item">
+						<samp class="tit">付款期限:</samp><samp id="payLimit"></samp><samp>分鐘</samp>
+					</div>
+					<div class="item">
+						<samp class="tit">買家留言:</samp><samp id="leaveMessage"></samp>
+					</div>
+				</div>
+				<div class="buy-wrap hidden">
+					<div class="titleWrap">
+						<i class="icon icon-buy"></i><samp>你想出售多少?</samp>
+						<samp class="small">賬戶可用餘額：<i class="accountLeftCountString accountLeftCountStringETH"></i></samp>
+					</div>
+					<form class="form-wrapper wp100 form-wrapper-noIcon over-hide" id="form-wrapper">
+						<div class="form-item b_e fl">
+							<i class="item-unit">CNY</i>
+							<input type="text" class="input-item" id="buyAmount" name="buyAmount" placeholder="請輸入您出售的金額" />
+						</div>
+						<div class="icon icon-change fl"></div>
+						<div class="form-item b_e fl">
+							<i class="item-unit" id="coin"></i>
+							<input type="text" class="input-item" id="buyEth" name="buyEth" placeholder="請輸入您出售的數量" />
+						</div>
+					</form>
+					<div class="am-button am-button-red" id="buyBtn">立即出售</div>
+				</div>
+				<div class="tradeWarn-wrap">
+					<div class="titleWrap"><i class="icon icon-warn"></i><samp>交易提醒</samp></div>
+					<div class="content" id="tradeWarn"></div>
+				</div>
+			</div>	
+			
+			<!--下单确认弹窗-->
+		    <div class="am-modal-wrap dialog submit-dialog hidden" id="submitDialog">
+		        <div class="am-modal-mask"></div>
+	            <div class="am-modal">
+	                <div class="am-modal-content">
+	                    <div class="am-modal-header">
+	                    	<p class="iconWrap"><i class="icon icon-order"></i></p>
+	                    	<p>下單確認</p>
+	                    </div>
+	                    <div class="am-modal-body">
+	                    	<div class="submit-content">
+	                    		<div class="item">
+	                    			<samp class="fl">出售價格</samp>
+	                    			<samp class="fr tradePrice"></samp>
+	                    		</div>
+	                    		<div class="item">
+	                    			<samp class="fl">出售金額</samp>
+	                    			<samp class="fr tradeAmount"></samp>
+	                    		</div>
+	                    		<div class="item">
+	                    			<samp class="fl">出售數量</samp>
+	                    			<samp class="fr count"></samp>
+	                    		</div>
+	                    		<div class="warnWrap">
+	                    			<i class="icon icon-warn fl"></i>
+	                    			<samp class="fr">提醒：請確認價格再下單，下單後此交易的ETH將被託管鎖定，請放心出售。</samp>
+	                    		</div>
+	                    	</div>
+	                    </div>
+	                    <div class="am-modal-footer">
+	                    	<div class="am-button am-button-red mr40 subBtn">確認出售</div>
+	                    	<div class="am-button am-button-gray closeBtn">放棄</div>
+	                    </div>
+	                </div>
+	            </div>
+		    </div>
+        </div>
+        
+        <link rel="import" href="../footer.html?__inline">
+        
+        <script>
+            require(['app/controller/trade/SellDetail']);
+        </script>
+    </body>
+</html>

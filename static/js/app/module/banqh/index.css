@@ -1,0 +1,163 @@
+.ban-wrap {
+	width: 528px;
+	height: 100%;
+	position: relative;
+	overflow: hidden;
+}
+
+.ban-wrap .ban {
+	width: 100%;
+	height: 296px;
+	position: relative;
+	margin: 0 auto;
+	overflow: hidden;
+}
+
+.ban-wrap .ban ul {
+	height: 296px;
+	overflow: hidden;
+	position: absolute;
+	left: 0;
+	top: 0;
+}
+
+.ban-wrap .ban ul li {
+	width: 528px;
+	height: 100%;
+	overflow: hidden;
+	float: left;
+}
+.ban-wrap .ban ul li a{
+	display: block;
+	width: 100%;
+}
+
+.ban-wrap .ban ul li img {
+	width: 100%;
+}
+
+.ban-wrap .prev {
+	float: left;
+	cursor: pointer;
+}
+
+.ban-wrap .num {
+	height: 68px;
+	overflow: hidden;
+	width: 600px;
+	position: relative;
+	float: left;
+}
+
+.ban-wrap .min_pic {
+	padding-top: 8px;
+	width: 660px;
+	margin: 0 auto;
+}
+
+.ban-wrap .num ul {
+	position: absolute;
+	left: 0;
+	top: 0;
+}
+
+.ban-wrap .num ul li {
+	width: 125px;
+	height: 68px;
+	overflow: hidden;
+	margin-right: 9px;
+	padding: 1px;
+	float: left;
+}
+
+.ban-wrap .num ul li img {
+	width: 100%;
+}
+
+.ban-wrap .num ul li.on {
+	border: 1px solid #45494C;
+	padding: 0;
+}
+
+.ban-wrap .prev {
+	position: absolute;
+	top: 125px;
+	left: 0;
+	width: 39px;
+	height: 48px;
+	z-index: 9;
+	cursor: pointer;
+}
+
+.ban-wrap .next {
+	position: absolute;
+	top: 125px;
+	right: 0;
+	width: 39px;
+	height: 48px;
+	z-index: 9;
+	cursor: pointer;
+}
+
+.ban-wrap .mhc {
+	background: #000;
+	width: 100%;
+	opacity: 0.5;
+	-moz-opacity: 0.5;
+	filter: alpha(Opacity=50);
+	position: absolute;
+	left: 0;
+	top: 0;
+	display: none;
+}
+
+.ban-wrap .pop_up {
+	width: 500px;
+	height: 500px;
+	padding: 10px;
+	background: #fff;
+	position: fixed;
+	-position: absolute;
+	left: 50%;
+	top: 50%;
+	margin-left: -255px;
+	margin-top: -255px;
+	display: none;
+	z-index: 99;
+}
+
+.ban-wrap .pop_up_xx {
+	width: 40px;
+	height: 40px;
+	position: absolute;
+	top: -40px;
+	right: 0;
+	cursor: pointer;
+}
+
+.ban-wrap .pop_up2 {
+	width: 500px;
+	height: 500px;
+	position: relative;
+	overflow: hidden;
+}
+
+.ban-wrap .pop_up2 {
+	width: 500px;
+	height: 500px;
+	position: relative;
+	overflow: hidden;
+	float: left;
+}
+
+.ban-wrap .pop_up2 ul {
+	position: absolute;
+	left: 0;
+	top: 0;
+}
+
+.ban-wrap .pop_up2 ul li {
+	width: 500px;
+	height: 500px;
+	float: left;
+}

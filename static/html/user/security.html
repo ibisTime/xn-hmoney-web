@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <link rel="import" href="../head.html?__inline">
+        <title>安全設置-倍可盈</title>
+    	<!--SCRIPT_PLACEHOLDER-->
+        <link rel="import" href="../top/top-zendesk.html?__inline">
+    </head>
+    
+    <body>
+        <link rel="import" href="../top/top.html?__inline">
+		<div class="user-container">
+			<div class="left-wrap b_e bg_fff fl" id="left-wrap">
+				<link rel="import" href="./user-left.html?__inline">
+			</div>
+			<div class="right-wrap b_e bg_fff fr minheight p30">
+				<div class="security-wrap wp100">
+					<div class="security-item">
+						<div class="icon icon-zijnmima"></div>
+						<p>資金密碼</p>
+						<samp>提現、修改安全設置時輸入</samp>
+						<div class="btn setTradPwd">
+							<div class="am-button am-button-ghost goHref hidden edit" data-href="./setTradePwd.html?type=1">修改</div>
+							<div class="am-button am-button-red goHref hidden set" data-href="./setTradePwd.html?type=0">立即設置</div>
+						</div>
+					</div>
+					<div class="security-item">
+						<div class="icon icon-email"></div>
+						<p>綁定郵箱</p>
+						<samp></samp>
+						<div class="btn setEmail">
+							<div class="am-button am-button-ghost hidden edit goHref" data-href="./setEmail.html?type=1">修改</div>
+							<div class="am-button am-button-red hidden set goHref" data-href="./setEmail.html?type=0">立即設置</div>
+						</div>
+					</div>
+					<div class="security-item">
+						<div class="icon icon-mima"></div>
+						<p>登錄密碼</p>
+						<samp>用戶登錄賬戶時輸入</samp>
+						<div class="btn setPwd">
+							<div class="am-button am-button-ghost goHref edit"  data-href="./setPwd.html">修改</div>
+						</div>
+					</div>
+					<div class="security-item">
+						<div class="icon icon-google"></div>
+						<p>谷歌驗證</p>
+						<samp>綁定后，登錄、提現時需要谷歌二次驗證</samp>
+						<div class="btn setGoogle">
+							<div class="am-button am-button-ghost hidden goHref close" data-href="./setGoogle.html?type=1">關閉</div>
+							<div class="am-button am-button-red hidden goHref open" data-href="./setGoogle.html?type=0">啟用</div>
+						</div>
+					</div>
+					
+					
+				</div>
+			</div>
+		</div>		
+        <link rel="import" href="../footer.html?__inline">
+        <script>
+            require(['app/controller/user/Security']);
+        </script>
+    </body>
+</html>

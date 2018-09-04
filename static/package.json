@@ -1,0 +1,25 @@
+{
+    "name": "xn-coin-web",
+    "version": "2.0.0",
+    "description": "",
+    "scripts": {
+        "dist": "fis3 release -d ../dist -w",
+        "prod": "fis3 release -d ../dist prod",
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "dev": "fis3 release -d F:/work/happyManey/happyMoney/happy_code/xn-hmoney-build/dist -w",
+        "build": "fis3 release -d F:/work/happyManey/happyMoney/happy_code/xn-hmoney-build/dist prod"
+    },
+    "author": "",
+    "license": "ISC",
+    "devDependencies": {
+        "babel-preset-latest": "^6.24.1",
+        "babel-preset-stage-0": "^6.24.1",
+        "fis-parser-babel-6.x": "^6.24.1",
+        "fis-parser-handlebars-3.x": "^0.0.1",
+        "fis-parser-node-sass": "^1.0.1",
+        "fis3-hook-amd": "^0.2.0",
+        "fis3-hook-commonjs": "^0.1.26",
+        "fis3-postpackager-loader": "^2.1.4",
+        "fis3-preprocessor-autoprefixer": "^0.1.1"
+    }
+}
