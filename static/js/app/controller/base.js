@@ -530,8 +530,11 @@ define([
         },
         //获取币种type  1是token币
         getCoinType: function(coin) {
-            var n = Base.getCoinList()[coin].type
-            return n;
+            if (Base.getCoinList()[coin]) {
+                var n = Base.getCoinList()[coin].type
+                return n;
+            }
+            return '';
         },
         //获取币种coin
         getCoinCoin: function(coin) {

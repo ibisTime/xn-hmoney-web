@@ -133,7 +133,7 @@ table {
         }
     }
     .code {
-        width: 160px !important;
+        width: 90px !important;
     }
 }
 
@@ -255,6 +255,16 @@ table {
         -moz-transition: color .4s;
         -webkit-transition: color .4s;
         position: relative;
+        transition: all .3s;
+        border-top: 2px solid transparent;
+        .yj-ul {
+            transition: all .3s;
+            height: 0%;
+            overflow: hidden;
+            border-top: 1px solid #eee;
+            border-width: 0;
+            box-shadow: 5px 5px 5px -5px #eee;
+        }
         samp {
             color: #999;
             position: relative;
@@ -273,6 +283,13 @@ table {
         }
         &:hover {
             cursor: pointer;
+            background-color: #fff;
+            border-top: 2px solid #D53D3D;
+            color: #D53D3D;
+            .yj-ul {
+                height: auto;
+                border-width: 1px;
+            }
             samp {
                 color: $primary-color;
             }
@@ -289,6 +306,19 @@ table {
             samp {
                 color: #D53D3D;
             }
+        }
+        .nav-cwjy,
+        .nav-bbjy {
+            line-height: 40px;
+            background-color: #fff;
+            color: #333;
+            font-size: 14px;
+        }
+        .nav-bbjy {
+            padding-bottom: 8px;
+        }
+        .sel-jy {
+            color: #D53D3D;
         }
     }
     .down-wrap {
@@ -1350,6 +1380,10 @@ table {
                     color: $primary-color;
                 }
             }
+            .sel-nav_item {
+                background-color: #fdf5f5;
+                color: $primary-color;
+            }
         }
     }
     .right-wrap {
@@ -1674,16 +1708,16 @@ table {
 .public-container {
     .wallet-top-wrap {
         width: 100%;
-        padding: 20px 0;
+        padding: 0px 0 20px 50px;
+        position: relative;
         ul {
-            width: 1240px;
             overflow: hidden;
-            margin-left: -20px;
             li {
                 float: left;
-                width: 137px;
+                width: 80px;
                 height: 44px;
                 margin: 5px 20px;
+                margin-right: 50px;
                 line-height: 42px;
                 font-size: 16px;
                 color: #333;
@@ -1700,6 +1734,41 @@ table {
                     color: $primary-color;
                     border: 1px solid $primary-color;
                 }
+            }
+        }
+        .coin-search {
+            position: absolute;
+            right: 0;
+            top: 38%;
+            transform: translateY(-50%);
+            i {
+                width: 18px;
+                height: 18px;
+                background-image: url(/static/images/搜索灰.png);
+                -webkit-background-size: contain;
+                background-size: contain;
+                margin-right: 8px;
+                position: relative;
+                top: 3px;
+            }
+            input::-webkit-input-placeholder {
+                font-size: 16px;
+                color: #333;
+            }
+            /* 使用webkit内核的浏览器 */
+            input:-moz-placeholder {
+                font-size: 16px;
+                color: #333;
+            }
+            /* Firefox版本4-18 */
+            input::-moz-placeholder {
+                font-size: 16px;
+                color: #333;
+            }
+            /* Firefox版本19+ */
+            input:-ms-input-placeholder {
+                font-size: 16px;
+                color: #333;
             }
         }
     }
@@ -2178,12 +2247,52 @@ table {
     }
 }
 
-.article-wrap {
-    padding: 15px;
-    line-height: 1.8;
-    a {
-        color: #337ab7;
-        text-decoration: underline;
+.article-con {
+    width: 1200px;
+    margin: 0 auto;
+    overflow: hidden;
+    padding: 40px 0 50px;
+    .article-left {
+        width: 200px;
+        ul {
+            >li {
+                font-size: 14px;
+                color: #292929;
+                margin-bottom: 26px;
+                padding-left: 31px;
+                cursor: pointer;
+            }
+            .art-tit {
+                cursor: default;
+                color: #fff;
+                height: 42px;
+                text-align: center;
+                line-height: 42px;
+                padding-left: 0px;
+                margin-bottom: 20px;
+                background-color: #d53d3d;
+            }
+        }
+    }
+    .article-right {
+        width: 980px;
+        padding-top: 27px;
+        h4 {
+            margin-bottom: 20px;
+            padding-left: 6px;
+            border-left: 2px solid #D53D3D;
+            color: #333;
+            font-weight: 400;
+            font-size: 14px;
+        }
+        .article-wrap {
+            padding: 20px;
+            line-height: 1.8;
+            a {
+                color: #337ab7;
+                text-decoration: underline;
+            }
+        }
     }
 }
 
@@ -2375,6 +2484,7 @@ table {
         width: 920px;
         height: 58px;
         margin: 0 auto;
+        margin-top: 30px;
         .icon-down {
             width: 16px;
             height: 16px;
@@ -2383,7 +2493,7 @@ table {
             top: 2px;
         }
         .searchType-wrap {
-            width: 140px;
+            width: 118px;
             position: relative;
             .show-wrap {
                 width: 100%;
@@ -2427,7 +2537,7 @@ table {
             }
         }
         .search-con {
-            width: 660px;
+            width: 662px;
             height: 58px;
             padding: 0 20px;
             .advertisement-wrap {
@@ -2435,9 +2545,10 @@ table {
                     padding: 0 30px 0 20px;
                     position: relative;
                     samp {
-                        font-size: 13px;
+                        font-size: 12px;
                         display: inline-block;
                         line-height: 58px;
+                        color: #333;
                     }
                     .icon {
                         position: absolute;
@@ -2445,7 +2556,7 @@ table {
                         right: 15px;
                     }
                     select {
-                        width: 146px;
+                        width: 121px;
                         line-height: 40px;
                         margin-top: 9px;
                     }
@@ -2530,7 +2641,12 @@ table {
                     background-color: #fffafa;
                 }
                 .price {
-                    color: #2ac64c;
+                    color: #0ec55b;
+                }
+                .con-nickname {
+                    display: flex;
+                    align-items: center;
+                    padding-left: 10px !important;
                 }
             }
             tr td {
@@ -2538,7 +2654,7 @@ table {
                 position: relative;
                 font-size: 15px;
                 &:first-child {
-                    padding-left: 30px;
+                    padding-left: 52px;
                 }
                 &:last-child {
                     padding-right: 30px;
@@ -2598,33 +2714,43 @@ table {
                 }
             }
             .nickname {
-                width: 185px;
+                width: 288px;
                 overflow: hidden;
                 .name {
                     margin-left: 15px;
-                    display: inline-block;
-                    width: 95px;
-                    position: absolute;
-                    top: 50%;
-                    transform: translateY(-50%);
-                    -ms-transform: translateY(-50%);
-                    -moz-transform: translateY(-50%);
-                    -webkit-transform: translateY(-50%);
-                    position: relative\9;
-                    top: 0px\9;
+                    display: block;
+                    color: #333;
+                    font-size: 14px;
+                    span {
+                        padding: 2px 4px;
+                        font-size: 10px;
+                        border: 1px solid #ec5b5b;
+                        color: #ec5b5b;
+                        border-radius: 2px;
+                        margin-left: 2px;
+                    }
+                }
+                .n-dist {
+                    margin-left: 15px;
+                    margin-top: 6px;
+                    samp {
+                        font-size: 12px;
+                        color: #999;
+                    }
                 }
             }
             .credit {
                 width: 300px;
             }
             .payType {
-                width: 130px;
+                width: 150px;
             }
             .limit {
                 width: 240px;
+                color: #333;
             }
             .price {
-                width: 190px;
+                width: 160px;
             }
             .operation {
                 width: 140px;
@@ -2638,15 +2764,14 @@ table {
 }
 
 .trade-container {
-    width: 1200px;
-    margin: 20px auto;
+    width: 100%;
 }
 
 .detail-container {
     width: 1200px;
     margin: 20px auto;
     .titleWrap {
-        margin-bottom: 20px;
+        margin-bottom: 38px;
         .icon {
             width: 18px;
             height: 18px;
@@ -2663,9 +2788,11 @@ table {
         }
         .icon-advwarn {
             background-image: url('../images/发布广告.png');
+            width: 30px;
+            height: 30px;
         }
         samp {
-            font-size: 18px;
+            font-size: 28px;
         }
         .small {
             font-size: 13px;
@@ -2830,6 +2957,9 @@ table {
         samp {
             font-size: 13px;
         }
+        .k-jysamp {
+            color: #666;
+        }
     }
 }
 
@@ -2850,6 +2980,10 @@ table {
                 font-size: 16px;
                 line-height: 60px;
                 color: $red-color;
+            }
+            .userName,
+            .k-fb {
+                font-size: 24px;
             }
         }
         .titleStatus {
@@ -2915,7 +3049,7 @@ table {
                 text-align: center;
             }
             .nickname {
-                width: auto;
+                width: 135px !important;
                 .name {
                     width: auto;
                     margin-left: 12px;
@@ -2997,6 +3131,34 @@ table {
             color: #002200;
             line-height: 2;
             padding: 10px 0 20px;
+        }
+        .fb-type {
+            width: 100%;
+            padding: 26px 20px 20px;
+            border-bottom: 1px solid #dedede;
+            margin-bottom: 44px;
+            li {
+                display: inline-block;
+                width: 80px;
+                height: 40px;
+                text-align: center;
+                line-height: 40px;
+                border-radius: 21px;
+                font-size: 16px;
+                color: #333;
+                margin-right: 50px;
+                transition: all .3s;
+                cursor: pointer;
+                border: 1px solid transparent;
+                &:hover {
+                    border: 1px solid #d53d3d;
+                    color: #D53D3D;
+                }
+            }
+            .fb-sel {
+                border: 1px solid #d53d3d;
+                color: #D53D3D;
+            }
         }
     }
     .advTitWrap {
@@ -3219,7 +3381,7 @@ table {
         .bindWrap {
             height: 20px;
             position: absolute;
-            top: 50%;
+            top: 66%;
             right: 40px;
             transform: translateY(-50%);
             -ms-transform: translateY(-50%);
@@ -3253,6 +3415,15 @@ table {
                 }
             }
         }
+        .k-userbtn {
+            samp {
+                width: 102px;
+                height: 30px;
+                line-height: 30px;
+                margin-top: 14px;
+                font-size: 13px;
+            }
+        }
     }
     .order-container .titleWrap .wrap samp {
         color: #333;
@@ -3269,6 +3440,9 @@ table {
     .order-container .titleWrap .wrap samp,
     .order-container .titleWrap .titleStatus li {
         line-height: 80px;
+    }
+    .titleWrap .titleStatus li {
+        color: #999;
     }
     .order-container .trade-list-wrap .trade-wrap .am-button {
         height: 30px;
@@ -3291,15 +3465,16 @@ table {
     .order-container {
         .titleWrap {
             padding: 0;
+            overflow: hidden;
             .titleStatus li {
                 margin-left: 40px;
             }
         }
         .trade-list-wrap .trade-wrap tr td {
             width: auto;
-            height: 50px;
+            height: 60px;
             &:first-child {
-                padding-left: 40px;
+                padding-left: 20px;
             }
             &:last-child {
                 padding-right: 40px;
@@ -3332,9 +3507,9 @@ table {
             &:hover {
                 height: 30px;
                 line-height: 30px !important;
-                background-color: #fff;
+                background-color: #B3B3B3;
                 border-color: #B3B3B3;
-                color: #999;
+                color: #fff;
             }
         }
         .trade-list-wrap .trade-wrap .operation {
@@ -3344,11 +3519,77 @@ table {
     .no-data {
         padding: 150px 0 50px;
     }
+    .k-list {
+        li {
+            font-size: 16px;
+            line-height: 60px;
+            border-bottom: 2px solid transparent;
+            margin-left: 60px;
+            padding: 0 20px;
+            display: inline-block;
+            transition: color, border-color .4s;
+            -ms-transition: color, border-color .4s;
+            -moz-transition: color, border-color .4s;
+            -webkit-transition: color, border-color .4s;
+            &:hover {
+                cursor: pointer;
+                color: #D53D3D;
+                border-bottom: 2px solid #D53D3D;
+            }
+        }
+        .on {
+            cursor: pointer;
+            color: #D53D3D;
+            border-bottom: 2px solid #D53D3D;
+        }
+    }
 }
 
 .orderDetail-container {
     width: 1200px;
     margin: 0 auto;
+    .k-orderDet-mid {
+        display: flex;
+        margin-bottom: 40px;
+    }
+    .k-order-ts {
+        color: #666;
+        margin-bottom: 64px;
+        h3 {
+            font-size: 14px;
+            font-weight: 400;
+            margin-bottom: 14px;
+        }
+        p {
+            font-size: 12px;
+            margin-bottom: 14px;
+        }
+    }
+    .cj-ts {
+        padding-bottom: 34px;
+        font-size: 18px;
+        font-weight: 400;
+        border-bottom: 1px solid #e6e6e6;
+        margin-bottom: 40px;
+    }
+    .wt-det {
+        color: #333;
+        font-size: 14px;
+        margin-bottom: 110px;
+        h5 {
+            font-weight: 400;
+        }
+        .wdet-ul {
+            >li {
+                margin-bottom: 28px;
+            }
+            ul {
+                padding: 20px;
+                border: 1px solid #e6e6e6;
+                margin-top: 10px;
+            }
+        }
+    }
     .status-wrap {
         overflow: hidden;
         position: relative;
@@ -3419,7 +3660,7 @@ table {
             display: inline-block;
             line-height: 58px;
             font-size: 16px;
-            margin-right: 60px;
+            margin-right: 80px;
             i {
                 font-style: normal;
             }
@@ -3441,6 +3682,7 @@ table {
         }
     }
     .orderDetail-middle {
+        width: 65%;
         .title {
             overflow: hidden;
             .item {
@@ -3498,11 +3740,12 @@ table {
     }
     .orderDetail-operation {
         padding-bottom: 80px;
+        padding-left: 54px;
         h3 {
             font-size: 20px;
             font-weight: normal;
             color: #000;
-            margin: 50px 0 30px;
+            margin: 0px 0 16px;
         }
         .txt {
             p {
@@ -3510,18 +3753,94 @@ table {
             }
             samp {
                 display: inline-block;
+                font-size: 14px;
+                color: #333;
+            }
+            .mr40 {
                 font-size: 16px;
+                color: #666;
+            }
+        }
+        .jy-btns {
+            margin-top: 44px;
+            margin-bottom: 30px;
+            button {
+                height: 36px;
+                line-height: 36px;
+                text-align: center;
+                padding: 0 30px;
+                border-radius: 3px;
+                font-size: 16px;
+                cursor: pointer;
+            }
+            .yj-ok {
+                background-color: #D53D3D;
+                margin-right: 20px;
+                color: #fff;
+            }
+            .yj-rm {
+                color: #999;
+                border: 1px soild #dedede;
+            }
+        }
+        .jb-msg {
+            color: #999;
+            font-size: 14px;
+            .jbicon {
+                display: inline-block;
+                vertical-align: middle;
+                margin-right: 10px;
+                width: 18px;
+                height: 17px;
+                background-image: url('../images/注意灰色.png');
+            }
+            .span {
+                vertical-align: middle;
             }
         }
     }
 }
 
 .number-item-wrap {
+    display: flex;
+    padding-right: 0 !important;
     padding-top: 0 !important;
     padding-bottom: 0 !important;
     .number-item {
         padding-top: 12px;
         padding-bottom: 12px;
+    }
+    .num-huadtiao {
+        width: 60%;
+        border: 1px solid #dedede;
+        height: 0;
+        margin: 0 34px;
+        margin-top: 26px;
+        position: relative;
+        .num-go {
+            position: absolute;
+            top: 0;
+            transform: translateY(-50%);
+            left: 50%;
+            width: 16px;
+            height: 16px;
+            border-radius: 16px;
+            background-color: #d53d3d;
+            cursor: pointer;
+        }
+    }
+    span {
+        height: 52px;
+        line-height: 52px;
+    }
+    .yj-bfb {
+        position: relative;
+        width: 108px;
+        padding-left: 20px;
+        color: #333;
+        font-size: 16px;
+        border: 1px solid #dedede;
+        margin-left: 56px;
     }
 }
 
@@ -3586,7 +3905,6 @@ table {
             position: relative;
         }
         .msgedit {
-            width: 1220px;
             height: 40px;
             padding: 8px 300px 8px 20px;
             margin-top: 10px;
@@ -3605,13 +3923,13 @@ table {
         .msgImg {
             width: 30px;
             background-image: url('../images/发送表情.png');
-            right: 210px;
+            right: 90px;
             background-size: 30px;
         }
         .openPic {
             width: 40px;
-            background-image: url('../images/发送图片.png');
-            right: 153px;
+            background-image: url('../images/添加.png');
+            right: 30px;
             background-size: 34px;
         }
         .send {
@@ -3966,4 +4284,14 @@ table {
 
 .none {
     display: none !important;
+}
+
+.k-order-list td {
+    font-size: 12px !important;
+    color: #1E1E1E;
+}
+
+.k-order-list .k-name {
+    margin-top: 10px;
+    margin-left: 45px !important;
 }
