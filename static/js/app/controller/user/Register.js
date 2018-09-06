@@ -44,10 +44,12 @@ define([
 
     function addListener() {
         var _registerForm = $("#register-form");
+        var _registerForm1 = $("#register-form1");
         _registerForm.validate({
             'rules': {
                 "nickname": {
                     required: true,
+                    english: true
                 },
                 "mobile": {
                     required: true,
@@ -67,12 +69,41 @@ define([
             },
             onkeyup: false
         });
+        _registerForm1.validate({
+            'rules': {
+                "nickname1": {
+                    required: true,
+                    english: true
+                },
+                "email": {
+                    required: true
+                },
+                "loginPwd1": {
+                    required: true,
+                    minlength: 6,
+                }
+            },
+            onkeyup: false
+        });
 
         $("#subBtn").click(function() {
             if (!$(this).hasClass("am-button-disabled")) {
                 if (_registerForm.valid()) {
                     base.showLoadingSpin()
                     var params = _registerForm.serializeObject()
+                    inviteCode != "" && inviteCode ? params.inviteCode = inviteCode : '';
+
+                    register(params);
+                }
+            }
+        })
+
+        // 邮箱验证
+        $("#subBtn1").click(function() {
+            if (!$(this).hasClass("am-button-disabled")) {
+                if (_registerForm1.valid()) {
+                    base.showLoadingSpin()
+                    var params = _registerForm1.serializeObject()
                     inviteCode != "" && inviteCode ? params.inviteCode = inviteCode : '';
 
                     register(params);
@@ -106,11 +137,13 @@ define([
         //切换登录方式
         $('.sel-mod').click(function(e) {
             let target = e.target;
-            $(target).addClass('sel-li_m').siblings('li').removeClass('sel-li_m');
-            if ($(target).prop('class') == 'sel-phone sel-li_m') {
-                $('.phone-reg').removeClass('none').next().addClass('none');
-            } else {
-                $('.eml-reg').removeClass('none').prev().addClass('none');
+            if (target.tagName == 'LI') {
+                $(target).addClass('sel-li_m').siblings('li').removeClass('sel-li_m');
+                if ($(target).prop('class') == 'sel-phone sel-li_m') {
+                    $('.phone-reg').removeClass('none').next().addClass('none');
+                } else {
+                    $('.eml-reg').removeClass('none').prev().addClass('none');
+                }
             }
         })
     }

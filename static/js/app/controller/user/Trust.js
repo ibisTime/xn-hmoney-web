@@ -99,13 +99,13 @@ define([
 					</td>
 					<td><div class="txt1">${item.toUserInfo.nickname}</div></td>
 					<td>
-						<div class="txt2"><p>${item.toUserInfo.userStatistics.jiaoYiCount}</p><samp>交易次數</samp></div>
+						<div class="txt2"><p>${item.toUserInfo.userStatistics.jiaoYiCount}</p><samp>交易次数</samp></div>
 					</td>
 					<td>
-						<div class="txt2"><p>${item.toUserInfo.userStatistics.beiXinRenCount}</p><samp>信任人數</samp></div>
+						<div class="txt2"><p>${item.toUserInfo.userStatistics.beiXinRenCount}</p><samp>信任人数</samp></div>
 					</td>
 					<td>
-						<div class="txt2"><p>${base.getPercentum(item.toUserInfo.userStatistics.beiHaoPingCount,item.toUserInfo.userStatistics.beiPingJiaCount)}</p><samp>好評率</samp></div>
+						<div class="txt2"><p>${base.getPercentum(item.toUserInfo.userStatistics.beiHaoPingCount,item.toUserInfo.userStatistics.beiPingJiaCount)}</p><samp>好评率</samp></div>
 					</td>
 				</tr>`;
         //					<td>

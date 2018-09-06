@@ -37,28 +37,28 @@ define([
     }
 
     function login(params) {
-        sessionStorage.setItem("nickname", 'kylong');
+        /* sessionStorage.setItem("nickname", 'kylong');
         sessionStorage.setItem("googleAuthFlag", false);
         sessionStorage.setItem("mobile", '13516726254');
         sessionStorage.setItem("inviteCode", 'U201809031708129148742');
         sessionStorage.setItem("l-return", 'advertise.html');
         setTimeout(function() {
                 base.goReturn()
-            }, 800)
-            /* return UserCtr.login(params).then((data) => {
-                base.setSessionUser(data)
-                UserCtr.getUser(true).then((item) => {
-                    sessionStorage.setItem("nickname", item.nickname);
-                    sessionStorage.setItem("googleAuthFlag", item.googleAuthFlag);
-                    sessionStorage.setItem("mobile", item.mobile);
-                    sessionStorage.setItem("inviteCode", item.secretUserId);
-                    base.hideLoadingSpin()
-                    base.showMsg("登錄成功")
-                    setTimeout(function() {
-                        base.goReturn()
-                    }, 800)
-                })
-            }, base.hideLoadingSpin) */
+            }, 800) */
+        return UserCtr.login(params).then((data) => {
+            base.setSessionUser(data)
+            UserCtr.getUser(true).then((item) => {
+                sessionStorage.setItem("nickname", item.nickname);
+                sessionStorage.setItem("googleAuthFlag", item.googleAuthFlag);
+                sessionStorage.setItem("mobile", item.mobile);
+                sessionStorage.setItem("inviteCode", item.secretUserId);
+                base.hideLoadingSpin()
+                base.showMsg("登錄成功")
+                setTimeout(function() {
+                    base.goReturn()
+                }, 800)
+            })
+        }, base.hideLoadingSpin)
     }
 
     function addListener() {

@@ -106,7 +106,6 @@ define([
     }
 
     function buildHtml(item) {
-
         //头像
         var photoHtml = ""
         if (item.user.photo) {
@@ -132,7 +131,7 @@ define([
         if (item.userId == base.getUserId()) {
             operationHtml = `<div class="am-button am-button-ghost goHref" data-href="../trade/advertise.html?code=${item.code}&coin=${item.tradeCoin}">編輯</div>`;
         } else {
-            operationHtml = `<div class="am-button am-button-ghost goHref" data-href="../trade/buy-detail.html?code=${item.code}">購買${item.tradeCoin}</div>`;
+            operationHtml = `<div class="am-button am-button-ghost goHref" data-href="../trade/buy-detail.html?code=${item.code}">购买${item.tradeCoin}</div>`;
         }
 
         return `<tr>
@@ -141,10 +140,8 @@ define([
 							${photoHtml}
 							<div class="dot ${loginStatus}"></div>
 						</div>
-						<samp class="name">${item.user.nickname}</samp>
-					</td>
-					<td class="credit">
-						<samp>交易<i>${item.user.userStatistics.jiaoYiCount}</i></samp> · <samp>好評率<i>${base.getPercentum(item.user.userStatistics.beiHaoPingCount,item.user.userStatistics.beiPingJiaCount)}</i></samp> · <samp>信任<i>${item.user.userStatistics.beiXinRenCount}</i></samp>
+                        <samp class="name">${item.user.nickname}</samp>
+                        <p class="n-dist"><samp>交易<i>134</i></samp> · <samp>好评度<i>100%</i></samp> · <samp>信任<i>284</i></samp></p>
 					</td>
 					<td class="payType">${bizTypeList[item.payType]}</td>
 					<td class="limit">${item.minTrade}-${item.maxTrade}CNY</td>

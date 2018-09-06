@@ -1,97 +1,64 @@
-<!DOCTYPE html>
-<html lang="zh-CN">
-
-<head>
-    <link rel="import" href="../head.html?__inline">
-    <title>我的廣告-倍可盈</title>
-    <!--SCRIPT_PLACEHOLDER-->
-    <link rel="import" href="../top/top-zendesk.html?__inline">
-</head>
-
-<body>
-    <link rel="import" href="../top/top-index.html?__inline">
-    <div class="user-container myAdvertise-container">
-        <div class="left-wrap bg_fff fl" id="left-wrap">
-            <div class="left-title">场外交易</div>
-            <div class="left-item">
-                <div class="nav-item goHref sell-eth" data-href="../trade/buy-list.html?type=sell">我要买入</div>
-            </div>
-            <div class="left-item">
-                <div class="nav-item goHref buy-eth" data-href="../trade/sell-list.html?type=sell">我要出售</div>
-            </div>
-            <div class="left-item">
-                <div class="nav-item goHref sell-eth" data-href="../order/order-list.html?type=sell">订单管理</div>
-            </div>
-            <div class="left-item">
-                <div class="nav-item goHref buy-eth sel-nav_item" data-href="../user/advertise.html?type=buy">广告管理</div>
-            </div>
-            <div class="left-item b_e_b">
-                <div class="nav-item goHref sell-eth" data-href="../user/trust.html?type=sell">信任管理</div>
-            </div>
-            <div class="left-item">
-                <div class="nav-item goHref buy-eth" data-href="../trade/advertise.html?type=buy">发布广告</div>
+<link rel="import" href="../public/deal-left.html?__inline">
+<div class="right-wrap bg_fff fr minheight">
+    <div class="order-container wp100">
+        <div class="titleWrap wp100 over-hide">
+            <div class="fl">
+                <ul class="titleStatus over-hide">
+                    <li class="wait on" data-coin="wait" data-type="wait">待发布</li>
+                    <li class="already" data-coin="already" data-type="already">已发布</li>
+                </ul>
             </div>
         </div>
-        <div class="right-wrap bg_fff fr minheight">
-            <div class="order-container wp100">
-                <div class="titleWrap wp100 over-hide">
-                    <div class="fl">
-                        <ul class="titleStatus over-hide">
-                            <li class="wait on">待发布</li>
-                            <li class="already">已发布</li>
-                        </ul>
-                    </div>
+        <div class="trade-list-wrap userSelect_none">
+            <div class="trade-wrap wp100">
+                <table class="wp100 trade-form b_e_b" cellpadding="0" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <td class="code" style="width: 130px !important;">编号</td>
+                            <td class="type">广告类型</td>
+                            <td class="state" style="width: 60px;">国家</td>
+                            <td class="price">价格</td>
+                            <td class="quantity ">数量</td>
+                            <td class="price">溢价比例</td>
+                            <td class="createDatetime">创建时间</td>
+                            <td class="status tc">交易状态</td>
+                            <td class="operation k-oper"></td>
+                        </tr>
+                    </thead>
+                    <tbody id="content">
+                        <tr>
+                            <td class="code">2637313</td>
+                            <td class="type">购买 btc</td>
+                            <td class="state">中国</td>
+                            <td class="price">2000 cny</td>
+                            <td class="quantity ">5</td>
+                            <td class="price">0%</td>
+                            <td class="createDatetime">08-12 21:00</td>
+                            <td class="status tc">进行中</td>
+                            <td class="operation">
+                                <div class="am-button am-button-ghost">编辑</div>
+                                <div class="am-button am-button-ghost am-button-out">下架</div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="no-data hidden">
+                    <img src="../../images/暂无明细.png" />
+                    <p>暂无广告</p>
                 </div>
-                <div class="trade-list-wrap userSelect_none">
-                    <div class="trade-wrap wp100">
-                        <table class="wp100 trade-form b_e_b" cellpadding="0" cellspacing="0">
-                            <thead>
-                                <tr>
-                                    <td class="code">编号</td>
-                                    <td class="type">广告类型</td>
-                                    <td class="state">国家</td>
-                                    <td class="price">价格</td>
-                                    <td class="quantity ">数量</td>
-                                    <td class="price">溢价比例</td>
-                                    <td class="createDatetime">创建时间</td>
-                                    <td class="status tc">交易状态</td>
-                                    <td class="operation"></td>
-                                </tr>
-                            </thead>
-                            <tbody id="content">
-                                <tr>
-                                    <td class="code">2637313</td>
-                                    <td class="type">购买 btc</td>
-                                    <td class="state">中国</td>
-                                    <td class="price">2000 cny</td>
-                                    <td class="quantity ">5</td>
-                                    <td class="price">0%</td>
-                                    <td class="createDatetime">08-12 21:00</td>
-                                    <td class="status tc">进行中</td>
-                                    <td class="operation">
-                                        <div class="am-button am-button-ghost">编辑</div>
-                                        <div class="am-button am-button-ghost am-button-out">下架</div>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                        <div class="no-data hidden">
-                            <img src="../../images/暂无明细.png" />
-                            <p>暫無广告</p>
-                        </div>
-                    </div>
-                    <div id="pagination" class="wp100 pagination-wrap tc">
-                        <p class="pagination"></p>
-                    </div>
-                </div>
-
+            </div>
+            <div id="pagination" class="wp100 pagination-wrap tc">
+                <p class="pagination"></p>
             </div>
         </div>
+
     </div>
-    <link rel="import" href="../footer.html?__inline">
-    <script>
-        require(['app/controller/user/MyAdvertise']);
-    </script>
+</div>
+</div>
+<link rel="import" href="../footer.html?__inline">
+<script>
+    require(['app/controller/user/MyAdvertise']);
+</script>
 </body>
 
 </html>

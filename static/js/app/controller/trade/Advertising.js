@@ -497,6 +497,35 @@ define([
             })
 
         })
+
+        // 进度条实现
+        let i = 0,
+            goX = 0,
+            goLeft = '';
+        $('.num-go').mousedown(function(e) {
+            if (i == 0) {
+                goX = e.pageX;
+                goLeft = parseInt($(this).css('left'));
+            }
+            i++;
+            let parWidth = $('.num-huadtiao').width();
+            let left = (goLeft / parWidth).toFixed(1) * 100;
+            $('.go-box').mousemove(e => {
+                let mlen = (((e.pageX - goX) / parWidth) * 100).toFixed(2);
+                if (mlen >= 50) {
+                    mlen = 50;
+                }
+                if (mlen <= -50) {
+                    mlen = -50;
+                }
+                $('.num-go').css({
+                    left: (left + Number(mlen)) + '%'
+                })
+                $('.yj-num').text(mlen);
+            }).mouseup(() => {
+                $('.go-box').unbind('mousemove');
+            })
+        })
     }
 
     //交易币种 change

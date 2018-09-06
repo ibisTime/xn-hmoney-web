@@ -7,6 +7,7 @@ define([
     'app/interface/TradeCtr',
     'app/module/tencentCloudLogin/orderList'
 ], function(base, pagination, Validate, GeneralCtr, UserCtr, TradeCtr, TencentCloudLogin) {
+    var coin = base.getUrlParam("coin") || 'progress';
     var statusList = {
             "inProgress": ["-1", "0", "1", "5"],
             "end": ["2", "3", "4"]
@@ -19,7 +20,7 @@ define([
     var config = {
         start: 1,
         limit: 10,
-        statusList: statusList["inProgress"]
+        // statusList: statusList["inProgress"]
     };
     var unreadMsgList = {};
     var isUnreadList = false,
@@ -28,6 +29,7 @@ define([
 
     function init() {
         $(".head-nav-wrap .sell").addClass("active");
+        $(".titleStatus li." + coin.toLowerCase()).addClass("on").siblings('li').removeClass('on');
         base.showLoadingSpin();
         TencentCloudLogin.goLogin(function(list) {
             unreadMsgList = list;
@@ -35,13 +37,12 @@ define([
             addUnreadMsgNum();
         })
         GeneralCtr.getDictList({ "parentKey": "trade_order_status" }).then((data) => {
-
             data.forEach(function(item) {
-                statusValueList[item.dkey] = item.dvalue
-            })
-            getPageOrder();
+                    statusValueList[item.dkey] = item.dvalue
+                })
+                // getPageOrder(); old
         }, base.hideLoadingSpin)
-
+        getPageOrder(); // new
         addListener();
     }
     // 初始化分页器
@@ -139,34 +140,37 @@ define([
             operationHtml += `<div class="am-button arbitrationBtn"  data-ocode="${item.code}">申请仲裁</div>`
         }
 
-        if (user.photo) {
-            photoHtml = `<div class="photo" style="background-image:url('${base.getAvatar(user.photo)}')"></div>`
-        } else {
-            var tmpl = user.nickname.substring(0, 1).toUpperCase();
-            photoHtml = `<div class="photo"><div class="noPhoto">${tmpl}</div></div>`
-        }
+        // if (user.photo) {
+        //     photoHtml = `<div class="photo" style="background-image:url('${base.getAvatar(user.photo)}')"></div>`
+        // } else {
+        //     var tmpl = user.nickname.substring(0, 1).toUpperCase();
+        //     photoHtml = `<div class="photo"><div class="noPhoto">${tmpl}</div></div>`
+        // }
 
         if (item.status != "-1") {
             quantity = base.formatMoney(item.countString, '', item.tradeCoin) + item.tradeCoin
         }
 
         return `<tr data-code="${item.code}">
-					<td class="nickname">
-						<div class="photoWrap fl goHref" data-href="../user/user-detail.html?coin=${item.tradeCoin?item.tradeCoin:'ETH'}&userId=${user.userId}" >
+					<td class="nickname" style="border-left:1px solid #eee;">
+                        <div 
+                            class="photoWrap fl goHref" 
+                            data-href="../user/user-detail.html?coin=${item.tradeCoin?item.tradeCoin:'ETH'}&userId=${user.userId}" >
 							${photoHtml}
 						</div>
-						<samp class="name">${user.nickname}</samp>
+						<samp class="name k-name">${user.nickname}</samp>
 					</td>
 					<td class="code">${item.code.substring(item.code.length-8)}</td>
 					<td class="type">${typeList[type]}${item.tradeCoin?item.tradeCoin:'ETH'}</td>
 					<td class="amount">${item.status!="-1"?item.tradeAmount+'CNY':''}</td>
 					<td class="quantity">${quantity}</td>
-					<td class="createDatetime">${base.formateDatetime(item.createDatetime)}</td>
+					<td class="createDatetime">${base.datetime(item.createDatetime)}</td>
 					<td class="status">${item.status=="-1"?'交谈中,'+statusValueList[item.status]:statusValueList[item.status]}</td>
 					<td class="operation">
-						${operationHtml}
-					</td>
-					<td class="goDetail">
+                        <div class="am-button am-button-red">标记付款</div>
+                        <div class="am-button ml5">取消交易</div>
+                    </td>
+					<td class="goDetail" style="padding-right: 0;">
 						<samp class="unread goHref fl" data-href="../order/order-detail.html?code=${item.code}"></samp>
 						<i class="icon icon-detail goHref fl"  data-href="../order/order-detail.html?code=${item.code}"></i>
 					</td>
@@ -195,7 +199,8 @@ define([
         $('.titleStatus.over-hide li').click(function() {
             var _this = $(this)
             _this.addClass("on").siblings('li').removeClass("on");
-            config.statusList = statusList[_this.attr("data-status")];
+            base.gohrefReplace("../order/order-list.html?coin=" + $(this).attr("data-coin").toUpperCase() + "&mod=dd");
+            // config.statusList = statusList[_this.attr("data-status")];
             config.start = 1;
             base.showLoadingSpin();
             getPageOrder(true)
@@ -280,7 +285,7 @@ define([
             }, base.hideLoadingSpin)
         })
 
-        //交易評價按钮 点击
+        //交易评价按钮 点击
         $("#content").on("click", ".operation .commentBtn", function() {
             var orderCode = $(this).attr("data-ocode");
             $("#commentDialog .subBtn").attr("data-ocode", orderCode)
@@ -304,7 +309,7 @@ define([
             }, base.emptyFun)
         })
 
-        //評價
+        //评价
         $("#commentDialog .comment-Wrap .item").click(function() {
             $(this).addClass("on").siblings(".item").removeClass("on")
         })

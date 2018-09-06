@@ -995,7 +995,7 @@ define([
             })
             //--end--
 
-        //評價
+        //评价
         $("#commentDialog .comment-Wrap .item").click(function() {
             $(this).addClass("on").siblings(".item").removeClass("on")
         })
@@ -1062,7 +1062,7 @@ define([
             }, base.hideLoadingSpin)
         })
 
-        //交易評價按钮 点击
+        //交易评价按钮 点击
         $(".commentBtn").on("click", function() {
             var orderCode = $(this).attr("data-ocode");
             $("#commentDialog .subBtn").attr("data-ocode", orderCode)

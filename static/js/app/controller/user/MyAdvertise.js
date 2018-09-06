@@ -6,8 +6,8 @@ define([
     'pagination',
 ], function(base, AccountCtr, GeneralCtr, TradeCtr, pagination) {
     var type = base.getUrlParam("type") || "sell"; // buy: 购买，sell:出售
-    var coin = base.getUrlParam("coin") || 'BTC'; // 币种
-    var adsStatusValueList = {}; // 廣告狀態
+    var coin = base.getUrlParam("coin") || 'wait';
+    var adsStatusValueList = {}; // 广告狀態
     var config = {
         start: 1,
         limit: 10,
@@ -20,6 +20,7 @@ define([
 
     function init() {
         $(".head-nav-wrap .sell").addClass("active");
+        $(".titleStatus li." + coin.toLowerCase()).addClass("on").siblings('li').removeClass('on');
         base.showLoadingSpin();
         getCoinList();
         if (type == 'buy') {
@@ -107,7 +108,7 @@ define([
 
         //待发布
         if (config.statusList == null || config.statusList.length == 1) {
-            operationHtml = `<div class="am-button am-button-red publish mr20 goHref" data-href="../trade/advertise.html?code=${item.code}&coin=${item.tradeCoin}">發佈</div>
+            operationHtml = `<div class="am-button am-button-red publish mr20 goHref" data-href="../trade/advertise.html?code=${item.code}&coin=${item.tradeCoin}">发布</div>
         					<div class="am-button publish goHref" data-href="../trade/advertise.html?code=${item.code}&coin=${item.tradeCoin}">查看</div>`
 
             //已发布 
@@ -137,7 +138,8 @@ define([
 
     function addListener() {
         $(".titleStatus li").click(function() {
-            var _this = $(this)
+            var _this = $(this);
+            base.gohrefReplace("../user/advertise.html?coin=" + $(this).attr("data-coin").toUpperCase() + "&type=" + $(this).attr("data-type").toUpperCase());
             _this.addClass("on").siblings('li').removeClass("on");
             if (_this.hasClass("wait")) {
                 config.statusList = ['0'];
@@ -151,7 +153,7 @@ define([
 
         $("#content").on("click", ".doDownBtn", function() {
             var adsCode = $(this).attr("data-code");
-            base.confirm("確認下架此廣告？").then(() => {
+            base.confirm("确认下架此广告？").then(() => {
                 base.showLoadingSpin()
                 TradeCtr.downAdvertise(adsCode).then(() => {
                     base.hideLoadingSpin();

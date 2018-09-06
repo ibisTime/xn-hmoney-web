@@ -1,4 +1,4 @@
-var SYSTEM_CODE = "CD-HPMN000024"; // CD-HPMN000024 CD-COIN000017
+var SYSTEM_CODE = "CD-HPMN000024"; // CD-HPMN000024 CD-COIN000017  wlqsltz@163.com
 var COMPANY_CODE = "CD-HPMN000024";
 var PIC_PREFIX = 'http://ozfszueqz.bkt.clouddn.com/';
 var PHOTO_SUFFIX = '?imageMogr2/auto-orient/thumbnail/!150x150r';

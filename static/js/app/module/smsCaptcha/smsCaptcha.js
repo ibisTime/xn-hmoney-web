@@ -18,7 +18,7 @@ define([
         this.options = $.extend({}, this.defaultOptions, opt);
         var _self = this;
         var verification = $("#" + _self.options.id);
-        verification.text("獲取驗證碼").prop("disabled", false);
+        verification.text("获取验证码").prop("disabled", false);
         clearInterval(_self.timer);
 
         $("#" + this.options.id).off("click")
@@ -47,13 +47,13 @@ define([
                     if (i > 0 && verification.attr("disabled")) {
                         verification.text("重新發送(" + i-- + "s)");
                     } else {
-                        verification.text("獲取驗證碼").prop("disabled", false);
+                        verification.text("获取验证码").prop("disabled", false);
                         clearInterval(_this.timer);
                     }
                 }, 1000);
             }, function() {
                 _this.options.errorFn && _this.options.errorFn();
-                verification.text("獲取驗證碼").prop("disabled", false);
+                verification.text("获取验证码").prop("disabled", false);
             });
     };
     return {

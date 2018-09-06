@@ -44,19 +44,19 @@ define([
          */
         resetPwd(config) {
             return Ajax.post('805063', {
-                kind:'C',
-            	...config
+                kind: 'C',
+                ...config
             });
         },
-        //修改/綁定郵箱
-        setEmail(email,captcha) {
+        //修改/綁定邮箱
+        setEmail(email, captcha) {
             return Ajax.post('805081', {
-            	email,
-            	captcha,
+                email,
+                captcha,
                 userId: base.getUserId()
             });
         },
-        
+
         // 设置资金密码
         setTradePwd(tradePwd, smsCaptcha) {
             return Ajax.post('805066', {
@@ -74,23 +74,23 @@ define([
             });
         },
         //獲取谷歌密鑰
-        getGooglePwd(){
+        getGooglePwd() {
             return Ajax.get("805070");
         },
         /**
-         * 開啟谷歌驗證
+         * 開啟谷歌验证
          * @param config {googleCaptcha, secret, smsCaptcha}
          */
         openGoogle(config) {
             return Ajax.post("805071", {
                 userId: base.getUserId(),
-            	...config
+                ...config
             });
         },
         /**
-         * 關閉谷歌驗證
+         * 關閉谷歌验证
          */
-        closeGoogle(googleCaptcha,smsCaptcha) {
+        closeGoogle(googleCaptcha, smsCaptcha) {
             return Ajax.post("805072", {
                 googleCaptcha,
                 smsCaptcha,
@@ -112,7 +112,7 @@ define([
         getPageTrust(config) {
             return Ajax.get("805115", {
                 userId: base.getUserId(),
-            	...config
+                ...config
             });
         },
         /**
@@ -121,7 +121,7 @@ define([
          * @param master
          * isTrust,isAddBlackList
          */
-        getUserRelation(currency,master) {
+        getUserRelation(currency, master) {
             return Ajax.get("625256", {
                 visitor: base.getUserId(),
                 currency,
@@ -133,22 +133,22 @@ define([
          * @param config {limit, start, userId, type}
          * type=1 信任，type=0，屏蔽
          */
-        addUserRelation(config,refresh) {
+        addUserRelation(config, refresh) {
             return Ajax.get("805110", {
                 userId: base.getUserId(),
                 ...config
-            },refresh);
+            }, refresh);
         },
         /**
          * 修改信任关系(解除）
          * @param config {limit, start, userId, type}
          * type=1 信任，type=0，屏蔽
          */
-        removeUserRelation(config,refresh) {
+        removeUserRelation(config, refresh) {
             return Ajax.get("805111", {
                 userId: base.getUserId(),
                 ...config
-            },refresh);
+            }, refresh);
         },
         /**
          * 獲取我推荐的人数和收益统计
@@ -158,30 +158,30 @@ define([
         getInvitation(refresh) {
             return Ajax.get("805123", {
                 userId: base.getUserId(),
-            },refresh);
+            }, refresh);
         },
         /**
          * 查询我的推荐历史
          * @param config {limit, start}
          */
-        getInvitationHistory(config,refresh){
+        getInvitationHistory(config, refresh) {
             return Ajax.get("805120", {
                 userReferee: base.getUserId(),
                 ...config
-            },refresh);
+            }, refresh);
         },
-		//更新用户登录时间
-		updateLoginTime(){
-			return Ajax.get("805083", {
+        //更新用户登录时间
+        updateLoginTime() {
+            return Ajax.get("805083", {
                 userid: base.getUserId(),
-            },true);
-		},
-		//列表查询用户收益
-		getUserInviteProfit(userId){
-			return Ajax.get("805124", {
-                userId: userId||base.getUserId(),
-            },true);
-		},
-		
+            }, true);
+        },
+        //列表查询用户收益
+        getUserInviteProfit(userId) {
+            return Ajax.get("805124", {
+                userId: userId || base.getUserId(),
+            }, true);
+        },
+
     };
 })

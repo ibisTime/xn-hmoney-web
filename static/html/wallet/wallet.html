@@ -1,231 +1,235 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
-    <head>
-        <link rel="import" href="../head.html?__inline">
-        <title>錢包-倍可盈</title>
-    	<!--SCRIPT_PLACEHOLDER-->
-    </head>
-    
-    <body>
-        <link rel="import" href="../top/top.html?__inline">
-		<div class="wallet-container public-container wallet-container-sc">
-			<!-- 幣種 -->
-			<div class="wallet-top-wrap b_e_b" id="wallet-top">
-				<ul></ul>
-			</div>
-			
-			<div class="wallet-account-wrap b_e bg_fff mb20 mt20">
-				<p class="yue">錢包可用餘額：<samp class="amount">0</samp><span class="currency"></span></p>
-				<div class="account">
-					<samp>可用資產：<i class="amount">0</i><span class="currency"></span></samp>
-					<samp>凍結資產：<i class="frozenAmountString">0</i><span class="currency"></span></samp>
-					<samp>總資產：<i class="amountString">0</i><span class="currency"></span></samp>
-				</div>
-			</div>
-			
-			<div class="wallet-address-wrap wp100 bg_fff b_e mb20">
-				<div class="address-nav b_e_b wp100" id="address-nav">
-					<ul class="wp100 over-hide">
-						<li class="on charge">接收<span class="currency"></span></li>
-						<li class="withdraw">發送<span class="currency"></span></li>
-					</ul>
-				</div>
-				
-				<div class="wallet-address">
-					<!--接收-->
-					<div class="address-Wrap receive-wrap ">
-						<div class="address">接收地址：<samp id="myCoinAddress"></samp>
-							<div class="icon icon-qrcode"><div id="qrcode" class="qrcode"></div></div>
-						</div>
-						<div class="warn over-hide">
-							<i class="icon icon-warn fl"></i>
-							<p class="fl">
-								温馨提示：<i><span class="currency"></span> 錢包地址禁止充值除 <span class="currency"></span> 之外的其他資產，任何 <span class="currency"></span> 資產充值将不可找回。</i>
-							</p>
-						</div>
-					</div>
-					
-					<!--發送-->
-					<div class="address-Wrap sendOut-wrap hidden">
-						<div class="warn over-hide">
-							<i class="icon icon-warn fl"></i>
-							<p class="fl">
-								温馨提示：<i>提現手續費將在提現金額中扣除。</i>
-							</p>
-						</div>
-						
-						<div class="sendOut-form-wrap">
-							<form class="form-wrapper form-wrapper-38 wp100" id="sendOut-form">
-								<div class="form-item-wrap">
-									<samp class="label">發送地址：</samp>
-									<div class="form-item b_e mr20">
-										<input type="text" class="input-item payCardNo" name="payCardNo" placeholder="請輸入正確地址" />
-									</div>
-									<div class="am-button am-button-red fl addressBtn">管理地址</div>
-								</div>
-								<div class="form-item-wrap">
-									<samp class="label">數量：</samp>
-									<div class="form-item b_e">
-										<input type="text" class="input-item amount"  name="amount" placeholder="發送數量，本次最多可發送0" />
-									</div>
-								</div>
-								<div class="form-item-wrap" id="withdrawFee-wrap">
-									<samp class="label">手續費：</samp>
-									<div class="form-item b_e">
-										<input type="text" class="input-item withdrawFee" id="withdrawFee" value="0" disabled="disabled" />
-									</div>
-								</div>
-								<div class="form-item-wrap tradePwdWrap">
-									<samp class="label">資金密碼：</samp>
-									<div class="form-item b_e mr20">
-										<input type="password" class="input-item" name="tradePwd" placeholder="請輸入資金密碼" />
-									</div>
-									<div class="findPwd fl goHref" data-href="../user/setTradePwd.html?type=1&isWallet=1">忘記密碼</div>
-								</div>
-								<div class="form-item-wrap hidden googleAuthFlag">
-									<samp class="label">谷歌验证码：</samp>
-									<div class="form-item b_e mr20">
-										<input type="password" class="input-item" name="googleCaptcha" placeholder="請輸入谷歌验证码" />
-									</div>
-								</div>
-								<div class="form-item-wrap">
-									<samp class="label">備註：</samp>
-									<div class="form-item b_e">
-										<input type="text" class="input-item" name="applyNote" placeholder="" />
-									</div>
-								</div>
-								<div class="form-btn-item">
-									<div class="am-button am-button-red subBtn">確定</div>
-								</div>
-							</form>
-						</div>
-					</div>
-				</div>
-			</div>
-			
-			<div class="tradeRecord-wrap bg_fff b_e mb80">
-				<div class="tradeRecord-wrap-title b_e_b">交易記錄</div>
-				<div class="tradeRecord-top b_e_b">
-					<ul>
-						<li class="on">全部</li>
-						<li>充幣</li>
-						<li>提現</li>
-						<li>交易買入</li>
-						<li>交易賣出</li>
-						<li>交易手續費</li>
-						<li>提現手續費</li>
-						<li>邀請好友收入</li>
-						<li>冻结記錄</li>
-					</ul>
-				</div>
-				<div class="tradeRecord-list-wrap">
-					<div class="list-item title">
-						<div>時間</div>
-						<div>類型</div>
-						<div>金額</div>
-						<div>說明</div>
-					</div>
-					<div class="list-wrap">
-					</div>
-					<div class="no-data hidden">
-						<img src="../../images/暂无明细.png" />
-						<p>暫無明細</p>
-					</div>
-					<div id="pagination" class="wp100 pagination-wrap tc">
-						<p class="pagination"></p>
-					</div>
-				</div>
-			</div>
-		</div>	
-		
-		<!--地址弹窗-->
-	    <div class="am-modal-wrap dialog wAddress-dialog hidden" id="wAddressDialog">
-	        <div class="am-modal-mask"></div>
-            <div class="am-modal">
-                <div class="am-modal-content">
-                    <div class="am-modal-header">
-                    	<p><span class="currency"></span>地址</p>
+
+<head>
+    <link rel="import" href="../head.html?__inline">
+    <title>錢包-倍可盈</title>
+    <!--SCRIPT_PLACEHOLDER-->
+</head>
+
+<body>
+    <link rel="import" href="../top/top.html?__inline">
+    <div class="wallet-container public-container wallet-container-sc">
+        <!-- 幣種 -->
+        <div class="wallet-top-wrap b_e_b" id="wallet-top">
+            <ul></ul>
+        </div>
+
+        <div class="wallet-account-wrap b_e bg_fff mb20 mt20">
+            <p class="yue">錢包可用餘額：<samp class="amount">0</samp><span class="currency"></span></p>
+            <div class="account">
+                <samp>可用資產：<i class="amount">0</i><span class="currency"></span></samp>
+                <samp>凍結資產：<i class="frozenAmountString">0</i><span class="currency"></span></samp>
+                <samp>總資產：<i class="amountString">0</i><span class="currency"></span></samp>
+            </div>
+        </div>
+
+        <div class="wallet-address-wrap wp100 bg_fff b_e mb20">
+            <div class="address-nav b_e_b wp100" id="address-nav">
+                <ul class="wp100 over-hide">
+                    <li class="on charge">接收<span class="currency"></span></li>
+                    <li class="withdraw">發送<span class="currency"></span></li>
+                </ul>
+            </div>
+
+            <div class="wallet-address">
+                <!--接收-->
+                <div class="address-Wrap receive-wrap ">
+                    <div class="address">接收地址：<samp id="myCoinAddress"></samp>
+                        <div class="icon icon-qrcode">
+                            <div id="qrcode" class="qrcode"></div>
+                        </div>
                     </div>
-                    <div class="am-modal-body">
-                    	<ul class="over-hide wp100 list">
-                    	</ul>
-						<div id="paginationAddress" class="wp100 pagination-wrap dialog-pagination-wrap tc">
-							<p class="pagination"></p>
-						</div>
+                    <div class="warn over-hide">
+                        <i class="icon icon-warn fl"></i>
+                        <p class="fl">
+                            温馨提示：<i><span class="currency"></span> 錢包地址禁止充值除 <span class="currency"></span> 之外的其他資產，任何 <span class="currency"></span> 資產充值将不可找回。</i>
+                        </p>
                     </div>
-                    <div class="am-modal-footer">
-                    	<div class="am-button am-button-gray mr40 addBtn">添加新地址</div>
-                    	<div class="am-button am-button-red subBtn">確認地址</div>
+                </div>
+
+                <!--發送-->
+                <div class="address-Wrap sendOut-wrap hidden">
+                    <div class="warn over-hide">
+                        <i class="icon icon-warn fl"></i>
+                        <p class="fl">
+                            温馨提示：<i>提現手續費將在提現金額中扣除。</i>
+                        </p>
+                    </div>
+
+                    <div class="sendOut-form-wrap">
+                        <form class="form-wrapper form-wrapper-38 wp100" id="sendOut-form">
+                            <div class="form-item-wrap">
+                                <samp class="label">發送地址：</samp>
+                                <div class="form-item b_e mr20">
+                                    <input type="text" class="input-item payCardNo" name="payCardNo" placeholder="請輸入正確地址" />
+                                </div>
+                                <div class="am-button am-button-red fl addressBtn">管理地址</div>
+                            </div>
+                            <div class="form-item-wrap">
+                                <samp class="label">数量：</samp>
+                                <div class="form-item b_e">
+                                    <input type="text" class="input-item amount" name="amount" placeholder="發送数量，本次最多可發送0" />
+                                </div>
+                            </div>
+                            <div class="form-item-wrap" id="withdrawFee-wrap">
+                                <samp class="label">手續費：</samp>
+                                <div class="form-item b_e">
+                                    <input type="text" class="input-item withdrawFee" id="withdrawFee" value="0" disabled="disabled" />
+                                </div>
+                            </div>
+                            <div class="form-item-wrap tradePwdWrap">
+                                <samp class="label">資金密碼：</samp>
+                                <div class="form-item b_e mr20">
+                                    <input type="password" class="input-item" name="tradePwd" placeholder="請輸入資金密碼" />
+                                </div>
+                                <div class="findPwd fl goHref" data-href="../user/setTradePwd.html?type=1&isWallet=1">忘記密碼</div>
+                            </div>
+                            <div class="form-item-wrap hidden googleAuthFlag">
+                                <samp class="label">谷歌验证码：</samp>
+                                <div class="form-item b_e mr20">
+                                    <input type="password" class="input-item" name="googleCaptcha" placeholder="請輸入谷歌验证码" />
+                                </div>
+                            </div>
+                            <div class="form-item-wrap">
+                                <samp class="label">備註：</samp>
+                                <div class="form-item b_e">
+                                    <input type="text" class="input-item" name="applyNote" placeholder="" />
+                                </div>
+                            </div>
+                            <div class="form-btn-item">
+                                <div class="am-button am-button-red subBtn">確定</div>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
-	    </div>
-	    
-	    <!--添加地址弹窗-->
-	    <div class="am-modal-wrap dialog addWAddress-dialog hidden" id="addWAddressDialog">
-	        <div class="am-modal-mask"></div>
-            <div class="am-modal">
-                <div class="am-modal-content">
-                    <div class="am-modal-header">
-                    	<p>添加新<span class="currency"></span>地址</p>
-                    </div>
-                    <div class="am-modal-body">
-                    	<div class="addWAddress-form-wrap">
-							<form class="form-wrapper form-wrapper-38 wp100" id="addAddress-form">
-								<div class="form-item-wrap">
-									<samp class="label">標籤：</samp>
-									<div class="form-item b_e">
-										<input type="text" class="input-item" name="label" placeholder="請輸入標籤" />
-									</div>
-								</div>
-								<div class="form-item-wrap">
-									<samp class="label">提幣地址：</samp>
-									<div class="form-item b_e mr20">
-										<input type="text" class="input-item" name="address" placeholder="請輸入提幣地址" />
-									</div>
-								</div>
-								<div class="form-item-wrap hidden  googleAuthFlag">
-									<samp class="label">谷歌驗證碼：</samp>
-									<div class="form-item b_e mr20">
-										<input type="password" class="input-item" name="googleCaptcha" placeholder="請輸入谷歌驗證碼" />
-									</div>
-								</div>
-								<div class="form-item-wrap">
-									<samp class="label">手機驗證碼：</samp>
-									<input type="hidden" id="addWAddressMobile"/>
-									<div class="form-item-sms wp100">
-										<div class="form-item b_e mr20">
-											<input type="text" class="input-item" name="smsCaptcha"  placeholder="請輸入驗證" />
-										</div>
-										<button class="sms-button am-button am-button-red" id="getVerification">獲取驗證碼</button>
-									</div>
-								</div>
-								<div class="form-item-wrap tradePwdFlag hidden">
-									<samp class="label">資金密碼：</samp>
-									<div class="form-item b_e mr20">
-										<input type="password" class="input-item" name="tradePwd" placeholder="請輸入資金密碼" />
-									</div>
-								</div>
-							</form>
-							<div class="setSecurityAccount userSelect_none">
-								<samp>將該賬戶設置為認證賬戶</samp><i class="icon icon-switch"></i>
-							</div>
-							<div class="remark">向認證賬戶提現不再輸入資金密碼、谷歌驗證碼</div>
-						</div>
-                    </div>
-                    <div class="am-modal-footer">
-                    	<div class="am-button am-button-gray mr40 closeBtn">關閉</div>
-                    	<div class="am-button am-button-red  subBtn">確認地址</div>
-                    </div>
+        </div>
+
+        <div class="tradeRecord-wrap bg_fff b_e mb80">
+            <div class="tradeRecord-wrap-title b_e_b">交易記錄</div>
+            <div class="tradeRecord-top b_e_b">
+                <ul>
+                    <li class="on">全部</li>
+                    <li>充幣</li>
+                    <li>提現</li>
+                    <li>交易買入</li>
+                    <li>交易賣出</li>
+                    <li>交易手續費</li>
+                    <li>提現手續費</li>
+                    <li>邀請好友收入</li>
+                    <li>冻结記錄</li>
+                </ul>
+            </div>
+            <div class="tradeRecord-list-wrap">
+                <div class="list-item title">
+                    <div>時間</div>
+                    <div>類型</div>
+                    <div>金額</div>
+                    <div>說明</div>
+                </div>
+                <div class="list-wrap">
+                </div>
+                <div class="no-data hidden">
+                    <img src="../../images/暂无明细.png" />
+                    <p>暫無明細</p>
+                </div>
+                <div id="pagination" class="wp100 pagination-wrap tc">
+                    <p class="pagination"></p>
                 </div>
             </div>
-	    </div>
-	    
-		
-        <link rel="import" href="../footer.html?__inline">
-    	<script src="../../js/lib/qrcode.js"></script>
-        <script>
-            require(['app/controller/wallet/Wallet']);
-        </script>
-    </body>
+        </div>
+    </div>
+
+    <!--地址弹窗-->
+    <div class="am-modal-wrap dialog wAddress-dialog hidden" id="wAddressDialog">
+        <div class="am-modal-mask"></div>
+        <div class="am-modal">
+            <div class="am-modal-content">
+                <div class="am-modal-header">
+                    <p><span class="currency"></span>地址</p>
+                </div>
+                <div class="am-modal-body">
+                    <ul class="over-hide wp100 list">
+                    </ul>
+                    <div id="paginationAddress" class="wp100 pagination-wrap dialog-pagination-wrap tc">
+                        <p class="pagination"></p>
+                    </div>
+                </div>
+                <div class="am-modal-footer">
+                    <div class="am-button am-button-gray mr40 addBtn">添加新地址</div>
+                    <div class="am-button am-button-red subBtn">確認地址</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--添加地址弹窗-->
+    <div class="am-modal-wrap dialog addWAddress-dialog hidden" id="addWAddressDialog">
+        <div class="am-modal-mask"></div>
+        <div class="am-modal">
+            <div class="am-modal-content">
+                <div class="am-modal-header">
+                    <p>添加新<span class="currency"></span>地址</p>
+                </div>
+                <div class="am-modal-body">
+                    <div class="addWAddress-form-wrap">
+                        <form class="form-wrapper form-wrapper-38 wp100" id="addAddress-form">
+                            <div class="form-item-wrap">
+                                <samp class="label">標籤：</samp>
+                                <div class="form-item b_e">
+                                    <input type="text" class="input-item" name="label" placeholder="請輸入標籤" />
+                                </div>
+                            </div>
+                            <div class="form-item-wrap">
+                                <samp class="label">提幣地址：</samp>
+                                <div class="form-item b_e mr20">
+                                    <input type="text" class="input-item" name="address" placeholder="請輸入提幣地址" />
+                                </div>
+                            </div>
+                            <div class="form-item-wrap hidden  googleAuthFlag">
+                                <samp class="label">谷歌驗證碼：</samp>
+                                <div class="form-item b_e mr20">
+                                    <input type="password" class="input-item" name="googleCaptcha" placeholder="請輸入谷歌驗證碼" />
+                                </div>
+                            </div>
+                            <div class="form-item-wrap">
+                                <samp class="label">手機驗證碼：</samp>
+                                <input type="hidden" id="addWAddressMobile" />
+                                <div class="form-item-sms wp100">
+                                    <div class="form-item b_e mr20">
+                                        <input type="text" class="input-item" name="smsCaptcha" placeholder="請輸入驗證" />
+                                    </div>
+                                    <button class="sms-button am-button am-button-red" id="getVerification">獲取驗證碼</button>
+                                </div>
+                            </div>
+                            <div class="form-item-wrap tradePwdFlag hidden">
+                                <samp class="label">資金密碼：</samp>
+                                <div class="form-item b_e mr20">
+                                    <input type="password" class="input-item" name="tradePwd" placeholder="請輸入資金密碼" />
+                                </div>
+                            </div>
+                        </form>
+                        <div class="setSecurityAccount userSelect_none">
+                            <samp>將該賬戶設置為認證賬戶</samp><i class="icon icon-switch"></i>
+                        </div>
+                        <div class="remark">向認證賬戶提現不再輸入資金密碼、谷歌驗證碼</div>
+                    </div>
+                </div>
+                <div class="am-modal-footer">
+                    <div class="am-button am-button-gray mr40 closeBtn">關閉</div>
+                    <div class="am-button am-button-red  subBtn">確認地址</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <link rel="import" href="../footer.html?__inline">
+    <script src="../../js/lib/qrcode.js"></script>
+    <script>
+        require(['app/controller/wallet/Wallet']);
+    </script>
+</body>
+
 </html>

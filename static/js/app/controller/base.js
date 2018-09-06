@@ -131,6 +131,10 @@ define([
         formateDatetime: function(date) {
             return date ? new Date(date).format("yyyy-MM-dd hh:mm:ss") : "--";
         },
+        //日期格式化 MM-dd hh:mm:ss
+        datetime: function(date) {
+            return date ? new Date(date).format("MM-dd hh:mm") : "--";
+        },
         //获取链接入参
         getUrlParam: function(name, locat) {
             var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");

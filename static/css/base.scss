@@ -1,6 +1,5 @@
 @import "./global";
 @import "./mixin";
-
 * {
     box-sizing: border-box;
     -moz-box-sizing: border-box;
@@ -12,9 +11,12 @@
 *,
 :after,
 :before {
-    -webkit-tap-highlight-color: rgba(0,0,0,0);
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
+
+
 /* 禁用iPhone中Safari的字号自动调整 */
+
 html {
     -webkit-text-size-adjust: 100%;
     -ms-text-size-adjust: 100%;
@@ -33,7 +35,10 @@ section {
 .tapArea {
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
+
+
 /* 设置HTML5元素为块 */
+
 article,
 aside,
 details,
@@ -47,7 +52,10 @@ nav,
 section {
     display: block;
 }
+
+
 /* 图片自适应 */
+
 img {
     height: auto;
     width: auto \9;
@@ -55,7 +63,10 @@ img {
     -ms-interpolation-mode: bicubic;
     /*为了照顾ie图片缩放失真*/
 }
+
+
 /* 初始化 */
+
 a,
 article,
 aside,
@@ -121,16 +132,18 @@ textarea {
     color: #000;
 }
 
+
 /*文字选中*/
+
 ::-moz-selection {
-  color: #ffffff;
-  background: #000000;
-}
-::selection {
-  color: #ffffff;
-  background: #000000;
+    color: #ffffff;
+    background: #000000;
 }
 
+::selection {
+    color: #ffffff;
+    background: #000000;
+}
 
 .clearfix:after {
     content: "";
@@ -166,11 +179,12 @@ textarea:disabled {
 
 //去掉input箭头
 input::-webkit-outer-spin-button,
-input::-webkit-inner-spin-button{
+input::-webkit-inner-spin-button {
     -webkit-appearance: none !important;
 }
-input[type="number"]{
-    -moz-appearance:textfield;
+
+input[type="number"] {
+    -moz-appearance: textfield;
 }
 
 li,
@@ -191,6 +205,8 @@ h6 {
 img {
     border: none;
 }
+
+
 /*公用基本样式*/
 
 *:focus {
@@ -224,7 +240,10 @@ textarea {
 .va {
     vertical-align: middle;
 }
+
+
 /*border-radius*/
+
 .b_radius0 {
     border-radius: 0;
 }
@@ -236,6 +255,7 @@ textarea {
 .b_radius2_i {
     border-radius: 2px !important;
 }
+
 .b_radius5_i {
     border-radius: 5px !important;
 }
@@ -247,23 +267,33 @@ textarea {
 .b_radius50 {
     border-radius: 50%;
 }
+
+
 /*border*/
+
 .nobr {
     border: 0;
 }
+
 .nobr_b {
     border: none !important;
 }
-.b_e{
+
+.b_e {
     border: 1px solid #eee;
 }
-.b_e_b{
+
+.b_e_b {
     border-bottom: 1px solid #eee;
 }
-.b_e_t{
+
+.b_e_t {
     border-top: 1px solid #eee;
 }
+
+
 /*背景颜色*/
+
 .bg_fff {
     background: #fff;
 }
@@ -271,11 +301,17 @@ textarea {
 .bg_f0 {
     background: #f0f0f0;
 }
+
+
 /*text  字体颜色*/
+
 .t_fff {
     color: #fff;
 }
+
+
 /*text 文字对齐*/
+
 .tc {
     text-align: center;
 }
@@ -287,7 +323,10 @@ textarea {
 .tr {
     text-align: right;
 }
+
+
 /*text  一行超出显示省略号*/
+
 .t_norwrap {
     white-space: nowrap;
     word-wrap: normal;
@@ -302,7 +341,10 @@ textarea {
 .t_under {
     text-decoration: underline;
 }
+
+
 /*float  浮动*/
+
 .fl {
     float: left;
 }
@@ -318,7 +360,10 @@ textarea {
 .fcb {
     clear: both;
 }
+
+
 /*宽度*/
+
 .wp20 {
     width: 20%;
 }
@@ -338,11 +383,17 @@ textarea {
 .wp100 {
     width: 100%;
 }
+
+
 /*高度*/
+
 .hp100 {
     height: 100%;
 }
+
+
 /*定位*/
+
 .re {
     position: relative;
 }
@@ -354,11 +405,14 @@ textarea {
 .fixed {
     position: fixed;
 }
-.fixed_i{
+
+.fixed_i {
     position: fixed !important;
 }
 
+
 /*display*/
+
 .hidden {
     display: none !important;
 }
@@ -374,12 +428,17 @@ textarea {
 .inline {
     display: inline;
 }
+
+
 /*overflow*/
-.over-hide{
+
+.over-hide {
     overflow: hidden;
 }
 
+
 /*position*/
+
 .fixft {
     position: fixed;
     left: 0;
@@ -387,7 +446,10 @@ textarea {
     width: 100%;
     z-index: 11;
 }
+
+
 /*透明度*/
+
 .opac0 {
     opacity: 0;
 }
@@ -409,18 +471,21 @@ textarea {
     word-wrap: break-word;
     word-break: break-all;
 }
+
 @keyframes loadingCircle {
     100% {
         transform: rotate(360deg);
     }
 }
+
+
 /*鼠标悬浮*/
-.cur-pointer{
+
+.cur-pointer {
     cursor: pointer;
 }
 
 // flex样式
-
 .am-flexbox {
     text-align: left;
     overflow-y: hidden;
@@ -434,13 +499,11 @@ textarea {
     -ms-flex-align: center;
     -moz-box-align: center;
     align-items: center;
-
     &.am-flexbox-wrap {
         -webkit-flex-wrap: wrap;
         -ms-flex-wrap: wrap;
         flex-wrap: wrap;
     }
-
     &.am-flexbox-justify-between {
         -webkit-box-pack: justify;
         -webkit-justify-content: space-between;
@@ -448,7 +511,6 @@ textarea {
         -moz-box-pack: justify;
         justify-content: space-between;
     }
-
     &.am-flexbox-dir-column {
         -webkit-box-orient: vertical;
         -webkit-box-direction: normal;
@@ -458,7 +520,6 @@ textarea {
         -moz-box-direction: normal;
         flex-direction: column;
     }
-
     &.am-flexbox-align-middle {
         -webkit-box-align: center;
         -webkit-align-items: center;
@@ -466,7 +527,6 @@ textarea {
         -moz-box-align: center;
         align-items: center;
     }
-
     &.am-flexbox-align-top {
         -webkit-box-align: start;
         -webkit-align-items: flex-start;
@@ -474,7 +534,6 @@ textarea {
         -moz-box-align: start;
         align-items: flex-start;
     }
-
     .am-flexbox-item {
         -webkit-box-sizing: border-box;
         -webkit-box-flex: 1;
@@ -485,8 +544,8 @@ textarea {
         min-width: 10px;
     }
 }
-// iscroll样式
 
+// iscroll样式
 %default-scroll-wrap {
     position: absolute;
     width: 100%;
@@ -512,13 +571,13 @@ textarea {
     top: 0;
     bottom: 0;
 }
+
 @keyframes bouncedelay {
     0%,
     100%,
     80% {
         transform: scale(0.0);
     }
-
     40% {
         transform: scale(1.0);
     }
@@ -531,8 +590,7 @@ textarea {
     height: 30px;
     text-align: center;
     position: relative;
-
-    > div {
+    >div {
         width: 10px;
         height: 10px;
         background-color: #ffa11b;
@@ -542,15 +600,12 @@ textarea {
         animation-fill-mode: both;
         margin-top: 10px;
     }
-
     .bounce1 {
         animation-delay: -.3s;
     }
-
     .bounce2 {
         animation-delay: -.2s;
     }
-
     .bounce3 {
         animation-delay: -.1s;
     }
@@ -562,19 +617,35 @@ textarea {
 
 //表单
 .form-wrapper {
+    .k-b {
+        border: 1px solid #b3b3b3;
+        input::-webkit-input-placeholder {
+            color: #999;
+        }
+        /* 使用webkit内核的浏览器 */
+        input:-moz-placeholder {
+            color: #999;
+        }
+        /* Firefox版本4-18 */
+        input::-moz-placeholder {
+            color: #999;
+        }
+        /* Firefox版本19+ */
+        input:-ms-input-placeholder {
+            color: #999;
+        }
+    }
     .form-item {
         width: 100%;
         position: relative;
         background: #fff;
         margin-bottom: 15px;
         padding: 12px 10px 12px 40px;
-
         .item-title {
             width: 1.4rem;
             font-size: 0.28rem;
         }
-        
-        .item-icon{
+        .item-icon {
             display: inline-block;
             width: 16px;
             height: 16px;
@@ -592,7 +663,6 @@ textarea {
             font-size: 14px;
             color: #484848;
         }
-
         .input-item {
             width: 100%;
             font-size: 14px;
@@ -600,20 +670,16 @@ textarea {
             line-height: 1;
             padding-left: 10px;
             border-left: 1px solid #eee;
-            
-            &:disabled{
+            &:disabled {
                 color: #484848;
             }
-            
-            &.placeholder{
+            &.placeholder {
                 color: #666;
             }
         }
-
         .item-button {
             width: 2rem;
         }
-
         .textarea-item {
             width: 100%;
             height: 100%;
@@ -623,8 +689,7 @@ textarea {
             background-color: none;
             border: none;
         }
-        
-        label.error{
+        label.error {
             position: absolute;
             right: 10px;
             top: 50%;
@@ -634,29 +699,26 @@ textarea {
             color: $red-color;
         }
     }
-    
-    .form-btn-item{
+    .form-btn-item {
         width: 100%;
         margin-top: 40px;
     }
-    .form-item-sms{
+    .form-item-sms {
         overflow: hidden;
-        
-        .form-item{
+        .form-item {
             width: 266px;
             float: left;
         }
-        .sms-button{
+        .sms-button {
             width: 124px;
             float: right;
         }
     }
-    .form-item-wrap{
+    .form-item-wrap {
         width: 100%;
         position: relative;
         padding-left: 100px;
-        
-        .label{
+        .label {
             display: inline-block;
             width: 80px;
             font-size: 16px;
@@ -668,17 +730,15 @@ textarea {
             left: 0;
             z-index: 9;
         }
-        
-        .form-item{
+        .form-item {
             padding: 12px 10px 12px 20px;
-            .input-item{
+            .input-item {
                 padding-left: 0;
                 border-left: 0;
             }
         }
-        
     }
-    .form-item-textarea{
+    .form-item-textarea {
         height: 140px;
         padding: 16px 30px !important;
     }
@@ -686,16 +746,20 @@ textarea {
         width: 100%;
         position: relative;
         padding: 0 !important;
-        
-        select{
+        select {
             width: 100%;
             font-size: 14px;
             line-height: 50px;
             color: #484848;
             padding: 0 40px 0 20px;
         }
-        
-        .icon-down{
+        .k-select {
+            border: 1px solid #b3b3b3;
+            option {
+                color: #333;
+            }
+        }
+        .icon-down {
             width: 8px;
             height: 6px;
             background-size: 8px;
@@ -706,26 +770,27 @@ textarea {
         }
     }
 }
-.form-wrapper-38{
-    .form-item{
+
+.form-wrapper-38 {
+    .form-item {
         padding-top: 9px !important;
         padding-bottom: 9px !important;
     }
-    .am-button{
+    .am-button {
         height: 38px;
         line-height: 38px;
     }
 }
-.form-wrapper-noIcon{
-    .form-item{
+
+.form-wrapper-noIcon {
+    .form-item {
         padding-right: 70px;
         padding-left: 10px;
-        
-        .input-item{
+        .input-item {
             width: 100%;
             border-left: 0;
         }
-        .item-unit{
+        .item-unit {
             position: absolute;
             top: 50%;
             transform: translateY(-50%);
@@ -737,13 +802,11 @@ textarea {
             font-style: normal;
             font-size: 16px;
         }
-        
-        label.error{
+        label.error {
             right: 70px;
         }
     }
 }
-
 
 button[disabled] {
     background-color: $btn-disabled-border-color;
@@ -751,7 +814,6 @@ button[disabled] {
 }
 
 // button样式
-
 .am-button {
     display: inline-block;
     outline: 0 none;
@@ -782,9 +844,11 @@ button[disabled] {
     -ms-user-select: none;
     user-select: none;
 }
-.am-button-noradius{
+
+.am-button-noradius {
     border-radius: 0 !important;
 }
+
 .am-button-primary {
     color: #fff;
     background-color: $primary-color;
@@ -806,18 +870,22 @@ button[disabled] {
     background-color: transparent;
     border: 1px solid $red-color;
 }
-.am-button.am-button-ghost{
+
+.am-button.am-button-ghost {
     line-height: 44px !important;
 }
-.am-button-small.am-button-ghost{
+
+.am-button-small.am-button-ghost {
     line-height: 26px !important;
 }
+
 .am-button-ghost-white {
     color: #fff;
     background-color: transparent;
     border: 1px solid #fff;
     line-height: 26px !important;
 }
+
 .am-button-gray {
     color: #fff;
     background-color: #ddd;
@@ -826,12 +894,13 @@ button[disabled] {
 .am-button-ghost.am-button-disabled,
 .am-button-primary.am-button-disabled,
 .am-button-warning.am-button-disabled,
-.am-button.am-button-disabled{
+.am-button.am-button-disabled {
     color: #bbb !important;
     background-color: #ddd !important;
     border: 0 !important;
 }
-.am-button.am-button-disabled{
+
+.am-button.am-button-disabled {
     cursor: default !important;
 }
 
@@ -850,7 +919,7 @@ button[disabled] {
     background-color: rgba(0, 0, 0, .4);
 }
 
-.am-modal-wrap{
+.am-modal-wrap {
     position: fixed;
     overflow: auto;
     top: 0;
@@ -879,7 +948,6 @@ button[disabled] {
     position: relative;
     z-index: 999;
     height: auto;
-    
     .am-modal-content {
         position: relative;
         background-color: #fff;
@@ -891,7 +959,7 @@ button[disabled] {
         height: auto;
         padding-top: 0;
     }
-    .am-modal-header{
+    .am-modal-header {
         text-align: center;
         font-size: 20px;
         padding: 20px 0 0;
@@ -902,27 +970,29 @@ button[disabled] {
         padding: 20px 30px 20px;
         text-align: left;
     }
-    .am-modal-footer{
+    .am-modal-footer {
         text-align: center;
         padding: 0 0 30px;
-        
-        .am-button{
+        .am-button {
             width: 150px;
             height: 40px;
             line-height: 40px;
         }
     }
 }
+
 @keyframes antRotate {
     100% {
         transform: rotate(405deg);
     }
 }
+
 @keyframes antSpinMove {
     100% {
         opacity: 1;
     }
 }
+
 .ant-spin-nested-loading {
     position: absolute;
     top: 0;
@@ -930,7 +1000,6 @@ button[disabled] {
     width: 100%;
     height: 100%;
     z-index: 9999;
-
     &.modal-map-ant-spin-loading {
         top: 0;
         left: 0;
@@ -940,7 +1009,6 @@ button[disabled] {
         bottom: 0;
         z-index: 10002;
     }
-
     .ant-spin-dot {
         position: absolute;
         top: 50%;
@@ -953,7 +1021,6 @@ button[disabled] {
         height: 20px;
         transform: rotate(45deg);
         animation: antRotate 1.2s infinite linear;
-
         i {
             width: 9px;
             height: 9px;
@@ -965,24 +1032,20 @@ button[disabled] {
             opacity: 0.3;
             animation: antSpinMove 1s infinite linear alternate;
             transform-origin: 50% 50%;
-
             &:first-child {
                 left: 0;
                 top: 0;
             }
-
             &:nth-child(2) {
                 right: 0;
                 top: 0;
                 animation-delay: 0.4s;
             }
-
             &:nth-child(3) {
                 right: 0;
                 bottom: 0;
                 animation-delay: 0.8s;
             }
-
             &:nth-child(4) {
                 left: 0;
                 bottom: 0;
@@ -990,20 +1053,17 @@ button[disabled] {
             }
         }
     }
-
     .ant-spin-blur {
         overflow: hidden;
         opacity: 0.7;
         filter: blur(.5px);
-        filter: progid\: DXImageTransform\.Microsoft\.Blur(PixelRadius\=1,MakeShadow\=false);
+        filter: progid\: DXImageTransform\.Microsoft\.Blur(PixelRadius\=1, MakeShadow\=false);
         -webkit-transform: translateZ(0);
     }
-
     .ant-spin-container {
-        transition: all 0.3s cubic-bezier(.645,.045,.355,1);
+        transition: all 0.3s cubic-bezier(.645, .045, .355, 1);
         position: relative;
         height: 100%;
         background-color: #fff;
     }
 }
-
