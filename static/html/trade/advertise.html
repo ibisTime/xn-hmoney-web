@@ -15,8 +15,8 @@
         <div class="advertise-warn wp100">
             <div class="fb-type">
                 <ul class="fb-ul">
-                    <li class="fb-sel">BTC</li>
-                    <li>ETH</li>
+                    <li class="fb-sel" data-coin="btc">BTC</li>
+                    <li data-coin="eth">ETH</li>
                 </ul>
             </div>
             <div class="titleWrap">
@@ -52,7 +52,7 @@
             </div>
             <div class="form-wrapper userSelect_none">
                 <div class="form-item form-item-select b_e">
-                    <select id="stateCoin" name="stateCoin">
+                    <select id="stateCoin" name="stateCountries">
 						<option value="CN中国">CN中国</option>
 					</select>
                     <i class="icon icon-down"></i>
@@ -88,7 +88,7 @@
                         <span class="num-center"></span>
                     </div>
                     <span>50</span>
-                    <span class="yj-bfb"><samp class="yj-num">0</samp><i class="item-unit">%</i></span>
+                    <span class="yj-bfb"><samp class="yj-num">0.00</samp><i class="item-unit">%</i></span>
                 </div>
                 <div class="explain">
                     <i>*</i>
@@ -178,12 +178,12 @@
                     <div class="check-wrap over-hide">
                         <!-- <div class="icon icon-only" id="onlyTrust" style="margin-right: 10px;"></div>启用
 						<div class="icon icon-only" id="onlyTrust1" style="margin-right: 10px;margin-left: 80px;"></div>不启用 -->
-                        <div class="item fl type all on">
-                            <i class="icon icon-check"></i>
+                        <div class="item fl type all">
+                            <i class="icon icon-check userDefined" data-type='1'></i>
                             <samp>启用</samp>
                         </div>
-                        <div class="item fl type ml60 userDefined">
-                            <i class="icon icon-check"></i>
+                        <div class="item fl type ml60 on">
+                            <i class="icon icon-check usersel" data-type='0'></i>
                             <samp>不启用</samp>
                         </div>
                     </div>

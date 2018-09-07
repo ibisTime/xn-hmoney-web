@@ -9,12 +9,21 @@ define([
     var code = base.getUrlParam("code") || '';
     var coin = base.getUrlParam("coin") || 'BTC'; // 币种
     var status = '1';
-    var mid = 0;
+    var mid = 0,
+        jdLeft = 0,
+        selOnlyCert = 0,
+        selTradeCoin = 'BTC';
 
     init();
 
     function init() {
         $(".head-nav-wrap .sell").addClass("active");
+        let index = 0;
+        if (coin == 'ETH') {
+            index = 1;
+            selTradeCoin = 'ETH';
+        }
+        $('.fb-ul li').eq(index).addClass('fb-sel').siblings('li').removeClass('fb-sel');
         base.showLoadingSpin();
         if (code != "") {
             $("#draftBtn").addClass("hidden")
@@ -29,7 +38,9 @@ define([
             $("#price").attr("disabled", false)
             $(".premiumRateExp-wrap").addClass("hidden");
         }
-
+        if (code != "") {
+            getAdvertiseDetail(); // 测试
+        }
         $.when(
             GeneralCtr.getSysConfig("trade_remind"),
             GeneralCtr.getDictList({ "parentKey": "trade_time_out" }),
@@ -52,7 +63,7 @@ define([
             mid = data3.mid;
 
             if (code != "") {
-                getAdvertiseDetail();
+                getAdvertiseDetail(); // 正式
             } else {
                 base.hideLoadingSpin()
             }
@@ -123,19 +134,27 @@ define([
         return TradeCtr.getAdvertiseDetail(code).then((data) => {
             status = data.status;
             data.premiumRate = data.premiumRate * 100;
+            let premiumRate = data.premiumRate.toFixed(2);
             data.minTrade = data.minTrade.toFixed(2);
             data.maxTrade = data.maxTrade.toFixed(2);
             mid = data.marketPrice;
             var tradeCoin = data.tradeCoin ? data.tradeCoin : 'ETH';
             data.totalCount = base.formatMoney(data.totalCountString, '', tradeCoin)
-
-            //广告类型
+                // 进度条初始化
+            $('.yj-num').text(premiumRate);
+            let parWidth = $('.num-huadtiao').width();
+            jdLeft = (parWidth * data.premiumRate) / 100;
+            let goLeft = (parseInt($('.num-go').css('left')) / parWidth).toFixed(2) * 100;
+            $('.num-go').css({
+                    left: (goLeft + Number(data.premiumRate)) + '%'
+                })
+                //广告类型
             if (data.tradeType == '1') {
                 $(".trade-type .item").eq(0).addClass("on").siblings('.item').removeClass("on").addClass("hidden")
             } else {
                 $(".trade-type .item").eq(1).addClass("on").siblings('.item').removeClass("on").addClass("hidden")
             }
-            $(".trade-type .item.on .icon-check").click();
+            // $(".trade-type .item.on .icon-check").click();
 
             $("#form-wrapper").setForm(data);
 
@@ -241,7 +260,9 @@ define([
                     //在线购买
             } else if (_this.parent(".item").index() == '1') {
                 $(".accountCount").addClass("hidden")
-                getExplain('buy')
+                getExplain('buy');
+                $('.num-go').css('left', '50%');
+                $('.yj-num').text('0.00');
             }
             _this.parent(".item").addClass("on").siblings(".item").removeClass("on");
         })
@@ -283,7 +304,9 @@ define([
         //切换广告类型
         $('.fb-ul').click((e) => {
             let target = e.target;
-            $(target).addClass('fb-sel').siblings('li').removeClass('fb-sel');
+            if (target.tagName == 'LI') {
+                base.gohrefReplace("../trade/advertise.html?coin=" + $(target).attr("data-coin").toUpperCase())
+            }
         })
 
 
@@ -334,15 +357,6 @@ define([
             onkeyup: false
         })
 
-        //溢价
-        $("#premiumRate").keyup(function() {
-            if ($("#premiumRate").val() == '' || !$("#premiumRate").val()) {
-                $("#price").val(mid);
-            } else {
-                $("#price").val((mid + mid * ($("#premiumRate").val() / 100)).toFixed(2));
-            }
-        })
-
         //发布
         $("#submitBtn").click(function() {
             if (!base.isLogin()) {
@@ -350,7 +364,7 @@ define([
                 return;
             }
             if (_formWrapper.valid()) {
-                var publishType = '0';
+                var publishType = '0'; // 0
                 //草稿发布
                 if (code != "" && status != '1') {
                     publishType = '2';
@@ -381,16 +395,20 @@ define([
         //发布/保存草稿
         function doSubmit(publishType) {
             var params = _formWrapper.serializeObject();
+            console.log('params:', params);
 
             if (code != "") {
                 params.adsCode = code;
             }
 
+            // 是否实名
+            params.onlyCert = selOnlyCert;
+
             params.premiumRate = params.premiumRate / 100;
             //广告类型 0=买币，1=卖币
             params.tradeType = $(".trade-type .item.on").index() == '0' ? '1' : '0';
             params.onlyTrust = $("#onlyTrust").hasClass("on") ? '1' : '0';
-            params.tradeCoin = $("#tradeCoin").val();
+            // params.tradeCoin = $("#tradeCoin").val();
             params.tradeCurrency = "CNY";
             params.publishType = publishType;
 
@@ -399,6 +417,13 @@ define([
             } else {
                 params.truePrice = '0';
             }
+
+            // 总价
+            params.totalCount = '120000';
+            params.payLimit = 12;
+            params.premiumRate = parseInt($('.yj-num').text()) / 100;
+            params.tradeCoin = selTradeCoin;
+            params.minTrade = parseInt(params.minTrade);
 
             params.totalCount = base.formatMoneyParse(params.totalCount, '', params.tradeCoin)
 
@@ -498,14 +523,24 @@ define([
 
         })
 
+        // 选择实名
+        $('.check-wrap').on("click", function(e) {
+            let target = e.target,
+                reg = /userDefined|usersel/g;
+            if (reg.test($(target).attr('class'))) {
+                $(target).parent('.item').addClass('on').siblings().removeClass('on');
+                selOnlyCert = $(target).attr('data-type');
+            }
+        })
+
         // 进度条实现
         let i = 0,
             goX = 0,
             goLeft = '';
         $('.num-go').mousedown(function(e) {
             if (i == 0) {
-                goX = e.pageX;
-                goLeft = parseInt($(this).css('left'));
+                goX = e.pageX - jdLeft;
+                goLeft = parseInt($(this).css('left')) - jdLeft;
             }
             i++;
             let parWidth = $('.num-huadtiao').width();
@@ -522,6 +557,13 @@ define([
                     left: (left + Number(mlen)) + '%'
                 })
                 $('.yj-num').text(mlen);
+                //溢价
+                mid = 1000; // 测试
+                if ($(".yj-num").text() == '0' || !$(".yj-num").text()) {
+                    $("#price").val(mid);
+                } else {
+                    $("#price").val((mid + mid * ($(".yj-num").text() / 100)).toFixed(2));
+                }
             }).mouseup(() => {
                 $('.go-box').unbind('mousemove');
             })

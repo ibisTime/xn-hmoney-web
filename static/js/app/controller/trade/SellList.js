@@ -132,9 +132,9 @@ define([
         }
 
         return `<tr>
-					<td class="nickname">
-						<div class="photoWrap fl goHref" data-href="../user/user-detail.html?coin=${item.tradeCoin}&userId=${item.userId}">
-							${photoHtml}
+					<td class="nickname" style="padding-left: 20px;">
+						<div class="photoWrap fl goHref" data-href="../user/user-detail.html?coin=${item.tradeCoin}&userId=${item.userId}" style="margin-right: 10px;">
+                            ${photoHtml}
 							<div class="dot ${loginStatus}"></div>
 						</div>
                         <samp class="name">${item.user.nickname}</samp>

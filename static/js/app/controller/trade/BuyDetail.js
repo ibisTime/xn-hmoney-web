@@ -26,10 +26,10 @@ define([
     var limit = '';
     var tradeCoin = 'ETH';
 
-    // if(!base.isLogin()){
-    // 	base.goLogin();
-    // 	return;
-    // }
+    if (!base.isLogin()) {
+        base.goLogin();
+        return;
+    }
     init();
 
     function init() {
@@ -42,9 +42,9 @@ define([
             GeneralCtr.getSysConfig("trade_remind")
         ).then((data) => {
             $("#tradeWarn").html(data.cvalue.replace(/\n/g, '<br>'))
-            getAdvertiseDetail()
+                // getAdvertiseDetail() // 正式
         }, base.hideLoadingSpin)
-
+        getAdvertiseDetail() // 测试
         addListener();
 
     }
@@ -147,13 +147,13 @@ define([
     //购买
     function buyETH() {
         return TradeCtr.buyETH(config).then((data) => {
-            base.showMsg("购买成功")
+                base.showMsg("购买成功")
 
-            setTimeout(function() {
-                base.gohref("../order/order-list.html")
-            }, 2000)
-            base.hideLoadingSpin();
-        }, base.hideLoadingSpin)
+                setTimeout(function() {
+                        base.gohref("../order/order-list.html")
+                    }, 2000)
+                    //base.hideLoadingSpin();  
+            }) //, base.hideLoadingSpin
 
     }
 
@@ -172,34 +172,34 @@ define([
 
         //立即下单点击
         $("#buyBtn").click(function() {
-            //	    	if(_formWrapper.valid()){
-            //	    		if($("#buyAmount").val()!=''&&$("#buyAmount").val()){
-            //					$("#submitDialog").removeClass("hidden")
-            //		    	}else{
-            //		    		base.showMsg("请输入您购买的金額")
-            //		    	}
-            //	    	}
-            UserCtr.getUser().then((data) => {
-                if (data.tradepwdFlag && data.realName) {
-                    if (_formWrapper.valid()) {
-                        if ($("#buyAmount").val() != '' && $("#buyAmount").val()) {
-                            $("#submitDialog").removeClass("hidden")
-                        } else {
-                            base.showMsg("请输入您购买的金額")
-                        }
-                    }
-                } else if (!data.tradepwdFlag) {
-                    base.showMsg("请先设置资金密码")
-                    setTimeout(function() {
-                        base.gohref("../user/setTradePwd.html?type=1")
-                    }, 1800)
-                } else if (!data.realName) {
-                    base.showMsg("请先进行身份验证")
-                    setTimeout(function() {
-                        base.gohref("../user/identity.html")
-                    }, 1800)
+            if (_formWrapper.valid()) {
+                if ($("#buyAmount").val() != '' && $("#buyAmount").val()) {
+                    $("#submitDialog").removeClass("hidden")
+                } else {
+                    base.showMsg("请输入您购买的金額")
                 }
-            }, base.hideLoadingSpin)
+            }
+            // UserCtr.getUser().then((data) => {
+            //     if (data.tradepwdFlag && data.realName) {
+            //         if (_formWrapper.valid()) {
+            //             if ($("#buyAmount").val() != '' && $("#buyAmount").val()) {
+            //                 $("#submitDialog").removeClass("hidden")
+            //             } else {
+            //                 base.showMsg("请输入您购买的金額")
+            //             }
+            //         }
+            //     } else if (!data.tradepwdFlag) {
+            //         base.showMsg("请先设置资金密码")
+            //         setTimeout(function() {
+            //             base.gohref("../user/setTradePwd.html?type=1")
+            //         }, 1800)
+            //     } else if (!data.realName) {
+            //         base.showMsg("请先进行身份验证")
+            //         setTimeout(function() {
+            //             base.gohref("../user/identity.html")
+            //         }, 1800)
+            //     }
+            // }, base.hideLoadingSpin)
         })
 
         //下单确认弹窗-放弃点击
@@ -246,7 +246,8 @@ define([
         })
 
         //聊天按钮点击
-        $("#chatBtn").click(function() {
+        $(".sp-lx").click(function() {
+            debugger
             base.showLoadingSpin();
             // 购买开始聊天，提交交易订单
             TradeCtr.chatOrderBuy(code).then((data) => {

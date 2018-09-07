@@ -22,7 +22,8 @@ define([
         limit: 10,
         // statusList: statusList["inProgress"]
     };
-    var unreadMsgList = {};
+    var unreadMsgList = {},
+        lists = [];
     var isUnreadList = false,
         isOrderList = false;
     init();
@@ -73,7 +74,7 @@ define([
     //分页查询订单
     function getPageOrder(refresh) {
         return TradeCtr.getPageOrder(config, refresh).then((data) => {
-            var lists = data.list;
+            lists = data.list;
             if (data.list.length) {
                 var html = "";
                 lists.forEach((item, i) => {
@@ -113,7 +114,7 @@ define([
             //待支付
             if (item.status == "0") {
                 operationHtml = `<div class="am-button am-button-red payBtn" data-ocode="${item.code}">标记付款</div>
-								<div class="am-button am-button-gray ml5 cancelBtn" data-ocode="${item.code}">取消交易</div>`;
+								<div class="am-button am-button-out ml5 cancelBtn" data-ocode="${item.code}">取消交易</div>`;
             } else if (item.status == "2") {
                 if (item.bsComment != "0" && item.bsComment != "2") {
                     operationHtml = `<div class="am-button am-button-red commentBtn"  data-ocode="${item.code}">交易评价/div>`
@@ -166,9 +167,8 @@ define([
 					<td class="quantity">${quantity}</td>
 					<td class="createDatetime">${base.datetime(item.createDatetime)}</td>
 					<td class="status">${item.status=="-1"?'交谈中,'+statusValueList[item.status]:statusValueList[item.status]}</td>
-					<td class="operation">
-                        <div class="am-button am-button-red">标记付款</div>
-                        <div class="am-button ml5">取消交易</div>
+                    <td class="operation">
+                        ${operationHtml}
                     </td>
 					<td class="goDetail" style="padding-right: 0;">
 						<samp class="unread goHref fl" data-href="../order/order-detail.html?code=${item.code}"></samp>

@@ -45,9 +45,9 @@ define([
             GeneralCtr.getSysConfig("trade_remind")
         ).then((data) => {
             $("#tradeWarn").html(data.cvalue.replace(/\n/g, '<br>'))
-            getAdvertiseDetail()
+                // getAdvertiseDetail()   // 正式
         }, base.hideLoadingSpin)
-
+        getAdvertiseDetail() // 测试
         addListener();
 
     }
@@ -175,34 +175,34 @@ define([
 
         //立即下单点击
         $("#buyBtn").click(function() {
-            //	    	if(_formWrapper.valid()){
-            //	    		if($("#buyAmount").val()!=''&&$("#buyAmount").val()){
-            //					$("#submitDialog").removeClass("hidden")
-            //		    	}else{
-            //		    		base.showMsg("请输入您购买的金額")
-            //		    	}
-            //	    	}
-            UserCtr.getUser().then((data) => {
-                if (data.tradepwdFlag && data.realName) {
-                    if (_formWrapper.valid()) {
-                        if ($("#buyAmount").val() != '' && $("#buyAmount").val()) {
-                            $("#submitDialog").removeClass("hidden")
-                        } else {
-                            base.showMsg("请输入您购买的金額")
-                        }
-                    }
-                } else if (!data.tradepwdFlag) {
-                    base.showMsg("请先设置资金密码")
-                    setTimeout(function() {
-                        base.gohref("../user/setTradePwd.html?type=1")
-                    }, 1800)
-                } else if (!data.realName) {
-                    base.showMsg("请先进行身份验证")
-                    setTimeout(function() {
-                        base.gohref("../user/identity.html")
-                    }, 1800)
+            if (_formWrapper.valid()) {
+                if ($("#buyAmount").val() != '' && $("#buyAmount").val()) {
+                    $("#submitDialog").removeClass("hidden")
+                } else {
+                    base.showMsg("请输入您购买的金額")
                 }
-            }, base.hideLoadingSpin)
+            }
+            // UserCtr.getUser().then((data) => {
+            //     if (data.tradepwdFlag && data.realName) {
+            //         if (_formWrapper.valid()) {
+            //             if ($("#buyAmount").val() != '' && $("#buyAmount").val()) {
+            //                 $("#submitDialog").removeClass("hidden")
+            //             } else {
+            //                 base.showMsg("请输入您购买的金額")
+            //             }
+            //         }
+            //     } else if (!data.tradepwdFlag) {
+            //         base.showMsg("请先设置资金密码")
+            //         setTimeout(function() {
+            //             base.gohref("../user/setTradePwd.html?type=1")
+            //         }, 1800)
+            //     } else if (!data.realName) {
+            //         base.showMsg("请先进行身份验证")
+            //         setTimeout(function() {
+            //             base.gohref("../user/identity.html")
+            //         }, 1800)
+            //     }
+            // }, base.hideLoadingSpin)
         })
 
         //下单确认弹窗-放弃点击

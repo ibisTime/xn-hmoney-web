@@ -20,32 +20,37 @@
                     </div>
                     <div class="name fl">
                         <samp id="nickname"></samp>
-                        <i class="icon icon-chat hidden" id="chatBtn"></i>
+                        <span class="sp-yrz">已认证</span>
                         <samp class="am-button am-button-red am-button-small hidden" id="doDownBtn">下架</samp>
                     </div>
-                </div>
-                <div class="statistics mb20">
-                    <div class="item">
-                        <p id="jiaoYiCount"></p>
-                        <samp>交易次数</samp>
-                    </div>
-                    <div class="item">
-                        <p id="beiXinRenCount"></p>
-                        <samp>信任人数</samp>
-                    </div>
-                    <div class="item">
-                        <p id="beiHaoPingCount"></p>
-                        <samp>好评率</samp>
-                    </div>
-                    <div class="item">
-                        <p id="totalTradeCount"></p>
-                        <samp>历史成交</samp>
+                    <div class="statistics f1 mb20">
+                        <div class="item">
+                            <p id="jiaoYiCount"></p>
+                            <samp>交易次数</samp>
+                        </div>
+                        <div class="item">
+                            <p id="beiXinRenCount"></p>
+                            <samp>信任人数</samp>
+                        </div>
+                        <div class="item">
+                            <p id="beiHaoPingCount"></p>
+                            <samp>好评率</samp>
+                        </div>
+                        <div class="item">
+                            <p id="totalTradeCount"></p>
+                            <samp>历史成交</samp>
+                        </div>
+                        <div class="name fr det-lx">
+                            <i class="icon icon-chat hidden" id="chatBtn"></i>
+                            <span class="sp-lx">联系对方</span>
+                        </div>
                     </div>
                 </div>
             </div>
             <div class="price-wrap">
                 <div class="item">
                     <samp class="tit">报价:</samp><samp id="truePrice"></samp>
+                    <p class="fr" style="margin-right:110px;"><i class="icon jbicon"></i><span style="cursor: pointer;">举报这条广告</span></p>
                 </div>
                 <div class="item">
                     <samp class="tit">交易限额:</samp><samp id="limit"></samp><samp class="ml5">CNY</samp>
@@ -76,7 +81,7 @@
                         <input type="text" class="input-item" id="buyEth" name="buyEth" placeholder="请输入您购买的数量" />
                     </div>
                 </form>
-                <div class="am-button am-button-red" id="buyBtn" style="width: 50%;">立即购买</div>
+                <div class="am-button am-button-red" id="buyBtn" style="width: 200px;">立即购买</div>
             </div>
             <div class="tradeWarn-wrap">
                 <div class="titleWrap"><i class="icon icon-warn"></i><samp>交易提醒</samp></div>
@@ -115,7 +120,7 @@
                     </div>
                     <div class="am-modal-footer">
                         <div class="am-button am-button-red mr40 subBtn">确认购买</div>
-                        <div class="am-button am-button-gray closeBtn">放弃</div>
+                        <div class="am-button am-button-gray closeBtn">放弃购买</div>
                     </div>
                 </div>
             </div>

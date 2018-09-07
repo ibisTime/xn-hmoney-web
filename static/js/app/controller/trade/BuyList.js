@@ -129,14 +129,14 @@ define([
         var operationHtml = '';
 
         if (item.userId == base.getUserId()) {
-            operationHtml = `<div class="am-button am-button-ghost goHref" data-href="../trade/advertise.html?code=${item.code}&coin=${item.tradeCoin}">編輯</div>`;
+            operationHtml = `<div class="am-button am-button-ghost goHref" data-href="../trade/advertise.html?code=${item.code}&coin=${item.tradeCoin}">编辑</div>`;
         } else {
             operationHtml = `<div class="am-button am-button-ghost goHref" data-href="../trade/buy-detail.html?code=${item.code}">购买${item.tradeCoin}</div>`;
         }
 
         return `<tr>
-					<td class="nickname">
-						<div class="photoWrap fl goHref" data-href="../user/user-detail.html?coin=${item.tradeCoin}&userId=${item.userId}">
+					<td class="nickname" style="padding-left: 20px;">
+						<div class="photoWrap fl goHref" data-href="../user/user-detail.html?coin=${item.tradeCoin}&userId=${item.userId}" style="margin-right: 10px;">
 							${photoHtml}
 							<div class="dot ${loginStatus}"></div>
 						</div>

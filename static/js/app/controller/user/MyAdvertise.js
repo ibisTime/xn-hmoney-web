@@ -34,8 +34,9 @@ define([
             data.forEach(function(item) {
                 adsStatusValueList[item.dkey] = item.dvalue;
             });
-            getPageAdvertise();
+            //getPageAdvertise();  // 正式
         }, base.hideLoadingSpin);
+        getUserPageAdvertise(); // 测试
         addListener();
     }
 
@@ -82,8 +83,8 @@ define([
     }
 
     // 获取广告列表
-    function getPageAdvertise(refresh) {
-        return TradeCtr.getPageAdvertiseUser(config, refresh).then((data) => {
+    function getUserPageAdvertise(refresh) {
+        return TradeCtr.getUserPageAdvertiseUser(config, refresh).then((data) => {
             var lists = data.list;
             if (data.list.length) {
                 var html = "";

@@ -386,13 +386,13 @@ table {
             top: 3px;
         }
         .icon-order {
-            background-image: url('../images/页眉订单.png');
+            background-image: url('../images/订单.png');
         }
         .icon-wallet {
-            background-image: url('../images/用户中心购买广告.png');
+            background-image: url('../images/资产.png');
         }
         .icon-user {
-            background-image: url('../images/用户中心黑色.png');
+            background-image: url('../images/我的.png');
         }
         .head-triangle {
             width: 18px;
@@ -420,6 +420,38 @@ table {
             -moz-transition: opacity, width, height .4s;
             -webkit-transition: opacity, width, height .4s;
             line-height: 1;
+        }
+        .dd-hov {
+            position: absolute;
+            top: 20px;
+            height: 40px;
+            width: 100%;
+            &:hover {
+                .dd-ul {
+                    height: auto;
+                    opacity: 1;
+                }
+            }
+        }
+        .dd-ul {
+            position: absolute;
+            top: 58px;
+            left: -50px;
+            overflow: hidden;
+            opacity: 0;
+            padding: 10px 20px;
+            width: 160px;
+            height: 0%;
+            background-color: #fff;
+            border: 1px solid #eee;
+            box-shadow: 0 0 3px rgba(200, 200, 200, 0.6);
+            font-size: 16px;
+            >li {
+                line-height: 30px;
+                &:hover {
+                    color: #d53d3d;
+                }
+            }
         }
         // 用戶中心
         &.user {
@@ -570,6 +602,10 @@ table {
             &.wallet .down-wrap {
                 width: 410px;
                 height: 365px;
+            }
+            .dd-ul {
+                height: auto;
+                opacity: 1;
             }
         }
     }
@@ -726,10 +762,11 @@ table {
     box-sizing: border-box;
     background-color: #233661;
     position: relative;
-    z-index: 10000;
+    z-index: 990;
     display: flex;
     align-items: center;
     .foo-con-flex {
+        min-width: 1200px;
         display: flex;
         align-items: center;
     }
@@ -1766,18 +1803,27 @@ table {
                 color: $red-color;
                 font-size: 24px;
                 margin-right: 3px;
+                .y-amount {
+                    color: #000;
+                    font-size: 14px;
+                }
             }
         }
         .account {
             margin-top: 20px;
             samp {
                 display: inline-block;
-                font-size: 12px;
-                color: #999;
+                font-size: 14px;
+                color: #565656;
                 margin-right: 30px;
                 i {
                     font-style: normal;
                 }
+            }
+            .wall-ts {
+                font-size: 12px;
+                color: #999;
+                margin-top: 16px;
             }
         }
     }
@@ -1952,6 +1998,7 @@ table {
             width: 100%;
             overflow: hidden;
             border-bottom: 1px solid $border-color;
+            border-left: 1px solid $border-color;
             padding: 14px 30px;
             div {
                 float: left;
@@ -1959,7 +2006,7 @@ table {
                 line-height: 2;
                 word-break: break-word;
                 &:nth-of-type(1) {
-                    width: 240px;
+                    width: 200px;
                 }
                 &:nth-of-type(2) {
                     width: 140px;
@@ -1973,6 +2020,72 @@ table {
             }
             &.title {
                 background-color: #fafafa;
+            }
+        }
+        .tr-ul {
+            padding-left: 30px;
+            li {
+                position: relative;
+                .tr-mx {
+                    display: flex;
+                    li {
+                        line-height: 60px;
+                        font-size: 14px;
+                        color: #333;
+                        &:nth-of-type(1) {
+                            width: 200px;
+                        }
+                        &:nth-of-type(2) {
+                            width: 140px;
+                        }
+                        &:nth-of-type(3) {
+                            width: 220px;
+                        }
+                        &:nth-of-type(4) {
+                            width: 500px;
+                            display: flex;
+                            p {
+                                margin-right: 80px;
+                                span {
+                                    margin-right: 34px;
+                                    cursor: pointer;
+                                }
+                                .sel-sp {
+                                    color: #D53D3D;
+                                }
+                            }
+                        }
+                    }
+                }
+                .contant-mx {
+                    padding: 40px 0 50px;
+                    h3 {
+                        font-size: 18px;
+                        color: #262626;
+                        margin-bottom: 16px;
+                    }
+                    .warn {
+                        .icon-warn {
+                            width: 10px;
+                            height: 20px;
+                            background-size: 10px;
+                            background-image: url('../images/提示.png');
+                            background-position: 0 4px;
+                            margin-right: 8px;
+                        }
+                        p {
+                            display: inline-block;
+                            width: 1100px;
+                            font-size: 12px;
+                            color: #333;
+                            line-height: 1.6;
+                            i {
+                                font-style: normal;
+                                color: $red-color;
+                            }
+                        }
+                    }
+                }
             }
         }
     }
@@ -2693,21 +2806,13 @@ table {
                 }
             }
             .nickname {
-                width: 288px;
+                width: 340px;
                 overflow: hidden;
                 .name {
                     margin-left: 15px;
                     display: block;
                     color: #333;
                     font-size: 14px;
-                    span {
-                        padding: 2px 4px;
-                        font-size: 10px;
-                        border: 1px solid #ec5b5b;
-                        color: #ec5b5b;
-                        border-radius: 2px;
-                        margin-left: 2px;
-                    }
                 }
                 .n-dist {
                     margin-left: 48px;
@@ -2722,10 +2827,10 @@ table {
                 width: 300px;
             }
             .payType {
-                width: 150px;
+                width: 130px;
             }
             .limit {
-                width: 240px;
+                width: 200px;
                 color: #333;
             }
             .price {
@@ -2781,9 +2886,9 @@ table {
             }
         }
     }
-    .detail-container-wrap {
-        width: 760px;
-    }
+    // .detail-container-wrap {
+    //     width: 760px;
+    // }
 }
 
 .tradeDetail-container {
@@ -2924,6 +3029,7 @@ table {
 
 .statistics {
     overflow: hidden;
+    padding-left: 60px;
     .item {
         float: left;
         text-align: center;
@@ -3378,7 +3484,7 @@ table {
                     height: 20px;
                     margin-right: 12px;
                     position: relative;
-                    top: 6px;
+                    vertical-align: middle;
                 }
                 .icon-email {
                     background-size: 22px;
@@ -3432,6 +3538,17 @@ table {
             height: 30px;
             line-height: 30px !important;
             background-color: $red-color;
+            color: #fff;
+        }
+    }
+    .order-container .trade-list-wrap .trade-wrap .am-button-out {
+        border-color: #B3B3B3;
+        color: #999;
+        &:hover {
+            height: 30px;
+            line-height: 30px !important;
+            background-color: #B3B3B3;
+            border-color: #B3B3B3;
             color: #fff;
         }
     }
@@ -3769,14 +3886,6 @@ table {
         .jb-msg {
             color: #999;
             font-size: 14px;
-            .jbicon {
-                display: inline-block;
-                vertical-align: middle;
-                margin-right: 10px;
-                width: 18px;
-                height: 17px;
-                background-image: url('../images/注意灰色.png');
-            }
             .span {
                 vertical-align: middle;
             }
@@ -4292,6 +4401,15 @@ table {
     margin-left: 5px !important;
 }
 
+.sp-yrz {
+    padding: 2px 4px;
+    font-size: 10px;
+    border: 1px solid #ec5b5b;
+    color: #ec5b5b;
+    border-radius: 2px;
+    margin-left: 2px;
+}
+
 .head-lang {
     padding: 0px 16px;
     border: 1px solid #fff;
@@ -4307,4 +4425,24 @@ table {
         margin-bottom: 4px;
         margin-left: 4px;
     }
+}
+
+.det-lx {
+    padding-top: 10px;
+    margin-right: 110px;
+    .sp-lx {
+        margin-left: 6px;
+        color: #333;
+        font-size: 16px;
+        cursor: pointer;
+    }
+}
+
+.jbicon {
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 10px;
+    width: 18px;
+    height: 18px;
+    background-image: url('../images/注意灰色.png');
 }

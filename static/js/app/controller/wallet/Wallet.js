@@ -77,7 +77,7 @@ define([
     function init() {
         base.showLoadingSpin();
         $("#addWAddressMobile").val(base.getUserMobile());
-        $(".currency").text(currency);
+        //$(".currency").text(currency);  测试
         getCoinList();
 
         if (base.getGoogleAuthFlag() == "true" && base.getGoogleAuthFlag()) {

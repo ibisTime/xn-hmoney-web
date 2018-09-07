@@ -17,7 +17,8 @@ define([
         limit: 10,
         tradeType: 0,
         status: '1',
-        userId: userId
+        userId: userId,
+        coin: currency // 测试
     }
     var relationConfig = {
         toUser: userId
@@ -26,12 +27,12 @@ define([
 
     function init() {
         base.showLoadingSpin();
-
-        // 查询币种和付款方式
+        getUserRelation() // 测试
+            // 查询币种和付款方式
         $.when(
             GeneralCtr.getDictList({ "parentKey": "coin" }),
             GeneralCtr.getDictList({ "parentKey": "pay_type" }),
-            getUserRelation(),
+            getUserRelation(), // 正式
             getUserDetail()
         ).then((data1, data2) => {
             data1.forEach(function(item) {
@@ -49,12 +50,11 @@ define([
     // 查询用户的信任关系
     function getUserRelation() {
         return UserCtr.getUserRelation(currency, userId).then((data) => {
+            $('.k-userbtn .trust').attr('data-isTrust', data.isTrust);
+            $('.k-userbtn .trust').html($('.k-userbtn .trust').attr('data-isTrust') != '0' ? '已信任' : '信任');
 
-            $('.infoWrap .trust').attr('data-isTrust', data.isTrust);
-            $('.infoWrap .trust').html($('.infoWrap .trust').attr('data-isTrust') != '0' ? '已信任' : '信任');
-
-            $('.infoWrap .black').attr('data-isAddBlackList', data.isAddBlackList);
-            $('.infoWrap .black').html($('.infoWrap .black').attr('data-isAddBlackList') != '0' ? '已拉黑' : '屏蔽');
+            $('.k-userbtn .black').attr('data-isAddBlackList', data.isAddBlackList);
+            $('.k-userbtn .black').html($('.k-userbtn .black').attr('data-isAddBlackList') != '0' ? '已拉黑' : '屏蔽');
 
             var totalTradeCount = data.totalTradeCount == '0' ? '0' : base.formatMoney(data.totalTradeCount, '0', currency) + '+';
             $('.totalTradeCount').html(totalTradeCount + currency);
@@ -76,9 +76,13 @@ define([
             $('.userDetail-top .photoWrap').html(photoHtml);
             $('.userDetail-top .userName').html(data.nickname);
 
-            $('.jiaoYiCount').html(data.userStatistics.jiaoYiCount);
-            $('.beiXinRenCount').html(data.userStatistics.beiXinRenCount);
-            $('.beiHaoPingCount').html(base.getPercentum(data.userStatistics.beiHaoPingCount, data.userStatistics.beiPingJiaCount));
+            let jiaoYiCount = data.userStatistics ? data.userStatistics.jiaoYiCount : '-';
+            let beiXinRenCount = data.userStatistics ? data.userStatistics.beiXinRenCount : '-';
+            let beiHaoPingCount = data.userStatistics ? data.userStatistics.beiHaoPingCount : '-';
+            let beiPingJiaCount = data.userStatistics ? data.userStatistics.beiPingJiaCount : '-';
+            $('.jiaoYiCount').html(jiaoYiCount);
+            $('.beiXinRenCount').html(beiXinRenCount);
+            $('.beiHaoPingCount').html(base.getPercentum(beiHaoPingCount, beiPingJiaCount));
 
 
             // 邮箱验证，手机验证，身份验证
@@ -171,7 +175,7 @@ define([
         })
 
         // 信任按钮的点击事件
-        $('.infoWrap .trust').click(function() {
+        $('.k-userbtn .trust').click(function() {
                 relationConfig.type = '1';
                 var _this = $(this);
                 base.showLoadingSpin();
@@ -188,9 +192,9 @@ define([
                 } else {
                     UserCtr.addUserRelation(relationConfig, true).then((data) => {
                         _this.empty().append('已信任');
-                        if ($('.infoWrap .black').attr("data-isAddBlackList") == '1') {
-                            $('.infoWrap .black').empty().append('屏蔽');
-                            $('.infoWrap .black').attr("data-isAddBlackList", !_this.attr("data-isAddBlackList"))
+                        if ($('.k-userbtn .black').attr("data-isAddBlackList") == '1') {
+                            $('.k-userbtn .black').empty().append('屏蔽');
+                            $('.k-userbtn .black').attr("data-isAddBlackList", !_this.attr("data-isAddBlackList"))
                         }
 
                         _this.attr("data-isTrust", _this.attr("data-isTrust") == '1' ? '0' : '1');
@@ -201,7 +205,7 @@ define([
                 }
             })
             // 屏蔽按钮的点击事件
-        $('.infoWrap .black').click(function() {
+        $('.k-userbtn .black').click(function() {
             relationConfig.type = '0';
             var _this = $(this);
             base.showLoadingSpin();
@@ -216,9 +220,9 @@ define([
             } else {
                 UserCtr.addUserRelation(relationConfig, true).then((data) => {
                     _this.empty().append('已拉黑');
-                    if ($('.infoWrap .trust').attr("data-isTrust") == '1') {
-                        $('.infoWrap .trust').empty().append('信任');
-                        $('.infoWrap .trust').attr("data-isTrust", !_this.attr("data-isTrust"))
+                    if ($('.k-userbtn .trust').attr("data-isTrust") == '1') {
+                        $('.k-userbtn .trust').empty().append('信任');
+                        $('.k-userbtn .trust').attr("data-isTrust", !_this.attr("data-isTrust"))
                     }
 
                     _this.attr("data-isAddBlackList", _this.attr("data-isAddBlackList") == '1' ? '0' : '1');

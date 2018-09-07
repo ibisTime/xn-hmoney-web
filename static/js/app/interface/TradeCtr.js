@@ -17,6 +17,9 @@ define([
         getPageAdvertiseUser(config, refresh) {
             return Ajax.get("625227", config, refresh);
         },
+        getUserPageAdvertiseUser(config, refresh) {
+            return Ajax.get("625225", config, refresh);
+        },
         //用户昵称查询广告
         getListAdvertiseNickname(nickName, refresh) {
             return Ajax.get("625229", { nickName }, refresh);
@@ -26,8 +29,14 @@ define([
          * @param adsCode
          */
         submitAdvertise(config, refresh) {
+            if (config.publishType == '3') {
+                return Ajax.get("625221", {
+                    operator: base.getUserId(),
+                    ...config
+                }, true);
+            }
             return Ajax.get("625220", {
-                userId: base.getUserId(),
+                operator: base.getUserId(),
                 ...config
             }, true);
         },
@@ -48,12 +57,6 @@ define([
         getAdvertisePrice(coin) {
             return Ajax.get("625292", {
                 coin
-            });
-        },
-        // 获取广告详情
-        getAdvertiseDetail(adsCode) {
-            return Ajax.get("625226", {
-                adsCode
             });
         },
         /**

@@ -75,6 +75,6 @@ define([
             return Ajax.get("625000", {
                 userId: base.getUserId()
             });
-        },
+        }
     };
 })
