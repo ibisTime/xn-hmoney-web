@@ -6,28 +6,34 @@ define([
     'pagination',
 ], function(base, AccountCtr, GeneralCtr, TradeCtr, pagination) {
     var type = base.getUrlParam("type") || "sell"; // buy: 购买，sell:出售
-    var coin = base.getUrlParam("coin") || 'wait';
+    var coin = base.getUrlParam("coin") || 'BTC'; // wait
     var adsStatusValueList = {}; // 广告狀態
     var config = {
         start: 1,
         limit: 10,
         tradeType: 1,
-        statusList: [0],
+        statusList: [0, 1],
         userId: base.getUserId(),
         coin: coin.toUpperCase()
     }
+    var typeList = {
+        "buy": "购买",
+        "sell": "出售",
+    };
     init();
 
     function init() {
         $(".head-nav-wrap .sell").addClass("active");
-        $(".titleStatus li." + coin.toLowerCase()).addClass("on").siblings('li').removeClass('on');
+        $(".titleStatus li." + type.toLowerCase()).addClass("on").siblings('li').removeClass('on');
         base.showLoadingSpin();
         getCoinList();
+        type = type.toLowerCase()
         if (type == 'buy') {
-            $("#left-wrap .buy-nav-item ." + coin.toLowerCase()).addClass("on");
+            $("#left-wrap .buy-nav-item ." + type.toLowerCase()).addClass("on");
             config.tradeType = 0;
         } else if (type == 'sell') {
-            $("#left-wrap .sell-nav-item ." + coin.toLowerCase()).addClass("on")
+            $("#left-wrap .sell-nav-item ." + type.toLowerCase()).addClass("on");
+            config.tradeType = 1;
         }
 
         GeneralCtr.getDictList({ "parentKey": "ads_status" }).then((data) => {
@@ -76,7 +82,7 @@ define([
                 if (_this.getCurrent() != config.start) {
                     base.showLoadingSpin();
                     config.start = _this.getCurrent();
-                    getPageAdvertise(config);
+                    getUserPageAdvertise(config);
                 }
             }
         });
@@ -84,7 +90,7 @@ define([
 
     // 获取广告列表
     function getUserPageAdvertise(refresh) {
-        return TradeCtr.getUserPageAdvertiseUser(config, refresh).then((data) => {
+        return TradeCtr.getPageAdvertiseUser(config, refresh).then((data) => {
             var lists = data.list;
             if (data.list.length) {
                 var html = "";
@@ -109,8 +115,8 @@ define([
 
         //待发布
         if (config.statusList == null || config.statusList.length == 1) {
-            operationHtml = `<div class="am-button am-button-red publish mr20 goHref" data-href="../trade/advertise.html?code=${item.code}&coin=${item.tradeCoin}">发布</div>
-        					<div class="am-button publish goHref" data-href="../trade/advertise.html?code=${item.code}&coin=${item.tradeCoin}">查看</div>`
+            operationHtml = `<div class="am-button am-button-red publish mr20 goHref" data-href="../trade/advertise.html?code=${item.code}&coin=${item.tradeCoin}">编辑</div>
+        					<div class="am-button publish goHref am-button-ghost am-button-out" data-href="../trade/advertise.html?code=${item.code}&coin=${item.tradeCoin}">查看</div>`
 
             //已发布 
         } else {
@@ -119,21 +125,24 @@ define([
                 operationHtml = `<div class="am-button am-button-red mr20 doDownBtn" data-code="${item.code}">下架</div>`
             }
             if (type == 'buy') {
-                operationHtml += `<div class="am-button goHref" data-href="../trade/buy-detail.html?code=${item.code}&isD=1">查看详情</div>`
+                operationHtml += `<div class="am-button goHref am-button-ghost" data-href="../trade/buy-detail.html?code=${item.code}&isD=1">查看详情</div>`
             } else if (type == 'sell') {
-                operationHtml += `<div class="am-button goHref" data-href="../trade/sell-detail.html?code=${item.code}&isD=1">查看详情</div>`
+                operationHtml += `<div class="am-button goHref am-button-ghost" data-href="../trade/sell-detail.html?code=${item.code}&isD=1">查看详情</div>`
             }
         }
-
         return `<tr>
-				<td class="price">${Math.floor(item.truePrice*100)/100}</td>
-				<td class="price">${(item.premiumRate * 100).toFixed(2) + "%"}</td>
-				<td class="createDatetime">${base.formateDatetime(item.createDatetime)}</td>
-				<td class="status tc">${adsStatusValueList[item.status]}</td>
-				<td class="operation">
-					${operationHtml}
-				</td>
-			</tr>`
+        <td class="code">${item.code}</td>
+        <td class="type">${typeList[type.toLowerCase()]}${item.tradeCoin?item.tradeCoin:'ETH'}</td>
+        <td class="price">${item.truePrice.toFixed(2)}</td>
+        <td class="quantity ">${base.formatMoney(item.totalCountString, '', item.tradeCoin)}</td>
+        <td class="price">${(item.premiumRate * 100).toFixed(2) + '%'}</td>
+        <td class="createDatetime">${base.formatDate(item.createDatetime)}</td>
+        <td class="status tc">${item.status=="-1"?'交谈中,'+adsStatusValueList[item.status]:adsStatusValueList[item.status]}</td>
+        <td class="operation" style="padding-right: 0;">
+            ${operationHtml}
+        </td>
+    </tr>`;
+
 
     }
 

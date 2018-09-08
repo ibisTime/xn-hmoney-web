@@ -9,7 +9,7 @@ define([
 ], function(base, pagination, Validate, GeneralCtr, UserCtr, TradeCtr, TencentCloudLogin) {
     var coin = base.getUrlParam("coin") || 'progress';
     var statusList = {
-            "inProgress": ["-1", "0", "1", "5"],
+            "progress": ["-1", "0", "1", "5"],
             "end": ["2", "3", "4"]
         },
         typeList = {
@@ -20,7 +20,7 @@ define([
     var config = {
         start: 1,
         limit: 10,
-        // statusList: statusList["inProgress"]
+        statusList: statusList[coin.toLowerCase()]
     };
     var unreadMsgList = {},
         lists = [];
@@ -32,11 +32,11 @@ define([
         $(".head-nav-wrap .sell").addClass("active");
         $(".titleStatus li." + coin.toLowerCase()).addClass("on").siblings('li').removeClass('on');
         base.showLoadingSpin();
-        TencentCloudLogin.goLogin(function(list) {
-            unreadMsgList = list;
-            isUnreadList = true;
-            addUnreadMsgNum();
-        })
+        // TencentCloudLogin.goLogin(function(list) {
+        //     unreadMsgList = list;
+        //     isUnreadList = true;
+        //     addUnreadMsgNum();
+        // })  // 测试
         GeneralCtr.getDictList({ "parentKey": "trade_order_status" }).then((data) => {
             data.forEach(function(item) {
                     statusValueList[item.dkey] = item.dvalue
@@ -117,7 +117,7 @@ define([
 								<div class="am-button am-button-out ml5 cancelBtn" data-ocode="${item.code}">取消交易</div>`;
             } else if (item.status == "2") {
                 if (item.bsComment != "0" && item.bsComment != "2") {
-                    operationHtml = `<div class="am-button am-button-red commentBtn"  data-ocode="${item.code}">交易评价/div>`
+                    operationHtml = `<div class="am-button am-button-red commentBtn"  data-ocode="${item.code}">交易评价</div>`
                 }
             }
             //当前用户为卖家
@@ -147,11 +147,9 @@ define([
         //     var tmpl = user.nickname.substring(0, 1).toUpperCase();
         //     photoHtml = `<div class="photo"><div class="noPhoto">${tmpl}</div></div>`
         // }
-
         if (item.status != "-1") {
             quantity = base.formatMoney(item.countString, '', item.tradeCoin) + item.tradeCoin
         }
-
         return `<tr data-code="${item.code}">
 					<td class="nickname" style="border-left:1px solid #eee;">
                         <div 
@@ -200,10 +198,10 @@ define([
             var _this = $(this)
             _this.addClass("on").siblings('li').removeClass("on");
             base.gohrefReplace("../order/order-list.html?coin=" + $(this).attr("data-coin").toUpperCase() + "&mod=dd");
-            // config.statusList = statusList[_this.attr("data-status")];
+            config.statusList = statusList[_this.attr("data-status")];
             config.start = 1;
             base.showLoadingSpin();
-            getPageOrder(true)
+            getPageOrder(config);
         })
 
         //取消订单按钮 点击

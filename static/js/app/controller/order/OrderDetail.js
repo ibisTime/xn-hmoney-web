@@ -120,7 +120,7 @@ define([
             //待下单
             if (data.status == "-1") {
 
-                $("title").html("广告详情-倍可盈");
+                $("title").html("广告详情-HappyMoney");
                 $(".orderDetail-info .info-wrap").addClass("hidden");
                 if (tradeType == '0') {
 
@@ -133,7 +133,7 @@ define([
 
                 getAdvertiseDetail();
             } else {
-                $("title").html("订单详情-倍可盈")
+                $("title").html("订单详情-HappyMoney")
             }
 
             userName = user.nickname;
@@ -155,7 +155,7 @@ define([
             $("#nickname").html(user.nickname)
 
             if (!firstLoad) {
-                getTencunLogin();
+                //getTencunLogin();  // 测试
                 firstLoad = true;
             }
 
@@ -1006,8 +1006,8 @@ define([
                 base.showLoadingSpin()
                 TradeCtr.cancelOrder(code).then(() => {
                     base.hideLoadingSpin();
-
                     base.showMsg("操作成功");
+                    auSx();
                 }, base.hideLoadingSpin)
             }, base.emptyFun)
         })
@@ -1020,6 +1020,7 @@ define([
                     base.hideLoadingSpin();
 
                     base.showMsg("操作成功");
+                    auSx();
                 }, base.hideLoadingSpin)
             }, base.emptyFun)
         })
@@ -1027,7 +1028,8 @@ define([
         //申請仲裁按钮 点击
         $(".arbitrationBtn").on("click", function() {
 
-            $("#arbitrationDialog").removeClass("hidden")
+            $("#arbitrationDialog").removeClass("hidden");
+
 
         })
 
@@ -1057,6 +1059,7 @@ define([
                 base.hideLoadingSpin();
 
                 base.showMsg("操作成功");
+                auSx();
                 $("#arbitrationDialog").addClass("hidden");
                 $("#form-wrapper .textarea-item").val("")
             }, base.hideLoadingSpin)
@@ -1077,6 +1080,7 @@ define([
                     base.hideLoadingSpin();
 
                     base.showMsg("操作成功");
+                    auSx();
                 }, base.hideLoadingSpin)
             }, base.emptyFun)
         })
@@ -1093,6 +1097,7 @@ define([
             TradeCtr.commentOrder(code, comment).then(() => {
                 base.hideLoadingSpin();
                 base.showMsg("操作成功");
+                auSx();
                 $("#commentDialog").addClass("hidden");
                 $("#commentDialog .comment-Wrap .item").eq(0).addClass("on").siblings(".item").removeClass("on")
             }, base.hideLoadingSpin)
@@ -1107,5 +1112,10 @@ define([
         $(".goSellDetailBtn").on("click", function() {
             base.gohref("../trade/sell-detail.html?code=" + adsCode)
         })
+
+        // 自动刷新页面
+        function auSx() {
+            window.location.reload();
+        }
     }
 });

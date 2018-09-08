@@ -43,19 +43,19 @@ define([
         },
         // 查询数据字典列表
         getDictList(config, code) {
-            return Ajax.get(code || "660906", config);
+            return Ajax.get(code || "630036", config);
         },
         // 根据key查询系统参数
         getSysConfig(ckey, refresh) {
-            return Ajax.get("660917", { ckey }, refresh);
+            return Ajax.get("630047", { ckey }, refresh);
         },
         // 根据type查询系统参数
         getSysConfigType(type, refresh) {
-            return Ajax.get("660918", { type }, refresh);
+            return Ajax.get("630048", { type }, refresh);
         },
         // 分页查询系统参数
         getPageSysConfig(config, refresh) {
-            return Ajax.get("660915", {
+            return Ajax.get("630045", {
                 start: 1,
                 limit: 100,
                 orderColumn: 'id',

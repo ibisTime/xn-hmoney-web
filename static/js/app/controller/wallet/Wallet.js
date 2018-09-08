@@ -8,6 +8,7 @@ define([
     'app/interface/UserCtr'
 ], function(base, pagination, Validate, smsCaptcha, AccountCtr, GeneralCtr, UserCtr) {
     var isWithdraw = !!base.getUrlParam("isWithdraw"); //提币
+    var userAccountNum = base.getUrlParam('account'); // 获取用户编号
     var withdrawFee = 0; // 取现手续费
     var currency = base.getUrlParam("c") || 'BTC'; //币种
     currency = currency.toUpperCase() // 转换大写
@@ -107,10 +108,10 @@ define([
             withdrawFee = base.formatMoney(base.getCoinWithdrawFee(currency), '', currency);
 
             $("#withdrawFee").val(withdrawFee + currency)
-            getAccount();
+                //getAccount();// 测试
 
         }, getAccount)
-
+        getAccount();
         addListener();
 
         if (isWithdraw) {
@@ -143,27 +144,142 @@ define([
     //我的账户
     function getAccount() {
         return AccountCtr.getAccount().then((data) => {
+            // if (data.accountList) {
+            //     data.accountList.forEach(function(item) {
+            //         if (item.currency == currency) {
+            //             $(".wallet-account-wrap .amount").text(base.formatMoneySubtract(item.amountString, item.frozenAmountString, currency));
+            //             $(".wallet-account-wrap .frozenAmountString").text(base.formatMoney(item.frozenAmountString, '', currency));
+            //             $(".wallet-account-wrap .amountString").text(base.formatMoney(item.amountString, '', currency));
+            //             config.accountNumber = item.accountNumber;
+            //             accountNumber = item.accountNumber;
+            //             $("#myCoinAddress").text(item.coinAddress);
+            //             var qrcode = new QRCode('qrcode', item.coinAddress);
+            //             qrcode.makeCode(item.coinAddress);
+            //             $("#sendOut-form .amount").attr("placeholder", "发送数量，本次最多可发送" + base.formatMoneySubtract(item.amountString, item.frozenAmountString, currency) + currency)
+            //             sendOutWrapperRules["amount"] = {
+            //                 max: base.formatMoneySubtract(item.amountString, item.frozenAmountString, currency)
+            //             }
+            //         }
 
-            data.accountList.forEach(function(item) {
-                if (item.currency == currency) {
-                    $(".wallet-account-wrap .amount").text(base.formatMoneySubtract(item.amountString, item.frozenAmountString, currency));
-                    $(".wallet-account-wrap .frozenAmountString").text(base.formatMoney(item.frozenAmountString, '', currency));
-                    $(".wallet-account-wrap .amountString").text(base.formatMoney(item.amountString, '', currency));
-                    config.accountNumber = item.accountNumber;
-                    accountNumber = item.accountNumber;
-                    $("#myCoinAddress").text(item.coinAddress);
-                    var qrcode = new QRCode('qrcode', item.coinAddress);
-                    qrcode.makeCode(item.coinAddress);
-                    $("#sendOut-form .amount").attr("placeholder", "发送数量，本次最多可发送" + base.formatMoneySubtract(item.amountString, item.frozenAmountString, currency) + currency)
-                    sendOutWrapperRules["amount"] = {
-                        max: base.formatMoneySubtract(item.amountString, item.frozenAmountString, currency)
-                    }
-                }
 
-            })
-            getPageFlow(config);
+            //     })
+            // }
+            config.accountNumber = userAccountNum;
+            let ulElement = '';
+            data.forEach(item => {
+                ulElement += buildHtml(item);
+            });
+            $('.tr-ul').html(ulElement)
+            if (userAccountNum) {
+                getPageFlow(config);
+            }
             base.hideLoadingSpin();
         }, base.hideLoadingSpin)
+    }
+
+    function buildHtml(item) {
+        let kyAmount = base.formatMoney(`${item.amount - item.frozenAmount}`, '', item.currency);
+        let frozenAmount = base.formatMoney(`${item.frozenAmount}`, '', item.currency);
+        return `<li>
+        <ul class="tr-mx">
+            <li>${item.currency}</li>
+            <li>${kyAmount}</li>
+            <li>${frozenAmount}</li>
+            <li>
+                <p class="cz-btns">
+                    <span>充币</span>
+                    <span>提币</span>
+                </p>
+                <p class="jy-btns">
+                    <span class="goHref"  data-href="./wallet-mx.html?account=${item.accountNumber}">交易明细</span>
+                    <span class="goHref" data-href="../trade/buy-list.html?type=sell&mod=gm">去交易</span>
+                </p>
+            </li>
+        </ul>
+        <div class="con-box none">
+            <div class="contant-mx">
+                <h3>充币</h3>
+                <div class="address-Wrap receive-wrap ">
+                    <div class="address">接收地址：<samp id="myCoinAddress"></samp>
+                        <div class="icon icon-qrcode">
+                            <div id="qrcode" class="qrcode"></div>
+                        </div>
+                    </div>
+                    <div class="warn over-hide">
+                        <i class="icon icon-warn fl"></i>
+                        <p class="fl">
+                            温馨提示：<i><span class="currency"></span> 钱包地址禁止充值除 <span class="currency"></span> 之外的其他资产，任何 <span class="currency"></span> 资产充值将不可找回。</i>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="contant-ts">
+                <h5>温馨提示</h5>
+                <ul class="ts-ul">
+                    <li> BCH 地址只能充值 BCH 资产，任何充入 BCH 地址的非 BCH 资产将不可找回。</li>
+                    <li> 使用BCH地址充值需要 2 个网络确认才能到账。</li>
+                    <li> 最低存入金额为 0.0025 BCH，我们不会处理少于该金额的 BCH 存入请求。</li>
+                    <li> 在平台内相互转账是实时到账且免费的。</li>
+                </ul>
+            </div>
+        </div>
+        <div class="con-tb none">
+            <div class="sendOut-form-wrap">
+                <h4>提币</h4>
+                <form class="form-wrapper form-wrapper-38 wp100" id="sendOut-form">
+                    <div class="form-item-wrap">
+                        <p class="label">提现地址</p>
+                        <div class="form-item mr20 k_b">
+                            <input type="text" class="input-item payCardNo" name="payCardNo" placeholder="请输入提现地址" />
+                        </div>
+                    </div>
+                    <div class="form-item-wrap">
+                        <samp class="label">提现数量</samp>
+                        <div class="form-item k_b">
+                            <input type="text" class="input-item amount" name="amount" placeholder="请输入提现地址" />
+                        </div>
+                    </div>
+                    <div class="form-item-wrap" id="withdrawFee-wrap">
+                        <samp class="label">手续费</samp>
+                        <div class="form-item k_b">
+                            <input type="text" class="input-item withdrawFee" id="withdrawFee" value="0" disabled="disabled" />
+                        </div>
+                    </div>
+                    <div class="form-item-wrap tradePwdWrap">
+                        <samp class="label">支付密码</samp>
+                        <div class="form-item k_b mr20">
+                            <input type="password" class="input-item" name="tradePwd" placeholder="请输入支付密码" />
+                        </div>
+                        <div class="findPwd fl goHref" data-href="../user/setTradePwd.html?type=1&isWallet=1">忘记密码</div>
+                    </div>
+                    <div class="form-item-wrap hidden googleAuthFlag">
+                        <samp class="label">谷歌验证码</samp>
+                        <div class="form-item k_b mr20">
+                            <input type="password" class="input-item" name="googleCaptcha" placeholder="请输入谷歌验证码" />
+                        </div>
+                    </div>
+                    <div class="form-item-wrap">
+                        <samp class="label">备注</samp>
+                        <div class="form-item k_b">
+                            <input type="text" class="input-item" name="applyNote" placeholder="请输入提现备注" />
+                        </div>
+                    </div>
+                    <div class="form-btn-item">
+                        <div class="am-button am-button-red subBtn">确定提现</div>
+                    </div>
+                </form>
+            </div>
+            <div class="contant-ts" style="padding-top: 30px;">
+                <h5>温馨提示</h5>
+                <ul class="ts-ul">
+                    <li> BCH 地址只能充值 BCH 资产，任何充入 BCH 地址的非 BCH 资产将不可找回。</li>
+                    <li> 使用BCH地址充值需要 2 个网络确认才能到账。</li>
+                    <li> 最低存入金额为 0.0025 BCH，我们不会处理少于该金额的 BCH 存入请求。</li>
+                    <li> 在平台内相互转账是实时到账且免费的。</li>
+                </ul>
+            </div>
+        </div>
+    </li>`
     }
 
     // 初始化交易记录分页器
@@ -380,7 +496,7 @@ define([
             base.showLoadingSpin();
             config.bizType = bizTypeList[index];
             config.start = 1;
-            if (index == '8') {
+            if (index == '9') {
                 config.kind = '1';
             } else {
                 delete config.kind;
@@ -485,6 +601,29 @@ define([
             }
             $("#sendOut-form .payCardNo").val(address);
             $("#wAddressDialog").addClass("hidden")
+        })
+
+        // 充币、提币操作
+        $('.tr-ul').click(function(e) {
+            let target = e.target;
+            if ($(target).text() == '充币') {
+                if ($(target).attr('class') == 'sel-sp') {
+                    $(target).parents('.tr-mx').siblings('.con-box').addClass('none');
+                    $(target).removeClass('sel-sp');
+                } else {
+                    $(target).addClass('sel-sp').siblings().removeClass('sel-sp');
+                    $(target).parents('.tr-mx').siblings('.con-box').removeClass('none').siblings('.con-tb').addClass('none');
+                }
+            }
+            if ($(target).text() == '提币') {
+                if ($(target).attr('class') == 'sel-sp') {
+                    $(target).parents('.tr-mx').siblings('.con-tb').addClass('none');
+                    $(target).removeClass('sel-sp');
+                } else {
+                    $(target).addClass('sel-sp').siblings().removeClass('sel-sp');
+                    $(target).parents('.tr-mx').siblings('.con-tb').removeClass('none').siblings('.con-box').addClass('none');
+                }
+            }
         })
 
         // 发送-确定

@@ -619,7 +619,7 @@ table {
     position: relative;
     top: 0;
     left: 0;
-    z-index: 10002;
+    z-index: 990;
     height: 81px;
     padding: 16px 0;
     background-color: #233661 !important;
@@ -1928,23 +1928,40 @@ table {
         }
     }
     .sendOut-form-wrap {
+        width: 50%;
         padding-top: 36px;
         padding-bottom: 10px;
+        h4 {
+            font-size: 18px;
+            color: #262626;
+            margin-bottom: 16px;
+            font-weight: 400;
+        }
         .form-wrapper {
             .form-item-wrap {
                 overflow: hidden;
-                padding-left: 120px;
+                padding-left: 0px;
                 .label {
-                    width: 100px;
+                    display: block;
+                    width: 100%;
+                    text-align: left;
+                    position: relative;
+                    color: #666;
                 }
             }
             .form-item {
-                width: 360px;
+                width: 384px;
                 float: left;
             }
             .form-btn-item {
                 margin-top: 20px;
                 padding-left: 120px;
+                margin-bottom: 26px;
+                letter-spacing: 1.5px;
+            }
+            .k_b {
+                border: 1px solid #b3b3b3;
+                margin-bottom: 16px;
             }
         }
         .findPwd {
@@ -1967,6 +1984,10 @@ table {
             line-height: 46px;
             font-size: 16px;
             padding-left: 40px;
+            padding-top: 48px;
+            padding-bottom: 37px;
+            font-size: 18px;
+            color: #1e1e1e;
             background-color: #fafafa;
         }
         .tradeRecord-top {
@@ -1978,7 +1999,7 @@ table {
                 padding: 0 20px;
                 li {
                     float: left;
-                    line-height: 74px;
+                    line-height: 65px;
                     color: #666;
                     font-size: 14px;
                     margin: 0 20px;
@@ -2023,11 +2044,15 @@ table {
             }
         }
         .tr-ul {
-            padding-left: 30px;
             li {
                 position: relative;
+                >div {
+                    padding-left: 30px;
+                }
                 .tr-mx {
+                    padding-left: 30px;
                     display: flex;
+                    border-bottom: 1px solid #eee;
                     li {
                         line-height: 60px;
                         font-size: 14px;
@@ -2049,6 +2074,7 @@ table {
                                 span {
                                     margin-right: 34px;
                                     cursor: pointer;
+                                    user-select: none;
                                 }
                                 .sel-sp {
                                     color: #D53D3D;
@@ -2057,32 +2083,69 @@ table {
                         }
                     }
                 }
-                .contant-mx {
-                    padding: 40px 0 50px;
-                    h3 {
-                        font-size: 18px;
-                        color: #262626;
-                        margin-bottom: 16px;
+                .con-box {
+                    display: flex;
+                    transition: all .2s;
+                    >div {
+                        width: 50%;
+                        padding: 40px 0 50px;
                     }
-                    .warn {
-                        .icon-warn {
-                            width: 10px;
-                            height: 20px;
-                            background-size: 10px;
-                            background-image: url('../images/提示.png');
-                            background-position: 0 4px;
-                            margin-right: 8px;
+                    .contant-mx {
+                        box-sizing: border-box;
+                        h3 {
+                            font-size: 18px;
+                            color: #262626;
+                            margin-bottom: 16px;
+                            font-weight: 400;
                         }
-                        p {
-                            display: inline-block;
-                            width: 1100px;
-                            font-size: 12px;
-                            color: #333;
-                            line-height: 1.6;
-                            i {
-                                font-style: normal;
-                                color: $red-color;
+                        .warn {
+                            .icon-warn {
+                                width: 10px;
+                                height: 20px;
+                                background-size: 10px;
+                                background-image: url('../images/提示.png');
+                                background-position: 0 4px;
+                                margin-right: 8px;
                             }
+                            p {
+                                display: inline-block;
+                                width: 1100px;
+                                font-size: 12px;
+                                color: #333;
+                                line-height: 1.6;
+                                i {
+                                    font-style: normal;
+                                    color: $red-color;
+                                }
+                            }
+                        }
+                    }
+                    .contant-ts {
+                        h5 {
+                            font-size: 14px;
+                            color: #646464;
+                            margin-bottom: 5px;
+                        }
+                        li {
+                            list-style: disc;
+                            line-height: 25px;
+                        }
+                    }
+                }
+                .con-tb {
+                    display: flex;
+                    >div {
+                        width: 50%;
+                    }
+                    .contant-ts {
+                        h5 {
+                            font-size: 14px;
+                            color: #646464;
+                            margin-bottom: 5px;
+                        }
+                        li {
+                            list-style: disc;
+                            line-height: 25px;
                         }
                     }
                 }
@@ -2612,6 +2675,7 @@ table {
                 position: absolute;
                 top: 58px;
                 left: 0;
+                z-index: 9;
                 li {
                     width: 100%;
                     line-height: 50px;
@@ -3774,12 +3838,6 @@ table {
             top: 3px;
             margin-right: 10px;
         }
-        .btn-wrap {
-            margin-top: 14px;
-            .am-button {
-                width: 90px;
-            }
-        }
     }
     .orderDetail-middle {
         width: 65%;
@@ -3863,8 +3921,8 @@ table {
         }
         .jy-btns {
             margin-top: 44px;
-            margin-bottom: 30px;
-            button {
+            display: flex;
+            >div {
                 height: 36px;
                 line-height: 36px;
                 text-align: center;
@@ -3884,6 +3942,7 @@ table {
             }
         }
         .jb-msg {
+            margin-top: 30px;
             color: #999;
             font-size: 14px;
             .span {
@@ -4445,4 +4504,11 @@ table {
     width: 18px;
     height: 18px;
     background-image: url('../images/注意灰色.png');
+}
+
+.btn-wrap {
+    margin-top: 14px;
+    .am-button {
+        width: 90px;
+    }
 }

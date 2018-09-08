@@ -15,10 +15,11 @@ define([
          * @param config: {start, limit, maxPrice, minPrice,payType,tradeType(0买、1卖),userId,status,coin}
          */
         getPageAdvertiseUser(config, refresh) {
-            return Ajax.get("625227", config, refresh);
+            config.coin = '';
+            return Ajax.get("625225", config, refresh);
         },
         getUserPageAdvertiseUser(config, refresh) {
-            return Ajax.get("625225", config, refresh);
+            return Ajax.get("625228", config, refresh);
         },
         //用户昵称查询广告
         getListAdvertiseNickname(nickName, refresh) {

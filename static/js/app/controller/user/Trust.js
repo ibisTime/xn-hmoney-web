@@ -20,19 +20,19 @@ define([
         base.showLoadingSpin();
         //你屏蔽的人
         if (type == '2') {
-            $("title").text("信任您的人-倍可盈")
+            $("title").text("信任您的人-HappyMoney")
             $("#left-wrap .trustYou").addClass("on");
             config.type = type
             getPageTrust(config);
             //你信任的人
         } else if (type == '1') {
-            $("title").text("您信任的人-倍可盈")
+            $("title").text("您信任的人-HappyMoney")
             $("#left-wrap .youTrust").addClass("on")
             config.type = type
             getPageTrust(config);
             //信任你的人
         } else if (type == '0') {
-            $("title").text("您屏蔽的人-倍可盈")
+            $("title").text("您屏蔽的人-HappyMoney")
             $("#left-wrap .youDefriend").addClass("on")
             config.type = type
             getPageTrust(config);

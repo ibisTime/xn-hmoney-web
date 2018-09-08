@@ -192,7 +192,6 @@ define([
         //金额金额放大 默认 放大 r || 8位 
         formatMoneyParse: function(m, r, coin) {
             var unit = coin ? Base.getCoinUnit(coin) : "1e18";
-
             var r = r || new BigDecimal.BigDecimal(unit);
             if (m == '') {
                 return '-';

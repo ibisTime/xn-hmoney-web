@@ -41,12 +41,12 @@ define([
         if (!isDetail) {
             $(".buy-wrap").removeClass("hidden")
         }
-        $.when(
-            GeneralCtr.getSysConfig("trade_remind")
+        /* $.when(
+            // GeneralCtr.getSysConfig("trade_remind")  // 测试
         ).then((data) => {
             $("#tradeWarn").html(data.cvalue.replace(/\n/g, '<br>'))
-                // getAdvertiseDetail()   // 正式
-        }, base.hideLoadingSpin)
+            // getAdvertiseDetail()   // 正式
+        }, base.hideLoadingSpin) */
         getAdvertiseDetail() // 测试
         addListener();
 
@@ -108,9 +108,18 @@ define([
     //我的账户
     function getAccount(currency) {
         return AccountCtr.getAccount().then((data) => {
-            data.accountList.forEach(function(item) {
+            if (data.accountList) {
+                // data.accountList.forEach(function(item) {
+                //     debugger
+                //     if (item.currency == currency) {
+                //         $(".accountLeftCountString").attr('data-amount', base.formatMoneySubtract(item.amountString, item.frozenAmountString, currency));
+                //     }
+                // })
+            }
+
+            data.forEach(function(item) {
                 if (item.currency == currency) {
-                    $(".accountLeftCountString").attr('data-amount', base.formatMoneySubtract(item.amountString, item.frozenAmountString, currency));
+                    $(".accountLeftCountString").attr('data-amount', base.formatMoneySubtract(`${item.amount}`, `${item.frozenAmount}`, currency));
                 }
             })
 
@@ -215,13 +224,11 @@ define([
             sellETH()
             $("#submitDialog").addClass("hidden")
         })
-
         $("#buyEth").keyup(function() {
             $("#buyAmount").val(($("#buyEth").val() * config.tradePrice).toFixed(2));
             $("#submitDialog .tradeAmount").html($("#buyAmount").val() + "CNY")
             $("#submitDialog .count").html($("#buyEth").val() + tradeCoin)
             config.tradeAmount = $("#buyAmount").val()
-
             config.count = base.formatMoneyParse($("#buyEth").val(), '', tradeCoin)
         })
         $("#buyAmount").keyup(function() {

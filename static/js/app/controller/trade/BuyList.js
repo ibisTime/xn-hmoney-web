@@ -31,12 +31,15 @@ define([
     //根据config配置设置 币种列表
     function getCoinList() {
         var coinList = base.getCoinList();
-        var coinListKey = Object.keys(coinList);
+        var coinListKey = Object.values(coinList);
         var listHtml = '';
-        coinListKey.length = 2;
-        for (var i = 0; i < coinListKey.length; i++) {
-            var tmpl = coinList[coinListKey[i]]
-            listHtml += `<li class="${tmpl.coin.toLowerCase()}" data-coin="${tmpl.coin}">${coinListKey[i]}</li>`;
+        // coinListKey.length = 2;
+        coinListKey = coinListKey.filter(item => {
+            return item.id > 1;
+        });
+        for (var i = coinListKey.length - 1; i > -1; i--) {
+            var tmpl = coinListKey[i]
+            listHtml += `<li class="${tmpl.coin.toLowerCase()}" data-coin="${tmpl.coin}">${tmpl.coin}</li>`;
         }
         $("#coin-top ul").html(listHtml);
     }

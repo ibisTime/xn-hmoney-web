@@ -34,7 +34,7 @@ define([
         checkInfo: function() {
             return $("#" + this.mobile).valid();
         },
-        sendCode: '630090' // 805040 805950
+        // sendCode: '630090' // 805040 805950
     };
     initSms.prototype.handleSendVerifiy = function() {
         var _this = this
@@ -49,7 +49,7 @@ define([
                 });
                 _this.timer = window.setInterval(() => {
                     if (i > 0 && verification.attr("disabled")) {
-                        verification.text("重新發送(" + i-- + "s)");
+                        verification.text("重新发送(" + i-- + "s)");
                     } else {
                         verification.text("获取验证码").prop("disabled", false);
                         $('#getVerification').css({

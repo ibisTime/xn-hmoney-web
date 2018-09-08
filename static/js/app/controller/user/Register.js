@@ -20,7 +20,8 @@ define([
     function init() {
         $(".head-button-wrap .button-login").removeClass("hidden");
         base.showLoadingSpin();
-        getSysConfig();
+        // getSysConfig();   // 测试
+        base.hideLoadingSpin(); // 测试
         addListener();
 
     }

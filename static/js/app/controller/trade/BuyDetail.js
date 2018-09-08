@@ -38,12 +38,12 @@ define([
         if (!isDetail) {
             $(".buy-wrap").removeClass("hidden");
         }
-        $.when(
-            GeneralCtr.getSysConfig("trade_remind")
-        ).then((data) => {
-            $("#tradeWarn").html(data.cvalue.replace(/\n/g, '<br>'))
-                // getAdvertiseDetail() // 正式
-        }, base.hideLoadingSpin)
+        // $.when(
+        //     // GeneralCtr.getSysConfig("trade_remind")  // 测试
+        // ).then((data) => {
+        //     $("#tradeWarn").html(data.cvalue.replace(/\n/g, '<br>'))
+        //         // getAdvertiseDetail() // 正式
+        // }, base.hideLoadingSpin)
         getAdvertiseDetail() // 测试
         addListener();
 
@@ -107,12 +107,14 @@ define([
     //我的账户
     function getAccount(currency) {
         return AccountCtr.getAccount().then((data) => {
-            data.accountList.forEach(function(item) {
-                if (item.currency == currency) {
-                    $(".accountLeftCountString").attr('data-amount', base.formatMoneySubtract(item.amountString, item.frozenAmountString, currency));
-                }
-            })
+            if (data.accountList) {
+                data.accountList.forEach(function(item) {
+                    if (item.currency == currency) {
+                        $(".accountLeftCountString").attr('data-amount', base.formatMoneySubtract(item.amountString, item.frozenAmountString, currency));
+                    }
+                })
 
+            }
             $(".accountLeftCountString").text($(".accountLeftCountString").attr('data-amount'))
         }, base.hideLoadingSpin)
     }

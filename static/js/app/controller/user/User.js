@@ -39,9 +39,11 @@ define([
             $("#nickname").text(data.nickname)
             $("#createDatetime").html(base.formateDatetime(data.createDatetime))
             $("#mobile").html(base.hideMobile(data.mobile))
-            $("#beiXinRenCount").text(data.userStatistics.beiXinRenCount)
-            $("#jiaoYiCount").text(data.userStatistics.jiaoYiCount)
-            $("#beiHaoPingCount").text(data.userStatistics.beiHaoPingCount)
+            if (data.userStatistics) {
+                $("#beiXinRenCount").text(data.userStatistics.beiXinRenCount)
+                $("#jiaoYiCount").text(data.userStatistics.jiaoYiCount)
+                $("#beiHaoPingCount").text(data.userStatistics.beiHaoPingCount)
+            }
 
             if (data.email) {
                 $("#email").text(data.email)

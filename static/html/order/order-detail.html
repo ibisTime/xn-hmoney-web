@@ -3,7 +3,7 @@
 
 <head>
     <link rel="import" href="../head.html?__inline">
-    <title>訂單詳情-倍可盈</title>
+    <title>訂單詳情-HappyMoney</title>
     <!--SCRIPT_PLACEHOLDER-->
     <link rel="import" href="../top/top-zendesk.html?__inline">
 </head>
@@ -30,16 +30,6 @@
 
             <samp class="info-wrap1 hidden">报价: <i id="truePrice"></i> </samp>
             <samp class="info-wrap1 hidden">交易限额: <i id="limit"></i> CNY</samp>
-
-            <div class="btn-wrap fr">
-                <div class="am-button am-button-red am-button-small ml20 fl payBtn hidden">标记付款</div>
-                <div class="am-button am-button-gray am-button-small ml20 fl cancelBtn hidden">取消交易</div>
-                <div class="am-button am-button-red am-button-small ml20 fl commentBtn hidden">交易评价</div>
-                <div class="am-button am-button-red am-button-small ml20 fl releaseBtn hidden">释放货币</div>
-                <div class="am-button am-button-ghost am-button-small ml20 fl arbitrationBtn hidden">申请仲裁</div>
-                <div class="am-button am-button-ghost am-button-small ml20 fl goBuyDetailBtn hidden">购买</div>
-                <div class="am-button am-button-ghost am-button-small ml20 fl goSellDetailBtn hidden">出售</div>
-            </div>
         </div>
 
         <div class="k-orderDet-mid">
@@ -101,9 +91,19 @@
                     <p><samp id="payType">银行卡</samp></p>
                     <p><samp class="mr40">广告留言</samp></p>
                     <p><samp id="leaveMessage">2328532</samp></p>
-                    <div class="jy-btns">
+                    <!-- <div class="jy-btns">
                         <button class="yj-ok">标记为已付款</button>
                         <button class="yj-rm">取消订单</button>
+                    </div> -->
+
+                    <div class="btn-wrap jy-btns">
+                        <div class="am-button-red ml20 payBtn hidden">标记付款</div>
+                        <div class="am-button-gray ml20 cancelBtn hidden">取消交易</div>
+                        <div class="am-button-red ml20 commentBtn hidden">交易评价</div>
+                        <div class="am-button-red ml20 releaseBtn hidden">释放货币</div>
+                        <div class="am-button-ghost ml20 arbitrationBtn hidden">申请仲裁</div>
+                        <div class="am-button-ghost ml20 goBuyDetailBtn hidden">购买</div>
+                        <div class="am-button-ghost ml20 goSellDetailBtn hidden">出售</div>
                     </div>
                     <div class="jb-msg"><i class="icon jbicon"></i><span style="cursor: pointer;">举报这条广告</span></div>
                 </div>
@@ -265,7 +265,7 @@
         <!--申請仲裁弹窗-->
         <div class="am-modal-wrap dialog submit-dialog arbitration-dialog hidden" id="arbitrationDialog">
             <div class="am-modal-mask"></div>
-            <div class="am-modal">
+            <div class="am-modal" style="width: 500px;">
                 <div class="am-modal-content">
                     <div class="am-modal-header">
                         <p class="iconWrap"><i class="icon icon-order"></i></p>
