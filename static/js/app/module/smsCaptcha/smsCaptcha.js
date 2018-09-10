@@ -34,7 +34,7 @@ define([
         checkInfo: function() {
             return $("#" + this.mobile).valid();
         },
-        // sendCode: '630090' // 805040 805950
+        sendCode: '630090' // 805040 805950
     };
     initSms.prototype.handleSendVerifiy = function() {
         var _this = this

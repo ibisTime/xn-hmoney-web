@@ -176,6 +176,16 @@ define([
             }
         })
 
+        $("#head .trade .goHref").off("click").click(function() {
+            if (!base.isLogin()) {
+                base.goLogin();
+                return false;
+            } else {
+                var thishref = $(this).attr("data-href");
+                base.gohref(thishref)
+            }
+        })
+
         $("#head-user-wrap .isTradePwdFlag").click(function() {
             var _this = $(this);
 
@@ -183,12 +193,12 @@ define([
                 if (data.tradepwdFlag && data.realName) {
                     base.gohref(_this.attr("data-href"))
                 } else if (!data.tradepwdFlag) {
-                    base.showMsg("請先設置資金密碼")
+                    base.showMsg("请先设置资金密码")
                     setTimeout(function() {
                         base.gohref("../user/setTradePwd.html?type=1")
                     }, 1800)
                 } else if (!data.realName) {
-                    base.showMsg("請先进行身份验证")
+                    base.showMsg("请先进行身份验证")
                     setTimeout(function() {
                         base.gohref("../user/identity.html")
                     }, 1800)

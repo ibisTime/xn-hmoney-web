@@ -23,7 +23,11 @@ define([
         base.showLoadingSpin();
         getCoinList();
         $(".head-nav-wrap .sell").addClass("active");
-        $("#coin-top ul li." + coin.toLowerCase()).addClass("on");
+        if (coin) {
+            $("#coin-top ul li." + coin.toLowerCase()).addClass("on");
+        } else {
+            $("#coin-top ul li:nth-of-type(1)").addClass("on");
+        }
         getPageAdvertise();
         addListener();
     }

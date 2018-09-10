@@ -332,7 +332,7 @@ define([
         return `<div class="list-item">
 					<div>${base.formateDatetime(item.createDatetime)}</div>
 					<div>${bizTypeValueList[item.bizType]}</div>
-					<div>${base.formatMoney(item.transAmountString,'',currency)}</div>
+					<div>${base.formatMoney(item.transAmountString,'',item.currency)}</div>
 					<div>${item.bizNote}</div>
 				</div>`
     }

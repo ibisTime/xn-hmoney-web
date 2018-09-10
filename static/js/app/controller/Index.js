@@ -5,7 +5,7 @@ define([
     'app/interface/GeneralCtr'
 ], function(base, Handlebars, Swiper, GeneralCtr) {
 
-    init();
+    //init();
 
     // 初始化页面
     function init() {

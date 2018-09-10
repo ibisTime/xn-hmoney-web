@@ -8,20 +8,20 @@ define([
     'app/interface/BaseCtr'
 ], function($, CookieUtil, dialog, loading, Ajax, BigDecimal, BaseCtr) {
 
-    if (/AppleWebKit.*Mobile/i.test(navigator.userAgent)  ||  (/MIDP|SymbianOS|NOKIA|SAMSUNG|LG|NEC|TCL|Alcatel|BIRD|DBTEL|Dopod|PHILIPS|HAIER|LENOVO|MOT-|Nokia|SonyEricsson|SIE-|Amoi|ZTE/.test(navigator.userAgent))) {
-        if (window.location.href.indexOf("?mobile") < 0) {
-            try {
-                if (/Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent)) {
-                    window.location.href = INVITATION_HREF + '/share/share-upload.html'
-                } else 
-                if (/iPad/i.test(navigator.userAgent)) {
-                    window.location.href = INVITATION_HREF + '/share/share-upload.html'
-                } else {
-                    window.location.href = INVITATION_HREF + '/share/share-upload.html'
-                }
-            } catch (e) {}
-        }
-    }
+    // if (/AppleWebKit.*Mobile/i.test(navigator.userAgent)  ||  (/MIDP|SymbianOS|NOKIA|SAMSUNG|LG|NEC|TCL|Alcatel|BIRD|DBTEL|Dopod|PHILIPS|HAIER|LENOVO|MOT-|Nokia|SonyEricsson|SIE-|Amoi|ZTE/.test(navigator.userAgent))) {
+    //     if (window.location.href.indexOf("?mobile") < 0) {
+    //         try {
+    //             if (/Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent)) {
+    //                 window.location.href = INVITATION_HREF + '/share/share-upload.html'
+    //             } else 
+    //             if (/iPad/i.test(navigator.userAgent)) {
+    //                 window.location.href = INVITATION_HREF + '/share/share-upload.html'
+    //             } else {
+    //                 window.location.href = INVITATION_HREF + '/share/share-upload.html'
+    //             }
+    //         } catch (e) {}
+    //     }
+    // }
 
     if (Number.prototype.toFixed) {
         var ori_toFixed = Number.prototype.toFixed;
@@ -34,15 +34,17 @@ define([
         }
     }
 
-    $("body").on("click", ".goHref", function() {
-        var thishref = $(this).attr("data-href");
-        if (thishref != "" && thishref) {
-            if (Base.isLogin()) {
-                Base.updateLoginTime();
+    setTimeout(() => {
+        $("body").on("click", ".goHref", function() {
+            var thishref = $(this).attr("data-href");
+            if (thishref != "" && thishref) {
+                if (Base.isLogin()) {
+                    //Base.updateLoginTime();
+                }
+                Base.gohref(thishref)
             }
-            Base.gohref(thishref)
-        }
-    })
+        })
+    }, 1);
 
     //给form表单赋值
     $.fn.setForm = function(jsonValue) {
@@ -511,7 +513,7 @@ define([
         },
         //更新登录时间
         updateLoginTime: function() {
-            BaseCtr.updateLoginTime();
+            //BaseCtr.updateLoginTime();
         },
         //获取币种列表
         getCoinList: function() {

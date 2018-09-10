@@ -1,6 +1,6 @@
 var SYSTEM_CODE = "CD-HPMN000024"; // CD-HPMN000024 CD-COIN000017  wlqsltz@163.com
 var COMPANY_CODE = "CD-HPMN000024";
-var PIC_PREFIX = 'http://ozfszueqz.bkt.clouddn.com/';
+var PIC_PREFIX = 'http://ozfszueqz.bkt.clouddn.com/'; // http://ozfszueqz.bkt.clouddn.com/ http://ounm8iw2d.bkt.clouddn.com/
 var PHOTO_SUFFIX = '?imageMogr2/auto-orient/thumbnail/!150x150r';
 var THUMBNAIL_SUFFIX = "";
 // web 域名
