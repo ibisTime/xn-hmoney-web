@@ -1990,20 +1990,21 @@ table {
     }
     .tradeRecord-wrap {
         .tradeRecord-wrap-title {
+            margin-top: 30px;
+            margin-bottom: 20px;
             width: 100%;
             line-height: 46px;
-            font-size: 16px;
-            padding-left: 40px;
-            padding-top: 48px;
-            padding-bottom: 37px;
+            font-size: 18px;
+            padding-left: 30px;
             font-size: 18px;
             color: #1e1e1e;
-            background-color: #fafafa;
+            background-color: #fff;
         }
         .tradeRecord-top {
             width: 100%;
             ul {
                 width: 100%;
+                position: relative;
                 overflow: hidden;
                 background-color: #fff;
                 padding: 0 20px;
@@ -2018,6 +2019,18 @@ table {
                         cursor: pointer;
                         color: $red-color;
                     }
+                }
+                span {
+                    position: absolute;
+                    top: 0%;
+                    font-size: 16px;
+                    color: #333;
+                }
+                .tr-l {
+                    left: 10px;
+                }
+                .tr-r {
+                    right: 10px;
                 }
             }
         }
@@ -2208,9 +2221,10 @@ table {
     position: absolute;
     color: #D53D3D;
     top: 0;
-    right: 20px;
+    right: -88px;
     height: 100%;
     cursor: pointer;
+    outline: none;
     background-color: #fff;
 }
 
@@ -4531,11 +4545,14 @@ table {
     background-color: #F7F7F7;
     display: flex;
     justify-content: space-between;
-    padding-bottom: 80px;
-    margin-bottom: 20px;
     padding-left: 90px;
+    font-family: 'PingFangSC-Regular';
     .bb-conLift {
         width: 360px;
+        height: 0;
+        >div {
+            background-color: #fff;
+        }
         .fm-box {
             height: 90px;
             background-image: linear-gradient(-270deg, #000000 0%, #FFFFFF 0%, #FAE9D7 100%);
@@ -4563,9 +4580,9 @@ table {
         }
         .bazaar-box {
             padding: 20px 20px 10px 30px;
-            box-shadow: 0px 4px 10px 0px #ccc;
+            box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.05);
             >h5 {
-                font-family: PingFangSC-Regular;
+                font-family: 'PingFangSC-Regular';
                 font-size: 14px;
                 color: #333333;
                 letter-spacing: 0.12px;
@@ -4706,10 +4723,27 @@ table {
                 padding-left: 29px;
                 height: 48px;
                 line-height: 48px;
-                box-shadow: 0 2px 16px 0 rgba(0, 0, 0, 0.05);
+                box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.05);
                 font-size: 16px;
                 color: #333;
                 font-weight: 400;
+            }
+            .affic-list {
+                li {
+                    font-size: 12px;
+                    font-family: 'PingFangSC-Regular';
+                    >h5 {
+                        margin: 16px 0px 14px 19px;
+                        color: #333;
+                        font-weight: 400;
+                    }
+                    >p {
+                        padding-right: 27px;
+                        padding-bottom: 16px;
+                        color: #999;
+                        text-align: right;
+                    }
+                }
             }
         }
     }
@@ -4727,16 +4761,22 @@ table {
             .bb-jiaoyi {
                 width: 68%;
                 margin-top: 34px;
-                padding: 0 22px 42px 32px;
+                padding: 12px 12px 42px 32px;
+                margin-right: 10px;
+                background-color: #fff;
                 >h5 {
                     font-weight: 400;
-                    padding-bottom: 12px;
+                    padding-bottom: 14px;
                     span {
-                        padding-bottom: 12px;
+                        padding-bottom: 14px;
                         border-bottom: 2px solid transparent;
                         margin-right: 40px;
                         font-size: 16px;
                         color: #333;
+                        cursor: pointer;
+                        &:hover {
+                            color: #d53d3d;
+                        }
                     }
                     .bb-fv {
                         color: #d53d3d;
@@ -4800,7 +4840,6 @@ table {
                         .br-sp {
                             margin-top: 25px;
                             position: relative;
-                            background-color: #f3f3f3;
                             height: 2px;
                             margin-bottom: 18px;
                             span {
@@ -4812,12 +4851,29 @@ table {
                                 width: 10px;
                                 height: 10px;
                                 border-radius: 100%;
+                                cursor: pointer;
+                                background-color: #f3f3f3;
+                            }
+                            .br-2 {
+                                left: 25%;
+                            }
+                            .br-3 {
+                                left: 50%;
+                            }
+                            .br-4 {
+                                left: 75%;
+                            }
+                            .br-5 {
+                                left: 100%;
+                            }
+                            .sel-span {
                                 background-color: #d53d3d;
+                                box-shadow: 0 0 2px 0 rgba(236, 91, 91, 0.60);
                             }
                         }
                         .jy-btc1 {
                             color: #333;
-                            margin-bottom: 26px;
+                            margin-bottom: 30px;
                             b {
                                 font-weight: 400;
                             }
@@ -4841,13 +4897,21 @@ table {
                 margin-top: 34px;
                 width: 32%;
                 padding: 0 10px;
+                background-color: #fff;
                 box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.05);
                 >h5 {
                     height: 48px;
                     line-height: 48px;
-                    color: #333;
+                    color: #999;
                     margin-bottom: 12px;
                     font-weight: 400;
+                    >span:nth-of-type(1) {
+                        color: #333;
+                    }
+                    b {
+                        color: #333;
+                        font-weight: 400;
+                    }
                 }
                 .new-p {
                     color: #999;
@@ -4868,8 +4932,9 @@ table {
                     padding: 15px 0;
                     >li {
                         display: flex;
-                        height: 36px;
-                        line-height: 36px;
+                        height: 30px;
+                        line-height: 30px;
+                        position: relative;
                         p {
                             text-align: center;
                             width: 28%;
@@ -4887,9 +4952,283 @@ table {
                 }
             }
         }
+        .con-r-depth {
+            display: flex;
+            .depth-box {
+                width: 620px;
+                background-color: #fff;
+                box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.05);
+                .depth-c {
+                    .depth {
+                        height: 520px;
+                        padding: 8px 7px 35px;
+                    }
+                }
+            }
+            .depth-r {
+                margin-left: 10px;
+                width: calc(100% - 630px);
+                font-size: 12px;
+                table {
+                    background-color: #fff;
+                    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.05);
+                    width: 100%;
+                    font-family: 'PingFangSC-Medium';
+                    padding: 20px 30px 0px;
+                    padding-bottom: 10px;
+                    thead {
+                        th {
+                            font-weight: 400;
+                            color: #999;
+                            padding-bottom: 8px;
+                        }
+                    }
+                    tbody {
+                        tr {
+                            height: 32px;
+                            line-height: 32px;
+                            color: #333;
+                            text-align: center;
+                            .d-mc {
+                                color: #D53D3D;
+                            }
+                            .d-mr {
+                                color: #0EC55B;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        .con-h {
+            height: 48px;
+            line-height: 48px;
+            padding-left: 11px;
+            font-weight: 400;
+            background-color: #fff;
+            i {
+                margin-right: 3px;
+                width: 10px;
+                height: 5px;
+                display: inline-block;
+                vertical-align: middle;
+            }
+            .down-i {
+                background-image: url('../images/下拉黑.png');
+            }
+            .r-i {
+                font-size: 18px;
+                color: #888;
+                font-weight: 500;
+            }
+            span {
+                cursor: pointer;
+                color: #333;
+                font-size: 16px;
+                user-select: none;
+            }
+        }
+        .con-r-bzz {
+            background-color: #fff;
+            margin-top: 10px;
+            margin-bottom: 20px;
+            >p {
+                margin-top: -36px;
+                color: #D53D3D;
+                font-size: 14px;
+                margin-right: 20px;
+            }
+            .bzz-con {
+                padding: 20px 30px 60px;
+                display: flex;
+                box-sizing: border-box;
+                >div {
+                    width: 50%;
+                }
+                .bzz-con_l {
+                    .txt-h {
+                        font-size: 24px;
+                        font-weight: 500;
+                        color: #333;
+                        height: 36px;
+                        line-height: 36px;
+                        margin-bottom: 8px;
+                    }
+                    .txt-p {
+                        font-size: 14px;
+                        color: #151515;
+                        margin-bottom: 23px;
+                    }
+                    .bzz-box {
+                        >p {
+                            line-height: 36px;
+                            color: #151515;
+                            letter-spacing: 0.08px;
+                        }
+                        .tit-p {
+                            color: #999;
+                        }
+                    }
+                }
+                .bzz-con_r {
+                    padding-left: 42px;
+                    margin-top: 18px;
+                    li {
+                        line-height: 48px;
+                        height: 48px;
+                        span {
+                            color: #999;
+                            font-size: 14px;
+                            width: 150px;
+                            display: inline-block;
+                        }
+                        .bzz-txt {
+                            color: #333;
+                        }
+                        .bzz-bps,
+                        .bzz-gw,
+                        .bzz-qk {
+                            color: #d53d3d;
+                        }
+                    }
+                }
+            }
+        }
     }
 }
 
+// 当前委托与历史委托
+.con-r-current,
+.con-r-history {
+    margin-top: 15px;
+    background-color: #fff;
+    font-family: 'PingFangSC-Regular';
+    >p {
+        margin-top: -36px;
+        font-size: 12px;
+        padding-bottom: 13px;
+        cursor: pointer;
+        padding-right: 30px;
+        span {
+            margin-left: 36px;
+            padding-bottom: 13px;
+            border-bottom: 2px solid transparent;
+            &:hover {
+                color: #d53d3d;
+            }
+        }
+        .sel-sp {
+            color: #d53d3d;
+            border-color: #d53d3d;
+        }
+    }
+    table {
+        width: 100%;
+        thead {
+            background-color: #f7f7f7;
+            width: 100%;
+            th {
+                font-weight: 400;
+                color: #333;
+                font-size: 12px;
+                height: 40px;
+                line-height: 40px;
+            }
+        }
+        tbody {
+            >tr {
+                border-bottom: 1px solid #eee;
+                td {
+                    height: 42px;
+                    line-height: 42px;
+                    font-size: 12px;
+                    color: #333;
+                    text-align: center;
+                }
+                .no-cur {
+                    text-align: center;
+                    height: 105px;
+                    line-height: 105px;
+                }
+            }
+        }
+    }
+    .tab-foo {
+        text-align: right;
+        padding-right: 31px;
+        height: 48px;
+        line-height: 48px;
+        border-top: 1px solid #eee;
+        margin-bottom: 10px;
+        span {
+            cursor: pointer;
+            color: #d53d3d;
+        }
+    }
+}
+
+// 币币订单交易
+.bbOrder-wrap {
+    padding: 0 20px;
+    background-color: #fff;
+    width: 100%;
+    >p {
+        height: 48px;
+        line-height: 48px;
+        padding-left: 15px;
+        border-bottom: 1px solid #eee;
+        span {
+            padding-bottom: 12px;
+            color: #666;
+            font-size: 16px;
+            margin-right: 30px;
+            cursor: pointer;
+            &:hover {
+                color: #d53d3d;
+            }
+        }
+        .sel-sp {
+            color: #d53d3d;
+            border-bottom: 2px solid #d53d3d;
+        }
+    }
+    table {
+        width: 100%;
+        text-align: center;
+        tr {
+            height: 48px;
+            line-height: 48px;
+            td,
+            th {
+                font-weight: 400;
+                border-bottom: 1px solid #eee;
+            }
+            button {
+                border: 1px solid #999999;
+                border-radius: 4px;
+                padding: 2px 12px;
+                color: #999;
+                background-color: #fff;
+            }
+            .no-cz {
+                cursor: not-allowed;
+            }
+            .y-cz {
+                border-color: #D53D3D;
+                color: #d53d3d;
+                cursor: pointer;
+            }
+            .or-mr {
+                color: #0BBC2F;
+            }
+            .or-mc {
+                color: #d53d3d;
+            }
+        }
+    }
+}
+
+// 历史委托
 .head-triangle {
     width: 18px;
     height: 11px;

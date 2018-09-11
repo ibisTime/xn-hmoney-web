@@ -11,7 +11,7 @@ define([
     function init() {
         base.showLoadingSpin();
         $.when(
-            //getBanner(),  // 测试
+            //getBanner(), // 测试
             getDownloadUrl()
         )
         $(".head-nav-wrap .index").addClass("active")

@@ -154,7 +154,7 @@ define([
                 setTimeout(function() {
                         base.gohref("../order/order-list.html")
                     }, 2000)
-                    //base.hideLoadingSpin();  
+                    // base.hideLoadingSpin();
             }) //, base.hideLoadingSpin
 
     }

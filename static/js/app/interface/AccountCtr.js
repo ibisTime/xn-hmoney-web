@@ -14,7 +14,6 @@ define([
          * @param config: {start, limit, accountNumber, bizType,kind}
          */
         getPageFlow(config, refresh) {
-            console.log(config)
             return Ajax.get("802322", { // 802320 802524
                 ...config
             }, refresh);

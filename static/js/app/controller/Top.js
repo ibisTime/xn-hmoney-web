@@ -44,7 +44,7 @@ define([
                 } else {
                     $("#head-button-wrap").removeClass("hidden");
                     $.when(
-                        // getBanner()
+                        //getBanner()
                     )
                 }
 
