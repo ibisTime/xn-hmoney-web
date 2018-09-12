@@ -176,12 +176,21 @@ define([
             }
         })
 
+        $("#head .head-nav-wrap .store").off("click").click(function() {
+            var thishref = $(this).attr("data-href");
+            base.gohref(thishref)
+        })
+
         $("#head .trade .goHref").off("click").click(function() {
+            var thishref = $(this).attr("data-href");
+            if($(this).text() == '币币交易'){
+                base.gohref(thishref);
+                return false;
+            }
             if (!base.isLogin()) {
                 base.goLogin();
                 return false;
             } else {
-                var thishref = $(this).attr("data-href");
                 base.gohref(thishref)
             }
         })

@@ -12,21 +12,21 @@ define([
         base.showLoadingSpin();
         $.when(
             //getBanner(), // 测试
-            getDownloadUrl()
+            //getDownloadUrl()
         )
         $(".head-nav-wrap .index").addClass("active")
 
         addListener();
     }
 
-    //安卓下载
-    function getDownloadUrl() {
-        return GeneralCtr.getSysConfigType("android-c").then((data) => {
-            $("#androidDown").click(() => {
-                window.location.href = data.downloadUrl
-            })
-        }, base.hideLoadingSpin)
-    }
+    // //安卓下载
+    // function getDownloadUrl() {
+    //     return GeneralCtr.getSysConfigType("android-c").then((data) => {
+    //         $("#androidDown").click(() => {
+    //             window.location.href = data.downloadUrl
+    //         })
+    //     }, base.hideLoadingSpin)
+    // }
 
     // 初始化swiper
     function initSwiperBanner() {

@@ -38,12 +38,12 @@ define([
         //     addUnreadMsgNum();
         // })  // 测试
         GeneralCtr.getDictList({ "parentKey": "trade_order_status" }).then((data) => {
-            data.forEach(function(item) {
+                data.forEach(function(item) {
                     statusValueList[item.dkey] = item.dvalue
                 })
-                // getPageOrder(); old
-        }, base.hideLoadingSpin)
-        getPageOrder(); // new
+                getPageOrder();
+            }, base.hideLoadingSpin)
+            // getPageOrder(); // new
         addListener();
     }
     // 初始化分页器

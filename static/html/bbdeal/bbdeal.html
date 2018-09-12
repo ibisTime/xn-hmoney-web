@@ -3,7 +3,7 @@
 
 <head>
     <link rel="import" href="../head.html?__inline">
-    <title>购买-HappyMoney</title>
+    <title>币币交易-HappyMoney</title>
     <!--SCRIPT_PLACEHOLDER-->
     <link rel="import" href="../top/top-zendesk.html?__inline">
 </head>
@@ -25,11 +25,17 @@
                 </div>
             </div>
             <div class="bazaar-box">
-                <h5>净资产折合:<img class="icon icon-baz" src="" /></h5>
-                <p class="baz-p">
-                    <span class="baz-all">0.00000000</span>
-                    <span class="baz-mon"><b>BTC</b><i>≈</i> 0.00USD</span>
-                </p>
+                <div class="user-baz">
+                    <h5>净资产折合:<img class="icon icon-baz" src="" /></h5>
+                    <p class="baz-p">
+                        <span class="baz-all">0.00000000</span>
+                        <span class="baz-mon"><b>BTC</b><i>≈</i> 0.00USD</span>
+                    </p>
+                </div>
+                <div class="tologin none">
+                    <a href="../user/login.html">登录</a> 或
+                    <a href="../user/register.html">注册</a> 开始交易
+                </div>
                 <div class="baz-search">
                     <h5>市场</h5>
                     <div class="search-box">
@@ -39,41 +45,24 @@
                     </div>
                 </div>
                 <div class="baz-list">
-                    <h5>
-                        <span class="sel-sp">USDT</span>
-                        <span class="list-h5_sp">BTC</span>
-                        <span class="fr"><img src="../../images/自选.png" alt=""> 自选</span>
+                    <h5 class="baz-ul-h1">
+                        <span class="sel-sp"></span>
+                        <span class="list-h5_sp"></span>
+                        <!-- <span class="fr"><img src="../../images/自选.png" alt=""> 自选</span> -->
                     </h5>
                     <p class="baz-list_p">
                         <span>币种 <img src="../../images/上下.png" alt=""></span>
                         <span>最新价 <img src="../../images/上下.png" alt=""></span>
                         <span>涨幅 <img src="../../images/上下.png" alt=""></span>
                     </p>
+                    <h5 class="baz-ul-h2">
+                        主区
+                        <span class="fr">分区介绍</span>
+                    </h5>
                     <ul class="baz-ul">
-                        <h5>
-                            主区
-                            <span class="fr">分区介绍</span>
-                        </h5>
-                        <li>
-                            <p class="li-left">
-                                <img src="../../images/自选.png" alt="">
-                                <img src="../../images/星星空.png" alt="" class="none">
-                                <span>BCH</span>
-                            </p>
-                            <p class="li-con">0.086690</p>
-                            <p class="li-right d-baz"><span>-</span>2.53%</p>
-                        </li>
-                        <li>
-                            <p class="li-left">
-                                <img src="../../images/自选.png" alt="" class="none">
-                                <img src="../../images/星星空.png" alt="">
-                                <span>BCH</span>
-                            </p>
-                            <p class="li-con">0.086690</p>
-                            <p class="li-right d-baz"><span>-</span>2.53%</p>
-                        </li>
 
-                        <ul class="baz-ul_cx">
+
+                        <!-- <ul class="baz-ul_cx">
                             <h5>
                                 创新区
                                 <span class="fr">分区介绍</span>
@@ -87,7 +76,7 @@
                                 <p class="li-con">0.086690</p>
                                 <p class="li-right d-baz"><span>-</span>2.53%</p>
                             </li>
-                        </ul>
+                        </ul> -->
                     </ul>
                 </div>
             </div>
@@ -114,7 +103,22 @@
             </div>
         </div>
         <div class="bb-conRight">
-            <div class="con-r-k"></div>
+            <div class="con-r-k">
+                <div class="con-r-top">
+                    <div class="con-t-l">
+                        <!-- ≈ 34.93 CNY    涨幅 -4.33%    高    低 0.00078000     24H量 16516269 EOS -->
+                        <h5>
+                            <span class="t-jyd">X/BTC</span>
+                            <span class="t-jym"> 0.00078648</span>
+                        </h5>
+                        <p>
+                            ≈ <span class="t-rmb">34.93 CNY </span> 涨幅 <span class="t-zf">-4.33%</span> 高 <span class="t-g">0.00082672 </span> 低 <span class="t-d">0.00078000</span> 24H量 <span class="t-h">16516269</span>
+                            <span class="t-b">X</span>
+                        </p>
+                    </div>
+                    <div class="con-t-r"></div>
+                </div>
+            </div>
             <div class="con-r-j">
                 <div class="bb-jiaoyi">
                     <h5>
@@ -124,20 +128,28 @@
                     </h5>
                     <div class="bb-jy-con">
                         <div class="jy-con-left">
-                            <h5>可用 <span>0.00000000</span> USDT <span class="fr jy-cb">充币</span></h5>
-                            <p>买入量</p>
-                            <div class="yj-m">
-                                <input type="text">
-                                <span>USDT</span>
+                            <div class="user-jy">
+                                <h5>可用 <span class="baz-all"></span> <span class="toSdw"></span> <span class="fr jy-cb">充币</span></h5>
                             </div>
-                            <div class="yj-btc"><span>≈</span><span class="yj-usd">6296.89</span>USD</div>
+
+                            <div class="tologin none">
+                                <a href="../user/login.html">登录</a> 或
+                                <a href="../user/register.html">注册</a> 开始交易
+                            </div>
+                            <p>买入价</p>
+                            <div class="yj-m">
+                                <input type="text" id="ym-price">
+                                <span></span>
+                            </div>
+                            <div class="yj-btc"><span>≈</span><span class="yj-usd">0.0000</span>USD</div>
                             <p>买入量</p>
-                            <div class="btc-put">
-                                <input type="text">
-                                <span>BTC</span>
+                            <div class="btc-put btc-toSm">
+                                <input type="text" id="buyNum">
+                                <span></span>
                             </div>
                             <div class="br-sp j-sp">
-                                <span class="br-1 sel-span"></span>
+                                <span class="sel-span"></span>
+                                <span class="br-1"></span>
                                 <span class="br-2"></span>
                                 <span class="br-3"></span>
                                 <span class="br-4"></span>
@@ -153,28 +165,37 @@
                             <div class="am-button am-button-g am-btn">买入BTC</div>
                         </div>
                         <div class="jy-con-right">
-                            <h5 class="jy-r-h">可用 <span>0.00000000</span> USDT <span class="fr jy-cb">充币</span></h5>
-                            <p>卖出量</p>
-                            <div class="yj-m">
-                                <input type="text">
-                                <span>USDT</span>
+                            <div class="user-jy">
+                                <h5 class="jy-r-h">可用 <span>0.000</span> <span>USDT</span> <span class="fr jy-cb">充币</span></h5>
+
                             </div>
-                            <div class="yj-btc"><span>≈</span><span class="yj-usd">6296.89</span>USD</div>
+
+                            <div class="tologin none">
+                                <a href="../user/login.html">登录</a> 或
+                                <a href="../user/register.html">注册</a> 开始交易
+                            </div>
+                            <p>卖出价</p>
+                            <div class="yj-m jy-r">
+                                <input type="text" id="yr-price">
+                                <span></span>
+                            </div>
+                            <div class="yj-btc"><span>≈</span><span class="yj-usd">0.000</span>USD</div>
                             <p>卖出量</p>
                             <div class="btc-put">
-                                <input type="text">
-                                <span>BTC</span>
+                                <input type="text" id="sellNum">
+                                <span></span>
                             </div>
                             <div class="br-sp y-sp">
-                                <span class="br-1 sel-span"></span>
+                                <span class="sel-span"></span>
+                                <span class="br-1"></span>
                                 <span class="br-2"></span>
                                 <span class="br-3"></span>
                                 <span class="br-4"></span>
                                 <span class="br-5"></span>
                             </div>
                             <div class="jy-btc1">
-                                <span>0</span> BTC
-                                <span class="fr">0.00000 <b>BTC</b></span>
+                                <span>0</span> <span>USDT</span>
+                                <span class="fr">0.00000 <b>USDT</b></span>
                             </div>
                             <div class="jy-money">
                                 交易额 <span>0.00000000</span>BTC
@@ -192,92 +213,22 @@
                         <span>累计(EOS)</span>
                     </p>
                     <ul class="s-new_ul">
-                        <li>
-                            <p class="s-p">卖<span>7</span></p>
-                            <p>0.0080876</p>
-                            <p>50.00</p>
-                            <p>617.98</p>
-                        </li>
-                        <li>
-                            <p class="s-p">卖<span>6</span></p>
-                            <p>0.0080876</p>
-                            <p>50.00</p>
-                            <p>617.98</p>
-                        </li>
-                        <li>
-                            <p class="s-p">卖<span>5</span></p>
-                            <p>0.0080876</p>
-                            <p>50.00</p>
-                            <p>617.98</p>
-                        </li>
-                        <li>
-                            <p class="s-p">卖<span>4</span></p>
-                            <p>0.0080876</p>
-                            <p>50.00</p>
-                            <p>617.98</p>
-                        </li>
-                        <li>
-                            <p class="s-p">卖<span>3</span></p>
-                            <p>0.0080876</p>
-                            <p>50.00</p>
-                            <p>617.98</p>
-                        </li>
-                        <li>
-                            <p class="s-p">卖<span>2</span></p>
-                            <p>0.0080876</p>
-                            <p>50.00</p>
-                            <p>617.98</p>
-                        </li>
-                        <li>
+
+                        <!-- <li>
                             <p class="s-p">卖<span>1</span></p>
                             <p>0.0080876</p>
                             <p>50.00</p>
                             <p>617.98</p>
-                        </li>
+                        </li> -->
                     </ul>
                     <ul class="b-new_ul">
-                        <li>
+                        <!-- <li>
                             <p class="b-p">买<span>1</span></p>
                             <p>0.0080876</p>
                             <p>50.00</p>
                             <p>617.98</p>
-                        </li>
-                        <li>
-                            <p class="b-p">买<span>2</span></p>
-                            <p>0.0080876</p>
-                            <p>50.00</p>
-                            <p>617.98</p>
-                        </li>
-                        <li>
-                            <p class="b-p">买<span>3</span></p>
-                            <p>0.0080876</p>
-                            <p>50.00</p>
-                            <p>617.98</p>
-                        </li>
-                        <li>
-                            <p class="b-p">买<span>4</span></p>
-                            <p>0.0080876</p>
-                            <p>50.00</p>
-                            <p>617.98</p>
-                        </li>
-                        <li>
-                            <p class="b-p">买<span>5</span></p>
-                            <p>0.0080876</p>
-                            <p>50.00</p>
-                            <p>617.98</p>
-                        </li>
-                        <li>
-                            <p class="b-p">买<span>6</span></p>
-                            <p>0.0080876</p>
-                            <p>50.00</p>
-                            <p>617.98</p>
-                        </li>
-                        <li>
-                            <p class="b-p">买<span>7</span></p>
-                            <p>0.0080876</p>
-                            <p>50.00</p>
-                            <p>617.98</p>
-                        </li>
+                        </li> -->
+
                     </ul>
                 </div>
             </div>
@@ -287,7 +238,7 @@
                     <b class="r-i none">></b>
                     <span>当前委托</span>
                 </h5>
-                <p class="fr"><span>买入</span><span>卖出</span><span class="sel-sp">全部</span></p>
+                <p class="fr cur-p"><span>买入</span><span>卖出</span><span class="sel-sp">全部</span></p>
                 <div class="cur-table">
                     <table>
                         <thead>
@@ -297,7 +248,7 @@
                                 <th class="cur-fx">方向</th>
                                 <th class="cur-jg">价格(USDT)</th>
                                 <th class="cur-num">数量(BTC)</th>
-                                <th class="cur-wt">委托总量(USDT)</th>
+                                <th class="cur-wt">委托总额(USDT)</th>
                                 <th class="cur-ycj">已成交</th>
                                 <th class="cur-cjj">未成交</th>
                                 <th class="cur-cz">操作</th>
@@ -305,48 +256,12 @@
                         </thead>
                         <tbody>
                             <tr>
-                                <td colspan="2">2018-03-13 12:00</td>
-                                <td>USDT/BTC</td>
-                                <td>USDT/BTC</td>
-                                <td>13.6865</td>
-                                <td>12.6789</td>
-                                <td>10</td>
-                                <td>1</td>
-                                <td>9</td>
-                                <td>
-                                    <button>操作</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td colspan="2">2018-03-13 12:00</td>
-                                <td>USDT/BTC</td>
-                                <td>USDT/BTC</td>
-                                <td>13.6865</td>
-                                <td>12.6789</td>
-                                <td>10</td>
-                                <td>1</td>
-                                <td>9</td>
-                                <td>
-                                    <button>操作</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td colspan="2">2018-03-13 12:00</td>
-                                <td>USDT/BTC</td>
-                                <td>USDT/BTC</td>
-                                <td>13.6865</td>
-                                <td>12.6789</td>
-                                <td>10</td>
-                                <td>1</td>
-                                <td>9</td>
-                                <td>
-                                    <button>操作</button>
-                                </td>
-                            </tr>
-                            <tr>
                                 <td colspan="9" class="no-cur none">暂无记录</td>
                             </tr>
                         </tbody>
+                        <!-- <div id="pagination" class="wp100 pagination-wrap dialog-pagination-wrap tc">
+                            <p class="pagination"></p>
+                        </div> -->
                     </table>
                 </div>
             </div>
@@ -356,7 +271,7 @@
                     <b class="r-i none">></b>
                     <span>历史委托</span>
                 </h5>
-                <p class="fr"><span>买入</span><span>卖出</span><span class="sel-sp">全部</span></p>
+                <p class="fr his-p"><span>买入</span><span>卖出</span><span class="sel-sp">全部</span></p>
                 <div class="his-table">
                     <table>
                         <thead>
@@ -373,7 +288,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
+                            <!-- <tr>
                                 <td colspan="2">2018-03-13 12:00</td>
                                 <td>USDT/BTC</td>
                                 <td>USDT/BTC</td>
@@ -385,33 +300,7 @@
                                 <td>
                                     <button>操作</button>
                                 </td>
-                            </tr>
-                            <tr>
-                                <td colspan="2">2018-03-13 12:00</td>
-                                <td>USDT/BTC</td>
-                                <td>USDT/BTC</td>
-                                <td>13.6865</td>
-                                <td>12.6789</td>
-                                <td>1</td>
-                                <td>3545.56</td>
-                                <td>已完成</td>
-                                <td>
-                                    <button>操作</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td colspan="2">2018-03-13 12:00</td>
-                                <td>USDT/BTC</td>
-                                <td>USDT/BTC</td>
-                                <td>13.6865</td>
-                                <td>12.6789</td>
-                                <td>1</td>
-                                <td>3545.56</td>
-                                <td>已完成</td>
-                                <td>
-                                    <button>操作</button>
-                                </td>
-                            </tr>
+                            </tr> -->
                             <tr>
                                 <td colspan="9" class="no-cur none">暂无记录</td>
                             </tr>
@@ -419,7 +308,7 @@
                     </table>
                 </div>
                 <div class="tab-foo">
-                    <span>所有记录</span>
+                    <a href="./bbdeal-order.html">所有记录</a>
                 </div>
             </div>
             <div class="con-r-depth">

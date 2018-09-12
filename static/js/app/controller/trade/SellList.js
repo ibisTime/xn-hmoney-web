@@ -23,7 +23,7 @@ define([
         base.showLoadingSpin();
         getCoinList();
         $(".head-nav-wrap .sell").addClass("active");
-        if (coin == 'BTC') {
+        if (coin == 'BTC' || coin == 'ETH') {
             $("#coin-top ul li." + coin.toLowerCase()).addClass("on");
         } else {
             $("#coin-top ul li:nth-of-type(1)").addClass("on");
