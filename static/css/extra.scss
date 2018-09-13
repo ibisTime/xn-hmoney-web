@@ -4939,9 +4939,6 @@ table {
                         .am-btn {
                             font-size: 16px;
                         }
-                        .dis-btn {
-                            cursor: not-allowed;
-                        }
                     }
                 }
             }
@@ -4971,7 +4968,7 @@ table {
                     margin-bottom: 7px;
                     >span {
                         display: inline-block;
-                        width: 28%;
+                        width: 39%;
                         text-align: center;
                     }
                     >span:nth-of-type(1) {
@@ -4987,12 +4984,17 @@ table {
                         height: 30px;
                         line-height: 30px;
                         position: relative;
+                        cursor: pointer;
+                        &:hover {
+                            background-color: #eee;
+                        }
                         p {
                             text-align: center;
-                            width: 28%;
+                            width: 39%;
                         }
                         >p:nth-of-type(1) {
                             width: 13%;
+                            padding-left: 2%;
                         }
                         .s-p {
                             color: #d53d3d;
@@ -5008,6 +5010,7 @@ table {
             display: flex;
             .depth-box {
                 width: 620px;
+                height: 0%;
                 background-color: #fff;
                 box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.05);
                 .depth-c {
@@ -5202,6 +5205,27 @@ table {
                     height: 105px;
                     line-height: 105px;
                 }
+                button {
+                    border: 1px solid #999999;
+                    border-radius: 4px;
+                    padding: 2px 12px;
+                    color: #999;
+                    background-color: #fff;
+                }
+                .no-cz {
+                    cursor: not-allowed;
+                }
+                .y-cz {
+                    border-color: #D53D3D;
+                    color: #d53d3d;
+                    cursor: pointer;
+                }
+                .or-mr {
+                    color: #0BBC2F;
+                }
+                .or-mc {
+                    color: #d53d3d;
+                }
             }
         }
     }
@@ -5224,6 +5248,7 @@ table {
     padding: 0 20px;
     background-color: #fff;
     width: 100%;
+    min-height: 510px;
     >p {
         height: 48px;
         line-height: 48px;
@@ -5244,12 +5269,61 @@ table {
             border-bottom: 2px solid #d53d3d;
         }
     }
+    .bborder-p {
+        width: 100%;
+        height: 48px;
+        line-height: 48px;
+        span {
+            display: inline-block;
+            width: 8.1%;
+            text-align: center;
+        }
+        span:last-child {
+            width: 4%;
+        }
+    }
+    .bborder-ul {
+        width: 100%;
+        li {
+            position: relative;
+            width: 100%;
+            text-align: center;
+            border-bottom: 1px solid #eee;
+            .list-l {
+                height: 60px;
+                line-height: 60px;
+                span {
+                    display: inline-block;
+                    width: 8%;
+                }
+                span:last-child {
+                    width: 5%;
+                }
+            }
+            .det-l {
+                width: 100%;
+                display: none;
+                overflow: hidden;
+                left: 0;
+                text-align: center;
+                border-top: 1px solid #eee;
+                div,
+                li {
+                    height: 48px;
+                    line-height: 48px;
+                    border-bottom: 1px solid #eee;
+                    span {
+                        display: inline-block;
+                        width: 18%;
+                    }
+                }
+            }
+        }
+    }
     table {
         width: 100%;
         text-align: center;
         tr {
-            height: 48px;
-            line-height: 48px;
             td,
             th {
                 font-weight: 400;
@@ -5294,6 +5368,32 @@ table {
     opacity: 0;
 }
 
+//历史委托详情页
+.bborder-ul {
+    button {
+        border: 1px solid #999999;
+        border-radius: 4px;
+        padding: 2px 12px;
+        color: #999;
+        background-color: #fff;
+        cursor: pointer;
+    }
+    .no-cz {
+        cursor: not-allowed;
+    }
+    .y-cz {
+        border-color: #D53D3D;
+        color: #d53d3d;
+        cursor: pointer;
+    }
+    .or-mr {
+        color: #0BBC2F;
+    }
+    .or-mc {
+        color: #d53d3d;
+    }
+}
+
 // 商场
 .store-container {
     width: 1200px;
@@ -5313,6 +5413,10 @@ table {
 
 .baz-ul::-webkit-scrollbar-track {
     background-color: #fff;
+}
+
+.dis-btn {
+    cursor: not-allowed !important;
 }
 
 // 媒体查询

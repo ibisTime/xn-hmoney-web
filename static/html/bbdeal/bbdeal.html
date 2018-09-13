@@ -29,7 +29,7 @@
                     <h5>净资产折合:<img class="icon icon-baz" src="" /></h5>
                     <p class="baz-p">
                         <span class="baz-all">0.00000000</span>
-                        <span class="baz-mon"><b>BTC</b><i>≈</i> 0.00USD</span>
+                        <span class="baz-mon"><b>BTC</b><i>≈</i> <b>0.00</b> CYN</span>
                     </p>
                 </div>
                 <div class="tologin none">
@@ -141,7 +141,7 @@
                                 <input type="text" id="ym-price">
                                 <span></span>
                             </div>
-                            <div class="yj-btc"><span>≈</span><span class="yj-usd">0.0000</span>USD</div>
+                            <div class="yj-btc"><span>≈</span><span class="yj-usd">0.0000</span>CYN</div>
                             <p>买入量</p>
                             <div class="btc-put btc-toSm">
                                 <input type="text" id="buyNum">
@@ -156,17 +156,17 @@
                                 <span class="br-5"></span>
                             </div>
                             <div class="jy-btc1">
-                                <span>0</span> BTC
-                                <span class="fr">0.00000 <b>BTC</b></span>
+                                <span>0</span> <span class="r-b"></span>
+                                <span class="fr"><b>0.00000</b> <b class="r-b"></b></span>
                             </div>
                             <div class="jy-money">
-                                交易额 <span>0.00000000</span>BTC
+                                交易额 <span class="jy-me">0 </span><span class="jy-b"></span>
                             </div>
-                            <div class="am-button am-button-g am-btn">买入BTC</div>
+                            <div class="am-button am-button-g am-btn">买入<span></span></div>
                         </div>
                         <div class="jy-con-right">
                             <div class="user-jy">
-                                <h5 class="jy-r-h">可用 <span>0.000</span> <span>USDT</span> <span class="fr jy-cb">充币</span></h5>
+                                <h5 class="jy-r-h">可用 <span>0.000</span> <span class="c-b"></span> <span class="fr jy-cb">充币</span></h5>
 
                             </div>
 
@@ -179,7 +179,7 @@
                                 <input type="text" id="yr-price">
                                 <span></span>
                             </div>
-                            <div class="yj-btc"><span>≈</span><span class="yj-usd">0.000</span>USD</div>
+                            <div class="yj-btc"><span>≈</span><span class="yj-usd">0.000</span>CYN</div>
                             <p>卖出量</p>
                             <div class="btc-put">
                                 <input type="text" id="sellNum">
@@ -194,13 +194,13 @@
                                 <span class="br-5"></span>
                             </div>
                             <div class="jy-btc1">
-                                <span>0</span> <span>USDT</span>
-                                <span class="fr">0.00000 <b>USDT</b></span>
+                                <span>0</span> <span class="c-b">USDT</span>
+                                <span class="fr"><b>0.00000</b> <b class="c-b">USDT</b></span>
                             </div>
                             <div class="jy-money">
-                                交易额 <span>0.00000000</span>BTC
+                                交易额 <span class="jy-ce">0 </span><span class="jy-b"></span>
                             </div>
-                            <div class="am-button am-button-red am-btn">卖出入BTC</div>
+                            <div class="am-button am-button-red am-btn">卖出<span></span></div>
                         </div>
                     </div>
                 </div>
@@ -208,9 +208,9 @@
                     <h5><span>最新价 <b>6311.18</b> USDT</span> ≈ <span>6311.18</span> USD</h5>
                     <p class="new-p">
                         <span></span>
-                        <span>价格(BTC)</span>
-                        <span>数量(EOS)</span>
-                        <span>累计(EOS)</span>
+                        <span>价格(<b class="jy-b">BTC</b>)</span>
+                        <span>数量(<b class="c-b"></b>)</span>
+                        <!-- <span>累计(<b class="c-b"></b>)</span> -->
                     </p>
                     <ul class="s-new_ul">
 
@@ -246,17 +246,17 @@
                                 <th colspan="2" class="cur-time">时间</th>
                                 <th class="cur-jy">交易对</th>
                                 <th class="cur-fx">方向</th>
-                                <th class="cur-jg">价格(USDT)</th>
-                                <th class="cur-num">数量(BTC)</th>
-                                <th class="cur-wt">委托总额(USDT)</th>
-                                <th class="cur-ycj">已成交</th>
-                                <th class="cur-cjj">未成交</th>
+                                <th class="cur-jg">价格(<span class="jy-b"></span>)</th>
+                                <th class="cur-num">数量(<span class="c-b"></span>)</th>
+                                <th class="cur-wt">委托总额(<span class="jy-b"></span>)</th>
+                                <th class="cur-ycj">已成交数量(<span class="c-b"></span>)</th>
+                                <th class="cur-cjj">未成交数量(<span class="c-b"></span>)</th>
                                 <th class="cur-cz">操作</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
-                                <td colspan="9" class="no-cur none">暂无记录</td>
+                                <td colspan="9" class="no-cur dq-cur none">暂无记录</td>
                             </tr>
                         </tbody>
                         <!-- <div id="pagination" class="wp100 pagination-wrap dialog-pagination-wrap tc">
@@ -279,12 +279,11 @@
                                 <th colspan="2" class="cur-time">时间</th>
                                 <th class="cur-jy">交易对</th>
                                 <th class="cur-fx">方向</th>
-                                <th class="cur-jg">价格(USDT)</th>
+                                <th class="cur-jg">价格(<span class="jy-b"></span>)</th>
                                 <th class="cur-num">委托量</th>
-                                <th class="cur-ycj">已成交</th>
+                                <th class="cur-ycj">已成交数量(<span class="c-b"></span>)</th>
                                 <th class="cur-cjj">成交均价</th>
                                 <th>状态</th>
-                                <th class="cur-cz">操作</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -302,7 +301,7 @@
                                 </td>
                             </tr> -->
                             <tr>
-                                <td colspan="9" class="no-cur none">暂无记录</td>
+                                <td colspan="9" class="no-cur his-cur none">暂无记录</td>
                             </tr>
                         </tbody>
                     </table>
@@ -334,12 +333,12 @@
                                 <tr>
                                     <th>时间</th>
                                     <th>方向</th>
-                                    <th>价格(USDT)</th>
-                                    <th>数量(BTC)</th>
+                                    <th>价格(<b class="jy-b"></b>)</th>
+                                    <th>数量(<b class="c-b"></b>)</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
+                                <!-- <tr>
                                     <td>14:31:45</td>
                                     <td class="d-mc">卖出</td>
                                     <td>6360.46</td>
@@ -350,7 +349,7 @@
                                     <td class="d-mr">买入</td>
                                     <td>6360.46</td>
                                     <td>0.0080</td>
-                                </tr>
+                                </tr> -->
                             </tbody>
                         </table>
                     </div>
