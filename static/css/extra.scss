@@ -4772,17 +4772,19 @@ table {
         padding-right: 109px;
         .con-r-k {
             height: 571px;
-            border: 1px solid yellow;
             .con-t-l {
                 display: flex;
-                padding-top: 10px;
-                padding-left: 10px;
+                margin-top: 10px;
+                margin-bottom: 10px;
+                padding-left: 20px;
+                height: 48px;
+                line-height: 48px;
                 >h5 {
                     font-size: 20px;
                     color: #333;
-                    margin-right: 20px;
+                    margin-right: 10px;
                     .t-jyd {
-                        margin-right: 40px;
+                        margin-right: 5px;
                     }
                 }
                 >p {
@@ -4793,6 +4795,9 @@ table {
                     .t-g,
                     .t-d {
                         margin-right: 15px;
+                        b {
+                            font-weight: 400;
+                        }
                     }
                 }
             }
@@ -4806,6 +4811,7 @@ table {
                 padding: 12px 12px 42px 32px;
                 margin-right: 10px;
                 background-color: #fff;
+                box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.05);
                 user-select: none;
                 >h5 {
                     font-weight: 400;
@@ -4885,39 +4891,57 @@ table {
                             font-size: 14px;
                             margin-bottom: 26px;
                         }
-                        .br-sp {
-                            margin-top: 25px;
-                            position: relative;
-                            height: 2px;
-                            margin-bottom: 18px;
-                            span {
-                                position: absolute;
-                                left: 0;
-                                top: 0;
-                                transform: translate(-50%, -50%);
-                                display: inline-block;
-                                width: 10px;
-                                height: 10px;
-                                border-radius: 100%;
-                                cursor: pointer;
-                                background-color: #f3f3f3;
-                            }
-                            .br-2 {
-                                left: 25%;
-                            }
-                            .br-3 {
-                                left: 50%;
-                            }
-                            .br-4 {
-                                left: 75%;
-                            }
-                            .br-5 {
-                                left: 100%;
-                            }
-                            .sel-span {
-                                z-index: 9;
-                                background-color: #d53d3d;
-                                box-shadow: 0 2px 2px 0 rgba(236, 91, 91, 0.60);
+                        .dr-box {
+                            padding-top: 25px;
+                            padding-bottom: 20px;
+                            margin-left: -20px;
+                            padding-left: 20px;
+                            .br-sp {
+                                position: relative;
+                                height: 2px;
+                                p {
+                                    position: absolute;
+                                    left: 0;
+                                    top: 0;
+                                    z-index: 1;
+                                    height: 100%;
+                                    width: 0%;
+                                    background: #d53d3d;
+                                }
+                                span {
+                                    position: absolute;
+                                    left: 0;
+                                    top: 1px;
+                                    z-index: 2;
+                                    transform: translate(-50%, -50%);
+                                    display: inline-block;
+                                    width: 10px;
+                                    height: 10px;
+                                    border-radius: 20px;
+                                    cursor: pointer;
+                                    background-color: #f1f1f1;
+                                    &:hover {
+                                        width: 12px;
+                                        height: 12px;
+                                        border-radius: 20px;
+                                    }
+                                }
+                                .br-2 {
+                                    left: 25%;
+                                }
+                                .br-3 {
+                                    left: 50%;
+                                }
+                                .br-4 {
+                                    left: 75%;
+                                }
+                                .br-5 {
+                                    left: 100%;
+                                }
+                                .sel-span {
+                                    z-index: 9;
+                                    background-color: #d53d3d;
+                                }
                             }
                         }
                         .jy-btc1 {
@@ -5008,6 +5032,7 @@ table {
         }
         .con-r-depth {
             display: flex;
+            margin-top: 15px;
             .depth-box {
                 width: 620px;
                 height: 0%;
@@ -5085,8 +5110,9 @@ table {
         }
         .con-r-bzz {
             background-color: #fff;
-            margin-top: 10px;
+            margin-top: 15px;
             margin-bottom: 20px;
+            box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.05);
             >p {
                 margin-top: -36px;
                 color: #D53D3D;

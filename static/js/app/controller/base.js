@@ -394,9 +394,11 @@ define([
         },
         showLoadingSpin: function() {
             $("#loadingSpin").removeClass("hidden");
+            $('html').css('overflow', 'hidden');
         },
         hideLoadingSpin: function() {
             $("#loadingSpin").addClass("hidden");
+            $('html').css('overflow', 'auto');
         },
         // 获取数据字典 
         getDictList: function(code, type) {
