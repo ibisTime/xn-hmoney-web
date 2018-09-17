@@ -55,9 +55,11 @@ define([
             });
         },
         // 获取广告价格
-        getAdvertisePrice(coin) {
+        getAdvertisePrice(coin, ctype) {
+            let refCurrency = ctype || 'CNY';
             return Ajax.get("625292", {
-                coin
+                coin,
+                refCurrency
             });
         },
         /**

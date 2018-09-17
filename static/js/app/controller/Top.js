@@ -156,6 +156,16 @@ define([
             $(this).parent(".dialog").addClass("hidden")
         })
 
+        $("#head .advertise .goHref").off("click").click(function() {
+            if (!base.isLogin()) {
+                base.goLogin();
+                return false;
+            } else {
+                var thishref = $(this).attr("data-href");
+                base.gohref(thishref)
+            }
+        })
+
         $("#head .head-nav-wrap .advertise .goHref").off("click").click(function() {
             if (!base.isLogin()) {
                 base.goLogin();

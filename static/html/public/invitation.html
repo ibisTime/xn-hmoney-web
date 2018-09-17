@@ -3,7 +3,7 @@
 
 <head>
     <link rel="import" href="../head.html?__inline">
-    <title>邀請好友-HappyMoney</title>
+    <title>邀请好友-HappyMoney</title>
     <!--SCRIPT_PLACEHOLDER-->
     <link rel="import" href="../top/top-zendesk.html?__inline">
 </head>
@@ -14,7 +14,7 @@
         <div class="invitation-top wp100 mb20"></div>
         <div class="invitation-content over-hide bg_fff">
             <div class="fl txt mr220 cur-pointer" id="myInvitationList">
-                <p>成功邀請</p>
+                <p>成功邀请</p>
                 <p><samp class="inviteCount"></samp>人</p>
             </div>
             <div class="fl txt">
@@ -22,18 +22,56 @@
                 <p><samp class="inviteProfit"></samp></p>
             </div>
             <div class="fr pt10">
-                <div class="am-button am-button-red mr30" id="qrcodeBtn">二維碼推薦</div>
-                <div class="am-button am-button-red" id="invitationBtn">文字推薦</div>
+                <div class="am-button am-button-red mr30" id="qrcodeBtn">二维码推荐</div>
+                <div class="am-button am-button-red" id="invitationBtn">文字推荐</div>
             </div>
         </div>
-        <div class="activity-wrap bg_fff">
-            <div class="titleWrap">
-                <img src="../../images/zuo.png" /><samp>活動規則</samp><img src="../../images/you.png" />
+        <div class="invitation-content public-container" style="padding: 0;">
+            <div class="trade-list-wrap mt20 userSelect_none">
+                <div class="bg_f3f yq-j">
+                    <span class="sel-span">邀请记录</span>
+                    <!-- <span>返佣记录</span> -->
+                </div>
+                <div class="trade-wrap wp100 b_e">
+                    <table class="wp100 trade-form" cellpadding="0" cellspacing="0">
+                        <thead>
+                            <tr style="background-color: #fff;">
+                                <td>用户名</td>
+                                <td>注册时间</td>
+                                <td>是否认证</td>
+                                <td>交易总额</td>
+                                <td>佣金计算</td>
+                            </tr>
+                        </thead>
+                        <tbody id="yq-content">
+                            <tr>
+                                <td>习大大</td>
+                                <td>2018-03-12 12:00</td>
+                                <td>是</td>
+                                <td>2000(ETH)</td>
+                                <td>20(ETH)</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="no-data b_e_t hidden">
+                        <img src="../../images/暂无明细.png" />
+                        <p>暂无广告</p>
+                    </div>
+                </div>
+                <div id="pagination" class="wp100 pagination-wrap tc hidden">
+                    <p class="pagination"></p>
+                </div>
+
             </div>
-            <div class="activity-content"></div>
+        </div>
+        <div class="activity-wrap bg_f3f">
+            <div class="titleWrap">
+                <img src="../../images/zuo.png" /><samp>活动规则</samp><img src="../../images/you.png" />
+            </div>
+            <!-- <div class="activity-content"></div> -->
         </div>
 
-        <!--二維碼弹窗-->
+        <!--二维码弹窗-->
         <div class="am-modal-wrap dialog qrcode-dialog hidden" id="qrcodeDialog">
             <div class="am-modal-mask"></div>
             <div class="am-modal">
@@ -41,21 +79,21 @@
                     <div class="am-modal-body">
                         <div class="qrcodeWrap">
                             <div id="qrcode" class="wp100"></div>
-                            <p>微信掃描圖中二維碼</p>
+                            <p>微信扫描圆中二维码</p>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!--二維碼弹窗-->
+        <!--二维码弹窗-->
         <div class="am-modal-wrap dialog invitation-dialog hidden" id="invitationDialog">
             <div class="am-modal-mask"></div>
             <div class="am-modal">
                 <div class="am-modal-content">
                     <div class="am-modal-body">
                         <div class="titleWrap">
-                            <p>複製下面這段文字給好友，好友通過你的專屬鏈接註冊成功，你就可以享受好友的交易提成了</p>
+                            <p>复制下面这段文字给好友，好友通过你的专属链接注册成功，你就可以享受好友的交易提成了</p>
                         </div>
                         <div class="hrefWrap b_e">
                             <p>http://localhost:400915761663457</p>
@@ -71,7 +109,7 @@
             <div class="am-modal">
                 <div class="am-modal-content">
                     <div class="am-modal-header">
-                        <p>推薦歷史</p>
+                        <p>推荐历史</p>
                     </div>
                     <div class="am-modal-body">
                         <div class="trust-wrap over-hide wp100">
@@ -132,7 +170,7 @@
                         </div>
                         <div class="no-data hidden">
                             <img src="../../images/暂无明细.png" />
-                            <p>暫無</p>
+                            <p>暂无</p>
                         </div>
                     </div>
                 </div>

@@ -65,7 +65,7 @@ define([
         },
         // 查询banner列表
         getBanner(config) {
-            return Ajax.get("805806", {
+            return Ajax.get("630506", {
                 type: "2",
                 ...config
             }, true);

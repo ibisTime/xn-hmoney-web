@@ -2,14 +2,22 @@ define([
     'app/controller/base',
     'app/util/handlebarsHelpers',
     'swiper',
-    'app/interface/GeneralCtr'
-], function(base, Handlebars, Swiper, GeneralCtr) {
+    'app/interface/GeneralCtr',
+    'app/util/ajax'
+], function(base, Handlebars, Swiper, GeneralCtr, Ajax) {
 
-    //init();
+    let adverData = []; // 广告数据
+    let aarketData = []; // 行情数据
+    let typeList = {
+        '0': '购买',
+        '1': '出售'
+    }
+
+    init();
 
     // 初始化页面
     function init() {
-        base.showLoadingSpin();
+        //base.showLoadingSpin();
         $.when(
             //getBanner(), // 测试
             //getDownloadUrl()
@@ -17,6 +25,38 @@ define([
         $(".head-nav-wrap .index").addClass("active")
 
         addListener();
+        getAdvertising().then(data => {
+            adverData = data.list;
+            adverData.length = 4;
+            let adverHtml = '';
+            adverData.forEach(item => {
+                adverHtml += `<li>
+                    <div class="bb-img">
+                        <img src="${item.tradeType == 0 ? '/static/images/buy.png' : '/static/images/sell.png'}" alt="">
+                    </div>
+                    <h5>${typeList[item.tradeType]} ${item.tradeCoin}</h5>
+                    <p>价格：<span>${item.truePrice.toFixed(2)}</span> CNY</p>
+                    <p>交易限额：<span>${item.minTrade}</span> ～ <span>${item.maxTrade}</span> CNY</p>
+                    <p>付款方式：<span><img src="/static/images/银行卡.png" alt=""></span> <span><img src="" alt=""></span></p>
+                    <div class="btn-box">
+                        <button class="goHref" data-href="${item.tradeType == 0 ? '../trade/buy-list.html' : '../trade/sell-list.html'}">${typeList[item.tradeType]}</button>
+                    </div>
+                </li>`
+            })
+            $('.bb-jy ul').html(adverHtml);
+        });
+        getMarket('CNY').then(data => {
+            aarketData = data;
+            let aarketHtml = '';
+            aarketData.forEach(item => {
+                aarketHtml += `<li>
+                    <p><span>X</span> / <span>${item.symbol}</span></p>
+                    <h5>${item.lastPrice.toFixed(2)}</h5>
+                    <p><span class="zj">+</span><span class="zf">1.52</span>% <span class="zf-img"><img src="" alt=""></span></p>
+                </li>`
+            })
+            $('.bb-hq_r ul').html(aarketHtml);
+        })
     }
 
     // //安卓下载
@@ -70,6 +110,22 @@ define([
             initSwiperBanner();
         }, (msg) => {
             base.showMsg(msg || "加载失败");
+        });
+    }
+
+    //获取广告信息
+    function getAdvertising() {
+        return Ajax.post('625225', {
+            start: '1',
+            limit: '10',
+            statusList: ['1']
+        })
+    }
+
+    // 获取币种行情
+    function getMarket(ex_type) {
+        return Ajax.post('650101', {
+            referCurrency: ex_type
         });
     }
 

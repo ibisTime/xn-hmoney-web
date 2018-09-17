@@ -108,6 +108,11 @@ define([
                         let userMoney = base.formatMoneySubtract(`${btcData[0].amount}`, `${btcData[0].frozenAmount}`, 'BTC');
                         $('.baz-all').text(userMoney);
                         $('.toSdw').text('BTC');
+                        let XData = userData.filter(item => {
+                            return item.currency == setBazDeal.symbol;
+                        })
+                        let xMoney = base.formatMoneySubtract(`${XData[0].amount}`, `${XData[0].frozenAmount}`, setBazDeal.symbol);
+                        $('.all-bb').text(xMoney);
                     });
                     autoGetMyDatata();
                     // clearInterval(timeMy);
@@ -392,7 +397,7 @@ define([
                             <img src="/static/images/星星空.png" alt="" class="none">
                             <span>${bazaarData.symbol}</span>
                         </p>
-                        <p class="li-con .bb-zxj">0.086690</p>
+                        <p class="li-con bb-zxj">0.0</p>
                         <p class="li-right d-baz"><span>-</span>2.53%</p>
                     </li>`;
         $('.baz-ul').html(bazULHtml);
@@ -455,9 +460,17 @@ define([
                     let btcData = userData.filter((item) => {
                         return item.currency == setBazDeal.toSymbol;
                     })
-                    let userMoney = base.formatMoneySubtract(`${btcData[0].amount}`, `${btcData[0].frozenAmount}`, 'BTC');
+                    let userMoney = base.formatMoneySubtract(`${btcData[0].amount}`, `${btcData[0].frozenAmount}`, setBazDeal.toSymbol);
                     $('.baz-all').text(userMoney);
                     $('.toSdw').text(btcData[0].currency);
+                    if(userMoney == 0){
+                        $('.bb-exc').text('0.00');
+                    }
+                    let XData = userData.filter(item => {
+                        return item.currency == setBazDeal.symbol;
+                    })
+                    let xMoney = base.formatMoneySubtract(`${XData[0].amount}`, `${XData[0].frozenAmount}`, setBazDeal.symbol);
+                    $('.all-bb').text(xMoney);
                 });
             }
         })
@@ -492,7 +505,7 @@ define([
 
         // input验证事件
         function outBlur(that) {
-            let reg = /^[0-9.]+$/;
+            let reg = /^[1-9]\d*.\d*|0.\d*[1-9]\d*|0?.0+|0$/;
             if ($(that).val().match(reg)) {
                 $(that).css('border-color', '#e5e5e5');
                 return true;

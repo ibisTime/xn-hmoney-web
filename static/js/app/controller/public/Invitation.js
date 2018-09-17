@@ -14,21 +14,23 @@ define([
     init();
 
     function init() {
-        base.showLoadingSpin();
-        $(".head-nav-wrap .invitation").addClass("active");
+        // base.showLoadingSpin();
+        $(".head-nav-wrap .advertise").addClass("active");
         $("#invitationDialog .hrefWrap p").html(DOMAIN_NAME + "/user/register.html?inviteCode=" + inviteCode)
         var qrcode = new QRCode('qrcode', INVITATION_HREF + "/user/register.html?inviteCode=" + inviteCode);
         qrcode.makeCode(INVITATION_HREF + "/user/register.html?inviteCode=" + inviteCode);
 
         $.when(
-            getInvitation(),
-            getSysConfig(),
-            getUserInviteProfit()
+            //getInvitation(),
+            //getSysConfig(),
+            //getUserInviteProfit()
         )
+        getInvitationHistory(config);
         addListener();
+
     }
 
-    //獲取我推荐的人数和收益统计
+    //获取我推荐的人数和收益统计
     function getInvitation() {
         return UserCtr.getInvitation().then((data) => {
             $('.inviteCount').html(data.inviteCount);
@@ -100,10 +102,17 @@ define([
             var lists = data.list;
             if (data.list.length) {
                 var html = "";
+                denugger
                 lists.forEach((item, i) => {
-                    html += buildHtml(item);
+                    html += `<tr>
+                        <td>${item.realName}</td>
+                        <td>${base.datetime(item.createDatetime)}</td>
+                        <td>是</td>
+                        <td>2000(ETH)</td>
+                        <td>20(ETH)</td>
+                    </tr>`;
                 });
-                $("#userRefereeList").html(html)
+                $("#yq-content").html(html);
                 $("#userRefereeDialog .no-data").addClass("hidden");
             } else {
                 config.start == 1 && $("#userRefereeList").empty()
