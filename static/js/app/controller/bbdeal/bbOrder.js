@@ -42,6 +42,7 @@ define([
                                 return;
                             }
                             let hisToryHtml = '';
+                            //(item.totalCount - item.tradedCount).toFixed(2)
                             userHistoryData.forEach(item => {
                                         hisToryHtml += `<li>
                     <div class="list-l">
@@ -50,11 +51,11 @@ define([
                     <span class="${item.direction == 0 ? 'or-mr' : 'or-mc'}">${item.direction == 0 ? '买入' : '卖出'}</span>
                     <span>${item.type == 0 ? '市价' : '限价'}</span>
                     <span>${base.formatMoney(`${item.price}`, '', item.toSymbol)}</span>
-                    <span>${item.totalCount}</span>
-                    <span>${item.totalAmount}</span>
-                    <span>${item.tradedCount}</span>
-                    <span>${item.totalCount - item.tradedCount}</span>
-                    <span>${item.tradedAmount}</span>
+                    <span>${base.formatMoney(`${item.totalCount}`, '', item.symbol)}</span>
+                    <span>${base.formatMoney(`${item.totalAmount}`, '', item.toSymbol)}</span>
+                    <span>${base.formatMoney(`${item.tradedCount}`, '', item.symbol)}</span>
+                    <span>${base.formatMoney(`${item.totalCount - item.tradedCount}`, '', item.symbol)}</span>
+                    <span>${base.formatMoney(`${item.tradedAmount}`, '', item.toSymbol)}</span>
                     <span>${statusValueList[item.status]}</span>
                     <span>
                     <button data-code="${item.code}" data-status="${item.status}" class="his-detail ${item.status == 4 ? 'dis-btn' : ''}">详情</button>
@@ -127,10 +128,10 @@ define([
                     userMxHtml += `<li>
                         <div>
                             <span>${base.formatDate(item.createDatetime)}</span>
-                            <span>${item.tradedPrice}</span>
-                            <span>${item.tradedCount}</span>
-                            <span>${item.tradedAmount}</span>
-                            <span>${item.tradedFee}</span>
+                            <span>${base.formatMoney(`${item.tradedPrice}`, '', item.toSymbol)}</span>
+                            <span>${base.formatMoney(`${item.tradedCount}`, '', item.symbol)}</span>
+                            <span>${base.formatMoney(`${item.tradedAmount}`, '', item.toSymbol)}</span>
+                            <span>${base.formatMoney(`${item.tradedFee}`, '', item.toSymbol)}</span>
                         </div>
                     </li>`
                 })

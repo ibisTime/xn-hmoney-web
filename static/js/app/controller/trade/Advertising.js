@@ -442,6 +442,7 @@ define([
 
             params.totalCount = base.formatMoneyParse(params.totalCount, '', params.tradeCoin);
 
+
             if ($(".time-type .item.on").index() == "1") {
                 params.displayTime = [{
                     week: '1',

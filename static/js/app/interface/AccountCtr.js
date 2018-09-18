@@ -34,7 +34,7 @@ define([
          * @param config: {accountNumber,amount,applyUser,applyNote,tradePwd,googleCaptcha}
          */
         withDraw(config) {
-            return Ajax.post("802750", {
+            return Ajax.post("802350", {
                 applyUser: base.getUserId(),
                 ...config
             });

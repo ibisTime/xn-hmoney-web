@@ -3,21 +3,33 @@ define([
     'pagination',
     'app/interface/UserCtr'
 ], function(base, pagination, UserCtr) {
-    var type = base.getUrlParam("type"); // 0: 你屏蔽的人，1:你信任的人，2:信任你的人
+    var type = base.getUrlParam("type") || '1'; // 0: 你屏蔽的人，1:你信任的人，2:信任你的人
+    let gohref = base.getUrlParam('go') || 'm_xr'; // m_xr: 你信任的人, xr_m: 信任你的人, m_pb:你屏蔽的人
     var config = {
         start: 1,
         limit: 10,
     };
 
-    // if(!base.isLogin()){
-    // 	base.goLogin()
-    // }else{
-    // 	init();
-    // }
+    if (!base.isLogin()) {
+        base.goLogin()
+    } else {
+        init();
+    }
     $(".head-nav-wrap .sell").addClass("active");
 
     function init() {
         base.showLoadingSpin();
+        switch (gohref) {
+            case 'm_xr':
+                $('.k-trustStatus li').eq(0).addClass('on');
+                break;
+            case 'xr_m':
+                $('.k-trustStatus li').eq(1).addClass('on');
+                break;
+            case 'm_pb':
+                $('.k-trustStatus li').eq(2).addClass('on');
+                break;
+        }
         //你屏蔽的人
         if (type == '2') {
             $("title").text("信任您的人-HappyMoney")

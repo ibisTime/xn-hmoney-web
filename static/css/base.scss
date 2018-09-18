@@ -875,6 +875,11 @@ button[disabled] {
     border: 1px solid $red-color;
 }
 
+.am-button-grad {
+    color: #666;
+    border: 1px solid #666;
+}
+
 .am-button.am-button-ghost {
     line-height: 44px !important;
 }

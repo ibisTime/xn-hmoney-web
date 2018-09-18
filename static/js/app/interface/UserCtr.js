@@ -110,7 +110,7 @@ define([
          * type=1 信任，type=0，屏蔽
          */
         getPageTrust(config) {
-            return Ajax.get("805115", {
+            return Ajax.get("805155", {
                 userId: base.getUserId(),
                 ...config
             });

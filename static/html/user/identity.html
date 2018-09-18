@@ -22,38 +22,164 @@
                         为确保交易安全，保障您的合法权益，请您完成身份验证！ 我们提供安全高效实时联网的官方身份认证服务，具有更高级别的安全保证。 身份验证一旦成功，不予修改和解除认证。建议您慎重选择，真实填写。
                     </p>
                 </div>
-                <div class="identity-warn hidden" id="goAppIdentity">
+                <!-- <div class="identity-warn hidden" id="goAppIdentity">
                     <h3>請前往APP進行實名認證</h3>
                     <div class="img b_e"><img id="downImg" /></div>
                     <p>掃一掃下載HappyMoney</p>
-                </div>
-                <div class="identity-content b_e hidden" id="alreadyIdentity">
+                </div> -->
+                <div class="identity-content b_e" id="alreadyIdentity">
                     <div class="top b_e_b over-hide">
                         <i class="icon icon-identity fl"></i>
                         <div class="fl">
                             <div class="txtWrap over-hide">
-                                <samp class="txt fl">中國大陸身份證</samp><samp class="fl am-button am-button-ghost am-button-small">已認證</samp>
+                                <samp class="txt fl">中国大陆身份证</samp><samp class="fl am-button  am-button-grad am-button-small">未认证</samp>
                             </div>
-                            <samp class="txt2">適用于大多数中國大陸用戶</samp>
+                            <samp class="txt2">适用于大多数中国大陆用户</samp>
+                        </div>
+                        <p class="fr yz_p"><span>展开</span> <i class="icon icon-yz"></i></p>
+                    </div>
+                    <div class="form-detail" style="display: none;">
+                        <div class="sf-from">
+                            <div class="form-item-left editPhoto-dialog" style="width: 42%;">
+                                <div class="fileBtn-wrap huz-photo" id="sf_photoFile-wrap1">
+                                    <img src="../../images/上传照片.png" alt="">
+                                    <p class="sel-img">正面图片</p>
+                                    <input id="sf_photoFile1" type="file" class="input-file photoFile" style="height: 100%;" accept="image/png,image/gif,image/jpg,image/jpeg" title=" " />
+                                    <div class="photo"></div>
+                                </div>
+                                <div class="fileBtn-wrap huz-photo" id="sf_photoFile-wrap2">
+                                    <img src="../../images/上传照片.png" alt="">
+                                    <p class="sel-img">反面图片</p>
+                                    <input id="sf_photoFile2" type="file" class="input-file photoFile" style="height: 100%;" accept="image/png,image/gif,image/jpg,image/jpeg" title=" " />
+                                    <div class="photo"></div>
+                                </div>
+                            </div>
+                            <div class="identity-from-wrap">
+                                <form class="form-wrapper form-wrapper-38" id="sf_form-wrapper" style="width:460px;">
+                                    <div class="form-item-wrap">
+                                        <samp class="label">姓名：</samp>
+                                        <div class="form-item b_e">
+                                            <input type="text" class="input-item" id="realName" name="realName" placeholder="请输入姓名" />
+                                        </div>
+                                    </div>
+                                    <div class="form-item-wrap">
+                                        <samp class="label">身份证号：</samp>
+                                        <div class="form-item b_e">
+                                            <input type="text" class="input-item" id="idNo" name="idNo" placeholder="请输入身份证号" />
+                                        </div>
+                                    </div>
+                                    <div class="form-btn-item">
+                                        <div class="am-button am-button-red" id="sf_subBtn">确定</div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="tx" style="margin-left:30px;">
+                            <p>上传图片注意事项：</p>
+                            <p>1. 您上传的身份证图片是<span>真实</span>有效的 &nbsp;&nbsp;2. 您的身份证图片的信息<span>清晰</span>可见</p>
+                            <p>3. 您上传的照片没有反光或是折痕情况 &nbsp;&nbsp;4. 您上传的图片为<span>彩色</span>图像</p>
                         </div>
                     </div>
-                    <div class="identity-from-wrap">
-                        <form class="form-wrapper form-wrapper-38 wp100" id="form-wrapper">
-                            <div class="form-item-wrap">
-                                <samp class="label">姓名：</samp>
-                                <div class="form-item b_e">
-                                    <input type="text" class="input-item" id="realName" name="realName" placeholder="請輸入姓名" disabled />
+                </div>
+                <div class="identity-content b_e" id="hzIdentity">
+                    <div class="top b_e_b over-hide">
+                        <i class="icon icon-identity fl"></i>
+                        <div class="fl">
+                            <div class="txtWrap over-hide">
+                                <!--  am-button-ghost -->
+                                <samp class="txt fl">护照</samp><samp class="fl am-button am-button-small am-button-grad">未认证</samp>
+                            </div>
+                            <samp class="txt2">适用于中国港澳台及其他外国用户</samp>
+                        </div>
+                        <p class="fr yz_p"><span>展开</span> <i class="icon icon-yz"></i></p>
+                    </div>
+                    <div class="hztity-from-wrap form-detail" style="display: none;">
+                        <form class="form-wrapper" id="hz_form-wrapper">
+                            <div class="huz-from">
+                                <div class="form-item-left editPhoto-dialog">
+                                    <div class="fileBtn-wrap huz-photo" id="hz_photoFile-wrap1">
+                                        <img src="../../images/上传照片.png" alt="">
+                                        <p class="sel-img">选择图片</p>
+                                        <input id="hz_photoFile1" type="file" class="input-file photoFile" style="height: 100%;" accept="image/png,image/gif,image/jpg,image/jpeg" title=" " />
+                                        <div class="photo"></div>
+                                    </div>
+                                    <div class="fileBtn-wrap huz-photo" id="hz_photoFile-wrap2">
+                                        <img src="../../images/上传照片.png" alt="">
+                                        <p class="sel-img">选择图片</p>
+                                        <input id="hz_photoFile2" type="file" class="input-file photoFile" style="height: 100%;" accept="image/png,image/gif,image/jpg,image/jpeg" title=" " />
+                                        <div class="photo"></div>
+                                    </div>
+                                </div>
+                                <div class="form-item-right">
+                                    <div class="hz-name">
+                                        <label for="hz_name">姓名：</label>
+                                        <input type="text" id="hz_name" placeholder="请输入姓名">
+                                    </div>
+                                    <div class="hz-code">
+                                        <label for="hz_code">证件号：</label>
+                                        <input type="text" id="hz_code" placeholder="请输入身份证号">
+                                    </div>
+                                    <div class="form-btn-item" style="margin-top:30px;padding-left: 24px;">
+                                        <div class="am-button am-button-red" id="hz_subBtn" style="width: 136px;">确定</div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="tx">
+                                <p>上传图片注意事项：</p>
+                                <p>1. 您上传的护照图片是<span>真实</span>有效的 &nbsp;&nbsp;2. 您的护照图片的信息<span>清晰</span>可见</p>
+                                <p>3. 您上传的照片没有反光或是折痕情况 &nbsp;&nbsp;4. 您上传的图片为<span>彩色</span>图像</p>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="identity-content b_e" id="jzIdentity">
+                    <div class="top b_e_b over-hide">
+                        <i class="icon icon-identity fl"></i>
+                        <div class="fl">
+                            <div class="txtWrap over-hide">
+                                <samp class="txt fl">驾照</samp><samp class="fl am-button  am-button-grad am-button-small">未认证</samp>
+                            </div>
+                            <samp class="txt2">适用于非中国大陆用户</samp>
+                        </div>
+                        <p class="fr yz_p"><span>展开</span> <i class="icon icon-yz"></i></p>
+                    </div>
+                    <div class="hztity-from-wrap form-detail" style="display: none;">
+                        <form class="form-wrapper" id="jz_form-wrapper">
+                            <div class="huz-from">
+                                <div class="form-item-left editPhoto-dialog">
+                                    <div class="fileBtn-wrap huz-photo" id="jz_photoFile-wrap1">
+                                        <img src="../../images/上传照片.png" alt="">
+                                        <p class="sel-img">选择图片</p>
+                                        <input id="jz_photoFile1" type="file" class="input-file photoFile" style="height: 100%;" accept="image/png,image/gif,image/jpg,image/jpeg" title=" " />
+                                        <div class="photo"></div>
+                                    </div>
+                                    <div class="fileBtn-wrap huz-photo" id="jz_photoFile-wrap2">
+                                        <img src="../../images/上传照片.png" alt="">
+                                        <p class="sel-img">选择图片</p>
+                                        <input id="jz_photoFile2" type="file" class="input-file photoFile" style="height: 100%;" accept="image/png,image/gif,image/jpg,image/jpeg" title=" " />
+                                        <div class="photo"></div>
+                                    </div>
+                                </div>
+                                <div class="form-item-right">
+                                    <div class="jz-name">
+                                        <label for="jz_name">姓名：</label>
+                                        <input type="text" id="jz_name" placeholder="请输入姓名">
+                                    </div>
+                                    <div class="hz-code">
+                                        <label for="jz_code">证件号：</label>
+                                        <input type="text" id="jz_code" placeholder="请输入身份证号">
+                                    </div>
+                                    <div class="form-btn-item" style="margin-top:30px;padding-left: 24px;">
+                                        <div class="am-button am-button-red" id="jz_subBtn" style="width: 136px;">确定</div>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="form-item-wrap">
-                                <samp class="label">身份證號：</samp>
-                                <div class="form-item b_e">
-                                    <input type="text" class="input-item" id="idNo" name="idNo" placeholder="請輸入身份證號" disabled />
-                                </div>
+                            <div class="tx">
+                                <p>上传图片注意事项：</p>
+                                <p>1. 您上传的驾照图片是<span>真实</span>有效的 &nbsp;&nbsp;2. 您的驾照图片的信息<span>清晰</span>可见</p>
+                                <p>3. 您上传的照片没有反光或是折痕情况 &nbsp;&nbsp;4. 您上传的图片为<span>彩色</span>图像</p>
                             </div>
-                            <!--<div class="form-btn-item">
-									<div class="am-button am-button-red" id="subBtn">確定</div>
-								</div>-->
                         </form>
                     </div>
                 </div>
@@ -61,6 +187,8 @@
         </div>
     </div>
     <link rel="import" href="../footer.html?__inline">
+    <script type="text/javascript" src="../../js/lib/qiniu/plupload.full.min.js"></script>
+    <script type="text/javascript" src="../../js/lib/qiniu/qiniu.min.js"></script>
     <script>
         require(['app/controller/user/Identity']);
     </script>

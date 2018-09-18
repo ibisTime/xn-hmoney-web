@@ -53,7 +53,7 @@ define([
                 sessionStorage.setItem("mobile", item.mobile);
                 sessionStorage.setItem("inviteCode", item.secretUserId);
                 base.hideLoadingSpin()
-                base.showMsg("登錄成功")
+                base.showMsg("登录成功")
                 setTimeout(function() {
                     base.goReturn()
                 }, 800)

@@ -36,10 +36,10 @@ define([
         var coinList = base.getCoinList();
         var coinListKey = Object.values(coinList);
         var listHtml = '';
-        coinListKey.length = 2;
-        coinListKey = coinListKey.filter(item => {
-            return item.id > 1;
-        });
+        // coinListKey.length = 2;
+        // coinListKey = coinListKey.filter(item => {
+        //     return item.id > 1;
+        // });
         // for (var i = coinListKey.length - 1; i > -1; i--) {
         //     var tmpl = coinListKey[i]
         //     listHtml += `<li class="${tmpl.coin.toLowerCase()}" data-coin="${tmpl.coin}">${tmpl.coin}</li>`;

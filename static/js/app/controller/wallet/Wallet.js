@@ -7,11 +7,14 @@ define([
     'app/interface/GeneralCtr',
     'app/interface/UserCtr'
 ], function(base, pagination, Validate, smsCaptcha, AccountCtr, GeneralCtr, UserCtr) {
-    var isWithdraw = !!base.getUrlParam("isWithdraw"); //提币
-    var userAccountNum = base.getUrlParam('account'); // 获取用户编号
+    var userAccountNum = base.getUrlParam('account'); // 用户编号
     var withdrawFee = 0; // 取现手续费
     var currency = base.getUrlParam("c") || 'BTC'; //币种
     currency = currency.toUpperCase() // 转换大写
+
+    let href = location.href;
+    let arrHref = href.split('.')[0].split('/');
+    let ismx = arrHref[arrHref.length - 1];
 
     var config = {
             start: 1,
@@ -94,30 +97,27 @@ define([
         }
 
         $.when(
-            GeneralCtr.getDictList({ "parentKey": "jour_biz_type" }),
-            GeneralCtr.getDictList({ "parentKey": "frezon_jour_biz_type_user" }),
-        ).then((data1, data2) => {
+                GeneralCtr.getDictList({ "parentKey": "jour_biz_type" }),
+                GeneralCtr.getDictList({ "parentKey": "frezon_jour_biz_type_user" }),
+            ).then((data1, data2) => {
 
-            data1.forEach(function(item) {
-                bizTypeValueList[item.dkey] = item.dvalue
-            })
-            data2.forEach(function(item) {
-                bizTypeValueList[item.dkey] = item.dvalue
-            })
+                data1.forEach(function(item) {
+                    bizTypeValueList[item.dkey] = item.dvalue
+                })
+                data2.forEach(function(item) {
+                    bizTypeValueList[item.dkey] = item.dvalue
+                })
 
-            withdrawFee = base.formatMoney(base.getCoinWithdrawFee(currency), '', currency);
+                withdrawFee = base.formatMoney(base.getCoinWithdrawFee(currency), '', currency);
 
-            $("#withdrawFee").val(withdrawFee + currency)
-                //getAccount();// 测试
+                $("#withdrawFee").val(withdrawFee + currency)
+                getAccount(); // 测试
 
-        }, getAccount)
-        getAccount();
+            }, getAccount)
+            // getAccount();
         addListener();
-
-        if (isWithdraw) {
-            $("#address-nav ul li.withdraw").click();
-        }
     }
+
 
     //根据config配置设置 币种列表
     function getCoinList() {
@@ -166,120 +166,125 @@ define([
             // }
             config.accountNumber = userAccountNum;
             let ulElement = '';
-            data.forEach(item => {
-                ulElement += buildHtml(item);
+            let erWm = [];
+            data.forEach((item, i) => {
+                ulElement += buildHtml(item, i);
+                erWm.push(item.address);
             });
-            $('.tr-ul').html(ulElement)
+            $('.tr-ul').html(ulElement);
+            if (ismx != 'wallet-mx') {
+                erWm.forEach((item, i) => {
+                    var qrcode = new QRCode(`qrcode${i}`, item);
+                    qrcode.makeCode(item);
+                })
+            }
             if (userAccountNum) {
                 getPageFlow(config);
             }
+            addListener();
             base.hideLoadingSpin();
         }, base.hideLoadingSpin)
     }
 
-    function buildHtml(item) {
+    function buildHtml(item, i) {
         let kyAmount = base.formatMoney(`${item.amount - item.frozenAmount}`, '', item.currency);
         let frozenAmount = base.formatMoney(`${item.frozenAmount}`, '', item.currency);
-        return `<li>
-        <ul class="tr-mx">
-            <li>${item.currency}</li>
-            <li>${kyAmount}</li>
-            <li>${frozenAmount}</li>
-            <li>
-                <p class="cz-btns">
-                    <span>充币</span>
-                    <span>提币</span>
-                </p>
-                <p class="jy-btns">
-                    <span class="goHref"  data-href="./wallet-mx.html?account=${item.accountNumber}">交易明细</span>
-                    <span class="goHref" data-href="../trade/buy-list.html?type=sell&mod=gm">去交易</span>
-                </p>
-            </li>
-        </ul>
-        <div class="con-box none">
-            <div class="contant-mx">
-                <h3>充币</h3>
-                <div class="address-Wrap receive-wrap ">
-                    <div class="address">接收地址：<samp id="myCoinAddress"></samp>
-                        <div class="icon icon-qrcode">
-                            <div id="qrcode" class="qrcode"></div>
+        let DHtml = `<li>
+                <ul class="tr-mx">
+                    <li>${item.currency}</li>
+                    <li>${kyAmount}</li>
+                    <li>${frozenAmount}</li>
+                    <li>
+                        <p class="cz-btns">
+                            <span>充币</span>
+                            <span>提币</span>
+                        </p>
+                        <p class="jy-btns">
+                            <span class="goHref"  data-href="./wallet-mx.html?account=${item.accountNumber}">交易明细</span>
+                            <span class="goHref" data-href="../trade/buy-list.html?type=sell&mod=gm">去交易</span>
+                        </p>
+                    </li>
+                </ul>
+                <div class="con-box bb-box" style="display: none;">
+                    <div class="contant-mx">
+                        <h3>充币</h3>
+                        <div class="address-Wrap receive-wrap ">
+                            <div class="address">接收地址：<samp id="myCoinAddress">${item.address}</samp>
+                                <div class="icon icon-qrcode">
+                                    <div id="qrcode${i}" class="qrcode"></div>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <div class="warn over-hide">
-                        <i class="icon icon-warn fl"></i>
-                        <p class="fl">
-                            温馨提示：<i><span class="currency"></span> 钱包地址禁止充值除 <span class="currency"></span> 之外的其他资产，任何 <span class="currency"></span> 资产充值将不可找回。</i>
-                        </p>
+                    <div class="contant-ts">
+                        <h5>温馨提示</h5>
+                        <ul class="ts-ul">
+                            <li> BCH 地址只能充值 BCH 资产，任何充入 BCH 地址的非 BCH 资产将不可找回。</li>
+                            <li> 使用BCH地址充值需要 2 个网络确认才能到账。</li>
+                            <li> 最低存入金额为 0.0025 BCH，我们不会处理少于该金额的 BCH 存入请求。</li>
+                            <li> 在平台内相互转账是实时到账且免费的。</li>
+                        </ul>
                     </div>
                 </div>
-            </div>
-            <div class="contant-ts">
-                <h5>温馨提示</h5>
-                <ul class="ts-ul">
-                    <li> BCH 地址只能充值 BCH 资产，任何充入 BCH 地址的非 BCH 资产将不可找回。</li>
-                    <li> 使用BCH地址充值需要 2 个网络确认才能到账。</li>
-                    <li> 最低存入金额为 0.0025 BCH，我们不会处理少于该金额的 BCH 存入请求。</li>
-                    <li> 在平台内相互转账是实时到账且免费的。</li>
-                </ul>
-            </div>
-        </div>
-        <div class="con-tb none">
-            <div class="sendOut-form-wrap">
-                <h4>提币</h4>
-                <form class="form-wrapper form-wrapper-38 wp100" id="sendOut-form">
-                    <div class="form-item-wrap">
-                        <p class="label">提现地址</p>
-                        <div class="form-item mr20 k_b">
-                            <input type="text" class="input-item payCardNo" name="payCardNo" placeholder="请输入提现地址" />
-                        </div>
+                <div class="con-tb bb-box" style="display: none;">
+                    <div class="sendOut-form-wrap">
+                        <h4>提币</h4>
+                        <form class="form-wrapper form-wrapper-38 wp100" id="sendOut-form${i}">
+                            <div class="form-item-wrap">
+                                <p class="label">提现地址</p>
+                                <div class="form-item mr20 k_b">
+                                    <input type="text" class="input-item payCardNo" name="payCardNo" placeholder="请输入提现地址" />
+                                </div>
+                            </div>
+                            <div class="form-item-wrap">
+                                <samp class="label">提现数量</samp>
+                                <div class="form-item k_b">
+                                    <input type="text" class="input-item amount" name="amount" placeholder="请输入提现数量" />
+                                </div>
+                            </div>
+                            <div class="form-item-wrap" id="withdrawFee-wrap${i}">
+                                <samp class="label">手续费</samp>
+                                <div class="form-item k_b">
+                                    <input type="text" class="input-item withdrawFee" id="withdrawFee${i}" value="0" disabled="disabled" />
+                                </div>
+                            </div>
+                            <div class="form-item-wrap tradePwdWrap">
+                                <samp class="label">支付密码</samp>
+                                <div class="form-item k_b mr20">
+                                    <input type="password" class="input-item" name="tradePwd" placeholder="请输入支付密码" />
+                                </div>
+                                <div class="findPwd fl goHref" data-href="../user/setTradePwd.html?type=1&isWallet=1">忘记密码？</div>
+                            </div>
+                            <div class="form-item-wrap hidden googleAuthFlag">
+                                <samp class="label">谷歌验证码</samp>
+                                <div class="form-item k_b mr20">
+                                    <input type="password" class="input-item" name="googleCaptcha" placeholder="请输入谷歌验证码" />
+                                </div>
+                            </div>
+                            <div class="form-item-wrap">
+                                <samp class="label">备注</samp>
+                                <div class="form-item k_b">
+                                    <input type="text" class="input-item" name="applyNote" placeholder="请输入提现备注" />
+                                </div>
+                            </div>
+                            <div class="form-btn-item">
+                                <div data-accountNumber="${item.accountNumber}"></div>
+                                <div class="am-button am-button-red subBtn">确定提现</div>
+                            </div>
+                        </form>
                     </div>
-                    <div class="form-item-wrap">
-                        <samp class="label">提现数量</samp>
-                        <div class="form-item k_b">
-                            <input type="text" class="input-item amount" name="amount" placeholder="请输入提现地址" />
-                        </div>
+                    <div class="contant-ts" style="padding-top: 30px;">
+                        <h5>温馨提示</h5>
+                        <ul class="ts-ul">
+                            <li> BCH 地址只能充值 BCH 资产，任何充入 BCH 地址的非 BCH 资产将不可找回。</li>
+                            <li> 使用BCH地址充值需要 2 个网络确认才能到账。</li>
+                            <li> 最低存入金额为 0.0025 BCH，我们不会处理少于该金额的 BCH 存入请求。</li>
+                            <li> 在平台内相互转账是实时到账且免费的。</li>
+                        </ul>
                     </div>
-                    <div class="form-item-wrap" id="withdrawFee-wrap">
-                        <samp class="label">手续费</samp>
-                        <div class="form-item k_b">
-                            <input type="text" class="input-item withdrawFee" id="withdrawFee" value="0" disabled="disabled" />
-                        </div>
-                    </div>
-                    <div class="form-item-wrap tradePwdWrap">
-                        <samp class="label">支付密码</samp>
-                        <div class="form-item k_b mr20">
-                            <input type="password" class="input-item" name="tradePwd" placeholder="请输入支付密码" />
-                        </div>
-                        <div class="findPwd fl goHref" data-href="../user/setTradePwd.html?type=1&isWallet=1">忘记密码</div>
-                    </div>
-                    <div class="form-item-wrap hidden googleAuthFlag">
-                        <samp class="label">谷歌验证码</samp>
-                        <div class="form-item k_b mr20">
-                            <input type="password" class="input-item" name="googleCaptcha" placeholder="请输入谷歌验证码" />
-                        </div>
-                    </div>
-                    <div class="form-item-wrap">
-                        <samp class="label">备注</samp>
-                        <div class="form-item k_b">
-                            <input type="text" class="input-item" name="applyNote" placeholder="请输入提现备注" />
-                        </div>
-                    </div>
-                    <div class="form-btn-item">
-                        <div class="am-button am-button-red subBtn">确定提现</div>
-                    </div>
-                </form>
-            </div>
-            <div class="contant-ts" style="padding-top: 30px;">
-                <h5>温馨提示</h5>
-                <ul class="ts-ul">
-                    <li> BCH 地址只能充值 BCH 资产，任何充入 BCH 地址的非 BCH 资产将不可找回。</li>
-                    <li> 使用BCH地址充值需要 2 个网络确认才能到账。</li>
-                    <li> 最低存入金额为 0.0025 BCH，我们不会处理少于该金额的 BCH 存入请求。</li>
-                    <li> 在平台内相互转账是实时到账且免费的。</li>
-                </ul>
-            </div>
-        </div>
-    </li>`
+                </div>
+            </li>`
+        return DHtml;
     }
 
     // 初始化交易记录分页器
@@ -419,7 +424,6 @@ define([
             base.hideLoadingSpin();
             base.showMsg("操作成功");
             $("#addWAddressDialog").addClass("hidden")
-            document.getElementById("sendOut-form").reset();
             base.showLoadingSpin();
             config.start = 1;
             getAccount();
@@ -456,35 +460,37 @@ define([
         });
 
         //接受/发送点击
-        $("#address-nav ul li").click(function() {
-            if (!$(this).hasClass("on")) {
-                var _this = $(this)
-                    //提币/发送 需要验证是否有资金密码 和实名
-                if ($(this).hasClass("withdraw")) {
-                    UserCtr.getUser(true).then((data) => {
-                        if (data.tradepwdFlag && data.realName) {
-                            var index = _this.index()
-                            _this.addClass("on").siblings("li").removeClass("on");
-                            $(".wallet-address .address-Wrap").eq(index).removeClass("hidden").siblings(".address-Wrap").addClass("hidden")
-                        } else if (!data.tradepwdFlag) {
-                            base.showMsg("请先设置资金密码")
-                            setTimeout(function() {
-                                base.gohref("../user/setTradePwd.html?type=1")
-                            }, 1800)
-                        } else if (!data.realName) {
-                            base.showMsg("请先进行身份验证")
-                            setTimeout(function() {
-                                base.gohref("../user/identity.html")
-                            }, 1800)
-                        }
-                    }, base.hideLoadingSpin)
-                } else {
-                    var index = _this.index()
-                    _this.addClass("on").siblings("li").removeClass("on");
-                    $(".wallet-address .address-Wrap").eq(index).removeClass("hidden").siblings(".address-Wrap").addClass("hidden")
-                }
-
-            }
+        $(".trList .subBtn").off('click').click(function() {
+            //提币/发送 需要验证是否有资金密码 和实名
+            let params = {};
+            let formData = $(this).parents('form').serializeArray();
+            formData.forEach(item => {
+                params[item.name] = item.value;
+            })
+            params.applyUser = base.getUserId();
+            params.payCardInfo = $(this).parents('.con-tb').siblings('.tr-mx').children('li').eq(0).text();
+            params.accountNumber = $(this).prev().attr('data-accountNumber');
+            params.amount = base.formatMoneyParse(params.amount, '', params.payCardInfo);
+            console.log(params.payCardInfo);
+            withDraw(params).then(data => {
+                    console.log(data);
+                    $(this).parents('form').reset();
+                })
+                // UserCtr.getUser(true).then((data) => {
+                //     if (data.tradepwdFlag && data.realName) {
+                //         withDraw(params);
+                //     } else if (!data.tradepwdFlag) {
+                //         base.showMsg("请先设置资金密码")
+                //         setTimeout(function() {
+                //             base.gohref("../user/setTradePwd.html?type=1")
+                //         }, 1800)
+                //     } else if (!data.realName) {
+                //         base.showMsg("请先进行身份验证")
+                //         setTimeout(function() {
+                //             base.gohref("../user/identity.html")
+                //         }, 1800)
+                //     }
+                // }, base.hideLoadingSpin)
         })
 
         //交易记录 类型点击
@@ -604,24 +610,28 @@ define([
         })
 
         // 充币、提币操作
-        $('.tr-ul').click(function(e) {
+        $('.tr-ul').off('click').click(function(e) {
             let target = e.target;
             if ($(target).text() == '充币') {
+                $('.bb-box').hide(200);
                 if ($(target).attr('class') == 'sel-sp') {
-                    $(target).parents('.tr-mx').siblings('.con-box').addClass('none');
+                    $(target).parents('.tr-mx').siblings('.con-box').hide(200);
                     $(target).removeClass('sel-sp');
                 } else {
+                    $('.cz-btns span').removeClass('sel-sp');
                     $(target).addClass('sel-sp').siblings().removeClass('sel-sp');
-                    $(target).parents('.tr-mx').siblings('.con-box').removeClass('none').siblings('.con-tb').addClass('none');
+                    $(target).parents('.tr-mx').siblings('.con-box').show(200).siblings('.con-tb').hide(200);
                 }
             }
             if ($(target).text() == '提币') {
+                $('.bb-box').hide(200);
                 if ($(target).attr('class') == 'sel-sp') {
-                    $(target).parents('.tr-mx').siblings('.con-tb').addClass('none');
+                    $(target).parents('.tr-mx').siblings('.con-tb').hide(200);
                     $(target).removeClass('sel-sp');
                 } else {
+                    $('.cz-btns span').removeClass('sel-sp');
                     $(target).addClass('sel-sp').siblings().removeClass('sel-sp');
-                    $(target).parents('.tr-mx').siblings('.con-tb').removeClass('none').siblings('.con-box').addClass('none');
+                    $(target).parents('.tr-mx').siblings('.con-tb').show(200).siblings('.con-box').hide(200);
                 }
             }
         })

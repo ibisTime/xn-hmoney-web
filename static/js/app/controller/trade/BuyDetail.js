@@ -152,10 +152,10 @@ define([
                 base.showMsg("购买成功")
 
                 setTimeout(function() {
-                        base.gohref("../order/order-list.html")
-                    }, 2000)
-                    // base.hideLoadingSpin();
-            }) //, base.hideLoadingSpin
+                    base.gohref("../order/order-list.html")
+                }, 2000);
+                base.hideLoadingSpin();
+            }, base.hideLoadingSpin) //
 
     }
 
@@ -178,7 +178,7 @@ define([
                 if ($("#buyAmount").val() != '' && $("#buyAmount").val()) {
                     $("#submitDialog").removeClass("hidden")
                 } else {
-                    base.showMsg("请输入您购买的金額")
+                    base.showMsg("请输入您购买的金额")
                 }
             }
             // UserCtr.getUser().then((data) => {
@@ -211,7 +211,8 @@ define([
 
         //下单确认弹窗-确认点击
         $("#submitDialog .subBtn").click(function() {
-            buyETH()
+            buyETH();
+            base.showLoadingSpin();
             $("#submitDialog").addClass("hidden")
         })
 

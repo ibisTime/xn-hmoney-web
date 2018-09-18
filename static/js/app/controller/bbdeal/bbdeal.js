@@ -58,6 +58,10 @@ define([
                     getDepthData().then(data => {
                         let buyData = data.bids;
                         let sellData = data.asks;
+                        // 深度图
+                        if (buyData.length == 0 && sellData.length == 0) {
+                            return false;
+                        }
                         depthFn(buyData, sellData);
                     });
 
@@ -82,7 +86,7 @@ define([
                 // clearInterval(timeReal);
                 // var timeReal = setInterval(() => {
                 //     autoRealData();
-                // }, 2400);
+                // }, 3900);
 
                 // 判断是否登录
                 if (!base.isLogin()) {
@@ -118,7 +122,7 @@ define([
                     // clearInterval(timeMy);
                     // var timeMy = setInterval(() => {
                     //     autoGetMyDatata();
-                    // }, 2200);
+                    // }, 2800);
 
                     function autoGetMyDatata() {
                         getMyorderTicket(userConfig).then(data => {
@@ -130,7 +134,7 @@ define([
                     // clearInterval(timeHis);
                     // var timeHis = setInterval(() => {
                     //     autoGetHisData();
-                    // }, 2100);
+                    // }, 3400);
 
                     function autoGetHisData() {
                         getMyHistoryData(hisConfig).then(data => {
@@ -176,26 +180,26 @@ define([
 
             function autoGetData() {
                 getHandicapData().then(data => {
-                    buyHandicapData = data.bids;
-                    sellHandicapData = data.asks;
-                    let slen = 7 - sellHandicapData.length;
-                    let blen = 7 - buyHandicapData.length;
-                    if (slen > 0) {
-                        for (let i = 0; i < slen; i++) {
-                            sellHandicapData.push(0);
-                        }
-                    }
-                    if (blen > 0) {
-                        for (let i = 0; i < blen; i++) {
-                            buyHandicapData.push(0);
-                        }
-                    }
-                    let buyHtml = '',
-                        sellHtml = '';
-                    buyHandicapData.forEach((item, i) => {
-                        buyHtml += `<li>
+                            buyHandicapData = data.bids;
+                            sellHandicapData = data.asks;
+                            let slen = 7 - sellHandicapData.length;
+                            let blen = 7 - buyHandicapData.length;
+                            if (slen > 0) {
+                                for (let i = 0; i < slen; i++) {
+                                    sellHandicapData.push(0);
+                                }
+                            }
+                            if (blen > 0) {
+                                for (let i = 0; i < blen; i++) {
+                                    buyHandicapData.push(0);
+                                }
+                            }
+                            let buyHtml = '',
+                                sellHtml = '';
+                            buyHandicapData.forEach((item, i) => {
+                                        buyHtml += `<li>
                         <p class="b-p">买<span>${i + 1}</span></p>
-                        <p>${item.price ? item.price : '--'}</p>
+                        <p>${item.price ? base.formatMoney(`${item.price}`, '', setBazDeal.toSymbol) : '--'}</p>
                         <p>${item.count ? item.count : '--'}</p>
                     </li>`
                     })
@@ -203,7 +207,7 @@ define([
                     for (let i = 6; i >= 0; i--) {
                         sellHtml += `<li>
                         <p class="s-p">卖<span>${i + 1}</span></p>
-                        <p>${sellHandicapData[i].price ? sellHandicapData[i].price : '--'}</p>
+                        <p>${sellHandicapData[i].price ? base.formatMoney(`${sellHandicapData[i].price}`, '', setBazDeal.toSymbol) : '--'}</p>
                         <p>${sellHandicapData[i].count ? sellHandicapData[i].count : '--'}</p>
                     </li>`
                     }
@@ -237,6 +241,8 @@ define([
 
             // 查看历史委托函数
             function hisOrder(userHistoryData) {
+                //base.formatMoney(`${item.tradedCount}`, '', item.symbol)
+                //base.formatMoney(`${item.totalCount}`, '', item.symbol)
                 if (userHistoryData.length == 0) {
                     $('.his-cur').removeClass('none');
                     $('.his-cur').parent('tr').siblings().addClass('none');
@@ -249,9 +255,9 @@ define([
             <td>${item.symbol}/${item.toSymbol}</td>
             <td>${item.direction == 0 ? '买入' : '卖出'}</td>
             <td>${item.type == 0 ? '市价' : base.formatMoney(`${item.price}`, '', item.toSymbol)}</td>
-            <td>${item.totalCount}</td>
-            <td>${item.tradedCount}</td>
-            <td>${item.avgPrice ? item.avgPrice : '-'}</td>
+            <td>${base.formatMoney(`${item.totalCount}`, '', item.symbol)}</td>
+            <td>${base.formatMoney(`${item.tradedCount}`, '', item.symbol)}</td>
+            <td>${item.avgPrice ? base.formatMoney(`${item.avgPrice}`, '', item.toSymbol) : '-'}</td>
             <td>${statusValueList[item.status]}</td>
         </tr>`
     })
@@ -270,15 +276,18 @@ define([
         }
         let userOrderHtml = '';
         userOrderData.forEach((item, i) => {
+            //base.formatMoney(`${item.totalCount - item.tradedCount}`, '', item.symbol) (item.totalCount - item.tradedCount).toFixed(2)
+            //base.formatMoney(`${item.tradedCount}`, '', item.symbol)
+            //base.formatMoney(`${item.totalCount}`, '', item.symbol)
             userOrderHtml += `<tr>
                     <td colspan="2">${base.formatDate(item.createDatetime)}</td>
                     <td>${item.symbol}/${item.toSymbol}</td>
                     <td>${item.direction == 0 ? '买入' : '卖出'}</td>
                     <td>${item.type == 0 ? '市价' : base.formatMoney(`${item.price}`, '', item.toSymbol)}</td>
-                    <td>${item.totalCount}</td>
+                    <td>${base.formatMoney(`${item.totalCount}`, '', item.symbol)}</td>
                     <td>${base.formatMoney(`${item.totalAmount}`, '', item.toSymbol)}</td>
-                    <td>${item.tradedCount}</td>
-                    <td>${item.totalCount - item.tradedCount}</td>
+                    <td>${base.formatMoney(`${item.tradedCount}`, '', item.symbol)}</td>
+                    <td>${base.formatMoney(`${item.totalCount - item.tradedCount}`, '', item.symbol)}</td>
                     <td>
                         <button data-code="${item.code}" class="${item.tradedCount > 0 ? 'no-cz' : 'y-cz'}">取消</button>
                     </td>
@@ -312,6 +321,7 @@ define([
         if(price){
             price = base.formatMoneyParse(price, '', setBazDeal.toSymbol);
         }
+        totalCount = base.formatMoneyParse(totalCount, '', setBazDeal.symbol);
         return Ajax.post("650050", {
             userId: base.getUserId(),
             type, // 委托类型，0=市价，1=限价
@@ -479,6 +489,11 @@ define([
         $('.bb-jiaoyi>h5 span').off('click').click(function() {
             $(this).addClass('sel-jy').siblings().removeClass('sel-jy');
             $('.jy-btc1 .c-b').text(setBazDeal.symbol);
+            $('.y-sp .br-p').css('width', '0%');
+            $('.y-sp span:not(.sel-span)').css('background-color', '#f1f1f1');
+            $('.j-sp .br-p').css('width', '0%');
+            $('.j-sp span:not(.sel-span)').css('background-color', '#f1f1f1');
+            $('.br-sp .sel-span').css('left', '0%');
             switch ($(this).text()) {
                 case '限价交易':
                     isType = 0;
@@ -505,7 +520,7 @@ define([
 
         // input验证事件
         function outBlur(that) {
-            let reg = /^[1-9]\d*.\d*|0.\d*[1-9]\d*|0?.0+|0$/;
+            let reg = /^[1-9]\d*.?\d*$|0.\d*[1-9]\d*$|0?.0+|0$/;
             if ($(that).val().match(reg)) {
                 $(that).css('border-color', '#e5e5e5');
                 return true;
@@ -670,19 +685,24 @@ define([
         // 选中盘口事件
         //卖
         $('.s-new_ul').off('click').click(function(e) {
-                setNewLiData(e, '#yr-price');
+                setNewLiData(e, '#yr-price', '.mc-exc', '#yr-price', '.jy-ce');
             })
             // 买
         $('.b-new_ul').off('click').click(function(e) {
-            setNewLiData(e, '#ym-price');
+            setNewLiData(e, '#ym-price', '.mr-exc', '#buyNum', '.jy-me');
         })
 
-        function setNewLiData(ev, inpPrise) {
+        function setNewLiData(ev, inpPrise, hsPrice, jyNum, jyPrice) {
             let target = ev.target;
             let toPrice = $(target).parent().children().eq(1).text();
             if (!isNaN(parseInt(toPrice))) {
                 $(inpPrise).val(toPrice);
+                $(hsPrice).text(parseInt(toPrice) * bb_exchange);
+                $(jyPrice).text($(inpPrise).val() * $(jyNum).val() + ' ')
             } else {
+                $(inpPrise).val('0');
+                $(hsPrice).text('0');
+                $(jyPrice).text('0');
                 return false;
             }
         }
@@ -815,14 +835,14 @@ define([
         //卖
         sellData.forEach((item) => {
             // buyList.push(0);
-            sellWtData.push(item.price);
+            sellWtData.push(base.formatMoney(`${item.price}`, '', setBazDeal.toSymbol));
             sellLjData.push(item.count);
         })
         // sellWtListData = [...sellWtData, ...sellList];
         //买
         buyData.forEach((item) => {
             sellList.push('');
-            buyWtData.push(item.price);
+            buyWtData.push(base.formatMoney(`${item.price}`, '', setBazDeal.toSymbol));
             buyLjData.push(item.count);
         })
         buyWtData.sort((a, b) => (a - b));
@@ -895,7 +915,7 @@ define([
                 {
                     name:'买入',
                     type:'line',
-                    smooth: true,
+                    smooth: false,
                     lineStyle: {
                         width: 0
                     },
@@ -906,7 +926,7 @@ define([
                     name:'卖出',
                     type:'line',
                     // barCategoryGap: 0,
-                    smooth: true,
+                    smooth: false,
                     lineStyle: {
                         width: 0
                     },
