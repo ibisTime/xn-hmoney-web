@@ -33,14 +33,33 @@ define([
         }, base.hideLoadingSpin)
     }
 
-    function register(params) {
-        return UserCtr.register(params).then((data) => {
-            base.hideLoadingSpin()
-            base.showMsg("注册成功")
-            setTimeout(function() {
-                base.gohref("../user/login.html")
-            }, 800)
-        }, base.hideLoadingSpin)
+    // 注册
+    function register(params, type) {
+        if (type == 'mobile') {
+            return UserCtr.register(params).then((data) => {
+                base.hideLoadingSpin()
+                base.showMsg("注册成功")
+                setTimeout(function() {
+                    base.gohref("../user/login.html")
+                }, 800)
+            }, base.hideLoadingSpin)
+        } else {
+            return UserCtr.emailRegister(params).then(() => {
+                base.hideLoadingSpin()
+                base.showMsg("注册成功")
+                setTimeout(function() {
+                    base.gohref("../user/login.html")
+                }, 800)
+            }, base.hideLoadingSpin)
+        }
+    }
+    //获取邮箱验证码
+
+    function emailYzm(config) {
+
+        return UserCtr.emailYzm(config).then((data) => {
+            console.log(data);
+        });
     }
 
     function addListener() {
@@ -79,6 +98,10 @@ define([
                 "email": {
                     required: true
                 },
+                "smsCaptcha": {
+                    required: true,
+                    sms: true
+                },
                 "loginPwd1": {
                     required: true,
                     minlength: 6,
@@ -93,8 +116,7 @@ define([
                     base.showLoadingSpin()
                     var params = _registerForm.serializeObject()
                     inviteCode != "" && inviteCode ? params.inviteCode = inviteCode : '';
-
-                    register(params);
+                    register(params, 'mobile');
                 }
             }
         })
@@ -104,12 +126,46 @@ define([
             if (!$(this).hasClass("am-button-disabled")) {
                 if (_registerForm1.valid()) {
                     base.showLoadingSpin()
-                    var params = _registerForm1.serializeObject()
+                    var params = _registerForm1.serializeObject();
+                    params.loginPwd = params.loginPwd1;
+                    delete params.loginPwd1;
                     inviteCode != "" && inviteCode ? params.inviteCode = inviteCode : '';
-
-                    register(params);
+                    register(params, 'email');
                 }
             }
+        })
+
+        function gcGetYzm() {
+            var i = 60;
+            $('#getVerification1').css({
+                color: '#ccc',
+                'background-color': '#fff'
+            });
+            $('#getVerification1').prop("disabled", true)
+            var timer = window.setInterval(() => {
+                if (i > 0 && $('#getVerification1').prop("disabled")) {
+                    $('#getVerification1').text("重新发送(" + i-- + "s)");
+                } else {
+                    $('#getVerification1').text("获取验证码").prop("disabled", false);
+                    $('#getVerification1').css({
+                        color: '#d53d3d'
+                    });
+                    clearInterval(timer);
+                }
+            }, 1000);
+        }
+
+        //获取邮箱验证码
+        $('#getVerification1').off('click').click(function() {
+            let reg = /^[a-z0-9._%-]+@([a-z0-9-]+\.)+[a-z]{2,4}$/;
+            if ($('#email').val().match(reg)) {
+                gcGetYzm();
+                emailYzm({
+                    bizType: '805043',
+                    email: $('#email').val()
+                });
+            }
+            return false;
         })
 
         $("#subFlag").click(function() {

@@ -149,9 +149,9 @@ define([
         return TradeCtr.getAdvertiseDetail(code).then((data) => {
             status = data.status;
             data.premiumRate = data.premiumRate * 10;
-            let premiumRate = data.premiumRate.toFixed(2);
-            data.minTrade = parseInt(data.minTrade).toFixed(2);
-            data.maxTrade = parseInt(data.maxTrade).toFixed(2);
+            let premiumRate = (Math.floor(data.premiumRate * 1000) / 1000).toFixed(3);
+            data.minTrade = (Math.floor(parseInt(data.minTrade) * 1000) / 1000).toFixed(3);
+            data.maxTrade = (Math.floor(parseInt(data.maxTrade) * 1000) / 1000).toFixed(3);
             mid = data.marketPrice;
             var tradeCoin = data.tradeCoin ? data.tradeCoin : 'ETH';
             data.totalCount = base.formatMoney(data.totalCountString, '', tradeCoin)

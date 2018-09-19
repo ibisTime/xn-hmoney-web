@@ -23,7 +23,7 @@ define([
     var unreadMsgFlag = false;
 
     if (base.isLogin() && !/\/order-list\.html/.test(location.href) && !/\/buy-detail\.html/.test(location.href) && !/\/sell-detail\.html/.test(location.href)) {
-        //getTencunLogin(); // 测试
+        getTencunLogin(); // 测试
     }
 
     function init() {

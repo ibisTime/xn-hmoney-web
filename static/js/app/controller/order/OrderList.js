@@ -32,11 +32,11 @@ define([
         $(".head-nav-wrap .sell").addClass("active");
         $(".titleStatus li." + coin.toLowerCase()).addClass("on").siblings('li').removeClass('on');
         base.showLoadingSpin();
-        // TencentCloudLogin.goLogin(function(list) {
-        //     unreadMsgList = list;
-        //     isUnreadList = true;
-        //     addUnreadMsgNum();
-        // })  // 测试
+        TencentCloudLogin.goLogin(function(list) {
+                unreadMsgList = list;
+                isUnreadList = true;
+                addUnreadMsgNum();
+            }) // 测试
         GeneralCtr.getDictList({ "parentKey": "trade_order_status" }).then((data) => {
                 data.forEach(function(item) {
                     statusValueList[item.dkey] = item.dvalue

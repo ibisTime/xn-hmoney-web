@@ -67,7 +67,7 @@ define([
             'rules': {
                 "loginName": {
                     required: true,
-                    mobile: true
+                    mm: true
                 },
                 "loginPwd": {
                     required: true

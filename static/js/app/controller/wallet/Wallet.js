@@ -173,10 +173,12 @@ define([
             });
             $('.tr-ul').html(ulElement);
             if (ismx != 'wallet-mx') {
-                erWm.forEach((item, i) => {
-                    var qrcode = new QRCode(`qrcode${i}`, item);
-                    qrcode.makeCode(item);
-                })
+                setTimeout(() => {
+                    erWm.forEach((item, i) => {
+                        var qrcode = new QRCode(`qrcode${i}`, item);
+                        qrcode.makeCode(item);
+                    })
+                }, 10)
             }
             if (userAccountNum) {
                 getPageFlow(config);
@@ -198,6 +200,7 @@ define([
                         <p class="cz-btns">
                             <span>充币</span>
                             <span>提币</span>
+                            <span class="${item.currency == 'X' ? '' : 'none'}">去购买</span>
                         </p>
                         <p class="jy-btns">
                             <span class="goHref"  data-href="./wallet-mx.html?account=${item.accountNumber}">交易明细</span>
@@ -205,6 +208,10 @@ define([
                         </p>
                     </li>
                 </ul>
+                <div class="con-toBuy bb-box">
+                    <h5>去购买</h5>
+                    
+                </div>
                 <div class="con-box bb-box" style="display: none;">
                     <div class="contant-mx">
                         <h3>充币</h3>

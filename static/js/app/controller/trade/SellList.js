@@ -3,7 +3,7 @@ define([
     'pagination',
     'app/interface/TradeCtr',
 ], function(base, pagination, TradeCtr) {
-    var coin = base.getUrlParam("coin") || 'BTC'; // 币种
+    var coin = base.getUrlParam("coin"); // 币种
     //币种
     var config = {
         start: 1,
@@ -23,11 +23,11 @@ define([
         base.showLoadingSpin();
         getCoinList();
         $(".head-nav-wrap .sell").addClass("active");
-        if (coin == 'BTC' || coin == 'ETH') {
-            $("#coin-top ul li." + coin.toLowerCase()).addClass("on");
-        } else {
-            $("#coin-top ul li:nth-of-type(1)").addClass("on");
-        }
+        // if (coin == 'BTC' || coin == 'ETH') {
+        //     $("#coin-top ul li." + coin.toLowerCase()).addClass("on");
+        // } else {
+        //     $("#coin-top ul li:nth-of-type(1)").addClass("on");
+        // }
         getPageAdvertise();
         addListener();
     }
@@ -49,6 +49,12 @@ define([
             listHtml += `<li class="${tmpl.coin.toLowerCase()}" data-coin="${tmpl.coin}">${tmpl.coin}</li>`;
         }
         $("#coin-top ul").html(listHtml);
+        if (coin) {
+            $("#coin-top ul li." + coin.toLowerCase()).addClass("on");
+        } else {
+            $("#coin-top ul li:nth-of-type(1)").addClass("on");
+            config.coin = coinListKey[0].coin.toUpperCase();
+        }
     }
     // function getCoinList() {
     //     var coinList = base.getCoinList();

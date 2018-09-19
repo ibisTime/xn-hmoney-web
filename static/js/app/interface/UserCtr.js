@@ -24,6 +24,15 @@ define([
                 ...config
             });
         },
+        //邮箱注册
+        emailRegister(config) {
+            return Ajax.post('805043', config);
+        },
+        //获取邮箱注册码
+        emailYzm(config) {
+            debugger
+            return Ajax.get('630093', config);
+        },
         // 获取用户详情
         getUser(refresh, userId) {
             return Ajax.get("805121", {

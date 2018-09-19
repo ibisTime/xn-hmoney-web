@@ -887,7 +887,7 @@ define([
                 })
 
                 init();
-                //getTencunLogin(); // 测试
+                getTencunLogin(); // 测试
             }
         },
         hasCont: function() {

@@ -13,7 +13,7 @@ define([
                 bizType,
                 sendCode
             }
-            if (sendCode == "805952") {
+            if (sendCode == "") {
                 param.email = mobile
             } else {
                 param.mobile = mobile
@@ -72,7 +72,7 @@ define([
         },
         //获取腾讯云
         getTencunLogin() {
-            return Ajax.get("625000", {
+            return Ajax.get("805087", {
                 userId: base.getUserId()
             });
         }

@@ -217,7 +217,8 @@ define([
         })
 
         $("#buyEth").keyup(function() {
-            $("#buyAmount").val(($("#buyEth").val() * config.tradePrice).toFixed(2));
+            let truePrice = $("#buyEth").val() * config.tradePrice;
+            $("#buyAmount").val((Math.floor(truePrice * 100) / 100).toFixed(2));
             $("#submitDialog .tradeAmount").html($("#buyAmount").val() + "CNY")
             $("#submitDialog .count").html($("#buyEth").val() + tradeCoin)
             config.tradeAmount = $("#buyAmount").val()

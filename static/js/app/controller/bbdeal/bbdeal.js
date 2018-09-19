@@ -20,6 +20,7 @@ define([
                 start: '1',
                 limit: '10'
             };
+            let pkObjData = {}; // 盘口最优买卖价
             let statusValueList = {}; // 状态
             let userData = [];
             let bazaarData = []; // 交易对数据
@@ -36,7 +37,12 @@ define([
 
             let realTimeData = []; // 实时成交数据
 
+            let toSyUserMoney = ''; // toSymbol用户拥有量
+            let syUserMoney = ''; // symbol用户拥有量
+
             let bb_exchange = 0;
+
+            let oneIndex = 0;
 
             init();
 
@@ -50,10 +56,10 @@ define([
                     });
                     showBazaar(bazaarData[0]);
                     autoGetData();
-                    // clearInterval(timeGet);
-                    // var timeGet = setInterval(() => {
-                    //     autoGetData();
-                    // }, 2000);
+                    clearInterval(timeGet);
+                    var timeGet = setInterval(() => {
+                        autoGetData();
+                    }, 2000);
 
                     getDepthData().then(data => {
                         let buyData = data.bids;
@@ -83,10 +89,10 @@ define([
 
                 k(); // k线
 
-                // clearInterval(timeReal);
-                // var timeReal = setInterval(() => {
-                //     autoRealData();
-                // }, 3900);
+                clearInterval(timeReal);
+                var timeReal = setInterval(() => {
+                    autoRealData();
+                }, 3900);
 
                 // 判断是否登录
                 if (!base.isLogin()) {
@@ -103,26 +109,32 @@ define([
                         data.forEach(function(item) {
                             statusValueList[item.dkey] = item.dvalue
                         })
-                    }, base.hideLoadingSpin)
-                    AccountCtr.getAccount().then(data => {
-                        userData = data;
-                        let btcData = userData.filter((item) => {
-                            return item.currency == 'BTC';
-                        })
-                        let userMoney = base.formatMoneySubtract(`${btcData[0].amount}`, `${btcData[0].frozenAmount}`, 'BTC');
-                        $('.baz-all').text(userMoney);
-                        $('.toSdw').text('BTC');
-                        let XData = userData.filter(item => {
-                            return item.currency == setBazDeal.symbol;
-                        })
-                        let xMoney = base.formatMoneySubtract(`${XData[0].amount}`, `${XData[0].frozenAmount}`, setBazDeal.symbol);
-                        $('.all-bb').text(xMoney);
-                    });
+                    }, base.hideLoadingSpin);
+                    getUserMoney();
+                    // AccountCtr.getAccount().then(data => {
+                    //     userData = data;
+                    //     let btcData = userData.filter((item) => {
+                    //         return item.currency == 'BTC';
+                    //     })
+                    //     let syData = userData.filter(item => {
+                    //         return item.currency == setBazDeal.symbol;
+                    //     })
+                    //     syUserMoney = base.formatMoneySubtract(`${syData[0].amount}`, `${syData[0].frozenAmount}`, setBazDeal.symbol);
+                    //     toSyUserMoney = base.formatMoneySubtract(`${btcData[0].amount}`, `${btcData[0].frozenAmount}`, 'BTC');
+                    //     $('.baz-all').text(toSyUserMoney);
+                    //     $('.sy_all').text(syUserMoney);
+                    //     $('.toSdw').text('BTC');
+                    //     // let XData = userData.filter(item => {
+                    //     //     return item.currency == setBazDeal.symbol;
+                    //     // })
+                    //     // let xMoney = base.formatMoneySubtract(`${XData[0].amount}`, `${XData[0].frozenAmount}`, setBazDeal.symbol);
+                    //     // $('.all-bb').text(xMoney);
+                    // });
                     autoGetMyDatata();
-                    // clearInterval(timeMy);
-                    // var timeMy = setInterval(() => {
-                    //     autoGetMyDatata();
-                    // }, 2800);
+                    clearInterval(timeMy);
+                    var timeMy = setInterval(() => {
+                        autoGetMyDatata();
+                    }, 2800);
 
                     function autoGetMyDatata() {
                         getMyorderTicket(userConfig).then(data => {
@@ -131,10 +143,10 @@ define([
                         })
                     }
                     autoGetHisData();
-                    // clearInterval(timeHis);
-                    // var timeHis = setInterval(() => {
-                    //     autoGetHisData();
-                    // }, 3400);
+                    clearInterval(timeHis);
+                    var timeHis = setInterval(() => {
+                        autoGetHisData();
+                    }, 3400);
 
                     function autoGetHisData() {
                         getMyHistoryData(hisConfig).then(data => {
@@ -154,19 +166,19 @@ define([
 
             function autoRealData() {
                 getRealTimeData().then(data => {
-                    if (data.list.length > 0) {
-                        realTimeData = data.list;
-                        let bb_zxj = realTimeData[0].tradedPrice;
-                        let zx_exc = bb_zxj * bb_exchange;
-                        $('.bb-zxj').text(bb_zxj);
-                        $('.zx-exc').text(zx_exc);
-                        let realTimeHtml = '';
-                        realTimeData.forEach(item => {
-                            realTimeHtml += `<tr>
-                                <td>${base.formatDate(item.createDatetime)}</td>
+                            if (data.list.length > 0) {
+                                realTimeData = data.list;
+                                let bb_zxj = base.formatMoney(`${realTimeData[0].tradedPrice}`, '', setBazDeal.toSymbol);
+                                let zx_exc = bb_zxj * bb_exchange;
+                                $('.bb-zxj').text(bb_zxj);
+                                $('.zx-exc').text(zx_exc);
+                                let realTimeHtml = '';
+                                realTimeData.forEach(item => {
+                                            realTimeHtml += `<tr>
+                                <td>${base.formateDatetime(item.createDatetime)}</td>
                                 <td class="${item.direction == 0 ? 'd-mr' : 'd-mc'}">${item.direction == 0 ? '买入' : '卖出'}</td>
-                                <td>${item.tradedPrice}</td>
-                                <td>${item.tradedCount}</td>
+                                <td>${base.formatMoney(`${item.tradedPrice}`, '', setBazDeal.toSymbol)}</td>
+                                <td>${base.formatMoney(`${item.tradedCount}`, '', setBazDeal.symbol)}</td>
                             </tr>`
                         });
                         // ${base.formatMoney(`${item.tradedPrice}`, '', item.toSymbol)}
@@ -182,6 +194,21 @@ define([
                 getHandicapData().then(data => {
                             buyHandicapData = data.bids;
                             sellHandicapData = data.asks;
+                            if(oneIndex == 0){
+                                pkObjData.buy = buyHandicapData[0];
+                                pkObjData.sell = sellHandicapData[0];
+                                if(pkObjData.buy){
+                                    let toPrice = base.formatMoney(`${pkObjData.buy.price}`, '', setBazDeal.toSymbol)
+                                    $('#ym-price').val(toPrice);
+                                    $('.all-bb').text((Math.floor((toSyUserMoney / toPrice) * 1000) / 1000).toFixed(3));
+                                }
+                                if(pkObjData.sell){
+                                    let toPrice = base.formatMoney(`${pkObjData.sell.price}`, '', setBazDeal.toSymbol)
+                                    $('#yr-price').val(toPrice);
+                                    $('.all-bb_c').text(syUserMoney / toPrice);//syUserMoney
+                                }
+                            }
+                            oneIndex ++;
                             let slen = 7 - sellHandicapData.length;
                             let blen = 7 - buyHandicapData.length;
                             if (slen > 0) {
@@ -200,7 +227,7 @@ define([
                                         buyHtml += `<li>
                         <p class="b-p">买<span>${i + 1}</span></p>
                         <p>${item.price ? base.formatMoney(`${item.price}`, '', setBazDeal.toSymbol) : '--'}</p>
-                        <p>${item.count ? item.count : '--'}</p>
+                        <p>${item.count ? base.formatMoney(`${item.count}`, '', setBazDeal.symbol) : '--'}</p>
                     </li>`
                     })
                     $('.b-new_ul').html(buyHtml);
@@ -208,7 +235,7 @@ define([
                         sellHtml += `<li>
                         <p class="s-p">卖<span>${i + 1}</span></p>
                         <p>${sellHandicapData[i].price ? base.formatMoney(`${sellHandicapData[i].price}`, '', setBazDeal.toSymbol) : '--'}</p>
-                        <p>${sellHandicapData[i].count ? sellHandicapData[i].count : '--'}</p>
+                        <p>${sellHandicapData[i].count ? base.formatMoney(`${sellHandicapData[i].count}`, '', setBazDeal.symbol) : '--'}</p>
                     </li>`
                     }
                     $('.s-new_ul').html(sellHtml)
@@ -218,9 +245,14 @@ define([
 
             function getExchange() {
                 getBBExchange('CNY').then(data => {
-                    bb_exchange = data[0].lastPrice.toFixed(2);
-                    $('.bb-exc').text(bb_exchange);
-                    autoRealData();
+                    if(data.length != 0){
+                        let lastPrice = Math.floor(data[0].lastPrice * 1000)/1000;
+                        bb_exchange = lastPrice.toFixed(3);
+                        $('.bb-exc').text(bb_exchange);
+                        autoRealData();
+                    }else{
+                        return false;
+                    }
                 })
             }
 
@@ -251,7 +283,7 @@ define([
                 let userHistoryHtml = '';
                 userHistoryData.forEach(item => {
                             userHistoryHtml += `<tr>
-            <td colspan="2">${base.formatDate(item.createDatetime)}</td>
+            <td colspan="2">${base.formateDatetime(item.createDatetime)}</td>
             <td>${item.symbol}/${item.toSymbol}</td>
             <td>${item.direction == 0 ? '买入' : '卖出'}</td>
             <td>${item.type == 0 ? '市价' : base.formatMoney(`${item.price}`, '', item.toSymbol)}</td>
@@ -280,7 +312,7 @@ define([
             //base.formatMoney(`${item.tradedCount}`, '', item.symbol)
             //base.formatMoney(`${item.totalCount}`, '', item.symbol)
             userOrderHtml += `<tr>
-                    <td colspan="2">${base.formatDate(item.createDatetime)}</td>
+                    <td colspan="2">${base.formateDatetime(item.createDatetime)}</td>
                     <td>${item.symbol}/${item.toSymbol}</td>
                     <td>${item.direction == 0 ? '买入' : '卖出'}</td>
                     <td>${item.type == 0 ? '市价' : base.formatMoney(`${item.price}`, '', item.toSymbol)}</td>
@@ -304,8 +336,10 @@ define([
     //更新bazaarData的值
     function upBazaarData(data) {
         bazaarData = data.list;
-        setBazDeal.symbol = bazaarData[0].symbol;
-        setBazDeal.toSymbol = bazaarData[0].toSymbol;
+        if(data.list.lenght > 0){
+            setBazDeal.symbol = bazaarData[0].symbol;
+            setBazDeal.toSymbol = bazaarData[0].toSymbol;
+        }
     }
 
     // 市场
@@ -401,7 +435,8 @@ define([
 
     function showBazaar(bazaarData) {
         let bazULHtml = '';
-        bazULHtml += `<li>
+        if(bazaarData){
+            bazULHtml += `<li>
                         <p class="li-left">
                             <img src="/static/images/自选.png" alt="">
                             <img src="/static/images/星星空.png" alt="" class="none">
@@ -424,6 +459,28 @@ define([
         $('.btc-put span').text(setBazDeal.symbol);
         $('.am-btn span').text(setBazDeal.symbol);
         $('.t-jyd').text(`${setBazDeal.symbol}/${setBazDeal.toSymbol}`)
+        }
+    }
+
+    // 查用户余额
+    function getUserMoney(){
+        AccountCtr.getAccount().then(data => {
+            userData = data;
+            let btcData = userData.filter((item) => {
+                return item.currency == setBazDeal.toSymbol;
+            })
+            let syData = userData.filter(item => {
+                return item.currency == setBazDeal.symbol;
+            })
+            syUserMoney = base.formatMoneySubtract(`${syData[0].amount}`, `${syData[0].frozenAmount}`, setBazDeal.symbol);
+            toSyUserMoney = base.formatMoneySubtract(`${btcData[0].amount}`, `${btcData[0].frozenAmount}`, setBazDeal.toSymbol);
+            $('.baz-all').text(toSyUserMoney);
+            $('.sy_all').text(syUserMoney);
+            $('.toSdw').text(btcData[0].currency);
+            if(toSyUserMoney == 0){
+                $('.bb-exc').text('0.00');
+            }
+        });
     }
 
 
@@ -465,23 +522,7 @@ define([
             }
             // 查用户余额
             if (base.isLogin()) {
-                AccountCtr.getAccount().then(data => {
-                    userData = data;
-                    let btcData = userData.filter((item) => {
-                        return item.currency == setBazDeal.toSymbol;
-                    })
-                    let userMoney = base.formatMoneySubtract(`${btcData[0].amount}`, `${btcData[0].frozenAmount}`, setBazDeal.toSymbol);
-                    $('.baz-all').text(userMoney);
-                    $('.toSdw').text(btcData[0].currency);
-                    if(userMoney == 0){
-                        $('.bb-exc').text('0.00');
-                    }
-                    let XData = userData.filter(item => {
-                        return item.currency == setBazDeal.symbol;
-                    })
-                    let xMoney = base.formatMoneySubtract(`${XData[0].amount}`, `${XData[0].frozenAmount}`, setBazDeal.symbol);
-                    $('.all-bb').text(xMoney);
-                });
+                getUserMoney();
             }
         })
 
@@ -554,9 +595,11 @@ define([
                     getLimitedPriceData('1', direction, price, totalCount).then(data => {
                         $(inpNum).val('');
                         $(inpPrice).val('');
-                        $('.jy-ce').text('');
+                        $('.jy-ce').text('0.000');
+                        $('.jy-me').text('0.000');
                         if (data.code) {
                             base.showMsg('订单提交成功');
+                            getUserMoney();
                         } else {
                             base.showMsg('订单提交失败');
                             return false;
@@ -656,7 +699,7 @@ define([
         // 交易额-计算
         $('#buyNum').keyup(function() {
             if (outBlur(this)) {
-                $('.jy-me').text($('#ym-price').val() * $('#buyNum').val() + ' ')
+                $('.jy-me').text(((($('#ym-price').val() * $('#buyNum').val()) * 1000) / 1000).toFixed(3) + ' ')
             } else {
                 $('.jy-me').text('0 ')
             }
@@ -726,12 +769,12 @@ define([
         //买
         $('.j-sp .sel-span').mousedown(function(e) {
             isClick = false;
-            togo(this, e);
+            togo(this, e, '买');
         })
         // 卖
         $('.y-sp .sel-span').mousedown(function(e) {
             isClick = false;
-            togo(this, e);
+            togo(this, e, '卖');
         })
 
         function clickGo(target, goLeft, index){
@@ -739,6 +782,12 @@ define([
                 // 限价交易-买入
                 $('.j-sp .sel-span').css('left', goLeft);
                 $('.j-sp .br-p').css('width', goLeft);
+
+                // let allBB = parseFloat($('.all-bb').text());
+                // let m_bb = (Math.floor(((gLeft * allBB) / 100) *10000) / 10000).toFixed(4);
+                // $(target).parents('.dr-box').prev().children('input').val(m_bb);
+                // $('.jy-me').text(m_bb * $('#ym-price').val());
+                
                 for(let i = 1; i < index; i ++){
                     $(`.j-sp .br-${i}`).css('background-color', '#d53d3d');
                 }
@@ -749,6 +798,12 @@ define([
                 // 限价交易-卖出
                 $('.y-sp .sel-span').css('left', goLeft);
                 $('.y-sp .br-p').css('width', goLeft);
+
+                // let mcBB = parseFloat($('.all-bb_c').text());
+                // let r_bb = (Math.floor(((gLeft * mcBB) / 100) *10000) / 10000).toFixed(4);
+                // $(target).parents('.dr-box').prev().children('input').val(r_bb);
+                // $('.jy-ce').text(r_bb * $('#yr-price').val());
+
                 for(let i = 1; i < index; i ++){
                     $(`.y-sp .br-${i}`).css('background-color', '#d53d3d');
                 }
@@ -776,7 +831,7 @@ define([
                     $(that).next().css('background-color', '#f1f1f1');
                 }
         }
-        function togo(that, e) {
+        function togo(that, e, type) {
             if(!base.isLogin()){
                 return false;
             }
@@ -799,12 +854,22 @@ define([
                 $(that).prev().css({
                     width: gLeft + '%'
                 })
-                    //交易额
-                    // if ($(".yj-num").text() == '0' || !$(".yj-num").text()) {
-                    //     $("#price").val(mid);
-                    // } else {
-                    //     $("#price").val((mid + mid * ($(".yj-num").text() / 100)).toFixed(2));
-                    // }
+
+                //买入量
+                let allBB = parseFloat($('.all-bb').text());
+                if(allBB != 0 && type == '买'){
+                    let m_bb = (Math.floor(((gLeft * allBB) / 100) *10000) / 10000).toFixed(4);
+                    $(that).parents('.dr-box').prev().children('input').val(m_bb);
+                    $('.jy-me').text(m_bb * $('#ym-price').val());
+                }
+                // 卖人量
+                let mcBB = parseFloat($('.all-bb_c').text());
+                let r_bb = (Math.floor(((gLeft * mcBB) / 100) *10000) / 10000).toFixed(4);
+                if(mcBB != 0 && type == '卖'){console.log(1)
+                    $(that).parents('.dr-box').prev().children('input').val(r_bb);
+                    $('.jy-ce').text(r_bb * $('#yr-price').val());
+                }
+
             }).one('mouseup', function(){
                 i ++;
                 $(this).unbind('mousemove');
@@ -843,7 +908,7 @@ define([
         buyData.forEach((item) => {
             sellList.push('');
             buyWtData.push(base.formatMoney(`${item.price}`, '', setBazDeal.toSymbol));
-            buyLjData.push(item.count);
+            buyLjData.push(base.formatMoney(`${item.count}`, '', setBazDeal.symbol));
         })
         buyWtData.sort((a, b) => (a - b));
         buyLjData.sort((a, b) => (b - a));

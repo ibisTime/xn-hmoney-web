@@ -41,33 +41,35 @@ define([
                                 $('.no-data').removeClass('hidden');
                                 return;
                             }
+                            $('.tos-pr').text(userHistoryData[0].toSymbol);
+                            $('.s-pr').text(userHistoryData[0].symbol);
                             let hisToryHtml = '';
                             //(item.totalCount - item.tradedCount).toFixed(2)
                             userHistoryData.forEach(item => {
                                         hisToryHtml += `<li>
-                    <div class="list-l">
-                    <span>${base.formatDate(item.createDatetime)}</span>
-                    <span>${item.symbol}/${item.toSymbol}</span>
-                    <span class="${item.direction == 0 ? 'or-mr' : 'or-mc'}">${item.direction == 0 ? '买入' : '卖出'}</span>
-                    <span>${item.type == 0 ? '市价' : '限价'}</span>
-                    <span>${base.formatMoney(`${item.price}`, '', item.toSymbol)}</span>
-                    <span>${base.formatMoney(`${item.totalCount}`, '', item.symbol)}</span>
-                    <span>${base.formatMoney(`${item.totalAmount}`, '', item.toSymbol)}</span>
-                    <span>${base.formatMoney(`${item.tradedCount}`, '', item.symbol)}</span>
-                    <span>${base.formatMoney(`${item.totalCount - item.tradedCount}`, '', item.symbol)}</span>
-                    <span>${base.formatMoney(`${item.tradedAmount}`, '', item.toSymbol)}</span>
-                    <span>${statusValueList[item.status]}</span>
-                    <span>
-                    <button data-code="${item.code}" data-status="${item.status}" class="his-detail ${item.status == 4 ? 'dis-btn' : ''}">详情</button>
-                    </span>
-                    </div>
-                    <ul class="det-l">
-                    </ul>
-                </li>`});
-            $('.bborder-ul').html(hisToryHtml);
-            hisConfig.start == 1 && initPagination(data);
-            addLister();
-            base.hideLoadingSpin();
+                            <div class="list-l">
+                            <span>${base.formatDate(item.createDatetime)}</span>
+                            <span>${item.symbol}/${item.toSymbol}</span>
+                            <span class="${item.direction == 0 ? 'or-mr' : 'or-mc'}">${item.direction == 0 ? '买入' : '卖出'}</span>
+                            <span>${item.type == 0 ? '市价' : '限价'}</span>
+                            <span>${base.formatMoney(`${item.price}`, '', item.toSymbol)}</span>
+                            <span>${base.formatMoney(`${item.totalCount}`, '', item.symbol)}</span>
+                            <span>${base.formatMoney(`${item.totalAmount}`, '', item.toSymbol)}</span>
+                            <span>${base.formatMoney(`${item.tradedCount}`, '', item.symbol)}</span>
+                            <span>${base.formatMoney(`${item.totalCount - item.tradedCount}`, '', item.symbol)}</span>
+                            <span>${base.formatMoney(`${item.tradedAmount}`, '', item.toSymbol)}</span>
+                            <span>${statusValueList[item.status]}</span>
+                            <span>
+                            <button data-code="${item.code}" data-status="${item.status}" class="his-detail ${item.status == 4 ? 'dis-btn' : ''}">详情</button>
+                            </span>
+                            </div>
+                            <ul class="det-l">
+                            </ul>
+                        </li>`});
+                $('.bborder-ul').html(hisToryHtml);
+                hisConfig.start == 1 && initPagination(data);
+                addLister();
+                base.hideLoadingSpin();
             }, base.hideLoadingSpin)
         }
 
@@ -119,19 +121,19 @@ define([
                 userMxData = data.list;
                 let userMxHtml = `<div>
                     <span>时间</span>
-                    <span>价格</span>
-                    <span>数量</span>
-                    <span>成交额</span>
-                    <span>手续费</span>
+                    <span>价格(<i>${userMxData[0].toSymbol}</i>)</span>
+                    <span>数量(<i>${userMxData[0].symbol}</i>)</span>
+                    <span>成交额(<i>${userMxData[0].toSymbol}</i>)</span>
+                    <span>手续费(<i>${userMxData[0].direction == 0 ? userMxData[0].symbol : userMxData[0].toSymbol}</i>)</span>
                 </div>`;
                 userMxData.forEach(item => {
                     userMxHtml += `<li>
                         <div>
-                            <span>${base.formatDate(item.createDatetime)}</span>
+                            <span>${base.formateDatetime(item.createDatetime)}</span>
                             <span>${base.formatMoney(`${item.tradedPrice}`, '', item.toSymbol)}</span>
                             <span>${base.formatMoney(`${item.tradedCount}`, '', item.symbol)}</span>
                             <span>${base.formatMoney(`${item.tradedAmount}`, '', item.toSymbol)}</span>
-                            <span>${base.formatMoney(`${item.tradedFee}`, '', item.toSymbol)}</span>
+                            <span>${base.formatMoney(`${item.tradedFee}`, '', item.direction == 0 ? item.symbol : item.toSymbol)}</span>
                         </div>
                     </li>`
                 })

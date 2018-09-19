@@ -155,7 +155,7 @@ define([
             $("#nickname").html(user.nickname)
 
             if (!firstLoad) {
-                //getTencunLogin();  // 测试
+                getTencunLogin(); // 测试
                 firstLoad = true;
             }
 
@@ -927,17 +927,20 @@ define([
                 }
             })
             //--聊天 star--
-        $('#send').on('click', function() {
-            if ($('#msgedit').val() != "" && $('#msgedit').val()) {
-                onSendMsg($('#msgedit').val());
+            // $('#msgedit').on('click', function() {
+            //     if ($('#msgedit').val() != "" && $('#msgedit').val()) {
+            //         onSendMsg($('#msgedit').val());
+            //     }
+            // });
+        $(document).keyup(function(event) {
+            $('#msgedit').css('overflow', 'hidden');
+            if (event.keyCode == 13) {
+                if ($('#msgedit').val() != "" && $('#msgedit').val()) {
+                    onSendMsg($('#msgedit').val());
+                    $('#msgedit').val('')
+                }
             }
         });
-        //	    $(document).keyup(function(event){
-        //			if(event.keyCode==13){
-        //				$('#send').click();
-        //				$('#msgedit').blur()
-        //			}
-        //		}); 
 
         $('#group').on('click', function() {
             createGroup();

@@ -35,7 +35,7 @@ define([
                         <img src="${item.tradeType == 0 ? '/static/images/buy.png' : '/static/images/sell.png'}" alt="">
                     </div>
                     <h5>${typeList[item.tradeType]} ${item.tradeCoin}</h5>
-                    <p>价格：<span>${item.truePrice.toFixed(2)}</span> CNY</p>
+                    <p>价格：<span>${(Math.floor(item.truePrice * 1000)/1000).toFixed(3)}</span> CNY</p>
                     <p>交易限额：<span>${item.minTrade}</span> ～ <span>${item.maxTrade}</span> CNY</p>
                     <p>付款方式：<span><img src="/static/images/银行卡.png" alt=""></span> <span><img src="" alt=""></span></p>
                     <div class="btn-box">
@@ -52,7 +52,7 @@ define([
                 aarketHtml += `<li>
                     <p><span>X</span> / <span>${item.symbol}</span></p>
                     <h5>${item.lastPrice.toFixed(2)}</h5>
-                    <p><span class="zj">+</span><span class="zf">1.52</span>% <span class="zf-img"><img src="" alt=""></span></p>
+                    <p><span class="zj">+</span><span class="zf">1.52</span>% <span class="zf-img"><img src="/static/images/下降.png" alt=""></span></p>
                 </li>`
             })
             $('.bb-hq_r ul').html(aarketHtml);
