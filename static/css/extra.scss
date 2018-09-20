@@ -2335,6 +2335,57 @@ table {
             color: #1e1e1e;
             background-color: #fff;
         }
+        .x-det {
+            width: 100%;
+            padding: 30px 0 58px 30px;
+            background-color: #fff;
+            >div {
+                width: 60%;
+            }
+            .sk-msg,
+            .order-msg {
+                padding-bottom: 30px;
+                h5 {
+                    font-size: 16px;
+                    color: #1e1e1e;
+                    font-weight: 400;
+                    letter-spacing: 0.15px;
+                    margin-bottom: 22px;
+                }
+                ul {
+                    width: 100%;
+                    display: flex;
+                    flex-wrap: wrap;
+                    li {
+                        width: 49%;
+                        margin-bottom: 14px;
+                        color: #333;
+                        font-size: 14px;
+                        span {
+                            margin-left: 5px;
+                        }
+                    }
+                }
+            }
+            .sk-msg {
+                border-top: 1px solid #e6e6e6;
+                padding-top: 30px;
+            }
+            .cz-btn {
+                text-align: center;
+                margin-top: 40px;
+                button {
+                    padding: 8px 40px;
+                    color: #d53d3d;
+                    border: 1px solid #d53d3d;
+                    background-color: #fff;
+                    border-radius: 4px;
+                    font-size: 14px;
+                    margin-right: 50px;
+                    cursor: pointer;
+                }
+            }
+        }
         .tradeRecord-top {
             width: 100%;
             ul {
@@ -2369,6 +2420,24 @@ table {
                 }
             }
         }
+        .x-order {
+            ul {
+                width: 100%;
+                padding: 0;
+                li {
+                    width: 129px;
+                    margin: 0;
+                    text-align: center;
+                    cursor: default !important;
+                    &:hover {
+                        color: #333;
+                    }
+                }
+                li:last-child {
+                    width: 23%;
+                }
+            }
+        }
     }
     .tradeRecord-list-wrap {
         width: 100%;
@@ -2392,7 +2461,7 @@ table {
                     width: 140px;
                 }
                 &:nth-of-type(3) {
-                    width: 220px;
+                    width: 160px;
                 }
                 &:nth-of-type(4) {
                     width: 530px;
@@ -2400,6 +2469,47 @@ table {
             }
             &.title {
                 background-color: #f8f8f8;
+            }
+        }
+        .x-order_warp {
+            ul {
+                width: 100%;
+                font-family: 'PingFangSC-Regular';
+                background-color: #fff;
+                li {
+                    display: flex;
+                    width: 100%;
+                    font-size: 14px;
+                    color: #333;
+                    height: 56px;
+                    line-height: 56px;
+                    border-bottom: 1px solid #eee;
+                    >p {
+                        width: 129px;
+                        text-align: center;
+                    }
+                    .date_p {
+                        width: 165px;
+                    }
+                    .date_num {
+                        width: 124px;
+                    }
+                    div {
+                        width: 24%;
+                        color: #666;
+                        text-align: center;
+                        span {
+                            padding: 3px 8px;
+                            border: 1px solid #666;
+                            border-radius: 4px;
+                            margin: 0px 8px;
+                            cursor: pointer;
+                        }
+                    }
+                }
+                .date_li {
+                    width: 165px;
+                }
             }
         }
         .tr-ul {
@@ -2423,13 +2533,13 @@ table {
                             width: 140px;
                         }
                         &:nth-of-type(3) {
-                            width: 220px;
+                            width: 160px;
                         }
                         &:nth-of-type(4) {
-                            width: 550px;
+                            width: 660px;
                             display: flex;
                             p {
-                                margin-right: 70px;
+                                width: 300px;
                                 span {
                                     margin-right: 34px;
                                     cursor: pointer;
@@ -2440,7 +2550,7 @@ table {
                                 }
                             }
                             .cz-btns {
-                                width: 220px;
+                                width: 500px;
                             }
                         }
                     }
@@ -2509,6 +2619,153 @@ table {
                         li {
                             list-style: disc;
                             line-height: 25px;
+                        }
+                    }
+                }
+            }
+        }
+        .con-toSell,
+        .con-toBuy {
+            font-family: 'PingFangSC-Regular';
+            padding: 30px 0 43px 30px;
+            width: 100%;
+            border-bottom: 1px solid #e6e6e6;
+            >h5 {
+                color: #262626;
+                font-size: 18px;
+                font-weight: 400;
+                letter-spacing: 0.15px;
+            }
+            .buy-box {
+                width: 35%;
+                margin-top: 25px;
+                .buy-head {
+                    text-align: center;
+                    margin-bottom: 32px;
+                    .x-h_p1 {
+                        color: #333;
+                        font-size: 14px;
+                    }
+                    .x-h_p2 {
+                        height: 12px;
+                    }
+                    .x-h_p3 {
+                        color: #666;
+                        font-size: 12px;
+                        span {
+                            font-size: 14px;
+                        }
+                        .x-mon {
+                            font-size: 20px;
+                            color: #151515;
+                        }
+                        .x-bf_r {
+                            color: #d53d3d;
+                        }
+                        .x-bf_g {
+                            color: #0BBC2F;
+                        }
+                    }
+                }
+                .buy-con {
+                    width: 100%;
+                    .b-c_h {
+                        display: flex;
+                        padding-bottom: 5px;
+                        margin-bottom: 24px;
+                        p {
+                            font-size: 16px;
+                            color: #666;
+                            padding-bottom: 5px;
+                            letter-spacing: 0.13px;
+                            cursor: pointer;
+                            border-bottom: 2px solid transparent;
+                        }
+                        p:first-child {
+                            margin-right: 56px;
+                        }
+                        .b-c_d {
+                            margin-left: 80px;
+                            font-size: 14px;
+                            color: #808080;
+                            letter-spacing: 0.12px;
+                        }
+                        .sel-p {
+                            color: #d53d3d;
+                            border-color: #d53d3d;
+                        }
+                    }
+                    .b-c_put {
+                        width: 100%;
+                        position: relative;
+                        margin-bottom: 12px;
+                        border: 1px solid #B3B3B3;
+                        border-radius: 4px;
+                        p {
+                            position: absolute;
+                            left: 0;
+                            top: 0;
+                            height: 36px;
+                            line-height: 36px;
+                            color: #999;
+                            font-size: 14px;
+                            letter-spacing: 0.12px;
+                            padding-left: 8px;
+                        }
+                        span {
+                            font-size: 14px;
+                            color: #999;
+                            position: absolute;
+                            top: 5px;
+                            right: 10px;
+                        }
+                        input {
+                            position: relative;
+                            z-index: 1;
+                            width: 100%;
+                            padding: 3px 8px;
+                            height: 36px;
+                            line-height: 36px;
+                            background: transparent;
+                            color: #333;
+                        }
+                    }
+                    .b-c_yue {
+                        color: #666;
+                        font-size: 14px;
+                        letter-spacing: 0.12px;
+                        margin-bottom: 42px;
+                    }
+                    .b-c_fs {
+                        display: flex;
+                        justify-content: space-between;
+                    }
+                    .back-type {
+                        margin-top: 20px;
+                        width: 100%;
+                        input {
+                            width: 100%;
+                            border: 1px solid #b3b3b3;
+                            border-radius: 4px;
+                            padding: 3px 8px;
+                            height: 36px;
+                            line-height: 36px;
+                            color: #333;
+                        }
+                    }
+                    .b-c_foo {
+                        margin-top: 51px;
+                        button {
+                            color: #fff;
+                            background-color: #d53d3d;
+                            font-size: 14px;
+                            letter-spacing: 0.12px;
+                            width: 170px;
+                            text-align: center;
+                            height: 36px;
+                            line-height: 36px;
+                            border-radius: 4px;
+                            cursor: pointer;
                         }
                     }
                 }
@@ -5417,12 +5674,6 @@ table {
                             line-height: 32px;
                             color: #333;
                             text-align: center;
-                            .d-mc {
-                                color: #D53D3D;
-                            }
-                            .d-mr {
-                                color: #0EC55B;
-                            }
                         }
                     }
                 }
@@ -5954,6 +6205,14 @@ html {
 
 .dis-btn {
     cursor: not-allowed !important;
+}
+
+.d-mc {
+    color: #D53D3D !important;
+}
+
+.d-mr {
+    color: #0EC55B !important;
 }
 
 .overflow {

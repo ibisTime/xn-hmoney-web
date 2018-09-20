@@ -401,7 +401,7 @@ define([
         })
     }
 
-    // 获取币种汇率
+    // 获取币种汇率、行情
     function getBBExchange(ex_type){
         return Ajax.post('650101', {
             symbol: setBazDeal.toSymbol,
@@ -778,15 +778,17 @@ define([
         })
 
         function clickGo(target, goLeft, index){
+            let parseWidth = $(target).parents('.dr-box').width();
             if ($(target).parent().hasClass('j-sp')) {
                 // 限价交易-买入
                 $('.j-sp .sel-span').css('left', goLeft);
                 $('.j-sp .br-p').css('width', goLeft);
 
-                // let allBB = parseFloat($('.all-bb').text());
-                // let m_bb = (Math.floor(((gLeft * allBB) / 100) *10000) / 10000).toFixed(4);
-                // $(target).parents('.dr-box').prev().children('input').val(m_bb);
-                // $('.jy-me').text(m_bb * $('#ym-price').val());
+                let gleft = (Math.floor(parseFloat(goLeft) / parseFloat(parseWidth) * 1000) / 1000).toFixed(3);
+                let mcBB = parseFloat($('.all-bb').text());
+                let r_bb = (Math.floor((gleft * mcBB) *10000) / 10000).toFixed(4);
+                $(target).parents('.dr-box').prev().children('input').val(r_bb);
+                $('.jy-me').text(r_bb * $('#ym-price').val());
                 
                 for(let i = 1; i < index; i ++){
                     $(`.j-sp .br-${i}`).css('background-color', '#d53d3d');
@@ -799,10 +801,11 @@ define([
                 $('.y-sp .sel-span').css('left', goLeft);
                 $('.y-sp .br-p').css('width', goLeft);
 
-                // let mcBB = parseFloat($('.all-bb_c').text());
-                // let r_bb = (Math.floor(((gLeft * mcBB) / 100) *10000) / 10000).toFixed(4);
-                // $(target).parents('.dr-box').prev().children('input').val(r_bb);
-                // $('.jy-ce').text(r_bb * $('#yr-price').val());
+                let gleft = (Math.floor(parseFloat(goLeft) / parseFloat(parseWidth) * 1000) / 1000).toFixed(3);
+                let mcBB = parseFloat($('.all-bb_c').text());
+                let r_bb = (Math.floor((gleft * mcBB) *10000) / 10000).toFixed(4);
+                $(target).parents('.dr-box').prev().children('input').val(r_bb);
+                $('.jy-ce').text(r_bb * $('#yr-price').val());
 
                 for(let i = 1; i < index; i ++){
                     $(`.y-sp .br-${i}`).css('background-color', '#d53d3d');
@@ -865,7 +868,7 @@ define([
                 // 卖人量
                 let mcBB = parseFloat($('.all-bb_c').text());
                 let r_bb = (Math.floor(((gLeft * mcBB) / 100) *10000) / 10000).toFixed(4);
-                if(mcBB != 0 && type == '卖'){console.log(1)
+                if(mcBB != 0 && type == '卖'){
                     $(that).parents('.dr-box').prev().children('input').val(r_bb);
                     $('.jy-ce').text(r_bb * $('#yr-price').val());
                 }

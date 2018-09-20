@@ -5,8 +5,9 @@ define([
     'app/module/smsCaptcha',
     'app/interface/AccountCtr',
     'app/interface/GeneralCtr',
-    'app/interface/UserCtr'
-], function(base, pagination, Validate, smsCaptcha, AccountCtr, GeneralCtr, UserCtr) {
+    'app/interface/UserCtr',
+    'app/util/ajax'
+], function(base, pagination, Validate, smsCaptcha, AccountCtr, GeneralCtr, UserCtr, Ajax) {
     var userAccountNum = base.getUrlParam('account'); // 用户编号
     var withdrawFee = 0; // 取现手续费
     var currency = base.getUrlParam("c") || 'BTC'; //币种
@@ -15,6 +16,9 @@ define([
     let href = location.href;
     let arrHref = href.split('.')[0].split('/');
     let ismx = arrHref[arrHref.length - 1];
+
+    let moneyHS = 0;
+    let zfType = {}; // 支付方式
 
     var config = {
             start: 1,
@@ -83,6 +87,18 @@ define([
         $("#addWAddressMobile").val(base.getUserMobile());
         //$(".currency").text(currency);  测试
         getCoinList();
+        getAdvertisePrice('BTC').then(data => {
+            let bb_mid = data.mid;
+            getAdvertisePrice('X', 'BTC').then(data => {
+                moneyHS = parseFloat(data.mid) * parseFloat(bb_mid);
+                console.log(moneyHS);
+            })
+        });
+        getBankData().then(data => {
+            data.forEach(item => {
+                zfType[item.bankName] = item.bankCode
+            })
+        });
 
         if (base.getGoogleAuthFlag() == "true" && base.getGoogleAuthFlag()) {
             $(".googleAuthFlag").removeClass("hidden");
@@ -141,6 +157,7 @@ define([
         })
     }
 
+
     //我的账户
     function getAccount() {
         return AccountCtr.getAccount().then((data) => {
@@ -172,6 +189,15 @@ define([
                 erWm.push(item.address);
             });
             $('.tr-ul').html(ulElement);
+
+            let zfTypeHtml = '';
+            // zfType[item.zfType[item.bankName] = item.bankCode] = item.bankCode
+            getBankData().then(data => {
+                data.forEach(item => {
+                    zfTypeHtml += `<option value="${item.bankName}">${item.bankName}</option>`
+                });
+                $('#zf_select').html(zfTypeHtml);
+            });
             if (ismx != 'wallet-mx') {
                 setTimeout(() => {
                     erWm.forEach((item, i) => {
@@ -187,6 +213,90 @@ define([
             base.hideLoadingSpin();
         }, base.hideLoadingSpin)
     }
+    let x_tip = '请输入购买金额';
+    let tuBuyHtml = `<div class="con-toBuy bb-box" style="display: none;">
+                        <h5 class="x-tit">去购买</h5>
+                        <div class="buy-box">
+                            <div class="buy-head">
+                                <p class="x-h_p1">X/CNY</p>
+                                <p class="x-h_p2"><img src="/static/images/切换X.png" class="fr"/></p>
+                                <p class="x-h_p3">单价：¥ <span class="x-mon">20.00</span> <span class="x-bf_r"><i>-</i> 3.5%</span></p>
+                            </div>
+                            <div class="buy-con">
+                                <div class="b-c_h buy-c">
+                                    <p class="sel-p">金额</p>
+                                    <p>数量</p>
+                                    <div class="b-c_d">单笔限制：<span>100</span> - <span>5000</span> CNY</div>
+                                </div>
+                                <div class="b-c_put">
+                                    <input type="text">
+                                    <p>请输入购买金额</p>
+                                    <span class="m_bb">CNY</span>
+                                </div>
+                                <div class="b-c_yue">
+                                    <p>≈ <span class="x_num">0.0000</span> <span class="m_cyn">X</span><span class="fr">手续费：<span>2</span> %</span>
+                                    </p>
+                                </div>
+                                <div class="b-c_fs">
+                                    <p>付款方式</p>
+                                    <div>
+                                        <span><img src="" alt=""></span>
+                                        <select name="zf-type" id="zf_select">
+                                        
+                                        </select>
+                                        <span><img src="/static/images/下拉黑.png" alt=""></span>
+                                    </div>
+                                </div>
+                                <div class="b-c_foo">
+                                    <button>买入</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>`
+
+    let tuSellHtml = `<div class="con-toSell bb-box" style="display: none;">
+                    <h5 class="x-tit">去出售</h5>
+                    <div class="buy-box">
+                        <div class="buy-head">
+                            <p class="x-h_p1">X/CNY</p>
+                            <p class="x-h_p2"><img src="/static/images/切换X.png" class="fr"/></p>
+                            <p class="x-h_p3">单价：¥ <span class="x-mon">20.00</span> <span class="x-bf_r"><i>-</i> 3.5%</span></p>
+                        </div>
+                        <div class="buy-con">
+                            <div class="b-c_h sell-c">
+                                <p class="sel-p">金额</p>
+                                <p>数量</p>
+                                <div class="b-c_d">单笔限制：<span>100</span> - <span>5000</span> CNY</div>
+                            </div>
+                            <div class="b-c_put">
+                                <input type="text">
+                                <p>请输入卖出金额</p>
+                                <span class="m_bb">CNY</span>
+                            </div>
+                            <div class="b-c_yue">
+                                <p>≈ <span class="x_num">0.0000</span><span class="m_cyn">X</span> <span class="fr">手续费：<span>2</span> %</span>
+                                </p>
+                            </div>
+                            <div class="b-c_fs">
+                                <p>付款方式</p>
+                                <div>
+                                    <span><img src="" alt=""></span>
+                                    <select name="zf-type" id="zf_select">
+                                                <option value="支付宝">支付宝</option>
+                                                <option value="银行卡">银行卡</option>
+                                            </select>
+                                    <span></span>
+                                </div>
+                            </div>
+                            <div class="back-type">
+                                <input type="text" placeholder="请输入账号或卡号" />
+                            </div>
+                            <div class="b-c_foo">
+                                <button>卖出</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>`
 
     function buildHtml(item, i) {
         let kyAmount = base.formatMoney(`${item.amount - item.frozenAmount}`, '', item.currency);
@@ -200,18 +310,17 @@ define([
                         <p class="cz-btns">
                             <span>充币</span>
                             <span>提币</span>
-                            <span class="${item.currency == 'X' ? '' : 'none'}">去购买</span>
+                            <span class="${item.currency == 'X' ? 'to-buy' : 'none'}">去购买</span>
+                            <span class="${item.currency == 'X' ? 'to-sell' : 'none'}">去出售</span>
                         </p>
                         <p class="jy-btns">
                             <span class="goHref"  data-href="./wallet-mx.html?account=${item.accountNumber}">交易明细</span>
-                            <span class="goHref" data-href="../trade/buy-list.html?type=sell&mod=gm">去交易</span>
+                            <span class="goHref" data-href="${item.currency == 'X' ? '../wallet/wallet-jilu.html' : '../trade/buy-list.html?type=sell&mod=gm'}">${item.currency == 'X' ? '订单记录' : '去交易'}</span>
                         </p>
                     </li>
                 </ul>
-                <div class="con-toBuy bb-box">
-                    <h5>去购买</h5>
-                    
-                </div>
+                ${item.currency == 'X' ? tuBuyHtml : ''}
+                ${item.currency == 'X' ? tuSellHtml : ''}
                 <div class="con-box bb-box" style="display: none;">
                     <div class="contant-mx">
                         <h3>充币</h3>
@@ -453,6 +562,33 @@ define([
         }, base.hideLoadingSpin)
     }
 
+    // 获取银行渠道
+    function getBankData() {
+        return Ajax.post('802116', {
+            status: '1'
+        })
+    }
+
+    //获取币换人民币价格
+
+    function getAdvertisePrice(coin, ctype) {
+        let refCurrency = ctype || 'CNY';
+        return Ajax.get("625292", {
+            coin,
+            refCurrency
+        });
+    }
+
+    // 购买X币
+    function buyX(config) {
+        return Ajax.post('625270', config);
+    }
+
+    // 出售X币
+    function sellX(config) {
+        return Ajax.post('625271', config);
+    }
+
     function addListener() {
         var _addAddressWrapper = $("#addAddress-form");
         _addAddressWrapper.validate({
@@ -616,6 +752,7 @@ define([
             $("#wAddressDialog").addClass("hidden")
         })
 
+
         // 充币、提币操作
         $('.tr-ul').off('click').click(function(e) {
             let target = e.target;
@@ -642,6 +779,161 @@ define([
                 }
             }
         })
+
+        let isSell = true;
+
+        // 去购买操作
+        $('.to-buy').off('click').click(function() {
+            $('.b-c_h p').eq(0).addClass('sel-p').siblings().removeClass('sel-p');
+            $('.b-c_put input').val('');
+            isSell = false;
+            if ($(this).hasClass('sel-sp')) {
+                $('.con-toBuy').hide();
+                $(this).removeClass('sel-sp');
+            } else {
+                $(this).addClass('sel-sp').siblings().removeClass('sel-sp');
+                $('.bb-box').hide();
+                $('.con-toBuy').show(200);
+            }
+        })
+
+        // 去出售操作
+        $('.to-sell').off('click').click(function() {
+            $('.b-c_h p').eq(0).addClass('sel-p').siblings().removeClass('sel-p');
+            $('.b-c_put input').val('');
+            isSell = true;
+            $('.b-c_put p').text('请输入卖出金额');
+            if ($(this).hasClass('sel-sp')) {
+                $('.con-toSell').hide();
+                $(this).removeClass('sel-sp');
+            } else {
+                $(this).addClass('sel-sp').siblings().removeClass('sel-sp');
+                $('.bb-box').hide();
+                $('.con-toSell').show(200);
+            }
+        })
+
+        //切换方式
+        $('.b-c_h p').off('click').click(function() {
+            $(this).addClass('sel-p').siblings('p').removeClass('sel-p');
+            $('.b-c_put input').val('');
+            $('.x_num').text('0.00');
+            if (isSell) {
+                if ($(this).text() == '金额') {
+                    $('.b-c_put p').text('请输入卖出金额');
+                    $('.m_bb').text('CNY');
+                    $('.m_cyn').text('X');
+                } else {
+                    $('.b-c_put p').text('请输入卖出数量');
+                    $('.m_bb').text('X');
+                    $('.m_cyn').text('CNY');
+                }
+            } else {
+                if ($(this).text() == '金额') {
+                    $('.b-c_put p').text('请输入购买金额');
+                    $('.m_bb').text('CNY');
+                    $('.m_cyn').text('X');
+                } else {
+                    $('.b-c_put p').text('请输入购买数量');
+                    $('.m_bb').text('X');
+                    $('.m_cyn').text('CNY');
+                }
+            }
+        })
+
+        let inpTxt = '';
+
+        $('.b-c_put input').focus(function() {
+            inpTxt = $(this).next('p').text();
+            $(this).next().text('');
+        })
+        $('.b-c_put input').blur(function() {
+            if ($(this).val() == '') {
+                $(this).next().text(inpTxt);
+            }
+        })
+
+        $('.b-c_put input').keyup(function() {
+            let rmb = '';
+            let setW = $(this).parent().prev().children('.sel-p').text();
+            if (setW == '金额') {
+                rmb = parseFloat($(this).val()) / moneyHS;
+            } else {
+                rmb = parseFloat($(this).val()) * moneyHS;
+            }
+            rmb = (Math.floor(rmb * 1000) / 1000).toFixed(3);
+            $('.x_num').text(rmb);
+        })
+
+        // 点击下订单
+        $('.b-c_foo button').off('click').click(function() {
+            let receiveType = $("#zf_select").find("option:selected").val();
+            //买入
+            if ($(this).text() == '买入' && $('.buy-c .sel-p').text() == '金额') {
+                let buyConfig = {
+                    tradeCurrency: 'X',
+                    tradePrice: moneyHS,
+                    userId: base.getUserId(),
+                    count: base.formatMoneyParse($('.con-toBuy .x_num').text().trim(), '', 'X'),
+                    receiveType: zfType[receiveType],
+                    tradeAmount: $('.con-toBuy .b-c_put input').val().trim()
+                }
+                buyX(buyConfig).then(() => {
+                    showMsg();
+                });
+            }
+            if ($(this).text() == '买入' && $('.con-toBuy .sel-p').text() == '数量') {
+                let buyConfig = {
+                    tradeCurrency: 'X',
+                    tradePrice: moneyHS,
+                    userId: base.getUserId(),
+                    count: base.formatMoneyParse($('.con-toBuy .b-c_put input').val().trim(), '', 'X'),
+                    receiveType: zfType[receiveType],
+                    tradeAmount: $('.con-toBuy .x_num').text().trim()
+                }
+                buyX(buyConfig).then(() => {
+                    showMsg();
+                });
+            }
+            //卖出
+            if ($(this).text() == '卖出') { //back-type
+                if ($('.sell-c .sel-p').text() == '金额') {
+                    let sellConfig = {
+                        userId: base.getUserId(),
+                        tradeCurrency: 'X',
+                        tradePrice: moneyHS,
+                        count: base.formatMoneyParse($('.con-toSell .x_num').text().trim(), '', 'X'),
+                        receiveCardNo: $('.back-type input').val().trim(),
+                        receiveType: zfType[receiveType],
+                        tradeAmount: $('.con-toSell .b-c_put input').val().trim()
+                    }
+                    sellX(sellConfig).then(() => {
+                        showMsg();
+                    })
+                }
+                if ($('.sell-c .sel-p').text() == '数量') {
+                    let sellConfig = {
+                        userId: base.getUserId(),
+                        tradeCurrency: 'X',
+                        tradePrice: moneyHS,
+                        count: base.formatMoneyParse($('.con-toSell .b-c_put input').val().trim(), '', 'X'),
+                        receiveCardNo: $('.back-type input').val().trim(),
+                        receiveType: zfType[receiveType],
+                        tradeAmount: $('.con-toSell .x_num').text().trim()
+                    }
+                    sellX(sellConfig).then(() => {
+                        showMsg();
+                    })
+                }
+            }
+        })
+
+        function showMsg() {
+            $('.b-c_put input').val('');
+            $('.x_num').text('0.000');
+            $('.back-type input').val('');
+            base.showMsg('订单提交成功');
+        }
 
         // 发送-确定
         $("#sendOut-form .subBtn").click(function() {
