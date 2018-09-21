@@ -13,7 +13,7 @@ define([
                 bizType,
                 sendCode
             }
-            if (sendCode == "") {
+            if (sendCode == '630093') {
                 param.email = mobile
             } else {
                 param.mobile = mobile

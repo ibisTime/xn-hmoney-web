@@ -15,13 +15,13 @@
         <div class="advertise-warn wp100">
             <div class="fb-type">
                 <ul class="fb-ul">
-                    <li class="fb-sel" data-coin="btc">BTC</li>
-                    <li data-coin="eth">ETH</li>
+                    <!-- <li class="fb-sel" data-coin="btc">BTC</li>
+                    <li data-coin="eth">ETH</li> -->
                 </ul>
             </div>
             <div class="titleWrap">
                 <i class="icon icon-advwarn"></i>
-                <samp>发布<span>BTC</span>交易广告</samp>
+                <samp>发布<span class="bb-name"></span>交易广告</samp>
             </div>
             <div class="content wp100" id="tradeWarn">
                 1. 您想要创建什么样的交易广告？如果您希望出售，请确保您在本网站的钱包中可用余额充足
@@ -45,11 +45,11 @@
                     <samp>在线购买</samp>
                 </div>
             </div>
-            <div class="explain">
+            <!-- <div class="explain">
                 <i>*</i>
                 <samp class="txt">所在地：</samp>
                 <samp>请选择你要发布的国家</samp>
-            </div>
+            </div> -->
             <!-- <div class="form-wrapper userSelect_none">
                 <div class="form-item form-item-select b_e">
                     <select id="stateCoin" name="stateCountries">
@@ -70,8 +70,9 @@
                 </div>
                 <div class="form-wrapper userSelect_none">
                     <div class="form-item form-item-select b_e">
-                        <select id="moneyCoin" name="moneyCoin">
-							<option value="CNY人民币">CNY人民币</option>
+                        <select id="tradeCurrency" name="tradeCurrency">
+                            <option value="CNY">CNY人民币</option>
+                            <option value="USD">USD美元</option>
 						</select>
                         <i class="icon icon-down"></i>
                     </div>
@@ -96,7 +97,7 @@
                     <samp id="priceExp"></samp>
                 </div>
                 <div class="form-item b_e">
-                    <i class="item-unit">CNY</i>
+                    <i class="item-unit m-type">CNY</i>
                     <input type="text" class="input-item" id="price" name="truePrice" disabled/>
                 </div>
                 <div class="explain  premiumRateExp-wrap">
@@ -105,7 +106,7 @@
                     <samp id="protectPriceExp"></samp>
                 </div>
                 <div class="form-item b_e  premiumRateExp-wrap">
-                    <i class="item-unit">CNY</i>
+                    <i class="item-unit m-type">CNY</i>
                     <input type="text" class="input-item" id="protectPrice" name="protectPrice" placeholder="广告最高可成交的价格" />
                 </div>
                 <div class="explain">
@@ -114,7 +115,7 @@
                     <samp id="minTradeExp"></samp>
                 </div>
                 <div class="form-item b_e">
-                    <i class="item-unit">CNY</i>
+                    <i class="item-unit m-type">CNY</i>
                     <input type="text" class="input-item" id="minTrade" name="minTrade" placeholder="请输入最小限额" />
                 </div>
                 <div class="explain">
@@ -123,7 +124,7 @@
                     <samp id="maxTradeExp"></samp>
                 </div>
                 <div class="form-item b_e">
-                    <i class="item-unit">CNY</i>
+                    <i class="item-unit m-type">CNY</i>
                     <input type="text" class="input-item" id="maxTrade" name="maxTrade" placeholder="请输入最大限额" />
                 </div>
                 <div class="explain">
@@ -136,7 +137,7 @@
                 </div>
                 <div class="form-item b_e">
                     <i class="item-unit" id="coin"></i>
-                    <input type="text" class="input-item" id="totalCount" name="totalCount" placeholder="請輸入购买幣的總量" />
+                    <input type="text" class="input-item" id="totalCount" name="totalCount" placeholder="请输入购买币的总量" />
                 </div>
                 <div class="explain">
                     <i>*</i>
@@ -145,9 +146,9 @@
                 </div>
                 <div class="form-item form-item-select b_e">
                     <select id="payType" name="payType">
-							<option value="0">支付宝</option>
+							<!-- <option value="0">支付宝</option>
 							<option value="1">微信</option>
-							<option value="2">银行卡</option>
+							<option value="2">银行卡</option> -->
 						</select>
                     <i class="icon icon-down"></i>
                 </div>

@@ -21,9 +21,9 @@ define([
         qrcode.makeCode(INVITATION_HREF + "/user/register.html?inviteCode=" + inviteCode);
 
         $.when(
-            //getInvitation(),
-            //getSysConfig(),
-            //getUserInviteProfit()
+            getInvitation(),
+            getSysConfig(),
+            getUserInviteProfit()
         )
         getInvitationHistory(config);
         addListener();

@@ -40,9 +40,9 @@ define([
             data.forEach(function(item) {
                 adsStatusValueList[item.dkey] = item.dvalue;
             });
-            //getPageAdvertise();  // 正式
+            getPageAdvertise(); // 正式
         }, base.hideLoadingSpin);
-        getUserPageAdvertise(); // 测试
+        // getUserPageAdvertise(); // 测试
         addListener();
     }
 
@@ -82,14 +82,14 @@ define([
                 if (_this.getCurrent() != config.start) {
                     base.showLoadingSpin();
                     config.start = _this.getCurrent();
-                    getUserPageAdvertise(config);
+                    getPageAdvertise(config);
                 }
             }
         });
     }
 
     // 获取广告列表
-    function getUserPageAdvertise(refresh) {
+    function getPageAdvertise(refresh) {
         return TradeCtr.getPageAdvertiseUser(config, refresh).then((data) => {
             var lists = data.list;
             if (data.list.length) {

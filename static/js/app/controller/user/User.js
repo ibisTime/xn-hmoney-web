@@ -13,6 +13,7 @@ define([
     init();
 
     function init() {
+        $("#left-wrap .user").addClass("on")
         if ($("#head-user-wrap").hasClass("hidden")) {
             $("#head-user-wrap").removeClass("hidden")
         }

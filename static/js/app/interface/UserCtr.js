@@ -59,7 +59,7 @@ define([
         },
         //修改/綁定邮箱
         setEmail(email, captcha) {
-            return Ajax.post('805081', {
+            return Ajax.post('805086', {
                 email,
                 captcha,
                 userId: base.getUserId()
@@ -82,25 +82,25 @@ define([
                 userId: base.getUserId()
             });
         },
-        //獲取谷歌密鑰
+        //获取谷歌密码
         getGooglePwd() {
-            return Ajax.get("805070");
+            return Ajax.get("630094");
         },
         /**
-         * 開啟谷歌验证
+         * 开启谷歌验证
          * @param config {googleCaptcha, secret, smsCaptcha}
          */
         openGoogle(config) {
-            return Ajax.post("805071", {
+            return Ajax.post("805088", {
                 userId: base.getUserId(),
                 ...config
             });
         },
         /**
-         * 關閉谷歌验证
+         * 关闭谷歌验证
          */
         closeGoogle(googleCaptcha, smsCaptcha) {
-            return Ajax.post("805072", {
+            return Ajax.post("805089", {
                 googleCaptcha,
                 smsCaptcha,
                 userId: base.getUserId()
@@ -118,9 +118,11 @@ define([
          * @param config {limit, start, userId, type}
          * type=1 信任，type=0，屏蔽
          */
-        getPageTrust(config) {
+        getPageTrust(config, to) {
+            if (to != '1') {
+                config.userId = base.getUserId();
+            }
             return Ajax.get("805155", {
-                userId: base.getUserId(),
                 ...config
             });
         },
@@ -143,7 +145,7 @@ define([
          * type=1 信任，type=0，屏蔽
          */
         addUserRelation(config, refresh) {
-            return Ajax.get("805110", {
+            return Ajax.get("805150", {
                 userId: base.getUserId(),
                 ...config
             }, refresh);
@@ -154,7 +156,7 @@ define([
          * type=1 信任，type=0，屏蔽
          */
         removeUserRelation(config, refresh) {
-            return Ajax.get("805111", {
+            return Ajax.get("805151", {
                 userId: base.getUserId(),
                 ...config
             }, refresh);
@@ -181,7 +183,7 @@ define([
         },
         //更新用户登录时间
         updateLoginTime() {
-            return Ajax.get("805083", {
+            return Ajax.get("805092", {
                 userid: base.getUserId(),
             }, true);
         },

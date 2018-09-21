@@ -7,27 +7,47 @@ define([
     'app/interface/AccountCtr'
 ], function(base, Validate, GeneralCtr, UserCtr, TradeCtr, AccountCtr) {
     var code = base.getUrlParam("code") || '';
-    var coin = base.getUrlParam("coin") || 'BTC'; // 币种
+    var coin = base.getUrlParam("coin"); // 币种
     var status = '1';
+    let payType = {};
     var mid = 0,
         jdLeft = 0,
-        selOnlyCert = 0,
-        selTradeCoin = 'BTC';
+        selOnlyCert = 0;
 
     init();
 
     function init() {
         $(".head-nav-wrap .sell").addClass("active");
-        let index = 0;
-        if (coin == 'ETH') {
-            index = 1;
-            selTradeCoin = 'ETH';
-        }
-        $('.fb-ul li').eq(index).addClass('fb-sel').siblings('li').removeClass('fb-sel');
+        // let index = 0;
+        // if (coin == 'ETH') {
+        //     index = 1;
+        //     selTradeCoin = 'ETH';
+        // }
+        // $('.fb-ul li').eq(index).addClass('fb-sel').siblings('li').removeClass('fb-sel');
         base.showLoadingSpin();
         if (code != "") {
             $("#draftBtn").addClass("hidden")
         }
+
+        //根据config配置设置 币种列表
+        function getCoinList() {
+            var coinList = base.getCoinList();
+            var coinListKey = Object.values(coinList);
+            var listHtml = '';
+            for (var i = 0; i < coinListKey.length; i++) {
+                var tmpl = coinListKey[i]
+                listHtml += `<li class="${tmpl.coin}" data-coin="${tmpl.coin.toLowerCase()}">${tmpl.coin}</li>`;
+            }
+            $(".fb-ul").html(listHtml);
+            if (coin) {
+                $('.' + coin).addClass('fb-sel');
+            } else {
+                $(".fb-ul li:nth-of-type(1)").addClass("fb-sel");
+                coin = coinListKey[0].coin.toUpperCase();
+            }
+            $('.bb-name').text(coin);
+        }
+
         //币种下拉
         getCoinList();
         $("#coin").text(coin.toUpperCase())
@@ -39,33 +59,55 @@ define([
         //     $(".premiumRateExp-wrap").addClass("hidden");
         // }
         $("#price").attr("disabled", true);
-        if (code != "") {
-            getAdvertiseDetail(); // 测试
-        }
-        getAdvertisePrice().then(data => {
-                mid = data.mid;
-                $('#price').val(mid);
-            }) // 测试
+        // if (code != "") {
+        //     getAdvertiseDetail(); // 测试
+        // }
+        // getAdvertisePrice().then(data => {
+        //         mid = data.mid;
+        //         if(coin != 'X'){
+        //             $('#price').val(mid);
+        //         }else{}
+        //     }) // 测试
         $.when(
-            //GeneralCtr.getSysConfig("trade_remind"),
+            GeneralCtr.getSysConfig("trade_remind"),
             GeneralCtr.getDictList({ "parentKey": "trade_time_out" }),
-            // getAdvertisePrice(),
+            getAdvertisePrice(),
+            GeneralCtr.getDictList({ "parentKey": "pay_type" }),
             getExplain('sell'),
             getAccount(coin.toUpperCase())
-        ).then((data1, data2, data3) => {
+        ).then((data1, data2, data3, data4) => {
             //说明
-            // $("#tradeWarn").html(data1.cvalue.replace(/\n/g, '<br>'));
+            $("#tradeWarn").html(data1.cvalue.replace(/\n/g, '<br>'));
 
             //付款时限
-            var html = ''
-                // data2.reverse().forEach((item) => {
-                //     html += `<option value="${item.dvalue}">${item.dvalue}</option>`
-                // });
+            var html = '';
+            data2.reverse().forEach((item) => {
+                html += `<option value="${item.dvalue}">${item.dvalue}</option>`
+            });
             $("#payLimit").html(html);
+
+            // 支付方式
+            let payHtml = '';
+            data4.forEach(item => {
+                payType[item.dkey] = item.dvalue;
+                payHtml += `<option value="${item.dkey}">${item.dvalue}</option>`
+            })
+            $('#payType').html(payHtml);
+
             //价格
-            $("#price").attr("data-coin", coin.toUpperCase())
-                // $("#price").val(data3.mid);
-                // mid = data3.mid;
+            $("#price").attr("data-coin", coin.toUpperCase());
+            if (coin != 'X') {
+                $("#price").val(data3.mid);
+                mid = data3.mid;
+            } else {
+                getAdvertisePrice('BTC').then(data => {
+                    let bb_mid = data.mid;
+                    getAdvertisePrice('X', 'BTC').then(data => {
+                        mid = parseFloat(data.mid) * parseFloat(bb_mid);
+                        $("#price").val(mid);
+                    })
+                });
+            }
 
             if (code != "") {
                 getAdvertiseDetail(); // 正式
@@ -100,29 +142,30 @@ define([
         addListener();
     }
 
-    function getAdvertisePrice() {
-        return TradeCtr.getAdvertisePrice(coin.toUpperCase());
-        if (base.getCoinType(coin.toUpperCase()) == '0') {
-            // return TradeCtr.getAdvertisePrice(coin.toUpperCase());
-        } else {
-            return '-';
-        }
+    function getAdvertisePrice(setCoin, m_type) {
+        let wantCoin = setCoin || coin;
+        return TradeCtr.getAdvertisePrice(wantCoin, m_type);
+        // if (base.getCoinType(coin.toUpperCase()) == '0') {
+        //     // return TradeCtr.getAdvertisePrice(coin.toUpperCase());
+        // } else {
+        //     return '-';
+        // }
 
     }
 
     //根据config配置设置 币种列表
-    function getCoinList() {
-        var coinList = base.getCoinList();
-        var coinListKey = Object.keys(coinList);
-        var listHtml = '';
+    // function getCoinList() {
+    //     var coinList = base.getCoinList();
+    //     var coinListKey = Object.keys(coinList);
+    //     var listHtml = '';
 
-        for (var i = 0; i < coinListKey.length; i++) {
-            // console.log(coinList[coinListKey[i]])
-            var tmpl = coinList[coinListKey[i]]
-            listHtml += `<option value="${tmpl.coin}">${tmpl.name}(${tmpl.coin})</option>`;
-        }
-        $("#tradeCoin").html(listHtml);
-    }
+    //     for (var i = 0; i < coinListKey.length; i++) {
+    //         // console.log(coinList[coinListKey[i]])
+    //         var tmpl = coinList[coinListKey[i]]
+    //         listHtml += `<option value="${tmpl.coin}">${tmpl.name}(${tmpl.coin})</option>`;
+    //     }
+    //     $("#tradeCoin").html(listHtml);
+    // }
 
     //我的账户
     function getAccount(currency) {
@@ -149,9 +192,9 @@ define([
         return TradeCtr.getAdvertiseDetail(code).then((data) => {
             status = data.status;
             data.premiumRate = data.premiumRate * 10;
-            let premiumRate = (Math.floor(data.premiumRate * 1000) / 1000).toFixed(3);
-            data.minTrade = (Math.floor(parseInt(data.minTrade) * 1000) / 1000).toFixed(3);
-            data.maxTrade = (Math.floor(parseInt(data.maxTrade) * 1000) / 1000).toFixed(3);
+            let premiumRate = (Math.floor(data.premiumRate * 1000) / 100).toFixed(2);
+            data.minTrade = (Math.floor(parseInt(data.minTrade) * 100) / 100).toFixed(2);
+            data.maxTrade = (Math.floor(parseInt(data.maxTrade) * 100) / 100).toFixed(2);
             mid = data.marketPrice;
             var tradeCoin = data.tradeCoin ? data.tradeCoin : 'ETH';
             data.totalCount = base.formatMoney(data.totalCountString, '', tradeCoin)
@@ -327,6 +370,7 @@ define([
 
 
         var _formWrapper = $("#form-wrapper");
+        console.log(_formWrapper)
         _formWrapper.validate({
             'rules': {
                 "truePrice": {
@@ -424,7 +468,6 @@ define([
             params.tradeType = $(".trade-type .item.on").index() == '0' ? '1' : '0';
             params.onlyTrust = $("#onlyTrust").hasClass("on") ? '1' : '0';
             // params.tradeCoin = $("#tradeCoin").val();
-            params.tradeCurrency = "CNY";
             params.publishType = publishType;
 
             if (base.getCoinType(params.tradeCoin) == '1') {
@@ -434,15 +477,12 @@ define([
             }
 
             // 总价
-            // params.totalCount = '120000';
             params.payLimit = 12;
             params.premiumRate = parseInt($('.yj-num').text()) / 100;
-            params.tradeCoin = selTradeCoin;
-            params.minTrade = parseInt(params.minTrade);
+            params.tradeCoin = coin;
+            params.minTrade = params.minTrade;
 
             params.totalCount = base.formatMoneyParse(params.totalCount, '', params.tradeCoin);
-
-
             if ($(".time-type .item.on").index() == "1") {
                 params.displayTime = [{
                     week: '1',
@@ -584,6 +624,42 @@ define([
                 $('.go-box').unbind('mousemove');
             })
         })
+
+        // 金钱选择
+
+        function advertiseData(mType) {
+            var m_type = mType;
+            if (coin != 'X') {
+                getAdvertisePrice(coin, m_type).then(data => {
+                    mid = data.mid;
+                    $("#price").val(mid);
+                });
+            } else {
+                getAdvertisePrice('BTC', m_type).then(data => {
+                    let bb_mid = data.mid;
+                    getAdvertisePrice('X', 'BTC').then(data => {
+                        mid = parseFloat(data.mid) * parseFloat(bb_mid);
+                        $("#price").val(mid);
+                    })
+                });
+            }
+        }
+
+        $('#tradeCurrency').change(function() {
+            let receiveType = $(this).find("option:selected").val();
+            switch (receiveType) {
+                case 'CNY':
+                    $('.m-type').text('CNY');
+                    advertiseData('CNY');
+                    break;
+                case 'USD':
+                    $('.m-type').text('USD');
+                    advertiseData('USD');
+                    break;
+            }
+        })
+
+        base.hideLoadingSpin();
     }
 
     //交易币种 change

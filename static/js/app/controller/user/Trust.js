@@ -34,8 +34,8 @@ define([
         if (type == '2') {
             $("title").text("信任您的人-HappyMoney")
             $("#left-wrap .trustYou").addClass("on");
-            config.type = type
-            getPageTrust(config);
+            config.toUser = base.getUserId();
+            getPageTrust(config, '1');
             //你信任的人
         } else if (type == '1') {
             $("title").text("您信任的人-HappyMoney")
@@ -78,9 +78,10 @@ define([
     }
 
     //分页获取关系
-    function getPageTrust(params) {
-        return UserCtr.getPageTrust(params, true).then((data) => {
+    function getPageTrust(params, to) {
+        return UserCtr.getPageTrust(params, to).then((data) => {
             var lists = data.list;
+            console.log(lists)
             if (data.list.length) {
                 var html = "";
                 lists.forEach((item, i) => {
@@ -97,15 +98,15 @@ define([
     }
 
     function buildHtml(item) {
-        var photoHtml = ""
-        if (item.toUserInfo.photo) {
-            photoHtml = `<div class="photo goHref" style="background-image:url('${base.getAvatar(item.toUserInfo.photo)}')" data-href="./user-detail.html?userId=${item.toUserInfo.userId}"></div>`
-        } else {
-            var tmpl = item.toUserInfo.nickname.substring(0, 1).toUpperCase();
-            photoHtml = `<div class="photo"><div class="noPhoto goHref" data-href="./user-detail.html?userId=${item.toUserInfo.userId}">${tmpl}</div></div>`
-        }
-
-        return `<tr>
+        var photoHtml = "";
+        if (item.toUserInfo) {
+            if (item.toUserInfo.photo) {
+                photoHtml = `<div class="photo goHref" style="background-image:url('${base.getAvatar(item.toUserInfo.photo)}')" data-href="./user-detail.html?userId=${item.toUserInfo.userId}"></div>`
+            } else {
+                var tmpl = item.toUserInfo.nickname.substring(0, 1).toUpperCase();
+                photoHtml = `<div class="photo"><div class="noPhoto goHref" data-href="./user-detail.html?userId=${item.toUserInfo.userId}">${tmpl}</div></div>`
+            }
+            return `<tr>
 					<td>
 						<div class="photoWrap">${photoHtml}</div>
 					</td>
@@ -120,6 +121,32 @@ define([
 						<div class="txt2"><p>${base.getPercentum(item.toUserInfo.userStatistics.beiHaoPingCount,item.toUserInfo.userStatistics.beiPingJiaCount)}</p><samp>好评率</samp></div>
 					</td>
 				</tr>`;
+        }
+
+        if (item.fromUserInfo) {
+            if (item.fromUserInfo.photo) {
+                photoHtml = `<div class="photo goHref" style="background-image:url('${base.getAvatar(item.fromUserInfo.photo)}')" data-href="./user-detail.html?userId=${item.toUserInfo.userId}"></div>`
+            } else {
+                var tmpl = item.fromUserInfo.nickname.substring(0, 1).toUpperCase();
+                photoHtml = `<div class="photo"><div class="noPhoto goHref" data-href="./user-detail.html?userId=${item.fromUserInfo.userId}">${tmpl}</div></div>`
+            }
+            return `<tr>
+					<td>
+						<div class="photoWrap">${photoHtml}</div>
+					</td>
+					<td><div class="txt1">${item.fromUserInfo.nickname}</div></td>
+					<td>
+						<div class="txt2"><p>${item.fromUserInfo.userStatistics.jiaoYiCount}</p><samp>交易次数</samp></div>
+					</td>
+					<td>
+						<div class="txt2"><p>${item.fromUserInfo.userStatistics.beiXinRenCount}</p><samp>信任人数</samp></div>
+					</td>
+					<td>
+						<div class="txt2"><p>${base.getPercentum(item.fromUserInfo.userStatistics.beiHaoPingCount,item.fromUserInfo.userStatistics.beiPingJiaCount)}</p><samp>好评率</samp></div>
+					</td>
+				</tr>`;
+        }
+
         //					<td>
         //						<div class="txt2"><p>${item.toUserInfo.userStatistics.jiaoYiCount}</p><samp>歷史成交</samp></div>
         //					</td>

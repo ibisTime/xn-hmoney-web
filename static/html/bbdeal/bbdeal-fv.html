@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <link rel="import" href="../head.html?__inline">
+    <title>费率-HappyMoney</title>
+    <!--SCRIPT_PLACEHOLDER-->
+</head>
+
+<body>
+    <link rel="import" href="../top/top.html?__inline">
+    <div class="wallet-container public-container wallet-container-sc">
+        <div class="tradeRecord-wrap mb80">
+            <div class="tradeRecord-wrap-title b_e">费率</div>
+            <div class="bbOrder-wrap">
+                <p>
+                    <span>交易手续费</span>
+                </p>
+                <table class="bb-table">
+                    <thead>
+                        <tr>
+                            <th>交易对</th>
+                            <th>挂单</th>
+                            <th>吃单</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                    </tbody>
+                </table>
+                <div class="no-data hidden">
+                    <img src="../../images/暂无明细.png" />
+                    <p>暂无明细</p>
+                </div>
+                <div id="pagination" class="wp100 pagination-wrap tc">
+                    <p class="pagination"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <link rel="import" href="../footer.html?__inline">
+    <script src="../../js/lib/qrcode.js"></script>
+    <script>
+        require(['app/controller/bbdeal/bbdeal_fv']);
+    </script>
+</body>
+
+</html>

@@ -145,15 +145,21 @@ define([
         } else {
             operationHtml = `<div class="am-button am-button-ghost goHref" data-href="../trade/buy-detail.html?code=${item.code}">购买${item.tradeCoin}</div>`;
         }
-
+        let hpCount = 0;
+        if (item.userStatistics.beiPingJiaCount != 0) {
+            hpCount = (item.userStatistics.beiHaoPingCount / item.userStatistics.beiPingJiaCount) * 100;
+        }
         return `<tr>
 					<td class="nickname" style="padding-left: 20px;">
-						<div class="photoWrap fl goHref" data-href="../user/user-detail.html?coin=${item.tradeCoin}&userId=${item.userId}" style="margin-right: 10px;">
+						<div class="photoWrap fl goHref" data-href="../user/user-detail.html?coin=${item.tradeCoin}&userId=${item.userId}&adsCode=${item.code}" style="margin-right: 10px;">
 							${photoHtml}
 							<div class="dot ${loginStatus}"></div>
 						</div>
                         <samp class="name">${item.user.nickname}</samp>
-                        <p class="n-dist"><samp>交易<i>134</i></samp> · <samp>好评度<i>100%</i></samp> · <samp>信任<i>284</i></samp></p>
+                        <p class="n-dist"><samp>交易<i>${item.userStatistics.jiaoYiCount}</i></samp> ·
+                            <samp>好评度<i>${hpCount}%</i></samp> ·
+                            <samp>信任<i>${item.userStatistics.beiXinRenCount}</i></samp>
+                        </p>
 					</td>
 					<td class="payType">${bizTypeList[item.payType]}</td>
 					<td class="limit">${item.minTrade}-${item.maxTrade}CNY</td>
@@ -218,8 +224,8 @@ define([
         })
 
         $("#searchBtn").click(function() {
-            var _searchType = $("#searchTypeWrap .show-wrap").attr("data-type")
-                //搜广告
+            var _searchType = $("#searchTypeWrap .show-wrap").attr("data-type");
+            //搜广告
             if (_searchType == "adver") {
                 if ($("#searchConWrap .minPrice").val()) {
                     config.minPrice = $("#searchConWrap .minPrice").val();
@@ -235,6 +241,11 @@ define([
                     config.payType = $("#searchConWrap .payType").val();
                 } else {
                     delete config.payType
+                }
+                if ($("#searchConWrap .payTypeMoney").val()) {
+                    config.tradeCurrency = $("#searchConWrap .payTypeMoney").val();
+                } else {
+                    delete config.tradeCurrency
                 }
 
                 config.start = 1;

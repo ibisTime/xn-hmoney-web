@@ -342,7 +342,7 @@ define([
         }
     }
 
-    // 市场
+    // 市场（交易对）
     function getBazaarData() {
         return Ajax.post("650100", {
             start: '1',
@@ -904,7 +904,7 @@ define([
         sellData.forEach((item) => {
             // buyList.push(0);
             sellWtData.push(base.formatMoney(`${item.price}`, '', setBazDeal.toSymbol));
-            sellLjData.push(item.count);
+            sellLjData.push(base.formatMoney(`${item.count}`, '', setBazDeal.symbol));
         })
         // sellWtListData = [...sellWtData, ...sellList];
         //买

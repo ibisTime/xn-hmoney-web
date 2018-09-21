@@ -20,6 +20,32 @@ define([
         country: 'cn'
     }
 
+    var sf_photoFile = [{
+        '0': 'sf_photoFile1',
+        '1': 'sf_photoFile-wrap1',
+        '2': 'sf_subBtn'
+    }, {
+        '0': 'sf_photoFile2',
+        '1': 'sf_photoFile-wrap2',
+        '2': 'sf_subBtn'
+    }, {
+        '0': 'hz_photoFile1',
+        '1': 'hz_photoFile-wrap1',
+        '2': 'hz_subBtn'
+    }, {
+        '0': 'hz_photoFile2',
+        '1': 'hz_photoFile-wrap2',
+        '2': 'hz_subBtn'
+    }, {
+        '0': 'jz_photoFile1',
+        '1': 'jz_photoFile-wrap1',
+        '2': 'jz_subBtn'
+    }, {
+        '0': 'jz_photoFile2',
+        '1': 'jz_photoFile-wrap2',
+        '2': 'jz_subBtn'
+    }]
+
     if (!base.isLogin()) {
         base.goLogin()
     } else {
@@ -31,12 +57,13 @@ define([
         base.showLoadingSpin();
         $.when(
             getUser(),
-            getQiniuToken('sf_photoFile1', 'sf_photoFile-wrap1', 'sf_subBtn'),
-            getQiniuToken('sf_photoFile2', 'sf_photoFile-wrap2', 'sf_subBtn'),
-            getQiniuToken('hz_photoFile1', 'hz_photoFile-wrap1', 'hz_subBtn'),
-            getQiniuToken('hz_photoFile2', 'hz_photoFile-wrap2', 'hz_subBtn'),
-            getQiniuToken('jz_photoFile1', 'jz_photoFile-wrap1', 'jz_subBtn'),
-            getQiniuToken('jz_photoFile2', 'jz_photoFile-wrap2', 'jz_subBtn')
+            getQiniuToken(sf_photoFile)
+            // getQiniuToken('', '', ''),
+            // getQiniuToken('', '', ''),
+            // getQiniuToken('', '', ''),
+            // getQiniuToken('', '', ''),
+            // getQiniuToken('', '', 'jz_subBtn'),
+            // getQiniuToken('', '', 'jz_subBtn')
         )
         getUserCerRecords().then(data => {
             if (data.list.length == 0) {
@@ -71,15 +98,17 @@ define([
     }
 
     //加载七牛token
-    function getQiniuToken(btnId, containerId, starBtnId) {
+    function getQiniuToken(sf_photoFile) {
         return GeneralCtr.getQiniuToken().then((data) => {
             var token = data.uploadToken;
             base.showLoadingSpin();
-            QiniuUpdata.uploadInit({
-                btnId,
-                containerId,
-                starBtnId,
-                token: token
+            sf_photoFile.forEach(item => {
+                QiniuUpdata.uploadInit({
+                    btnId: item[0],
+                    containerId: item[1],
+                    starBtnId: item[2],
+                    token: token
+                })
             })
 
             base.hideLoadingSpin();

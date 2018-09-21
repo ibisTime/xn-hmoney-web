@@ -515,7 +515,7 @@ define([
         },
         //更新登录时间
         updateLoginTime: function() {
-            //BaseCtr.updateLoginTime();
+            BaseCtr.updateLoginTime();
         },
         //获取币种列表
         getCoinList: function() {

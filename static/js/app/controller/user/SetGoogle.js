@@ -15,6 +15,9 @@ define([
 
     function init() {
         base.showLoadingSpin();
+        if (type == 1) {
+            $('#form-wrapper div').eq(0).addClass('none');
+        }
         $("#mobile").val(base.getUserMobile())
         getGooglePwd();
         addListener();
@@ -37,7 +40,7 @@ define([
         return UserCtr.closeGoogle(googleCaptcha, smsCaptcha).then(() => {
             base.hideLoadingSpin()
             sessionStorage.getItem("googleAuthFlag", 'false');
-            base.showMsg("开启成功")
+            base.showMsg("关闭成功")
             setTimeout(function() {
                 base.gohrefReplace("../user/security.html")
             }, 800)
@@ -70,9 +73,9 @@ define([
         });
         smsCaptcha.init({
             checkInfo: function() {
-                return $("#mobile").valid();
+                return $("#mobile").valid(); //805089
             },
-            bizType: type == '1' ? "805072" : "805071",
+            bizType: type == '1' ? "805089" : "805088",
             id: "getVerification",
             mobile: "mobile",
             errorFn: function() {}

@@ -48,10 +48,10 @@ define([
             checkInfo: function() {
                 return $("#email").valid();
             },
-            bizType: "805081",
+            bizType: "805043",
             id: "getVerification",
             mobile: "email",
-            sendCode: '805952',
+            sendCode: '630093',
             errorFn: function() {}
         });
         $("#subBtn").click(function() {

@@ -444,7 +444,7 @@ table {
             left: -50px;
             opacity: 0;
             color: #333;
-            width: 120px;
+            width: 130px;
             display: none;
             background-color: #fff;
             border: 1px solid #eee;
@@ -806,7 +806,7 @@ table {
     .contact-info-wrap {
         margin-left: 24px;
         display: flex;
-        width: 42.5%;
+        width: 45.5%;
         flex-wrap: wrap;
         .contact-info {
             height: 36px;
@@ -909,11 +909,9 @@ table {
         }
     }
     .contact-txt {
-        margin-left: 10%;
+        margin-left: 6%;
         width: 30%;
         overflow: hidden;
-        padding: 25px 0;
-        margin-top: -20px;
         .foo-right {
             display: flex;
             justify-content: space-between;
@@ -1548,7 +1546,7 @@ table {
 }
 
 .photoWrap {
-    width: 80px;
+    width: 86px;
     position: relative;
     .photo {
         width: 80px;
@@ -2027,6 +2025,14 @@ table {
                         line-height: 18px !important;
                         font-size: 12px !important;
                         border-radius: 5px;
+                    }
+                    .id-wrz {
+                        width: 60px;
+                        font-size: 12px;
+                        height: 24px !important;
+                        line-height: 22px !important;
+                        cursor: default !important;
+                        border-radius: 4px;
                     }
                 }
                 .txt2 {
@@ -2648,6 +2654,9 @@ table {
                     }
                     .x-h_p2 {
                         height: 12px;
+                        img {
+                            cursor: pointer;
+                        }
                     }
                     .x-h_p3 {
                         color: #666;
@@ -2685,7 +2694,7 @@ table {
                             margin-right: 56px;
                         }
                         .b-c_d {
-                            margin-left: 80px;
+                            margin-left: 73px;
                             font-size: 14px;
                             color: #808080;
                             letter-spacing: 0.12px;
@@ -3735,9 +3744,9 @@ table {
         text-align: center;
         margin-right: 30px;
         p {
-            font-size: 16px;
+            font-size: 18px;
             margin-bottom: 5px;
-            font-weight: bold;
+            letter-spacing: 1px;
         }
         samp {
             font-size: 13px;
@@ -4191,11 +4200,11 @@ table {
                     background-image: url('../images/绑定邮箱.png');
                 }
                 .icon-mobile {
-                    background-size: 14px;
+                    background-size: 12px;
                     background-image: url('../images/手机已验证.png');
                 }
                 .icon-identity {
-                    background-size: 22px;
+                    background-size: 20px;
                     background-image: url('../images/身份已验证.png');
                 }
             }
@@ -6185,6 +6194,13 @@ html {
                 color: #fff;
             }
         }
+    }
+}
+
+.bb-table {
+    tr {
+        height: 48px;
+        line-height: 48px;
     }
 }
 

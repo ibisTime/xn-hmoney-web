@@ -158,10 +158,9 @@ define([
         } else {
             operationHtml = `<div class="am-button am-button-ghost goHref" data-href="../trade/sell-detail.html?code=${item.code}&coin=${item.tradeCoin}">出售${item.tradeCoin}</div>`;
         }
-
         return `<tr>
 					<td class="nickname" style="padding-left: 20px;">
-						<div class="photoWrap fl goHref" data-href="../user/user-detail.html?coin=${item.tradeCoin}&userId=${item.userId}" style="margin-right: 10px;">
+						<div class="photoWrap fl goHref" data-href="../user/user-detail.html?coin=${item.tradeCoin}&userId=${item.userId}&adsCode=${item.code}" style="margin-right: 10px;">
                             ${photoHtml}
 							<div class="dot ${loginStatus}"></div>
 						</div>
@@ -234,7 +233,6 @@ define([
             var _searchType = $("#searchTypeWrap .show-wrap").attr("data-type")
                 //搜广告
             if (_searchType == "adver") {
-
                 if ($("#searchConWrap .minPrice").val()) {
                     config.minPrice = $("#searchConWrap .minPrice").val();
                 } else {
@@ -249,6 +247,11 @@ define([
                     config.payType = $("#searchConWrap .payType").val();
                 } else {
                     delete config.payType
+                }
+                if ($("#searchConWrap .payTypeMoney").val()) {
+                    config.tradeCurrency = $("#searchConWrap .payTypeMoney").val();
+                } else {
+                    delete config.tradeCurrency
                 }
                 config.start = 1;
                 base.showLoadingSpin();

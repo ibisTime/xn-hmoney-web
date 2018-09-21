@@ -9,6 +9,7 @@ define([
     'app/interface/TradeCtr'
 ], function(base, pagination, Validate, smsCaptcha, AccountCtr, GeneralCtr, UserCtr, TradeCtr) {
     var userId = base.getUrlParam('userId');
+    var adsCode = base.getUrlParam('adsCode');
     var currency = base.getUrlParam('coin') || 'BTC';
     var coinList = {},
         payType = {};
@@ -27,8 +28,8 @@ define([
 
     function init() {
         base.showLoadingSpin();
-        getUserRelation() // 测试
-            // 查询币种和付款方式
+        // getUserRelation() // 测试
+        // 查询币种和付款方式
         $.when(
             GeneralCtr.getDictList({ "parentKey": "coin" }),
             GeneralCtr.getDictList({ "parentKey": "pay_type" }),
@@ -40,7 +41,8 @@ define([
             })
             data2.forEach(function(item) {
                 payType[item.dkey] = item.dvalue;
-            })
+            });
+            getAdvertiseDetail();
             getPageAdvertise();
             base.hideLoadingSpin()
         }, base.hideLoadingSpin)
@@ -63,7 +65,6 @@ define([
     // 获取用户详情
     function getUserDetail() {
         return UserCtr.getUser(true, userId).then((data) => {
-
             var photoHtml = ""
                 // 头像
             if (data.photo) {
@@ -76,6 +77,16 @@ define([
             $('.userDetail-top .photoWrap').html(photoHtml);
             $('.userDetail-top .userName').html(data.nickname);
 
+            // 邮箱验证，手机验证，身份验证
+            $('.bindWrap .email samp').html(data.email ? '邮箱已验证' : '邮箱未验证');
+            $('.bindWrap .mobile samp').html(data.mobile ? '手机已验证' : '手机未验证');
+            $('.bindWrap .identity samp').html(data.realName ? '身份已验证' : '身份未验证');
+
+        }, () => {});
+    }
+
+    function getAdvertiseDetail() {
+        return TradeCtr.getAdvertiseDetail(adsCode).then(data => {
             let jiaoYiCount = data.userStatistics ? data.userStatistics.jiaoYiCount : '-';
             let beiXinRenCount = data.userStatistics ? data.userStatistics.beiXinRenCount : '-';
             let beiHaoPingCount = data.userStatistics ? data.userStatistics.beiHaoPingCount : '-';
@@ -83,14 +94,7 @@ define([
             $('.jiaoYiCount').html(jiaoYiCount);
             $('.beiXinRenCount').html(beiXinRenCount);
             $('.beiHaoPingCount').html(base.getPercentum(beiHaoPingCount, beiPingJiaCount));
-
-
-            // 邮箱验证，手机验证，身份验证
-            $('.bindWrap .email samp').html(data.email ? '邮箱已验证' : '邮箱未验证');
-            $('.bindWrap .mobile samp').html(data.mobile ? '手机已验证' : '手机未验证');
-            $('.bindWrap .identity samp').html(data.realName ? '身份已验证' : '身份未验证');
-
-        }, () => {});
+        });
     }
 
     // 分页查广告

@@ -10,6 +10,7 @@ define([
 ], function(base, pagination, Validate, smsCaptcha, AccountCtr, GeneralCtr, UserCtr, Ajax) {
     var userAccountNum = base.getUrlParam('account'); // 用户编号
     var withdrawFee = 0; // 取现手续费
+    let fvData = 0;
     var currency = base.getUrlParam("c") || 'BTC'; //币种
     currency = currency.toUpperCase() // 转换大写
 
@@ -19,6 +20,8 @@ define([
 
     let moneyHS = 0;
     let zfType = {}; // 支付方式
+
+    let moneyXZ = {};
 
     var config = {
             start: 1,
@@ -91,7 +94,6 @@ define([
             let bb_mid = data.mid;
             getAdvertisePrice('X', 'BTC').then(data => {
                 moneyHS = parseFloat(data.mid) * parseFloat(bb_mid);
-                console.log(moneyHS);
             })
         });
         getBankData().then(data => {
@@ -126,14 +128,13 @@ define([
 
                 withdrawFee = base.formatMoney(base.getCoinWithdrawFee(currency), '', currency);
 
-                $("#withdrawFee").val(withdrawFee + currency)
+                $("#withdrawFee").val(withdrawFee + currency);
                 getAccount(); // 测试
 
             }, getAccount)
             // getAccount();
         addListener();
     }
-
 
     //根据config配置设置 币种列表
     function getCoinList() {
@@ -154,6 +155,39 @@ define([
             var c = $(this).attr("data-c");
 
             base.gohrefReplace("./wallet.html?c=" + c)
+        })
+    }
+
+    function qhMoneyType(pType, m_type, isw) {
+        GeneralCtr.getSysConfigType('accept_rule').then(data => {
+            moneyXZ = data;
+            moneyXZ.min_cny = parseFloat(moneyXZ.accept_order_min_cny_amount);
+            moneyXZ.max_cny = parseFloat(moneyXZ.accept_order_max_cny_amount);
+            moneyXZ.min_usd = parseFloat(moneyXZ.accept_order_min_usd_amount);
+            moneyXZ.max_usd = parseFloat(moneyXZ.accept_order_max_usd_amount);
+            if (isw == '0') {
+                if (m_type == 'CNY') {
+                    $('.con-toBuy .x-p_money').text('USD');
+                } else {
+                    $('.con-toBuy .x-p_money').text('CNY');
+                }
+            }
+            if (isw == '1') {
+                if (m_type == 'CNY') {
+                    $('.con-toSell .x-p_money').text('USD');
+                } else {
+                    $('.con-toSell .x-p_money').text('CNY');
+                }
+            }
+            if ($(pType + ' .x-p_money').eq(0).text() == 'CNY') {
+                $(pType + ' .min-money').text(data.accept_order_min_cny_amount);
+                $(pType + ' .max-money').text(data.accept_order_max_cny_amount);
+                $(pType + ' .x-p_money').text('CNY');
+            } else {
+                $(pType + ' .min-money').text(data.accept_order_min_usd_amount);
+                $(pType + ' .max-money').text(data.accept_order_max_usd_amount);
+                $(pType + ' .x-p_money').text('USD');
+            }
         })
     }
 
@@ -190,6 +224,13 @@ define([
             });
             $('.tr-ul').html(ulElement);
 
+            // 手续费
+            GeneralCtr.getSysConfigType('simu_order_rule').then(data => {
+                fvData = parseFloat(data.simu_order_fee_rate) * 100;
+                $('.sxf').text(fvData)
+            })
+            qhMoneyType('.con-toBuy');
+            $('.x-mon').text((Math.floor(moneyHS * 100) / 100).toFixed(2));
             let zfTypeHtml = '';
             // zfType[item.zfType[item.bankName] = item.bankCode] = item.bankCode
             getBankData().then(data => {
@@ -218,23 +259,23 @@ define([
                         <h5 class="x-tit">去购买</h5>
                         <div class="buy-box">
                             <div class="buy-head">
-                                <p class="x-h_p1">X/CNY</p>
+                                <p class="x-h_p1">X / <span class="x-p_money">CNY</span></p>
                                 <p class="x-h_p2"><img src="/static/images/切换X.png" class="fr"/></p>
-                                <p class="x-h_p3">单价：¥ <span class="x-mon">20.00</span> <span class="x-bf_r"><i>-</i> 3.5%</span></p>
+                                <p class="x-h_p3">单价：¥ <span class="x-mon"></span> <span class="x-bf_r"><i>-</i> 3.5%</span></p>
                             </div>
                             <div class="buy-con">
                                 <div class="b-c_h buy-c">
                                     <p class="sel-p">金额</p>
                                     <p>数量</p>
-                                    <div class="b-c_d">单笔限制：<span>100</span> - <span>5000</span> CNY</div>
+                                    <div class="b-c_d">单笔限制：<span class="min-money">100</span> - <span class="max-money">5000</span> <span class="x-p_money"></span></div>
                                 </div>
                                 <div class="b-c_put">
                                     <input type="text">
                                     <p>请输入购买金额</p>
-                                    <span class="m_bb">CNY</span>
+                                    <span class="m_bb x-p_money">CNY</span>
                                 </div>
                                 <div class="b-c_yue">
-                                    <p>≈ <span class="x_num">0.0000</span> <span class="m_cyn">X</span><span class="fr">手续费：<span>2</span> %</span>
+                                    <p>≈ <span class="x_num">0.0000</span> <span class="m_cyn">X</span><span class="fr">手续费：<span class="sxf">2</span> %</span>
                                     </p>
                                 </div>
                                 <div class="b-c_fs">
@@ -258,23 +299,23 @@ define([
                     <h5 class="x-tit">去出售</h5>
                     <div class="buy-box">
                         <div class="buy-head">
-                            <p class="x-h_p1">X/CNY</p>
+                            <p class="x-h_p1">X / <span class="x-p_money">CNY</span></p>
                             <p class="x-h_p2"><img src="/static/images/切换X.png" class="fr"/></p>
-                            <p class="x-h_p3">单价：¥ <span class="x-mon">20.00</span> <span class="x-bf_r"><i>-</i> 3.5%</span></p>
+                            <p class="x-h_p3">单价：¥ <span class="x-mon"></span> <span class="x-bf_r"><i>-</i> 3.5%</span></p>
                         </div>
                         <div class="buy-con">
                             <div class="b-c_h sell-c">
                                 <p class="sel-p">金额</p>
                                 <p>数量</p>
-                                <div class="b-c_d">单笔限制：<span>100</span> - <span>5000</span> CNY</div>
+                                <div class="b-c_d">单笔限制：<span class="min-money">100</span> - <span class="max-money">5000</span> <span class="x-p_money">CNY</span></div>
                             </div>
                             <div class="b-c_put">
                                 <input type="text">
                                 <p>请输入卖出金额</p>
-                                <span class="m_bb">CNY</span>
+                                <span class="m_bb x-p_money">CNY</span>
                             </div>
                             <div class="b-c_yue">
-                                <p>≈ <span class="x_num">0.0000</span><span class="m_cyn">X</span> <span class="fr">手续费：<span>2</span> %</span>
+                                <p>≈ <span class="x_num">0.0000</span><span class="m_cyn">X</span> <span class="fr">手续费：<span class="sxf">2</span> %</span>
                                 </p>
                             </div>
                             <div class="b-c_fs">
@@ -780,6 +821,17 @@ define([
             }
         })
 
+        // 切换交易货币类型
+        $('.con-toBuy .x-h_p2 img').click(function() {
+            let m_type = $(this).parent().prev().children('.x-p_money').text();
+            qhMoneyType('.con-toBuy', m_type, '0');
+        })
+
+        $('.con-toSell .x-h_p2 img').click(function() {
+            let m_type = $(this).parent().prev().children('.x-p_money').text();
+            qhMoneyType('.con-toSell', m_type, '1');
+        })
+
         let isSell = true;
 
         // 去购买操作
@@ -862,77 +914,145 @@ define([
                 rmb = parseFloat($(this).val()) * moneyHS;
             }
             rmb = (Math.floor(rmb * 1000) / 1000).toFixed(3);
+            if (isNaN(rmb)) {
+                rmb = '0.00';
+            }
             $('.x_num').text(rmb);
         })
 
         // 点击下订单
         $('.b-c_foo button').off('click').click(function() {
             let receiveType = $("#zf_select").find("option:selected").val();
+            let p_money = $('.con-toBuy .x-p_money').eq(0).text(); //判断货币类型
             //买入
             if ($(this).text() == '买入' && $('.buy-c .sel-p').text() == '金额') {
-                let buyConfig = {
-                    tradeCurrency: 'X',
-                    tradePrice: moneyHS,
-                    userId: base.getUserId(),
-                    count: base.formatMoneyParse($('.con-toBuy .x_num').text().trim(), '', 'X'),
-                    receiveType: zfType[receiveType],
-                    tradeAmount: $('.con-toBuy .b-c_put input').val().trim()
+                let allMoney = parseFloat($('.con-toBuy .b-c_put input').val().trim());
+                if (p_money == 'CNY') {
+                    if (moneyXZ.min_cny < allMoney && allMoney < moneyXZ.max_cny) {
+                        let buyConfig = {
+                            tradeCurrency: 'CNY',
+                            tradePrice: moneyHS,
+                            userId: base.getUserId(),
+                            count: base.formatMoneyParse($('.con-toBuy .x_num').text().trim(), '', 'X'),
+                            receiveType: zfType[receiveType],
+                            tradeAmount: allMoney
+                        }
+                        buyX(buyConfig).then(() => {
+                            showMsg();
+                        });
+                    } else {
+                        showMsg('输入金额不在限额之内，请重新输入！');
+                    }
                 }
-                buyX(buyConfig).then(() => {
-                    showMsg();
-                });
+                if (p_money == 'USD') {
+                    if (moneyXZ.min_usd < allMoney && allMoney < moneyXZ.max_usd) {
+                        let buyConfig = {
+                            tradeCurrency: 'USD',
+                            tradePrice: moneyHS,
+                            userId: base.getUserId(),
+                            count: base.formatMoneyParse($('.con-toBuy .x_num').text().trim(), '', 'X'),
+                            receiveType: zfType[receiveType],
+                            tradeAmount: allMoney
+                        }
+                        buyX(buyConfig).then(() => {
+                            showMsg();
+                        });
+                    } else {
+                        showMsg('输入金额不在限额之内，请重新输入！');
+                    }
+                }
             }
             if ($(this).text() == '买入' && $('.con-toBuy .sel-p').text() == '数量') {
-                let buyConfig = {
-                    tradeCurrency: 'X',
-                    tradePrice: moneyHS,
-                    userId: base.getUserId(),
-                    count: base.formatMoneyParse($('.con-toBuy .b-c_put input').val().trim(), '', 'X'),
-                    receiveType: zfType[receiveType],
-                    tradeAmount: $('.con-toBuy .x_num').text().trim()
+                let allMoney = $('.con-toBuy .x_num').text().trim();
+                if (p_money == 'CNY') {
+                    if (moneyXZ.min_cny < allMoney && allMoney < moneyXZ.max_cny) {
+                        let buyConfig = {
+                            tradeCurrency: 'CNY',
+                            tradePrice: moneyHS,
+                            userId: base.getUserId(),
+                            count: base.formatMoneyParse($('.con-toBuy .b-c_put input').val().trim(), '', 'X'),
+                            receiveType: zfType[receiveType],
+                            tradeAmount: allMoney
+                        }
+                        buyX(buyConfig).then(() => {
+                            showMsg();
+                        });
+                    } else {
+                        showMsg('输入金额不在限额之内，请重新输入！');
+                    }
                 }
-                buyX(buyConfig).then(() => {
-                    showMsg();
-                });
+                if (p_money == 'USD') {
+                    if (moneyXZ.min_usd < allMoney && allMoney < moneyXZ.max_usd) {
+                        let buyConfig = {
+                            tradeCurrency: 'USD',
+                            tradePrice: moneyHS,
+                            userId: base.getUserId(),
+                            count: base.formatMoneyParse($('.con-toBuy .b-c_put input').val().trim(), '', 'X'),
+                            receiveType: zfType[receiveType],
+                            tradeAmount: allMoney
+                        }
+                        buyX(buyConfig).then(() => {
+                            showMsg();
+                        });
+                    } else {
+                        showMsg('输入金额不在限额之内，请重新输入！');
+                    }
+                }
             }
             //卖出
             if ($(this).text() == '卖出') { //back-type
+                let allMoney = $('.con-toSell .b-c_put input').val().trim();
+                let p_money = $('.con-toSell .x-p_money').eq(0).text(); //判断货币类型
                 if ($('.sell-c .sel-p').text() == '金额') {
-                    let sellConfig = {
-                        userId: base.getUserId(),
-                        tradeCurrency: 'X',
-                        tradePrice: moneyHS,
-                        count: base.formatMoneyParse($('.con-toSell .x_num').text().trim(), '', 'X'),
-                        receiveCardNo: $('.back-type input').val().trim(),
-                        receiveType: zfType[receiveType],
-                        tradeAmount: $('.con-toSell .b-c_put input').val().trim()
+                    if (p_money == 'CNY') {
+                        if (moneyXZ.min_cny < allMoney && allMoney < moneyXZ.max_cny) {
+                            let sellConfig = {
+                                userId: base.getUserId(),
+                                tradeCurrency: 'X',
+                                tradePrice: moneyHS,
+                                count: base.formatMoneyParse($('.con-toSell .x_num').text().trim(), '', 'X'),
+                                receiveCardNo: $('.back-type input').val().trim(),
+                                receiveType: zfType[receiveType],
+                                tradeAmount: allMoney
+                            }
+                            sellX(sellConfig).then(() => {
+                                showMsg();
+                            })
+                        } else {
+                            showMsg('输入金额不在限额之内，请重新输入！');
+                        }
                     }
-                    sellX(sellConfig).then(() => {
-                        showMsg();
-                    })
                 }
                 if ($('.sell-c .sel-p').text() == '数量') {
-                    let sellConfig = {
-                        userId: base.getUserId(),
-                        tradeCurrency: 'X',
-                        tradePrice: moneyHS,
-                        count: base.formatMoneyParse($('.con-toSell .b-c_put input').val().trim(), '', 'X'),
-                        receiveCardNo: $('.back-type input').val().trim(),
-                        receiveType: zfType[receiveType],
-                        tradeAmount: $('.con-toSell .x_num').text().trim()
+                    let allMoney = $('.con-toSell .x_num').text().trim();
+                    if (p_money == 'USD') {
+                        if (moneyXZ.min_usd < allMoney && allMoney < moneyXZ.max_usd) {
+                            let sellConfig = {
+                                userId: base.getUserId(),
+                                tradeCurrency: 'X',
+                                tradePrice: moneyHS,
+                                count: base.formatMoneyParse($('.con-toSell .b-c_put input').val().trim(), '', 'X'),
+                                receiveCardNo: $('.back-type input').val().trim(),
+                                receiveType: zfType[receiveType],
+                                tradeAmount: allMoney
+                            }
+                            sellX(sellConfig).then(() => {
+                                showMsg();
+                            })
+                        } else {
+                            showMsg('输入金额不在限额之内，请重新输入！');
+                        }
                     }
-                    sellX(sellConfig).then(() => {
-                        showMsg();
-                    })
                 }
             }
         })
 
-        function showMsg() {
+        function showMsg(txt) {
+            let text = txt || '订单提交成功'
             $('.b-c_put input').val('');
             $('.x_num').text('0.000');
             $('.back-type input').val('');
-            base.showMsg('订单提交成功');
+            base.showMsg(text);
         }
 
         // 发送-确定

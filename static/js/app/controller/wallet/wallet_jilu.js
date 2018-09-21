@@ -1,18 +1,13 @@
 define([
             'app/controller/base',
             'pagination',
-            'app/util/ajax'
-        ], function(base, pagination, Ajax) {
+            'app/util/ajax',
+            'app/interface/GeneralCtr'
+        ], function(base, pagination, Ajax, GeneralCtr) {
 
             let userCTSList = [];
 
-            let statusList = {
-                '0': '待支付',
-                '1': '待确认',
-                '2': '已完成',
-                '3': '已取消',
-                '4': '平台已取消'
-            }
+            let statusList = {}
             let typeList = {
                 '0': '买入',
                 '1': '卖出'
@@ -29,6 +24,15 @@ define([
             function init() {
                 base.showLoadingSpin();
                 addListener();
+                getCTSFn(j_config);
+                GeneralCtr.getDictList({ "parentKey": "accept_order_status" }).then((data) => {
+                    data.forEach(item => {
+                        statusList[item.dkey] = item.dvalue;
+                    })
+                })
+            }
+
+            function getCTSFn(j_config) {
                 getCTSData(j_config).then(data => {
                             userCTSList = data.list;
                             let ctsHtml = '';
@@ -38,53 +42,53 @@ define([
                                             switch (item.status) {
                                                 case '0':
                                                     pHtml = `<p>
-                <span>标记付款</span>
-                <span>取消订单</span>
-                <span class="goHref" data-href="../wallet/wallet-det.html?code=${item.code}">详情</span>
-            </p>`;
+                                <span>标记付款</span>
+                                <span>取消订单</span>
+                                <span class="goHref" data-href="../wallet/wallet-det.html?code=${item.code}">详情</span>
+                                </p>`;
                                                     break;
                                                 default:
                                                     pHtml = `<p>
-                                                <span class="goHref" data-href="../wallet/wallet-det.html?code=${item.code}">详情</span>
-                                            </p>`;
+                                <span class="goHref" data-href="../wallet/wallet-det.html?code=${item.code}">详情</span>
+                            </p>`;
                                             }
                                         }
                                         if (item.type == 1) {
                                             switch (item.status) {
                                                 case '0':
                                                     pHtml = `<p>
-                <span>取消订单</span>
-                <span class="goHref" data-href="../wallet/wallet-det.html?code=${item.code}">详情</span>
-            </p>`;
+                                <span>取消订单</span>
+                                <span class="goHref" data-href="../wallet/wallet-det.html?code=${item.code}">详情</span>
+                                </p>`;
                                                     break;
                                                 default:
                                                     pHtml = `<p>
-                                                <span class="goHref" data-href="../wallet/wallet-det.html?code=${item.code}">详情</span>
-                                            </p>`;
+                                <span class="goHref" data-href="../wallet/wallet-det.html?code=${item.code}">详情</span>
+                            </p>`;
                                             }
                                         }
 
                                         ctsHtml += `<li>
-            <p class="${item.type == 0 ? 'd-mr': 'd-mc'}">${typeList[item.type]}</p>
-            <p>${item.tradeCurrency}</p>
-            <p>${item.tradeAmount}</p>
-            <p>$</p>
-            <p class="date_num">${base.formatMoney(`${item.count}`, '', 'X')}</p>
-            <p class="date_p">${base.formateDatetime(item.createDatetime)}</p>
-            <p>${statusList[item.status]}</p>
-            <div class="cz-type" data-code="${item.code}">
-                ${pHtml}
-            </div>
-        </li>`
-    });
+                        <p class="${item.type == 0 ? 'd-mr': 'd-mc'}">${typeList[item.type]}</p>
+                        <p>${item.tradeCurrency}</p>
+                        <p>${item.tradeAmount}</p>
+                        <p>$</p>
+                        <p class="date_num">${base.formatMoney(`${item.count}`, '', 'X')}</p>
+                        <p class="date_p">${base.formateDatetime(item.createDatetime)}</p>
+                        <p>${statusList[item.status]}</p>
+                        <div class="cz-type" data-code="${item.code}">
+                        ${pHtml}
+                        </div>
+                    </li>`
+            });
 
-    $('.x-order_warp ul').html(ctsHtml);
-    j_config.start == 1 && initPagination(data);
-    addListener();
-    base.hideLoadingSpin();
+            $('.x-order_warp ul').html(ctsHtml);
+            j_config.start == 1 && initPagination(data);
+            addListener();
+            base.hideLoadingSpin();
 
-    }, base.hideLoadingSpin)
-}
+        }, base.hideLoadingSpin)
+    }
 
     // 初始化交易记录分页器
     function initPagination(data) {
@@ -101,11 +105,11 @@ define([
             jumpBtnCls: 'pagination-btn',
             jumpBtn: '确定',
             isHide: true,
-            callback: function(_this) {
+            callback: function (_this) {
                 if (_this.getCurrent() != j_config.start) {
                     base.showLoadingSpin();
                     j_config.start = _this.getCurrent();
-                    getCTSData(j_config);
+                    getCTSFn(j_config);
                 }
             }
         });
@@ -117,31 +121,31 @@ define([
     }
 
     // 标记付款
-    function bjPlayfo(config){
+    function bjPlayfo(config) {
         return Ajax.get('625273', config);
     }
 
     // 取消订单
-    function qxOrder(config){
+    function qxOrder(config) {
         return Ajax.get('625272', config)
     }
 
 
-    function addListener(){
-        $('.cz-type span').off('click').click(function(){
+    function addListener() {
+        $('.cz-type span').off('click').click(function () {
             let selTxt = $(this).text();
             let code = $(this).parents('.cz-type').data('code');
             let config = {
                 userId: base.getUserId(),
                 code
             };
-            switch(selTxt){
-                case '标记付款': 
+            switch (selTxt) {
+                case '标记付款':
                     bjPlayfo(config).then(() => {
                         location.reload();
                     });
                     break;
-                case '取消订单': 
+                case '取消订单':
                     qxOrder(config).then(() => {
                         location.reload();
                     });
