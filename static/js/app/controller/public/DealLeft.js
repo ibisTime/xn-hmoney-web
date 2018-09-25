@@ -1,4 +1,6 @@
-$(function() {
+define([
+    'app/controller/base'
+], function (base) {
     let url = location.href.split('?');
     let mod = '',
         len = 0;

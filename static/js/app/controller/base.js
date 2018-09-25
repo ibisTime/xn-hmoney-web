@@ -137,6 +137,10 @@ define([
         datetime: function(date) {
             return date ? new Date(date).format("MM-dd hh:mm") : "--";
         },
+        //日期格式化 hh:mm:ss
+        todayDatetime: function(date) {
+            return date ? new Date(date).format("hh:mm:ss") : "--";
+        },
         //获取链接入参
         getUrlParam: function(name, locat) {
             var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
@@ -553,6 +557,27 @@ define([
             var n = Base.getCoinList()[coin].withdrawFeeString
             return n;
         },
+        // 根据语言获取文本
+        getText: function(text, lang) {
+            if (lang == '' || !lang) {
+                lang = NOWLANG
+            }
+            var t = LANGUAGE[text] && LANGUAGE[text][lang] ? LANGUAGE[text][lang] : '';
+            if (!LANGUAGE[text] || t == '') {
+                if (!LANGUAGE[text]) {
+                    t = text;
+                    console.log('[' + text + ']没有翻译配置');
+                } else {
+                    if (!LANGUAGE[text]['EN']) {
+                        t = LANGUAGE[text]['ZH_CN']
+                    } else {
+                        t = LANGUAGE[text]['EN'];
+                    }
+                    console.log(lang + ': [' + text + ']没有翻译配置');
+                }
+            }
+            return t;
+        }
     };
 
     return Base;

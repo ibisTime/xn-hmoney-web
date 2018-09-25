@@ -53,6 +53,13 @@ fis.match('*.{js,css}', {
 }).match('config.js', {
     useHash: false
 });
+fis.match('/js/app/module/charting_library/**.html', {
+    release : '/static/$0'
+}).match('/js/app/module/charting_library/**.js', {
+    useHash: false
+}).match('/js/app/module/datafeeds/**.js', {
+    useHash: false
+});
 
 //npm install -g fis-parser-handlebars-3.x
 fis.match('*.handlebars', {

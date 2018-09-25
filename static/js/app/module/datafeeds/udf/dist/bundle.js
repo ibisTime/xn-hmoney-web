@@ -64,7 +64,7 @@
             var requestParams = {
                 symbol: 'X',
                 toSymbol: symbolInfo.toSymbol || 'BTC',
-                period: '1day',
+                period: '1min',
                 resolution: resolution,
                 from: rangeStartDate,
                 to: rangeEndDate,

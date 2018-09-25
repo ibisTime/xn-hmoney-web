@@ -1,75 +1,77 @@
 define([
-            'app/controller/base',
-            'pagination',
-            'app/util/ajax',
-            'app/interface/GeneralCtr'
-        ], function(base, pagination, Ajax, GeneralCtr) {
+    'app/controller/base',
+    'pagination',
+    'app/util/ajax',
+    'app/interface/GeneralCtr'
+], function (base, pagination, Ajax, GeneralCtr) {
 
-            let userCTSList = [];
+    let userCTSList = [];
 
-            let statusList = {}
-            let typeList = {
-                '0': '买入',
-                '1': '卖出'
-            }
+    let statusList = {}
+    let typeList = {
+        '0': '买入',
+        '1': '卖出'
+    }
 
-            let j_config = {
-                limit: '10',
-                start: '1',
-                userId: base.getUserId()
-            }
+    let j_config = {
+        limit: '10',
+        start: '1',
+        userId: base.getUserId()
+    }
 
-            init();
+    init();
 
-            function init() {
-                base.showLoadingSpin();
-                addListener();
-                getCTSFn(j_config);
-                GeneralCtr.getDictList({ "parentKey": "accept_order_status" }).then((data) => {
-                    data.forEach(item => {
-                        statusList[item.dkey] = item.dvalue;
-                    })
-                })
-            }
+    function init() {
+        base.showLoadingSpin();
+        addListener();
+        getCTSFn(j_config);
+        GeneralCtr.getDictList({
+            "parentKey": "accept_order_status"
+        }).then((data) => {
+            data.forEach(item => {
+                statusList[item.dkey] = item.dvalue;
+            })
+        })
+    }
 
-            function getCTSFn(j_config) {
-                getCTSData(j_config).then(data => {
-                            userCTSList = data.list;
-                            let ctsHtml = '';
-                            userCTSList.forEach(item => {
-                                        let pHtml = '';
-                                        if (item.type == 0) {
-                                            switch (item.status) {
-                                                case '0':
-                                                    pHtml = `<p>
+    function getCTSFn(j_config) {
+        getCTSData(j_config).then(data => {
+            userCTSList = data.list;
+            let ctsHtml = '';
+            userCTSList.forEach(item => {
+                let pHtml = '';
+                if (item.type == 0) {
+                    switch (item.status) {
+                        case '0':
+                            pHtml = `<p>
                                 <span>标记付款</span>
                                 <span>取消订单</span>
                                 <span class="goHref" data-href="../wallet/wallet-det.html?code=${item.code}">详情</span>
                                 </p>`;
-                                                    break;
-                                                default:
-                                                    pHtml = `<p>
+                            break;
+                        default:
+                            pHtml = `<p>
                                 <span class="goHref" data-href="../wallet/wallet-det.html?code=${item.code}">详情</span>
                             </p>`;
-                                            }
-                                        }
-                                        if (item.type == 1) {
-                                            switch (item.status) {
-                                                case '0':
-                                                    pHtml = `<p>
+                    }
+                }
+                if (item.type == 1) {
+                    switch (item.status) {
+                        case '0':
+                            pHtml = `<p>
                                 <span>取消订单</span>
                                 <span class="goHref" data-href="../wallet/wallet-det.html?code=${item.code}">详情</span>
                                 </p>`;
-                                                    break;
-                                                default:
-                                                    pHtml = `<p>
+                            break;
+                        default:
+                            pHtml = `<p>
                                 <span class="goHref" data-href="../wallet/wallet-det.html?code=${item.code}">详情</span>
                             </p>`;
-                                            }
-                                        }
+                    }
+                }
 
-                                        ctsHtml += `<li>
-                        <p class="${item.type == 0 ? 'd-mr': 'd-mc'}">${typeList[item.type]}</p>
+                ctsHtml += `<li>
+                        <p class="${item.type == 0 ? 'd-mr' : 'd-mc'}">${typeList[item.type]}</p>
                         <p>${item.tradeCurrency}</p>
                         <p>${item.tradeAmount}</p>
                         <p>$</p>

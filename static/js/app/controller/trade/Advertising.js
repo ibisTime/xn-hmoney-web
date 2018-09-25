@@ -634,7 +634,7 @@ define([
                     mid = data.mid;
                     $("#price").val(mid);
                 });
-            } else {
+            } else { // X币换算人民币或美元
                 getAdvertisePrice('BTC', m_type).then(data => {
                     let bb_mid = data.mid;
                     getAdvertisePrice('X', 'BTC').then(data => {

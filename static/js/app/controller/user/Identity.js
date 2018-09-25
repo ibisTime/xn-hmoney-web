@@ -58,12 +58,6 @@ define([
         $.when(
             getUser(),
             getQiniuToken(sf_photoFile)
-            // getQiniuToken('', '', ''),
-            // getQiniuToken('', '', ''),
-            // getQiniuToken('', '', ''),
-            // getQiniuToken('', '', ''),
-            // getQiniuToken('', '', 'jz_subBtn'),
-            // getQiniuToken('', '', 'jz_subBtn')
         )
         getUserCerRecords().then(data => {
             if (data.list.length == 0) {
@@ -83,7 +77,6 @@ define([
             } else {
                 $("#goAppIdentity").removeClass("hidden")
             }
-
             base.hideLoadingSpin();
         }, base.hideLoadingSpin)
     }
@@ -148,7 +141,7 @@ define([
                     imageSrcF = $(that).attr("data-src");
                 }
                 let imgSrc = $(that).attr("data-src");
-                $(that).next().css({ "background-image": "url('" + base.getPic(imgSrc) + "')" })
+                $(that).next().css({ "background-image": "url('" + base.getPic(imgSrc) + "')" });
             }
         }
 
@@ -165,8 +158,9 @@ define([
         //选择护照图片
         //正
         $('#hz_photoFile1').bind('change', function() {
-                showImg(this, true);
-            })
+            showImg(this, true);
+        })
+
             //反
         $("#hz_photoFile2").bind('change', function() {
             showImg(this, false);
@@ -175,9 +169,10 @@ define([
         //选择驾照图片
         //正
         $('#jz_photoFile1').bind('change', function() {
-                showImg(this, true);
-            })
-            //反
+            showImg(this, true);
+        })
+        
+        //反
         $("#jz_photoFile2").bind('change', function() {
             showImg(this, false);
         })

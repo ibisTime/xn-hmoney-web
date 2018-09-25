@@ -1705,7 +1705,7 @@ table {
                 position: absolute;
                 left: 0;
                 top: 0;
-                z-index: 1;
+                z-index: 2;
                 background-size: 100% 100%;
                 background-repeat: no-repeat;
             }
@@ -5111,10 +5111,18 @@ table {
 }
 
 .head-lang {
-    padding: 0px 16px;
-    border: 1px solid #fff;
-    border-radius: 100px;
     color: #fff;
+    select{
+        padding: 0px 20px 0px 16px;
+        border: 1px solid #fff;
+        color: #fff;
+        border-radius: 8px;
+        color: #fff;
+        background-color: #233661;
+        height: 28px;
+        line-height: 26px;
+        font-size: 14px;
+    }
     .icon-lang {
         transform: rotate(-225deg);
         border-top: 1px solid #fff;
@@ -5123,7 +5131,7 @@ table {
         width: 7.1px;
         height: 7.1px;
         margin-bottom: 4px;
-        margin-left: 4px;
+        margin-left: -18px;
     }
 }
 
@@ -5156,13 +5164,12 @@ table {
 
 // 币币交易
 .bb-container {
-    min-width: 1400px;
+    min-width: 1200px;
     margin: 0 auto;
     padding-top: 18px;
     background-color: #F7F7F7;
     display: flex;
     justify-content: space-between;
-    padding-left: 90px;
     font-family: 'PingFangSC-Regular';
     .tologin {
         font-size: 17px;
@@ -5383,7 +5390,7 @@ table {
     .bb-conRight {
         margin-left: 10px;
         width: calc(100% - 360px);
-        padding-right: 109px;
+        // padding-right: 109px;
         .con-r-k {
             height: 571px;
             .con-t-l {
@@ -5668,13 +5675,16 @@ table {
                     box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.05);
                     width: 100%;
                     font-family: 'PingFangSC-Medium';
-                    padding: 20px 30px 0px;
+                    padding: 20px 5px 0px;
                     padding-bottom: 10px;
                     thead {
                         th {
                             font-weight: 400;
                             color: #999;
                             padding-bottom: 8px;
+                            &:first-child{
+                                width: 70px;
+                            }
                         }
                     }
                     tbody {
@@ -6239,8 +6249,18 @@ html {
 @media screen and (max-width: 1600px) {
     .bb-container {
         padding-left: 30px;
+        padding-right: 30px;
     }
     .bb-conLift {
         width: 300px;
+    }
+}
+
+@media screen and (min-width: 1600px) {
+    .bb-container {
+        padding: 18px 109px 0 90px;
+    }
+    .bb-conLift {
+        width: 360px;
     }
 }
