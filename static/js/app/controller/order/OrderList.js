@@ -141,20 +141,19 @@ define([
             operationHtml += `<div class="am-button arbitrationBtn"  data-ocode="${item.code}">申请仲裁</div>`
         }
 
-        // if (user.photo) {
-        //     photoHtml = `<div class="photo" style="background-image:url('${base.getAvatar(user.photo)}')"></div>`
-        // } else {
-        //     var tmpl = user.nickname.substring(0, 1).toUpperCase();
-        //     photoHtml = `<div class="photo"><div class="noPhoto">${tmpl}</div></div>`
-        // }
+        if (user.photo) {
+            photoHtml = `<div class="photo" style="background-image:url('${base.getAvatar(user.photo)}')"></div>`
+        } else {
+            var tmpl = user.nickname.substring(0, 1).toUpperCase();
+            photoHtml = `<div class="photo"><div class="noPhoto">${tmpl}</div></div>`
+        }
         if (item.status != "-1") {
             quantity = base.formatMoney(item.countString, '', item.tradeCoin) + item.tradeCoin
         }
         return `<tr data-code="${item.code}">
 					<td class="nickname" style="border-left:1px solid #eee;">
                         <div 
-                            class="photoWrap fl goHref" 
-                            data-href="../user/user-detail.html?coin=${item.tradeCoin?item.tradeCoin:'ETH'}&userId=${user.userId}" >
+                            class="photoWrap fl">
 							${photoHtml}
 						</div>
 						<samp class="name k-name">${user.nickname}</samp>

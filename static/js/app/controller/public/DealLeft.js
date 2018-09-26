@@ -1,6 +1,12 @@
 define([
     'app/controller/base'
 ], function (base) {
+    $('.left-wrap .left-item .fb').click(function(){
+        if (!base.isLogin()) {
+            base.goLogin();
+            return false;
+        }
+    })
     let url = location.href.split('?');
     let mod = '',
         len = 0;
@@ -19,12 +25,24 @@ define([
             mod = 'cs';
             break;
         case 'order':
+            if (!base.isLogin()) {
+                base.goLogin();
+                return false;
+            }
             mod = 'dd';
             break;
         case 'advertise':
+            if (!base.isLogin()) {
+                base.goLogin();
+                return false;
+            }
             mod = 'gg';
             break;
         case 'trust':
+            if (!base.isLogin()) {
+                base.goLogin();
+                return false;
+            }
             mod = 'xr';
             break;
     }

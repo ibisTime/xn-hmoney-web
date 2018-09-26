@@ -60,21 +60,26 @@ define([
             if (user.photo) {
                 tradePhoto = '<div class="photo goHref" data-href="../user/user-detail.html?coin=' + tradeCoin + '&userId=' + user.userId + '"  style="background-image:url(\'' + base.getAvatar(user.photo) + '\')"></div>'
             } else {
-                var tmpl = user.nickname.substring(0, 1).toUpperCase();
+                var tmpl = user.nickname ? user.nickname.substring(0, 1).toUpperCase() : '-';
                 tradePhoto = '<div class="photo goHref" data-href="../user/user-detail.html?coin=' + tradeCoin + '&userId=' + user.userId + '" ><div class="noPhoto">' + tmpl + '</div></div>'
             }
 
             if (data.user.photo) {
                 $("#photo").css({ "background-image": "url('" + base.getAvatar(data.user.photo) + "')" })
             } else {
-                var tmpl = data.user.nickname.substring(0, 1).toUpperCase();
+                var tmpl = data.user.nickname ? data.user.nickname.substring(0, 1).toUpperCase() : '';
                 var photoHtml = `<div class="noPhoto">${tmpl}</div>`
                 $("#photo").html(photoHtml)
             }
             config.tradePrice = data.truePrice;
             limit = data.minTrade + '-' + data.maxTrade
 
-            $("#nickname").html(data.user.nickname)
+            $("#nickname").html(data.user.nickname);
+            if(data.user.idNo){
+                $('.rz').text('已认证').addClass('sp-yrz');
+            }else{
+                $('.rz').text('未认证').addClass('sp-wrz');
+            }
             if (data.status == "1" && isDetail) {
                 $("#doDownBtn").removeClass("hidden");
             }
@@ -221,6 +226,7 @@ define([
             $("#buyAmount").val((Math.floor(truePrice * 100) / 100).toFixed(2));
             $("#submitDialog .tradeAmount").html($("#buyAmount").val() + "CNY")
             $("#submitDialog .count").html($("#buyEth").val() + tradeCoin)
+            $('.bb-m').text(tradeCoin);
             config.tradeAmount = $("#buyAmount").val()
             config.count = base.formatMoneyParse($("#buyEth").val(), '', tradeCoin)
 

@@ -38,18 +38,48 @@ define([
         if (type == 'mobile') {
             return UserCtr.register(params).then((data) => {
                 base.hideLoadingSpin()
-                base.showMsg("注册成功")
-                setTimeout(function() {
-                    base.gohref("../user/login.html")
-                }, 800)
+                base.showMsg("注册成功");
+                let loginParams = {
+                    loginName: params.email,
+                    loginPwd :params.loginPwd1
+                };
+                UserCtr.login(loginParams).then((data) => {
+                    base.setSessionUser(data);
+                    UserCtr.getUser(true).then((item) => {
+                        sessionStorage.setItem("nickname", item.nickname);
+                        sessionStorage.setItem("googleAuthFlag", item.googleAuthFlag);
+                        sessionStorage.setItem("mobile", item.mobile);
+                        sessionStorage.setItem("inviteCode", item.secretUserId);
+                        base.hideLoadingSpin()
+                        base.showMsg("登录成功")
+                        setTimeout(function() {
+                            base.goReturn()
+                        }, 800)
+                    })
+                })
             }, base.hideLoadingSpin)
         } else {
             return UserCtr.emailRegister(params).then(() => {
-                base.hideLoadingSpin()
-                base.showMsg("注册成功")
-                setTimeout(function() {
-                    base.gohref("../user/login.html")
-                }, 800)
+                base.hideLoadingSpin();
+                base.showMsg("注册成功");
+                let loginParams = {
+                    loginName: params.mobile,
+                    loginPwd :params.loginPwd
+                };
+                UserCtr.login(loginParams).then((data) => {
+                    base.setSessionUser(data);
+                    UserCtr.getUser(true).then((item) => {
+                        sessionStorage.setItem("nickname", item.nickname);
+                        sessionStorage.setItem("googleAuthFlag", item.googleAuthFlag);
+                        sessionStorage.setItem("mobile", item.mobile);
+                        sessionStorage.setItem("inviteCode", item.secretUserId);
+                        base.hideLoadingSpin()
+                        base.showMsg("登录成功")
+                        setTimeout(function() {
+                            base.goReturn()
+                        }, 800)
+                    })
+                })
             }, base.hideLoadingSpin)
         }
     }

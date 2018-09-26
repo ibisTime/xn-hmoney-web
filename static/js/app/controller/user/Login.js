@@ -44,7 +44,7 @@ define([
         sessionStorage.setItem("l-return", 'advertise.html');
         setTimeout(function() {
                 base.goReturn()
-            }, 800) */
+            }, 800) */debugger
         return UserCtr.login(params).then((data) => {
             base.setSessionUser(data)
             UserCtr.getUser(true).then((item) => {

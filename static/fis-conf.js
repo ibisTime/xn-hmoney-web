@@ -59,6 +59,8 @@ fis.match('/js/app/module/charting_library/**.html', {
     useHash: false
 }).match('/js/app/module/datafeeds/**.js', {
     useHash: false
+}).match('/js/app/module/charting_library/static/lib/external/**.js', {
+    url : '/static$0'
 });
 
 //npm install -g fis-parser-handlebars-3.x

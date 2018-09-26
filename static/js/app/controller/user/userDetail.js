@@ -11,6 +11,7 @@ define([
     var userId = base.getUrlParam('userId');
     var adsCode = base.getUrlParam('adsCode');
     var currency = base.getUrlParam('coin') || 'BTC';
+    var nickname = '';
     var coinList = {},
         payType = {};
     var config = {
@@ -70,12 +71,12 @@ define([
             if (data.photo) {
                 photoHtml = `<div class="photo" style="background-image:url('${base.getAvatar(data.photo)}')"></div>`
             } else {
-                var tmpl = data.nickname.substring(0, 1).toUpperCase();
+                var tmpl = data.nickname ? data.nickname.substring(0, 1).toUpperCase() : '-';
                 photoHtml = `<div class="photo"><div class="noPhoto">${tmpl}</div></div>`
             }
-            $('.userDetail-top .nickname').html(data.nickname);
+            nickname = data.nickname ? data.nickname : '-';
+            $('.userDetail-top .nickname').html(data.nickname ? data.nickname : '-');
             $('.userDetail-top .photoWrap').html(photoHtml);
-            $('.userDetail-top .userName').html(data.nickname);
 
             // 邮箱验证，手机验证，身份验证
             $('.bindWrap .email samp').html(data.email ? '邮箱已验证' : '邮箱未验证');
@@ -106,7 +107,7 @@ define([
                 lists.forEach((item, i) => {
                     html += buildHtml(item);
                 });
-                $("#content").html(html)
+                $("#content").html(html);
                 $(".trade-list-wrap .no-data").addClass("hidden")
             } else {
                 config.start == 1 && $("#content").empty()
@@ -114,7 +115,8 @@ define([
             }
             config.start == 1 && initPagination(data);
             base.hideLoadingSpin();
-        }, base.hideLoadingSpin)
+        }, base.hideLoadingSpin);
+        $('.userName').text(nickname);
     }
 
     function buildHtml(item) {
@@ -129,7 +131,7 @@ define([
 					<td class="currency">${base.getCoinName(item.tradeCoin)}(${item.tradeCoin})</td>
 					<td class="payType">${payType[item.payType]}</td>
 					<td class="limit">${item.minTrade}-${item.maxTrade}CNY</td>
-					<td class="price">${item.truePrice}CNY/${item.tradeCoin?item.tradeCoin:'ETH'}</td>
+					<td class="price">${item.truePrice}CNY/${item.tradeCoin?item.tradeCoin:' ETH'}</td>
 					<td class="operation">
 						${operationHtml}
 					</td>

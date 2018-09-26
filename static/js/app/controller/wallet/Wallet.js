@@ -38,10 +38,10 @@ define([
             "0": "",
             "1": "charge",
             "2": "withdraw",
-            "3": "buy",
-            "4": "sell",
+            "3": "accept_buy",
+            "4": "accept_sell",
             "5": "tradefee",
-            "6": "withdrawfee",
+            "6": "withdraw_fee",
             "7": "invite",
             "8": "",
         },
@@ -380,9 +380,9 @@ define([
                     <div class="contant-ts">
                         <h5>温馨提示</h5>
                         <ul class="ts-ul">
-                            <li> BCH 地址只能充值 BCH 资产，任何充入 BCH 地址的非 BCH 资产将不可找回。</li>
-                            <li> 使用BCH地址充值需要 2 个网络确认才能到账。</li>
-                            <li> 最低存入金额为 0.0025 BCH，我们不会处理少于该金额的 BCH 存入请求。</li>
+                            <li> ${item.currency} 地址只能充值 ${item.currency} 资产，任何充入 ${item.currency} 地址的非 ${item.currency} 资产将不可找回。</li>
+                            <li> 使用${item.currency}地址充值需要 2 个网络确认才能到账。</li>
+                            <li> 最低存入金额为 0.0025 ${item.currency}，我们不会处理少于该金额的 ${item.currency} 存入请求。</li>
                             <li> 在平台内相互转账是实时到账且免费的。</li>
                         </ul>
                     </div>
@@ -437,9 +437,9 @@ define([
                     <div class="contant-ts" style="padding-top: 30px;">
                         <h5>温馨提示</h5>
                         <ul class="ts-ul">
-                            <li> BCH 地址只能充值 BCH 资产，任何充入 BCH 地址的非 BCH 资产将不可找回。</li>
-                            <li> 使用BCH地址充值需要 2 个网络确认才能到账。</li>
-                            <li> 最低存入金额为 0.0025 BCH，我们不会处理少于该金额的 BCH 存入请求。</li>
+                            <li> ${item.currency} 地址只能充值 ${item.currency} 资产，任何充入 ${item.currency} 地址的非 ${item.currency} 资产将不可找回。</li>
+                            <li> 使用${item.currency}地址充值需要 2 个网络确认才能到账。</li>
+                            <li> 最低存入金额为 0.0025 ${item.currency}，我们不会处理少于该金额的 ${item.currency} 存入请求。</li>
                             <li> 在平台内相互转账是实时到账且免费的。</li>
                         </ul>
                     </div>
@@ -786,19 +786,20 @@ define([
         // 充币、提币操作
         $('.tr-ul').off('click').click(function (e) {
             let target = e.target;
+            if ($(target).text() == '充币') {
+                $('.bb-box').hide(200);
+                if ($(target).attr('class') == 'sel-sp') {
+                    $(target).parents('.tr-mx').siblings('.con-box').hide(200);
+                    $(target).removeClass('sel-sp');
+                } else {
+                    $('.cz-btns span').removeClass('sel-sp');
+                    $(target).addClass('sel-sp').siblings().removeClass('sel-sp');
+                    $(target).parents('.tr-mx').siblings('.con-box').show(200).siblings('.con-tb').hide(200);
+                }
+                return;
+            }
             UserCtr.getUser(true).then((data) => {
                 if (data.tradepwdFlag && data.realName) {
-                    if ($(target).text() == '充币') {
-                        $('.bb-box').hide(200);
-                        if ($(target).attr('class') == 'sel-sp') {
-                            $(target).parents('.tr-mx').siblings('.con-box').hide(200);
-                            $(target).removeClass('sel-sp');
-                        } else {
-                            $('.cz-btns span').removeClass('sel-sp');
-                            $(target).addClass('sel-sp').siblings().removeClass('sel-sp');
-                            $(target).parents('.tr-mx').siblings('.con-box').show(200).siblings('.con-tb').hide(200);
-                        }
-                    }
                     if ($(target).text() == '提币') {
                         $('.bb-box').hide(200);
                         if ($(target).attr('class') == 'sel-sp') {

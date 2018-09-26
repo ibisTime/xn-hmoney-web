@@ -207,7 +207,7 @@ define([
                 if (pkObjData.sell) {
                     let toPrice = base.formatMoney(`${pkObjData.sell.price}`, '', setBazDeal.toSymbol)
                     $('#yr-price').val(toPrice);
-                    $('.all-bb_c').text(syUserMoney / toPrice); //syUserMoney
+                    $('.all-bb_c').text((Math.floor((syUserMoney) * 1000) / 1000).toFixed(3)); //syUserMoney
                 }
             }
             oneIndex++;
@@ -597,8 +597,8 @@ define([
                     getLimitedPriceData('1', direction, price, totalCount).then(data => {
                         $(inpNum).val('');
                         $(inpPrice).val('');
-                        $('.jy-ce').text('0.000');
-                        $('.jy-me').text('0.000');
+                        $('.jy-ce').text('0.000000');
+                        $('.jy-me').text('0.000000');
                         if (data.code) {
                             base.showMsg('订单提交成功');
                             getUserMoney();
@@ -692,6 +692,9 @@ define([
         $('#ym-price').keyup(function () {
             let ym_price = $(this).val();
             $('.mr-exc').text(ym_price * bb_exchange);
+            if(ym_price > 0){
+                $('.all-bb').text((Math.floor((toSyUserMoney / ym_price) * 1000) / 1000).toFixed(3));
+            }
         })
         $('#yr-price').keyup(function () {
             let yr_price = $(this).val();
@@ -701,16 +704,16 @@ define([
         // 交易额-计算
         $('#buyNum').keyup(function () {
             if (outBlur(this)) {
-                $('.jy-me').text(((($('#ym-price').val() * $('#buyNum').val()) * 1000) / 1000).toFixed(3) + ' ')
+                $('.jy-me').text(((($('#ym-price').val() * $('#buyNum').val()) * 1000000) / 1000000).toFixed(6) + ' ')
             } else {
-                $('.jy-me').text('0 ')
+                $('.jy-me').text('0.000000')
             }
         })
         $('#sellNum').keyup(function () {
             if (outBlur(this)) {
                 $('.jy-ce').text($('#yr-price').val() * $('#sellNum').val() + ' ')
             } else {
-                $('.jy-ce').text('0 ')
+                $('.jy-ce').text('0.000000 ')
             }
         })
 

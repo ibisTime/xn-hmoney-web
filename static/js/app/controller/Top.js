@@ -31,7 +31,6 @@ define([
     function init() {
         base.showLoadingSpin();
         getCoinList();
-
         $("#footTeTui").html(FOOT_TETUI)
         $("#footEmail").html(FOOT_EMAIL)
         if (base.isLogin()) {
@@ -192,17 +191,17 @@ define([
         })
 
         $("#head .trade .goHref").off("click").click(function () {
-            var thishref = $(this).attr("data-href");
-            if ($(this).text() == '币币交易') {
-                base.gohref(thishref);
-                return false;
-            }
-            if (!base.isLogin()) {
-                base.goLogin();
-                return false;
-            } else {
-                base.gohref(thishref)
-            }
+            // var thishref = $(this).attr("data-href");
+            // if ($(this).text() == '币币交易') {
+            //     base.gohref(thishref);
+            //     return false;
+            // }
+            // if (!base.isLogin()) {
+            //     base.goLogin();
+            //     return false;
+            // } else {
+            //     base.gohref(thishref)
+            // }
         })
 
         $("#head-user-wrap .isTradePwdFlag").click(function () {

@@ -16,7 +16,7 @@ define([
          */
         getPageAdvertiseUser(config, refresh) {
             config.coin = '';
-            return Ajax.get("625225", config, refresh);
+            return Ajax.post("625225", config, refresh);
         },
         getUserPageAdvertiseUser(config, refresh) {
             return Ajax.get("625228", config, refresh);

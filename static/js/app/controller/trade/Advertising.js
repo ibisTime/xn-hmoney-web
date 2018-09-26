@@ -96,17 +96,19 @@ define([
 
             //价格
             $("#price").attr("data-coin", coin.toUpperCase());
-            if (coin != 'X') {
-                $("#price").val(data3.mid);
-                mid = data3.mid;
-            } else {
-                getAdvertisePrice('BTC').then(data => {
-                    let bb_mid = data.mid;
-                    getAdvertisePrice('X', 'BTC').then(data => {
-                        mid = parseFloat(data.mid) * parseFloat(bb_mid);
-                        $("#price").val(mid);
-                    })
-                });
+            if (code == ""){
+                if (coin != 'X') {
+                    $("#price").val(data3.mid);
+                    mid = data3.mid;
+                } else {
+                    getAdvertisePrice('BTC').then(data => {
+                        let bb_mid = data.mid;
+                        getAdvertisePrice('X', 'BTC').then(data => {
+                            mid = parseFloat(data.mid) * parseFloat(bb_mid);
+                            $("#price").val(mid);
+                        })
+                    });
+                }
             }
 
             if (code != "") {
@@ -221,7 +223,7 @@ define([
 
             //账户余额
             $("#coin").text($("#tradeCoin").val())
-            $("#price").attr("data-coin", $("#tradeCoin").val())
+            $("#price").attr("data-coin", $("#tradeCoin").val());
             $("#price").val(Math.floor(data.truePrice * 100) / 100);
             //正式
             //账户余额
@@ -548,36 +550,6 @@ define([
                 }, base.hideLoadingSpin)
             }, base.emptyFun)
         })
-
-        //交易币种 select
-        // $("#tradeCoin").change(function() {
-        //     base.showLoadingSpin();
-        //     document.getElementById("form-wrapper").reset();
-
-        //     tradeCoinChange(base.getCoinType($(".fb-sel").text())).then((data) => {
-
-        //         if (base.getCoinType($(".fb-sel").text()) == "1") {
-        //             mid = ''
-        //             $("#price").attr("disabled", false)
-        //             $(".premiumRateExp-wrap").addClass("hidden");
-        //             $(".premiumRateExp-wrap").addClass("hidden");
-        //         } else if (base.getCoinType($(".fb-sel").text()) == "0") {
-        //             mid = data.mid;
-
-        //             $("#price").attr("disabled", true)
-        //             $(".premiumRateExp-wrap").removeClass("hidden")
-        //         }
-        //         $("#coin").text($("#tradeCoin").val())
-        //         $("#price").attr("data-coin", $("#tradeCoin").val())
-        //         $("#price").val(mid);
-        //         base.hideLoadingSpin();
-
-        //     }, () => {
-        //         $("#tradeCoin").val($("#price").attr("data-coin"));
-        //         base.hideLoadingSpin();
-        //     })
-
-        // })
 
 
         // 选择实名

@@ -496,7 +496,7 @@ table {
                             background-image: url('../images/我的广告.png');
                         }
                         .icon-invitation {
-                            background-image: url('../images/添加.png');
+                            background-image: url('../images/邀请好友黑.png');
                         }
                         .icon-lgout {
                             background-image: url('../images/退出登录.png');
@@ -1445,6 +1445,11 @@ table {
 }
 
 .register-container {
+    .reg-container{
+        background-color: #fff;
+        margin-top: 20px;
+        padding-left: 60px;
+    }
     .login-form {
         width: 400px;
         padding: 60px 0 100px;
@@ -5098,7 +5103,16 @@ table {
 
 .k-order-list .k-name {
     margin-top: 10px;
-    margin-left: 5px !important;
+    margin-left: 42px !important;
+}
+
+.sp-wrz{
+    padding: 2px 4px;
+    font-size: 10px;
+    border: 1px solid #666;
+    color: #666;
+    border-radius: 2px;
+    margin-left: 2px;
 }
 
 .sp-yrz {

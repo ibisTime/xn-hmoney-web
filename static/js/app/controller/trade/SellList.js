@@ -158,18 +158,25 @@ define([
         } else {
             operationHtml = `<div class="am-button am-button-ghost goHref" data-href="../trade/sell-detail.html?code=${item.code}&coin=${item.tradeCoin}">出售${item.tradeCoin}</div>`;
         }
+        let hpCount = 0;
+        if (item.userStatistics.beiPingJiaCount != 0) {
+            hpCount = (item.userStatistics.beiHaoPingCount / item.userStatistics.beiPingJiaCount) * 100;
+        }
         return `<tr>
 					<td class="nickname" style="padding-left: 20px;">
 						<div class="photoWrap fl goHref" data-href="../user/user-detail.html?coin=${item.tradeCoin}&userId=${item.userId}&adsCode=${item.code}" style="margin-right: 10px;">
                             ${photoHtml}
 							<div class="dot ${loginStatus}"></div>
 						</div>
-                        <samp class="name">${item.user.nickname}</samp>
-                        <p class="n-dist" style="margin-left: 15px;"><samp>交易<i>134</i></samp> · <samp>好评度<i>100%</i></samp> · <samp>信任<i>284</i></samp></p>
+                        <samp class="name">${item.user.nickname ? item.user.nickname : '-'}</samp>
+                        <p class="n-dist"><samp>交易<i>${item.userStatistics.jiaoYiCount}</i></samp> ·
+                            <samp>好评度<i>${hpCount}%</i></samp> ·
+                            <samp>信任<i>${item.userStatistics.beiXinRenCount}</i></samp>
+                        </p>
 					</td>
 					<td class="payType">${bizTypeList[item.payType]}</td>
-					<td class="limit">${item.minTrade}-${item.maxTrade}CNY</td>
-					<td class="price">${item.truePrice.toFixed(2)}CNY</td>
+					<td class="limit">${item.minTrade}-${item.maxTrade} ${item.tradeCurrency}</td>
+					<td class="price">${item.truePrice.toFixed(2)} ${item.tradeCurrency}</td>
 					<td class="operation">
 						${operationHtml}
 					</td>

@@ -155,15 +155,15 @@ define([
 							${photoHtml}
 							<div class="dot ${loginStatus}"></div>
 						</div>
-                        <samp class="name">${item.user.nickname}</samp>
+                        <samp class="name">${item.user.nickname ? item.user.nickname : '-'}</samp>
                         <p class="n-dist"><samp>交易<i>${item.userStatistics.jiaoYiCount}</i></samp> ·
                             <samp>好评度<i>${hpCount}%</i></samp> ·
                             <samp>信任<i>${item.userStatistics.beiXinRenCount}</i></samp>
                         </p>
 					</td>
 					<td class="payType">${bizTypeList[item.payType]}</td>
-					<td class="limit">${item.minTrade}-${item.maxTrade}CNY</td>
-					<td class="price">${item.truePrice.toFixed(2)}CNY</td>
+					<td class="limit">${item.minTrade}-${item.maxTrade} ${item.tradeCurrency}</td>
+					<td class="price">${item.truePrice.toFixed(2)} ${item.tradeCurrency}</td>
 					<td class="operation">
 						${operationHtml}
 					</td>
