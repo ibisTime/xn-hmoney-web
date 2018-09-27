@@ -18,10 +18,11 @@ define([
 
     // 初始化页面
     function init() {
-        //base.showLoadingSpin();
+        base.showLoadingSpin();
         $.when(
+            getBanner(),
             GeneralCtr.getDictList({ "parentKey": "pay_type" })
-        ).then((data1) => {
+        ).then((data,data1) => {
             data1.forEach(function(item) {
                 payType[item.dkey] = item.dvalue;
             })
@@ -65,6 +66,7 @@ define([
         getMarket('CNY').then(data => {
             aarketData = data;
             let aarketHtml = '';
+            aarketData.length = 2;console.log(aarketData)
             aarketData.forEach(item => {
                 aarketHtml += `<li>
                     <p><span>X</span> / <span>${item.symbol}</span></p>

@@ -97,18 +97,10 @@ define([
             //价格
             $("#price").attr("data-coin", coin.toUpperCase());
             if (code == ""){
-                if (coin != 'X') {
-                    $("#price").val(data3.mid);
-                    mid = data3.mid;
-                } else {
-                    getAdvertisePrice('BTC').then(data => {
-                        let bb_mid = data.mid;
-                        getAdvertisePrice('X', 'BTC').then(data => {
-                            mid = parseFloat(data.mid) * parseFloat(bb_mid);
-                            $("#price").val(mid);
-                        })
-                    });
-                }
+                $("#price").val(data3.mid);
+                mid = data3.mid;
+            }else{
+                $('.m-type').text('USD');
             }
 
             if (code != "") {
@@ -155,6 +147,10 @@ define([
 
     }
 
+    function getNumberMoney(symbol, refer){
+        return TradeCtr.getNumberMoney(symbol, refer);
+    }
+
     //根据config配置设置 币种列表
     // function getCoinList() {
     //     var coinList = base.getCoinList();
@@ -194,19 +190,19 @@ define([
         return TradeCtr.getAdvertiseDetail(code).then((data) => {
             status = data.status;
             data.premiumRate = data.premiumRate * 10;
-            let premiumRate = (Math.floor(data.premiumRate * 1000) / 100).toFixed(2);
-            data.minTrade = (Math.floor(parseInt(data.minTrade) * 100) / 100).toFixed(2);
+            let premiumRate = (Math.floor(data.premiumRate * 100) / 100).toFixed(2);
+            data.minTrade = data.minTrade;
             data.maxTrade = (Math.floor(parseInt(data.maxTrade) * 100) / 100).toFixed(2);
             mid = data.marketPrice;
             var tradeCoin = data.tradeCoin ? data.tradeCoin : 'ETH';
             data.totalCount = base.formatMoney(data.totalCountString, '', tradeCoin)
-                // 进度条初始化
+            // 进度条初始化
             $('.yj-num').text(premiumRate);
             let parWidth = $('.num-huadtiao').width();
             jdLeft = (parWidth * data.premiumRate) / 100;
             let goLeft = (parseInt($('.num-go').css('left')) / parWidth).toFixed(2) * 100;
             $('.num-go').css({
-                    left: (goLeft + Number(data.premiumRate)) + '%'
+                    left: (goLeft + jdLeft) + '%'
                 })
                 //广告类型
             if (data.tradeType == '1') {
@@ -224,7 +220,7 @@ define([
             //账户余额
             $("#coin").text($("#tradeCoin").val())
             $("#price").attr("data-coin", $("#tradeCoin").val());
-            $("#price").val(Math.floor(data.truePrice * 100) / 100);
+            $("#price").val((Math.floor(data.truePrice * 100) / 100).toFixed(2));
             //正式
             //账户余额
             $(".accountLeftCountString").text($(".accountLeftCountString").attr('data-amount'))
@@ -372,7 +368,6 @@ define([
 
 
         var _formWrapper = $("#form-wrapper");
-        console.log(_formWrapper)
         _formWrapper.validate({
             'rules': {
                 "truePrice": {
@@ -518,7 +513,7 @@ define([
             }
             base.showLoadingSpin()
             return TradeCtr.submitAdvertise(params).then(() => {
-                base.showMsg('操作成功！');
+                base.showMsg('操作成功！');debugger
                 base.showLoadingSpin();
                 setTimeout(() => {
                     if (params.tradeType == '0') {
@@ -601,20 +596,11 @@ define([
 
         function advertiseData(mType) {
             var m_type = mType;
-            if (coin != 'X') {
-                getAdvertisePrice(coin, m_type).then(data => {
-                    mid = data.mid;
-                    $("#price").val(mid);
-                });
-            } else { // X币换算人民币或美元
-                getAdvertisePrice('BTC', m_type).then(data => {
-                    let bb_mid = data.mid;
-                    getAdvertisePrice('X', 'BTC').then(data => {
-                        mid = parseFloat(data.mid) * parseFloat(bb_mid);
-                        $("#price").val(mid);
-                    })
-                });
-            }
+            getAdvertisePrice(coin, m_type).then(data => {
+                console.log(data)
+                mid = data.mid;
+                $("#price").val(mid);
+            });
         }
 
         $('#tradeCurrency').change(function() {

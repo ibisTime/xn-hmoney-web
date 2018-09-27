@@ -43,7 +43,7 @@ define([
             data2.forEach(function(item) {
                 payType[item.dkey] = item.dvalue;
             });
-            getAdvertiseDetail();
+            // getAdvertiseDetail();
             getPageAdvertise();
             base.hideLoadingSpin()
         }, base.hideLoadingSpin)
@@ -83,11 +83,6 @@ define([
             $('.bindWrap .mobile samp').html(data.mobile ? '手机已验证' : '手机未验证');
             $('.bindWrap .identity samp').html(data.realName ? '身份已验证' : '身份未验证');
 
-        }, () => {});
-    }
-
-    function getAdvertiseDetail() {
-        return TradeCtr.getAdvertiseDetail(adsCode).then(data => {
             let jiaoYiCount = data.userStatistics ? data.userStatistics.jiaoYiCount : '-';
             let beiXinRenCount = data.userStatistics ? data.userStatistics.beiXinRenCount : '-';
             let beiHaoPingCount = data.userStatistics ? data.userStatistics.beiHaoPingCount : '-';
@@ -95,8 +90,14 @@ define([
             $('.jiaoYiCount').html(jiaoYiCount);
             $('.beiXinRenCount').html(beiXinRenCount);
             $('.beiHaoPingCount').html(base.getPercentum(beiHaoPingCount, beiPingJiaCount));
-        });
+        }, () => {});
     }
+
+    // function getAdvertiseDetail() {
+    //     return TradeCtr.getAdvertiseDetail(adsCode).then(data => {
+            
+    //     });
+    // }
 
     // 分页查广告
     function getPageAdvertise() {
@@ -189,11 +190,11 @@ define([
 
                     UserCtr.removeUserRelation(relationConfig, true).then((data) => {
                         _this.empty().append('信任');
-
                         _this.attr("data-isTrust", _this.attr("data-isTrust") == '1' ? '0' : '1');
                         base.hideLoadingSpin()
                         base.showMsg('已取消信任');
                         getUserDetail();
+                        location.reload();
                     }, base.hideLoadingSpin)
                 } else {
                     UserCtr.addUserRelation(relationConfig, true).then((data) => {
@@ -207,6 +208,7 @@ define([
                         base.hideLoadingSpin()
                         base.showMsg('已信任');
                         getUserDetail();
+                        location.reload();
                     }, base.hideLoadingSpin)
                 }
             })
@@ -222,6 +224,7 @@ define([
                     base.hideLoadingSpin();
                     base.showMsg('已取消拉黑');
                     getUserDetail();
+                    location.reload();
                 }, base.hideLoadingSpin)
             } else {
                 UserCtr.addUserRelation(relationConfig, true).then((data) => {
@@ -230,11 +233,11 @@ define([
                         $('.k-userbtn .trust').empty().append('信任');
                         $('.k-userbtn .trust').attr("data-isTrust", !_this.attr("data-isTrust"))
                     }
-
                     _this.attr("data-isAddBlackList", _this.attr("data-isAddBlackList") == '1' ? '0' : '1');
                     base.hideLoadingSpin();
                     base.showMsg('已拉黑');
                     getUserDetail();
+                    location.reload();
                 }, base.hideLoadingSpin)
             }
         })

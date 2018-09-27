@@ -38,11 +38,11 @@ define([
             "0": "",
             "1": "charge",
             "2": "withdraw",
-            "3": "accept_buy",
-            "4": "accept_sell",
-            "5": "tradefee",
+            "3": "ccorder_buy",
+            "4": "ccorder_sell",
+            "5": "ccorder_fee",
             "6": "withdraw_fee",
-            "7": "invite",
+            "7": "award_reg",
             "8": "",
         },
         bizTypeValueList = {};
@@ -90,17 +90,21 @@ define([
         $("#addWAddressMobile").val(base.getUserMobile());
         //$(".currency").text(currency);  测试
         getCoinList();
-        getAdvertisePrice('BTC').then(data => {
-            let bb_mid = data.mid;
-            getAdvertisePrice('X', 'BTC').then(data => {
-                moneyHS = parseFloat(data.mid) * parseFloat(bb_mid);
-            })
-        });
+        // X币转换
+        getAdvertisePrice('X').then(data => {
+            moneyHS = parseFloat(data.mid);
+        })
         getBankData().then(data => {
             data.forEach(item => {
                 zfType[item.bankName] = item.bankCode
             })
         });
+        //总资产
+        UserCtr.userAllMoneyX('CNY').then(data => {
+            console.log('总资产', data);
+            $('.u-bb').text(data.symbol);
+            $('.u-money').text(data.currency);
+        })
 
         if (base.getGoogleAuthFlag() == "true" && base.getGoogleAuthFlag()) {
             $(".googleAuthFlag").removeClass("hidden");
@@ -676,9 +680,9 @@ define([
             config.bizType = bizTypeList[index];
             config.start = 1;
             if (index == '8') {
-                config.kind = '1';
+                config.type = '1';
             } else {
-                delete config.kind;
+                delete config.type;
             }
             getPageFlow(config);
             // }

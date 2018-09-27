@@ -75,6 +75,7 @@ define([
     function getPageOrder(refresh) {
         return TradeCtr.getPageOrder(config, refresh).then((data) => {
             lists = data.list;
+            console.log(lists)
             if (data.list.length) {
                 var html = "";
                 lists.forEach((item, i) => {
@@ -144,19 +145,20 @@ define([
         if (user.photo) {
             photoHtml = `<div class="photo" style="background-image:url('${base.getAvatar(user.photo)}')"></div>`
         } else {
-            var tmpl = user.nickname.substring(0, 1).toUpperCase();
+            var tmpl = user.nickname ? user.nickname.substring(0, 1).toUpperCase() : '-';
             photoHtml = `<div class="photo"><div class="noPhoto">${tmpl}</div></div>`
         }
         if (item.status != "-1") {
             quantity = base.formatMoney(item.countString, '', item.tradeCoin) + item.tradeCoin
         }
+        console.log(item)
         return `<tr data-code="${item.code}">
 					<td class="nickname" style="border-left:1px solid #eee;">
                         <div 
-                            class="photoWrap fl">
+                            class="photoWrap fl goHref" data-href="../user/user-detail.html?coin=${item.tradeCoin}&userId=${item.updater}&adsCode=${item.code}">
 							${photoHtml}
 						</div>
-						<samp class="name k-name">${user.nickname}</samp>
+						<samp class="name k-name">${user.nickname ? user.nickname : '-'}</samp>
 					</td>
 					<td class="code">${item.code.substring(item.code.length-8)}</td>
 					<td class="type">${typeList[type]}${item.tradeCoin?item.tradeCoin:'ETH'}</td>

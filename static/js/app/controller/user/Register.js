@@ -35,14 +35,16 @@ define([
 
     // 注册
     function register(params, type) {
+        console.log(params);
         if (type == 'mobile') {
             return UserCtr.register(params).then((data) => {
                 base.hideLoadingSpin()
                 base.showMsg("注册成功");
                 let loginParams = {
-                    loginName: params.email,
-                    loginPwd :params.loginPwd1
+                    loginName: params.mobile,
+                    loginPwd :params.loginPwd
                 };
+                console.log(loginParams);
                 UserCtr.login(loginParams).then((data) => {
                     base.setSessionUser(data);
                     UserCtr.getUser(true).then((item) => {
@@ -63,7 +65,7 @@ define([
                 base.hideLoadingSpin();
                 base.showMsg("注册成功");
                 let loginParams = {
-                    loginName: params.mobile,
+                    loginName: params.email,
                     loginPwd :params.loginPwd
                 };
                 UserCtr.login(loginParams).then((data) => {
@@ -157,10 +159,14 @@ define([
                 if (_registerForm1.valid()) {
                     base.showLoadingSpin()
                     var params = _registerForm1.serializeObject();
-                    params.loginPwd = params.loginPwd1;
-                    delete params.loginPwd1;
-                    inviteCode != "" && inviteCode ? params.inviteCode = inviteCode : '';
-                    register(params, 'email');
+                    var params1 = {
+                        loginPwd: params.loginPwd1,
+                        nickname: params.nickname1,
+                        email: params.email,
+                        captcha: params.captcha
+                    };
+                    inviteCode != "" && inviteCode ? params1.inviteCode = inviteCode : '';
+                    register(params1, 'email');
                 }
             }
         })
@@ -189,10 +195,11 @@ define([
         $('#getVerification1').off('click').click(function() {
             let reg = /^[a-z0-9._%-]+@([a-z0-9-]+\.)+[a-z]{2,4}$/;
             if ($('#email').val().match(reg)) {
-                gcGetYzm();
                 emailYzm({
                     bizType: '805043',
                     email: $('#email').val()
+                }).then(data => {
+                    gcGetYzm();
                 });
             }
             return false;

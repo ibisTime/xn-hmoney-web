@@ -38,13 +38,12 @@ define([
         if (!isDetail) {
             $(".buy-wrap").removeClass("hidden");
         }
-        // $.when(
-        //     // GeneralCtr.getSysConfig("trade_remind")  // 测试
-        // ).then((data) => {
-        //     $("#tradeWarn").html(data.cvalue.replace(/\n/g, '<br>'))
-        //         // getAdvertiseDetail() // 正式
-        // }, base.hideLoadingSpin)
-        getAdvertiseDetail() // 测试
+        $.when(
+            GeneralCtr.getSysConfig("trade_remind")  // 测试
+        ).then((data) => {
+            $("#tradeWarn").html(data.cvalue.replace(/\n/g, '<br>'))
+                getAdvertiseDetail() // 正式
+        }, base.hideLoadingSpin)
         addListener();
 
     }
@@ -179,6 +178,7 @@ define([
 
         //立即下单点击
         $("#buyBtn").click(function() {
+            $('.bb-m').text(tradeCoin);
             if (_formWrapper.valid()) {
                 if ($("#buyAmount").val() != '' && $("#buyAmount").val()) {
                     $("#submitDialog").removeClass("hidden")
@@ -225,8 +225,7 @@ define([
             let truePrice = $("#buyEth").val() * config.tradePrice;
             $("#buyAmount").val((Math.floor(truePrice * 100) / 100).toFixed(2));
             $("#submitDialog .tradeAmount").html($("#buyAmount").val() + "CNY")
-            $("#submitDialog .count").html($("#buyEth").val() + tradeCoin)
-            $('.bb-m').text(tradeCoin);
+            $("#submitDialog .count").html($("#buyEth").val() + tradeCoin);
             config.tradeAmount = $("#buyAmount").val()
             config.count = base.formatMoneyParse($("#buyEth").val(), '', tradeCoin)
 

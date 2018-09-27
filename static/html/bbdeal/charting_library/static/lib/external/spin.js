@@ -1,7 +1,6 @@
 "use strict";
 //fgnass.github.com/spin.js#v2.0.1
 !function(a, b) {
-    a = a || window;
     "object" == typeof exports ? module.exports = b() : "function" == typeof define && define.amd ? define(b) : a.Spinner = b()
 }(this, function() {
     "use strict";

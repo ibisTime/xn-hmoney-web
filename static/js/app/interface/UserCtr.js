@@ -30,7 +30,6 @@ define([
         },
         //获取邮箱注册码
         emailYzm(config) {
-            debugger
             return Ajax.get('630093', config);
         },
         // 获取用户详情
@@ -193,6 +192,12 @@ define([
                 userId: userId || base.getUserId(),
             }, true);
         },
-
+        // 个人总资产转换
+        userAllMoneyX(currency){
+            return Ajax.post('650103', {
+                userId: base.getUserId(),
+                currency
+            })
+        }
     };
 })

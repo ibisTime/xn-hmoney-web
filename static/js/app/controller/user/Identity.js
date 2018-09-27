@@ -6,11 +6,7 @@ define([
     'app/interface/UserCtr'
 ], function(base, Ajax, GeneralCtr, QiniuUpdata, UserCtr) {
 
-    let CerStatusList = {
-        '0': '待审核',
-        '1': '认证通过',
-        '2': '认证不通过'
-    }
+    let CerStatusList = {}
 
     let imageSrcZ = '',
         imageSrcF = '';
@@ -59,18 +55,49 @@ define([
             getUser(),
             getQiniuToken(sf_photoFile)
         )
-        getUserCerRecords().then(data => {
-            if (data.list.length == 0) {
-                return false;
-            }
-        });
+        GeneralCtr.getDictList({
+            "parentKey": "approve_status"
+        }).then((data) => {
+            data.forEach(item => {
+                CerStatusList[`${item.dkey}`] = item.dvalue;
+            })
+        })
         addListener();
     }
 
     //获取用户详情
     function getUser() {
         return UserCtr.getUser().then((data) => {
+            console.log('user', data, CerStatusList);
+            let idAuthStatus = parseInt(data.idAuthStatus);
+            function isYz(wId, wClass){
+                $(wId).removeClass('none');
+                $(wClass).text(CerStatusList[idAuthStatus]);
+                if(idAuthStatus == 1){
+                    $(wClass).css({
+                        borderColor: '#f15353',
+                        color: '#f15353'
+                    });
+                }
+            }
 
+            setTimeout(() => {
+                if(data.idKind){
+                    switch(data.idKind){
+                        case '1':
+                            isYz('#alreadyIdentity', '.sfz');
+                            break;
+                        case '2': 
+                            isYz('#hzIdentity', '.hz');
+                            break;
+                        case '3': 
+                            isYz('#jzIdentity', '.jz');
+                            break;
+                    }
+                }else{
+                    $('.identity-content').removeClass('none');
+                }
+            }, 100);
             if (data.realName) {
                 $("#form-wrapper").setForm(data);
                 $("#alreadyIdentity").removeClass("hidden")
@@ -82,13 +109,13 @@ define([
     }
 
     // 分页查用户认证记录
-    function getUserCerRecords() {
-        return Ajax.post('805165', {
-            limit: '10',
-            start: '1',
-            applyUser: base.getUserId()
-        })
-    }
+    // function getUserCerRecords() {
+    //     return Ajax.post('805165', {
+    //         limit: '10',
+    //         start: '1',
+    //         applyUser: base.getUserId()
+    //     })
+    // }
 
     //加载七牛token
     function getQiniuToken(sf_photoFile) {
@@ -111,7 +138,7 @@ define([
 
     // 进行身份验证
     function userSFVerify(config) {
-        return Ajax.post(' 805160', config);
+        return Ajax.post('805160', config);
     }
 
 

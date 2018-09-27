@@ -257,7 +257,7 @@ table {
             height: 0%;
             overflow: hidden;
             border-width: 0;
-            box-shadow: 0px 5px 10px -2px #ccc;
+            box-shadow: 0px 2px 8px -2px #ccc;
             position: relative;
             top: -3px;
             li:hover {
@@ -1874,6 +1874,10 @@ table {
         }
         .icon-email {
             background-image: url('../images/绑定邮箱.png');
+            top: 0;
+        }
+        .icon-iphone {
+            background-image: url('../images/绑定手机.png');
             top: 0;
         }
         .icon-mima {
@@ -5436,6 +5440,19 @@ table {
                     }
                 }
             }
+            .con-t-r{
+                position: relative;
+                .btns{
+                    position: absolute;
+                    left: 50px;
+                    top: 10px;
+                    opacity: 0;
+                    span{
+                        margin: 0px 10px;
+                        cursor: pointer;
+                    }
+                }
+            }
         }
         .con-r-j {
             display: flex;
@@ -6272,7 +6289,7 @@ html {
 
 @media screen and (min-width: 1600px) {
     .bb-container {
-        padding: 18px 109px 0 90px;
+        padding: 30px 109px 0 90px;
     }
     .bb-conLift {
         width: 360px;

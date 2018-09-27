@@ -189,6 +189,7 @@ define([
 
         //立即下单点击
         $("#buyBtn").click(function() {
+            $('.bb-m').text(tradeCoin);
             if (_formWrapper.valid()) {
                 if ($("#buyAmount").val() != '' && $("#buyAmount").val()) {
                     $("#submitDialog").removeClass("hidden")

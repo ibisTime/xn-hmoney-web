@@ -62,6 +62,13 @@ define([
                 refCurrency
             });
         },
+        // 数字货币折合
+        getNumberMoney(symbol, referCurrency){
+            return Ajax.get('650102', {
+                symbol,
+                referCurrency
+            })
+        },
         /**
          * 购买ETH
          * @param config{adsCode,count,tradeAmount,tradePrice}
