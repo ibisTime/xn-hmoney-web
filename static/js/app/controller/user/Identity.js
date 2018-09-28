@@ -70,8 +70,13 @@ define([
         return UserCtr.getUser().then((data) => {
             console.log('user', data, CerStatusList);
             let idAuthStatus = parseInt(data.idAuthStatus);
+            // if(idAuthStatus == 2 && !data.idKind){
+            //     base.showMsg('认证审核不通过，请重新认证！');
+            //     $('.identity-content').removeClass('none');
+            //     return;
+            // }
             function isYz(wId, wClass){
-                $(wId).removeClass('none');
+                $(wId).removeClass('none').find('.yz_p').off('click');
                 $(wClass).text(CerStatusList[idAuthStatus]);
                 if(idAuthStatus == 1){
                     $(wClass).css({
@@ -204,6 +209,13 @@ define([
             showImg(this, false);
         })
 
+        function loadFn(){
+            base.showMsg('认证请求发起成功');
+                setTimeout(() => {
+                    location.reload();
+                }, 300);
+        }
+
 
         //身份验证
         $('#sf_subBtn').off('click').click(function() {
@@ -213,7 +225,7 @@ define([
             userConfig.idNo = $('#idNo').val().trim();
             userConfig.realName = $('#realName').val().trim();
             userSFVerify(userConfig).then(data => {
-                console.log(data);
+                loadFn();
             })
         })
 
@@ -225,7 +237,7 @@ define([
             userConfig.idNo = $('#hz_code').val().trim();
             userConfig.realName = $('#hz_name').val().trim();
             userSFVerify(userConfig).then(data => {
-                console.log(data);
+                loadFn();
             })
         })
 
@@ -237,7 +249,7 @@ define([
             userConfig.idNo = $('#jz_code').val().trim();
             userConfig.realName = $('#jz_name').val().trim();
             userSFVerify(userConfig).then(data => {
-                console.log(data);
+                loadFn();
             })
         })
     }

@@ -947,7 +947,7 @@ define([
             }
 
             function changeBuyMoney(p_money, allMoney, m_count) {
-                debugger
+                
                 if (p_money == 'CNY') {
                     if (moneyXZ.min < allMoney && allMoney < moneyXZ.max_cny) {
                         let buyConfig = {
@@ -1003,7 +1003,6 @@ define([
 
 
                 function changeSellMoney(p_money, allMoney, m_count, m_receiveCardNo) {
-                    debugger
                     if (p_money == 'CNY') {
                         if (moneyXZ.min_cny < allMoney && allMoney < moneyXZ.max_cny) {
                             let sellConfig = {

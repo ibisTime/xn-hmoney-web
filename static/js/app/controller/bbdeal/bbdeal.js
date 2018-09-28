@@ -9,7 +9,7 @@ define([
     'app/module/datafeeds/udf/dist/bundle',
     'app/interface/UserCtr'
 ], function (base, Ajax, echarts, GeneralCtr, pagination, AccountCtr, TradingView, Datafeeds, UserCtr) {
-         
+
     console.log(TradingView);
     let userConfig = {
         userId: base.getUserId(),
@@ -38,6 +38,8 @@ define([
 
     let realTimeData = []; // 实时成交数据
 
+    let ggDataList = []; // 公告
+
     let toSyUserMoney = ''; // toSymbol用户拥有量
     let syUserMoney = ''; // symbol用户拥有量
 
@@ -57,10 +59,10 @@ define([
             });
             showBazaar(bazaarData[0]);
             autoGetData();
-            clearInterval(timeGet);
-            var timeGet = setInterval(() => {
-                autoGetData();
-            }, 2000);
+            // clearInterval(timeGet);
+            // var timeGet = setInterval(() => {
+            //     autoGetData();
+            // }, 2000);
 
             getDepthData().then(data => {
                 let buyData = data.bids;
@@ -85,15 +87,24 @@ define([
 
         //公告
         notice().then(data => {
-            console.log(data);
+            ggDataList = data.list;
+            let ggHtml = '';
+            ggDataList.forEach(item => {
+                ggHtml += `<li>
+                    <h5>${item.content}</h5>
+                    <p>${base.formateDatetime(item.createDatetime)}</p>
+                </li>
+                `
+            })
+            $('.affic-list').html(ggHtml);
         });
 
         k(); // k线
 
-        clearInterval(timeReal);
-        var timeReal = setInterval(() => {
-            autoRealData();
-        }, 3900);
+        // clearInterval(timeReal);
+        // var timeReal = setInterval(() => {
+        //     autoRealData();
+        // }, 3900);
 
         // 判断是否登录
         if (!base.isLogin()) {
@@ -114,6 +125,7 @@ define([
                 })
             }, base.hideLoadingSpin);
             getUserMoney();
+            userAllMoneyX();
             // AccountCtr.getAccount().then(data => {
             //     userData = data;
             //     let btcData = userData.filter((item) => {
@@ -134,10 +146,10 @@ define([
             //     // $('.all-bb').text(xMoney);
             // });
             autoGetMyDatata();
-            clearInterval(timeMy);
-            var timeMy = setInterval(() => {
-                autoGetMyDatata();
-            }, 2800);
+            // clearInterval(timeMy);
+            // var timeMy = setInterval(() => {
+            //     autoGetMyDatata();
+            // }, 2800);
 
             function autoGetMyDatata() {
                 getMyorderTicket(userConfig).then(data => {
@@ -146,10 +158,10 @@ define([
                 })
             }
             autoGetHisData();
-            clearInterval(timeHis);
-            var timeHis = setInterval(() => {
-                autoGetHisData();
-            }, 3400);
+            // clearInterval(timeHis);
+            // var timeHis = setInterval(() => {
+            //     autoGetHisData();
+            // }, 3400);
 
             function autoGetHisData() {
                 getMyHistoryData(hisConfig).then(data => {
@@ -173,7 +185,7 @@ define([
             if (data.list.length > 0) {
                 realTimeData = data.list;
                 let bb_zxj = base.formatMoney(`${realTimeData[0].tradedPrice}`, '', setBazDeal.toSymbol);
-                let zx_exc = (Math.floor(bb_zxj * bb_exchange *1000) / 1000).toFixed(3);
+                let zx_exc = (Math.floor(bb_zxj * bb_exchange * 1000) / 1000).toFixed(3);
                 $('.bb-zxj').text(bb_zxj);
                 $('.zx-exc').text(zx_exc);
                 let realTimeHtml = '';
@@ -204,7 +216,7 @@ define([
                 if (pkObjData.buy) {
                     let toPrice = base.formatMoney(`${pkObjData.buy.price}`, '', setBazDeal.toSymbol);
                     $('#ym-price').val(toPrice);
-                    $('.mr-exc').text(toPrice * bb_exchange);
+                    $('.mr-exc').text((Math.floor(toPrice * bb_exchange * 1000) / 1000).toFixed(3));
                     $('.all-bb').text((Math.floor((toSyUserMoney / toPrice) * 1000) / 1000).toFixed(3));
                 }
                 if (pkObjData.sell) {
@@ -314,7 +326,7 @@ define([
         }
         let userOrderHtml = '';
         console.log('当前', userOrderData);
-        
+
         userOrderData.forEach((item, i) => {
             //base.formatMoney(`${item.totalCount - item.tradedCount}`, '', item.symbol) (item.totalCount - item.tradedCount).toFixed(2)
             //base.formatMoney(`${item.tradedCount}`, '', item.symbol)
@@ -366,13 +378,13 @@ define([
         if (price) {
             price = base.formatMoneyParse(price, '', setBazDeal.toSymbol);
             totalCount = base.formatMoneyParse(totalCount, '', setBazDeal.symbol);
-        }else{
-            if(direction == '0'){
+        } else {
+            if (direction == '0') {
                 totalCount = base.formatMoneyParse(totalCount, '', setBazDeal.toSymbol);
-            }else{
+            } else {
                 totalCount = base.formatMoneyParse(totalCount, '', setBazDeal.symbol);
             }
-            
+
         }
         return Ajax.post("650050", {
             userId: base.getUserId(),
@@ -451,7 +463,7 @@ define([
     }
 
     //总资产
-    function userAllMoneyX(){
+    function userAllMoneyX() {
         UserCtr.userAllMoneyX('CNY').then(data => {
             console.log('总资产', data);
             $('.u-bb').text(data.symbol);
@@ -469,7 +481,7 @@ define([
                             <span>${bazaarData.symbol}</span>
                         </p>
                         <p class="li-con bb-zxj">0.0</p>
-                        <p class="li-right d-baz"><span>-</span>2.53%</p>
+                        <p class="li-right d-baz"><span>-</span>0.00%</p>
                     </li>`;
             $('.baz-ul').html(bazULHtml);
             setBazDeal.symbol = bazaarData.symbol;
@@ -632,8 +644,6 @@ define([
                         $('.j-sp .br-p').css('width', '0%');
                         $('.j-sp span:not(.sel-span)').css('background-color', '#f1f1f1');
                         $('.br-sp .sel-span').css('left', '0%');
-                        $('.jy-ce').text('0.000000');
-                        $('.jy-me').text('0.000000');
                         if (data.code) {
                             base.showMsg('订单提交成功');
                             getUserMoney();
@@ -678,6 +688,10 @@ define([
                     return false;
                 }
             }
+            $('.jy-ce').text('0.000000');
+            $('.jy-me').text('0.000000');
+            $('#buyNum').val('');
+            $('#sellNum').val('');
         }
         //买入
         $('.jy-con-left .am-button-g').off('click').click(function () {
@@ -727,14 +741,14 @@ define([
         $('#ym-price').keyup(function () {
             let ym_price = $(this).val();
             $('.mr-exc').text(ym_price * bb_exchange);
-            if(ym_price > 0){
+            if (ym_price > 0) {
                 $('.all-bb').text((Math.floor((toSyUserMoney / ym_price) * 1000) / 1000).toFixed(3));
             }
         })
         $('#yr-price').keyup(function () {
             let yr_price = $(this).val();
             $('.mc-exc').text(yr_price * bb_exchange);
-            if(yr_price > 0){
+            if (yr_price > 0) {
                 $('.all-bb_c').text((Math.floor((syUserMoney / yr_price) * 1000) / 1000).toFixed(3));
             }
         })
@@ -744,10 +758,13 @@ define([
             let buyPassage = 0;
             if (outBlur(this)) {
                 $('.jy-me').text(((($('#ym-price').val() * $('#buyNum').val()) * 1000000) / 1000000).toFixed(6) + ' ');
-                let buyNumValue = $(this).val();
-                let buyAllValue = $('.all-bb').text();
-                if(buyNumValue <= buyAllValue){
-                    buyPassage = (parseFloat(buyNumValue) / parseFloat(buyAllValue)) * 100;
+                let buyNumValue = parseFloat($(this).val());
+                let buyAllValue = parseFloat($('.all-bb').text());
+                if (buyNumValue < buyAllValue) {
+                    buyPassage = (buyNumValue / buyAllValue) * 100;
+                } else {
+                    buyPassage = 100;
+                    $('.jy-me').text(buyAllValue);
                 }
                 let index = parseInt(buyPassage / 26) + 2;
                 $('.j-sp .sel-span').css('left', buyPassage + '%');
@@ -766,10 +783,13 @@ define([
             let sellPassage = 0;
             if (outBlur(this)) {
                 $('.jy-ce').text($('#yr-price').val() * $('#sellNum').val() + ' ');
-                let sellNumValue = $(this).val();
-                let sellAllValue = $('.all-bb_c').text();
-                if(sellNumValue <= sellAllValue){
-                    sellPassage = (parseFloat(sellNumValue) / parseFloat(sellAllValue)) * 100;
+                let sellNumValue = parseFloat($(this).val());
+                let sellAllValue = parseFloat($('.all-bb_c').text());
+                if (sellNumValue < sellAllValue) {
+                    sellPassage = (sellNumValue / sellAllValue) * 100;
+                } else {
+                    sellPassage = 100;
+                    $('.jy-ce').text(buyAllValue);
                 }
                 let index = sellPassage / 26 + 1;
                 for (let i = 1; i < index; i++) {
@@ -849,16 +869,16 @@ define([
             togo(this, e, '卖');
         })
         //取消mousemove事件
-        $('.dr-box').mouseleave(function(){
+        $('.dr-box').mouseleave(function () {
             $(this).unbind('mousemove');
-            if($('#buyNum').val() > 0){
+            if ($('#buyNum').val() > 0) {
                 outBlur('#buyNum');
             }
-            if($('#sellNum').val() > 0){
+            if ($('#sellNum').val() > 0) {
                 outBlur('#sellNum');
             }
         })
-        $('.dr-box').mouseenter(function(){
+        $('.dr-box').mouseenter(function () {
             $(this).unbind('mousemove');
         })
 
@@ -922,6 +942,7 @@ define([
     }
 
     let i = 0;
+
     function togo(that, e, type) {
         if (!base.isLogin()) {
             return false;
@@ -960,7 +981,7 @@ define([
                 $(that).parents('.dr-box').prev().children('input').val(r_bb);
                 $('.jy-ce').text(((Math.floor((r_bb * $('#yr-price').val()) * 10000)) / 10000).toFixed(4));
             }
-        i ++;
+            i++;
         }).one('mouseup', function () {
             $(this).unbind('mousemove');
             if (i == 1) {
@@ -1066,6 +1087,7 @@ define([
                     name: '买入',
                     type: 'line',
                     smooth: false,
+                    step: 'end',
                     lineStyle: {
                         width: 0
                     },
@@ -1079,6 +1101,7 @@ define([
                     type: 'line',
                     // barCategoryGap: 0,
                     smooth: false,
+                    step: 'end',
                     lineStyle: {
                         width: 0
                     },
@@ -1130,13 +1153,13 @@ define([
         //					user_id: 'public_user_id',
         //					theme: getParameterByName('theme'),
         //				});
-        
+
         var widget = new TradingView.widget({
             width: '100%',
             height: '500px',
             fullscreen: false,
             symbol: 'X',
-            interval: '1',  // 时间
+            interval: '1', // 时间
             container_id: "tv_chart_container",
             //	BEWARE: no trailing slash is expected in feed URL
             datafeed: new Datafeeds.UDFCompatibleDatafeed("https://demo_feed.tradingview.com"),
@@ -1169,14 +1192,75 @@ define([
                 'paneProperties.legendProperties.showLegend': false,
             },
         });
-        // widget.onChartReady(function(){
-        //     console.log(widget)
-        //     widget.headerReady().then(function() {
-        //         var button = widget.createButton();
-        //         button.setAttribute('title', 'My custom button tooltip');
-        //         button.addEventListener('click', function() { alert("My custom button pressed!"); });
-        //         button.textContent = 'My custom button caption';
-        //     });
-        // })
+        widget.onChartReady(() => {
+
+            const _self = this;
+            let chart = widget.chart();
+            const btnList = [
+              {
+                label:'分时',
+                resolution: "1",
+                chartType: 3
+              },{
+  
+                label:'1min',
+                resolution: "1",
+              },
+              {
+  
+                label:'5min',
+                resolution: "5",
+              },
+              {
+                label:'30min',
+                resolution: "30",
+              },
+              {
+                label:'1 h',
+                resolution: "60",
+              },
+              {
+                class:'selected',
+                label:'1 day',
+                resolution: "1D"
+              },{
+                class:'selected',
+                label:'1 week',
+                resolution: "1W"
+              },{
+                class:'selected',
+                label:'1 month',
+                resolution: "1M"
+              }
+            ];
+            chart.onIntervalChanged().subscribe(null, function (interval, obj) {
+              widget.changingInterval = false;
+            });
+            btnList.forEach(function (item) {
+              let button = widget.createButton({
+                align: "left"
+              });
+              item.resolution === widget._options.interval && updateSelectedIntervalButton(button);
+              button.attr('class', "button " + item.class).attr("data-chart-type", item.chartType === undefined ? 8 : item.chartType).on('click', function (e) {
+                // if (!_self.widget.changingInterval && !button.hasClass("selected")) {
+                let chartType = +button.attr("data-chart-type");
+                // let resolution = button.attr("data-resolution");
+                if (chart.resolution() !== item.resolution) {
+                  // _self.widget.changingInterval = true;
+                  chart.setResolution(item.resolution);
+                }
+                if (chart.chartType() !== chartType) {
+                  chart.setChartType(chartType);
+                }
+                updateSelectedIntervalButton(button);
+                // }
+              }).append(item.label);
+            });
+            function updateSelectedIntervalButton(button) {
+              widget.selectedIntervalButton && widget.selectedIntervalButton.removeClass("selected");
+              button.addClass("selected");
+              widget.selectedIntervalButton = button;
+            }
+          })
     }
 })

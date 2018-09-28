@@ -84,7 +84,6 @@ define([
 
     function addListener() {
         $('.cz-btn button').off('click').click(function() {
-            debugger
             let selTxt = $(this).text();
             let config = {
                 userId: base.getUserId(),

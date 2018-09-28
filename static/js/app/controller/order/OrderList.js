@@ -149,13 +149,12 @@ define([
             photoHtml = `<div class="photo"><div class="noPhoto">${tmpl}</div></div>`
         }
         if (item.status != "-1") {
-            quantity = base.formatMoney(item.countString, '', item.tradeCoin) + item.tradeCoin
+            let countNum = parseFloat(base.formatMoney(item.countString, '', item.tradeCoin));
+            quantity = ((Math.floor(parseFloat(countNum) * 1000)) / 1000).toFixed(3)  + item.tradeCoin;
         }
-        console.log(item)
         return `<tr data-code="${item.code}">
 					<td class="nickname" style="border-left:1px solid #eee;">
-                        <div 
-                            class="photoWrap fl goHref" data-href="../user/user-detail.html?coin=${item.tradeCoin}&userId=${item.updater}&adsCode=${item.code}">
+                        <div class="photoWrap fl goHref" data-href="../user/user-detail.html?coin=${item.tradeCoin}&userId=${item.type == 'buy' ? item.sellUser : item.buyUser}&adsCode=${item.code}">
 							${photoHtml}
 						</div>
 						<samp class="name k-name">${user.nickname ? user.nickname : '-'}</samp>

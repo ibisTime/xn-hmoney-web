@@ -45,8 +45,7 @@ define([
             });
             // getAdvertiseDetail();
             getPageAdvertise();
-            base.hideLoadingSpin()
-        }, base.hideLoadingSpin)
+        })
         addListener();
     }
 
@@ -90,6 +89,7 @@ define([
             $('.jiaoYiCount').html(jiaoYiCount);
             $('.beiXinRenCount').html(beiXinRenCount);
             $('.beiHaoPingCount').html(base.getPercentum(beiHaoPingCount, beiPingJiaCount));
+            base.hideLoadingSpin();
         }, () => {});
     }
 

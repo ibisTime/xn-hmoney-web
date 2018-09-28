@@ -12,6 +12,8 @@ var THUMBNAIL_SUFFIX = "";
 var DOMAIN_NAME = 'http://www.bcointest.hichengdai.com';
 // h5 域名 测试
 var INVITATION_HREF = 'http://mtest.bcoin.hichengdai.com';
+//帮助中心
+var HELPCONTENT = 'https://emcclhelp.zendesk.com/hc/zh-cn/sections/360002016013-%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98';
 var ZENDESK_LABEL = 'search';
 var FOOT_TETUI = 'Bcoin Exchange';
 var FOOT_EMAIL = 'contact@bcoin.im';

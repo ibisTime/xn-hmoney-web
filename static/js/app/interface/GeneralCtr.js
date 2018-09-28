@@ -63,10 +63,10 @@ define([
                 ...config
             }, refresh);
         },
-        // 查询banner列表
-        getBanner(config) {
+        // 查询banner列表(前端导航)
+        getBanner(config, btype) {
             return Ajax.get("630506", {
-                type: "2",
+                type: '2',
                 ...config
             }, true);
         },

@@ -71,21 +71,12 @@ define([
                 aarketHtml += `<li>
                     <p><span>X</span> / <span>${item.symbol}</span></p>
                     <h5>${item.lastPrice.toFixed(2)}</h5>
-                    <p><span class="zj">+</span><span class="zf">1.52</span>% <span class="zf-img"><img src="/static/images/上升.png" alt=""></span></p>
+                    <p><span class="zj">+</span><span class="zf">0.00</span>% <span class="zf-img"><img src="/static/images/上升.png" alt=""></span></p>
                 </li>`
             })
             $('.bb-hq_r ul').html(aarketHtml);
         })
     }
-
-    // //安卓下载
-    // function getDownloadUrl() {
-    //     return GeneralCtr.getSysConfigType("android-c").then((data) => {
-    //         $("#androidDown").click(() => {
-    //             window.location.href = data.downloadUrl
-    //         })
-    //     }, base.hideLoadingSpin)
-    // }
 
     // 初始化swiper
     function initSwiperBanner() {

@@ -51,8 +51,8 @@ define([
                         sessionStorage.setItem("nickname", item.nickname);
                         sessionStorage.setItem("googleAuthFlag", item.googleAuthFlag);
                         sessionStorage.setItem("mobile", item.mobile);
-                        sessionStorage.setItem("inviteCode", item.secretUserId);
-                        base.hideLoadingSpin()
+                        sessionStorage.setItem("inviteCode", item.userId);
+                        base.hideLoadingSpin();
                         base.showMsg("登录成功")
                         setTimeout(function() {
                             base.goReturn()
@@ -74,7 +74,7 @@ define([
                         sessionStorage.setItem("nickname", item.nickname);
                         sessionStorage.setItem("googleAuthFlag", item.googleAuthFlag);
                         sessionStorage.setItem("mobile", item.mobile);
-                        sessionStorage.setItem("inviteCode", item.secretUserId);
+                        sessionStorage.setItem("inviteCode", item.userId);
                         base.hideLoadingSpin()
                         base.showMsg("登录成功")
                         setTimeout(function() {
@@ -86,7 +86,6 @@ define([
         }
     }
     //获取邮箱验证码
-
     function emailYzm(config) {
 
         return UserCtr.emailYzm(config).then((data) => {
@@ -191,7 +190,7 @@ define([
             }, 1000);
         }
 
-        //获取邮箱验证码
+        //邮箱注册
         $('#getVerification1').off('click').click(function() {
             let reg = /^[a-z0-9._%-]+@([a-z0-9-]+\.)+[a-z]{2,4}$/;
             if ($('#email').val().match(reg)) {

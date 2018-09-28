@@ -513,7 +513,7 @@ define([
             }
             base.showLoadingSpin()
             return TradeCtr.submitAdvertise(params).then(() => {
-                base.showMsg('操作成功！');debugger
+                base.showMsg('操作成功！');
                 base.showLoadingSpin();
                 setTimeout(() => {
                     if (params.tradeType == '0') {

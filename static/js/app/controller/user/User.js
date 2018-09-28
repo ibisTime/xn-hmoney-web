@@ -32,7 +32,7 @@ define([
             if (data.photo) {
                 $("#photo").css({ "background-image": "url('" + base.getAvatar(data.photo) + "')" })
             } else {
-                var tmpl = data.nickname.substring(0, 1).toUpperCase();
+                var tmpl = data.nickname ? data.nickname.substring(0, 1).toUpperCase() : '';
                 var photoHtml = `<div class="noPhoto">${tmpl}</div>`
                 $("#photo").html(photoHtml)
             }

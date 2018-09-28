@@ -8,23 +8,24 @@ define([
     var config = {
         start: 1,
         limit: 3,
+        userId: base.getUserId()
     };
 
     init();
 
     function init() {
         // base.showLoadingSpin();
-        $(".head-nav-wrap .advertise").addClass("active");
-        $("#invitationDialog .hrefWrap p").html(DOMAIN_NAME + "/user/register.html?inviteCode=" + inviteCode)
+        $(".head-nav-wrap .advertise").addClass("active");//DOMAIN_NAME
+        $("#invitationDialog .hrefWrap p").html('http://localhost:9999' + "/user/register.html?inviteCode=" + inviteCode)
         var qrcode = new QRCode('qrcode', INVITATION_HREF + "/user/register.html?inviteCode=" + inviteCode);
         qrcode.makeCode(INVITATION_HREF + "/user/register.html?inviteCode=" + inviteCode);
 
         $.when(
-            getInvitation(),
+            getInvitationHistory(config),
+            // getInvitation(),
             getSysConfig(),
-            getUserInviteProfit()
+            // getUserInviteProfit()
         )
-        getInvitationHistory(config);
         addListener();
 
     }
@@ -65,6 +66,7 @@ define([
     //活动说明
     function getSysConfig() {
         return GeneralCtr.getSysConfig("activity_rule").then((data) => {
+            console.log('规则', data);
             $(".activity-content").html(data.cvalue.replace(/\n/g, '<br>'));
             base.hideLoadingSpin();
         }, base.hideLoadingSpin)
@@ -98,7 +100,7 @@ define([
     //获取推荐人历史
     function getInvitationHistory(refresh) {
         return UserCtr.getInvitationHistory(config, refresh).then((data) => {
-            var lists = data.list;
+            var lists = data.list;console.log(lists);
             if (data.list.length) {
                 var html = "";
                 denugger
@@ -106,7 +108,6 @@ define([
                     html += `<tr>
                         <td>${item.realName}</td>
                         <td>${base.datetime(item.createDatetime)}</td>
-                        <td>是</td>
                         <td>2000(ETH)</td>
                         <td>20(ETH)</td>
                     </tr>`;

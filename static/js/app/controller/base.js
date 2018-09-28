@@ -506,7 +506,7 @@ define([
         },
         //隐藏手机号中间4位
         hideMobile: function(mobile) {
-            var mobile = mobile.substring(0, 3) + "****" + mobile.substring(7, 11)
+            var mobile = mobile ? mobile.substring(0, 3) + "****" + mobile.substring(7, 11) : '';
             return mobile;
         },
         //计算百分比

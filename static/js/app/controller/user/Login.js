@@ -44,16 +44,16 @@ define([
         sessionStorage.setItem("l-return", 'advertise.html');
         setTimeout(function() {
                 base.goReturn()
-            }, 800) */debugger
+            }, 800) */
         return UserCtr.login(params).then((data) => {
             base.setSessionUser(data)
             UserCtr.getUser(true).then((item) => {
                 sessionStorage.setItem("nickname", item.nickname);
                 sessionStorage.setItem("googleAuthFlag", item.googleAuthFlag);
                 sessionStorage.setItem("mobile", item.mobile);
-                sessionStorage.setItem("inviteCode", item.secretUserId);
+                sessionStorage.setItem("inviteCode", item.userId);
                 base.hideLoadingSpin()
-                base.showMsg("登录成功")
+                base.showMsg("登录成功");
                 setTimeout(function() {
                     base.goReturn()
                 }, 800)
