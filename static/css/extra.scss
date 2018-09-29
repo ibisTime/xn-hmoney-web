@@ -5130,6 +5130,7 @@ table {
 
 .head-lang {
     color: #fff;
+    position: relative;
     select{
         padding: 0px 20px 0px 16px;
         border: 1px solid #fff;
@@ -5148,8 +5149,9 @@ table {
         display: inline-block;
         width: 7.1px;
         height: 7.1px;
-        margin-bottom: 4px;
-        margin-left: -18px;
+        position: absolute;
+        top: 34%;
+        right: 8px;
     }
 }
 

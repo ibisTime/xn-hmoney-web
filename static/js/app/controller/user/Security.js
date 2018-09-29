@@ -36,6 +36,11 @@ define([
             } else {
                 $(".setGoogle .open").removeClass("hidden")
             }
+            if(data.mobile){
+                $('.setPhone .b_phone').removeClass('hidden');
+            }else{
+                $('.setPhone .o_phone').removeClass('hidden');
+            }
 
             base.hideLoadingSpin();
         }, base.hideLoadingSpin)

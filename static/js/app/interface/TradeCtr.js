@@ -33,11 +33,13 @@ define([
             if (config.publishType == '3') {
                 return Ajax.get("625221", {
                     operator: base.getUserId(),
+                    userId: base.getUserId(),
                     ...config
                 }, true);
             }
             return Ajax.get("625220", {
                 operator: base.getUserId(),
+                userId: base.getUserId(),
                 ...config
             }, true);
         },

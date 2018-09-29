@@ -38,31 +38,32 @@ define([
         console.log(params);
         if (type == 'mobile') {
             return UserCtr.register(params).then((data) => {
-                base.hideLoadingSpin()
+                base.hideLoadingSpin();
                 base.showMsg("注册成功");
                 let loginParams = {
                     loginName: params.mobile,
                     loginPwd :params.loginPwd
                 };
-                console.log(loginParams);
-                UserCtr.login(loginParams).then((data) => {
-                    base.setSessionUser(data);
-                    UserCtr.getUser(true).then((item) => {
-                        sessionStorage.setItem("nickname", item.nickname);
-                        sessionStorage.setItem("googleAuthFlag", item.googleAuthFlag);
-                        sessionStorage.setItem("mobile", item.mobile);
-                        sessionStorage.setItem("inviteCode", item.userId);
-                        base.hideLoadingSpin();
-                        base.showMsg("登录成功")
-                        setTimeout(function() {
-                            base.goReturn()
-                        }, 800)
+                setTimeout(() => {
+                    UserCtr.login(loginParams).then((data) => {
+                        base.setSessionUser(data);
+                        UserCtr.getUser(true).then((item) => {
+                            sessionStorage.setItem("nickname", item.nickname);
+                            sessionStorage.setItem("googleAuthFlag", item.googleAuthFlag);
+                            sessionStorage.setItem("mobile", item.mobile);
+                            sessionStorage.setItem("inviteCode", item.userId);
+                            base.hideLoadingSpin();
+                            base.showMsg("登录成功")
+                            setTimeout(function() {
+                                base.goReturn()
+                            }, 1000)
+                        })
                     })
-                })
-            }, base.hideLoadingSpin)
+                }, 300);
+            }, base.hideLoadingSpin);
         } else {
             return UserCtr.emailRegister(params).then(() => {
-                base.hideLoadingSpin();
+                base.hideLoadingSpin();debugger
                 base.showMsg("注册成功");
                 let loginParams = {
                     loginName: params.email,
@@ -146,7 +147,7 @@ define([
                 if (_registerForm.valid()) {
                     base.showLoadingSpin()
                     var params = _registerForm.serializeObject()
-                    inviteCode != "" && inviteCode ? params.inviteCode = inviteCode : '';
+                    inviteCode != "" && inviteCode ? params.userReferee = inviteCode : '';
                     register(params, 'mobile');
                 }
             }
@@ -164,7 +165,7 @@ define([
                         email: params.email,
                         captcha: params.captcha
                     };
-                    inviteCode != "" && inviteCode ? params1.inviteCode = inviteCode : '';
+                    inviteCode != "" && inviteCode ? params1.userReferee = inviteCode : '';
                     register(params1, 'email');
                 }
             }

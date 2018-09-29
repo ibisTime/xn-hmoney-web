@@ -147,10 +147,6 @@ define([
 
     }
 
-    function getNumberMoney(symbol, refer){
-        return TradeCtr.getNumberMoney(symbol, refer);
-    }
-
     //根据config配置设置 币种列表
     // function getCoinList() {
     //     var coinList = base.getCoinList();
@@ -548,14 +544,14 @@ define([
 
 
         // 选择实名
-        $('.check-wrap').on("click", function(e) {
-            let target = e.target,
-                reg = /userDefined|usersel/g;
-            if (reg.test($(target).attr('class'))) {
-                $(target).parent('.item').addClass('on').siblings().removeClass('on');
-                selOnlyCert = $(target).attr('data-type');
-            }
-        })
+        // $('.check-wrap').on("click", function(e) {
+        //     let target = e.target,
+        //         reg = /userDefined|usersel/g;
+        //     if (reg.test($(target).attr('class'))) {
+        //         $(target).parent('.item').addClass('on').siblings().removeClass('on');
+        //         selOnlyCert = $(target).attr('data-type');
+        //     }
+        // })
 
         // 进度条实现
         let i = 0,

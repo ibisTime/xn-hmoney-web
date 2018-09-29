@@ -10,13 +10,15 @@ define([
         limit: 3,
         userId: base.getUserId()
     };
+    let inviNumber = 0;
+    let inviAllNumber = 0;
 
     init();
 
     function init() {
         // base.showLoadingSpin();
         $(".head-nav-wrap .advertise").addClass("active");//DOMAIN_NAME
-        $("#invitationDialog .hrefWrap p").html('http://localhost:9999' + "/user/register.html?inviteCode=" + inviteCode)
+        $("#invitationDialog .hrefWrap p").html(DOMAIN_NAME + "/user/register.html?inviteCode=" + inviteCode)
         var qrcode = new QRCode('qrcode', INVITATION_HREF + "/user/register.html?inviteCode=" + inviteCode);
         qrcode.makeCode(INVITATION_HREF + "/user/register.html?inviteCode=" + inviteCode);
 
@@ -100,16 +102,19 @@ define([
     //获取推荐人历史
     function getInvitationHistory(refresh) {
         return UserCtr.getInvitationHistory(config, refresh).then((data) => {
-            var lists = data.list;console.log(lists);
+            var lists = data.list;
+            inviNumber = lists.length;
+            $('.inviteCount').text(inviNumber);
             if (data.list.length) {
                 var html = "";
-                denugger
                 lists.forEach((item, i) => {
+                    let awardCount = item.tradeAwardCount + item.regAwardCount;
+                    inviAllNumber += awardCount;
                     html += `<tr>
-                        <td>${item.realName}</td>
+                        <td>${item.nickname}</td>
                         <td>${base.datetime(item.createDatetime)}</td>
-                        <td>2000(ETH)</td>
-                        <td>20(ETH)</td>
+                        <td>${item.tradeCount} X</td>
+                        <td>${awardCount} X</td>
                     </tr>`;
                 });
                 $("#yq-content").html(html);
@@ -118,6 +123,7 @@ define([
                 config.start == 1 && $("#userRefereeList").empty()
                 config.start == 1 && $("#userRefereeDialog .no-data").removeClass("hidden");
             }
+            $('.inviteProfit').text(inviAllNumber);
             config.start == 1 && initPagination(data);
             base.hideLoadingSpin();
         }, base.hideLoadingSpin)

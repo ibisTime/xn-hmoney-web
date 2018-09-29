@@ -61,10 +61,23 @@
         }
         HistoryProvider.prototype.getBars = function(symbolInfo, resolution, rangeStartDate, rangeEndDate) {
             var _this = this;
+            let reg = /[a-zA-Z]/g;
+            let period = '';
+            var loadTime = new Date(Number($("#tv_chart_container").attr("firstLoadTime"))).getTime();
+            if(!resolution.match(reg)){
+                period = resolution + 'min';
+                loadTime = new Date(loadTime + resolution * 60 * 1000);
+            }else{
+                period = resolution;
+                loadTime = new Date(loadTime + resolution * 60 * 1000 * 60 * 60);
+            }
+            setTimeout(() => {
+                $("#tv_chart_container").attr("firstLoad", "0");
+            }, 500);
             var requestParams = {
                 symbol: 'X',
                 toSymbol: symbolInfo.toSymbol || 'BTC',
-                period: '30min',
+                period: period,
                 resolution: resolution,
                 from: rangeStartDate,
                 to: rangeEndDate,
@@ -85,13 +98,13 @@
                     //                  reject(response.errmsg);
                     //                  return;
                     //              }
-                    $('.btns').css('opacity', '1');
                     var bars = [];
                     var meta = {
                         noData: false,
                     };
-                    var loadTime = new Date(new Date(Number($("#tv_chart_container").attr("firstLoadTime"))).getTime() + 1000 * 60);
-                    if (response.length <= 0 || ($("#tv_chart_container").attr("firstLoad") == '1' && Date.parse(new Date()) <= Date.parse(new Date(loadTime)))) {
+                    if (response.length <= 0 || 
+                        ($("#tv_chart_container").attr("firstLoad") == '1' && 
+                        Date.parse(new Date()) <= Date.parse(new Date(loadTime)))) {
 
                         //              if (response.length <= 0) {
                         meta.noData = true;
@@ -627,6 +640,11 @@
                 logMessage("Symbol resolved: " + (Date.now() - resolveRequestStartTime) + "ms");
                 onResolve(symbolInfo);
             }
+
+            let setBazDeal = JSON.parse(sessionStorage.getItem('setBazDeal')) || {
+                symbol: 'X',
+                toSymbol: 'BTC'
+            }
             
             var symbolInfo = {
                 "name": "X",
@@ -640,8 +658,8 @@
                 "description": "BTC",
                 "type": "coin",
                 "pricescale": 100,
-                "ticker": "X",
-                'toSymbol': 'BTC',
+                "ticker": setBazDeal.symbol,
+                'toSymbol': setBazDeal.toSymbol,
                 'period': '30min',
                 pricescale: Number("1e2"),
                 volumescale: Number("1e4"),

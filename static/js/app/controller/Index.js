@@ -63,15 +63,21 @@ define([
             })
             $('.bb-jy ul').html(adverHtml);
         });
-        getMarket('CNY').then(data => {
-            aarketData = data;
-            let aarketHtml = '';
-            aarketData.length = 2;console.log(aarketData)
+        getBazaarData().then(data => {
+            console.log('交易', data);
+            let bzfList = [];
+            aarketData = data.list;
             aarketData.forEach(item => {
+                let exchangeRate = item.exchangeRate;
+                bzfList.push(`${exchangeRate < 0 ? '-' : ''}` + (Math.floor((exchangeRate) * 100) / 100).toFixed(2));
+            })
+            aarketData.length = 2;
+            let aarketHtml = '';
+            aarketData.forEach((item, index) => {
                 aarketHtml += `<li>
-                    <p><span>X</span> / <span>${item.symbol}</span></p>
-                    <h5>${item.lastPrice.toFixed(2)}</h5>
-                    <p><span class="zj">+</span><span class="zf">0.00</span>% <span class="zf-img"><img src="/static/images/上升.png" alt=""></span></p>
+                    <p><span>${item.symbol}</span> / <span>${item.toSymbol}</span></p>
+                    <h5>${(Math.floor(item.price * 10000) / 10000).toFixed(4)}</h5>
+                    <p><span class="zj">${bzfList[index].indexOf('-') == 0 ? '-' : '+'}</span><span class="zf">${bzfList[index]}</span>% <span class="zf-img"><img src=${bzfList[index].indexOf('-') == 0 ? '/static/images/下降.png' : '/static/images/上升.png'} alt=""></span></p>
                 </li>`
             })
             $('.bb-hq_r ul').html(aarketHtml);
@@ -130,6 +136,14 @@ define([
             limit: '10',
             statusList: ['1']
         })
+    }
+
+    // 市场（交易对）
+    function getBazaarData() {
+        return Ajax.post("650100", {
+            start: '1',
+            limit: '10'
+        }, true);
     }
 
     // 获取币种行情

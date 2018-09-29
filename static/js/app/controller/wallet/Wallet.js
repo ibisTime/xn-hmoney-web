@@ -6,8 +6,9 @@ define([
     'app/interface/AccountCtr',
     'app/interface/GeneralCtr',
     'app/interface/UserCtr',
+    'app/interface/TradeCtr',
     'app/util/ajax'
-], function (base, pagination, Validate, smsCaptcha, AccountCtr, GeneralCtr, UserCtr, Ajax) {
+], function (base, pagination, Validate, smsCaptcha, AccountCtr, GeneralCtr, UserCtr, TradeCtr, Ajax) {
     var userAccountNum = base.getUrlParam('account'); // 用户编号
     var withdrawFee = 0; // 取现手续费
     let fvData = 0;
@@ -91,9 +92,12 @@ define([
         //$(".currency").text(currency);  测试
         getCoinList();
         // X币转换
-        getAdvertisePrice('X').then(data => {
-            moneyHS = parseFloat(data.mid);
-        })
+        // 数字货币转换
+        if(!userAccountNum){
+            getNumberMoney('X', 'CNY').then(data => {
+                moneyHS = parseFloat(data);
+            });
+        }
         getBankData().then(data => {
             data.forEach(item => {
                 zfType[item.bankName] = item.bankCode
@@ -130,10 +134,9 @@ define([
             withdrawFee = base.formatMoney(base.getCoinWithdrawFee(currency), '', currency);
 
             $("#withdrawFee").val(withdrawFee + currency);
-            getAccount(); // 测试
+            getAccount();
 
         }, getAccount)
-        // getAccount();
         addListener();
     }
 
@@ -160,6 +163,7 @@ define([
     }
 
     function qhMoneyType(pType, m_type, isw) { //m_cyn
+        let toType = '';
         GeneralCtr.getSysConfigType('accept_rule').then(data => {
             moneyXZ = data;
             moneyXZ.min_cny = parseFloat(moneyXZ.accept_order_min_cny_amount);
@@ -184,11 +188,18 @@ define([
                     $('.con-toSell .m_cyn').text('CNY');
                 }
             }
-            if ($(pType + ' .x-p_money').eq(0).text() == 'CNY') {
+            toType = $(pType + ' .x-p_money').eq(0).text();
+            getNumberMoney('X', toType).then(data => {
+                moneyHS = parseFloat(data);
+                $('.x-mon').text((Math.floor(moneyHS * 100) / 100).toFixed(2));
+            });
+            if (toType == 'CNY') {
+                $('.b-m_type').text('￥');
                 $(pType + ' .min-money').text(data.accept_order_min_cny_amount);
                 $(pType + ' .max-money').text(data.accept_order_max_cny_amount);
                 $(pType + ' .x-p_money').text('CNY');
             } else {
+                $('.s-m_type').text('$');
                 $(pType + ' .min-money').text(data.accept_order_min_usd_amount);
                 $(pType + ' .max-money').text(data.accept_order_max_usd_amount);
                 $(pType + ' .x-p_money').text('USD');
@@ -234,8 +245,9 @@ define([
                 fvData = parseFloat(data.simu_order_fee_rate) * 100;
                 $('.sxf').text(fvData)
             })
-            qhMoneyType('.con-toBuy');
-            $('.x-mon').text((Math.floor(moneyHS * 100) / 100).toFixed(2));
+            if(!userAccountNum){
+                qhMoneyType('.con-toBuy', 'CNY');
+            }
             let zfTypeHtml = '';
             // zfType[item.zfType[item.bankName] = item.bankCode] = item.bankCode
             getBankData().then(data => {
@@ -259,7 +271,6 @@ define([
             base.hideLoadingSpin();
         }, base.hideLoadingSpin)
     }
-    let x_tip = '请输入购买金额';
     let tuBuyHtml = `
             <div class="con-toBuy bb-box" style="display: none;">
                 <h5 class="x-tit">去购买</h5>
@@ -267,7 +278,7 @@ define([
                     <div class="buy-head">
                         <p class="x-h_p1">X / <span class="x-p_money">CNY</span></p>
                         <p class="x-h_p2"><img src="/static/images/切换X.png" class="fr"/></p>
-                        <p class="x-h_p3">单价：¥ <span class="x-mon"></span> <span class="x-bf_r"><i>-</i> 3.5%</span></p>
+                        <p class="x-h_p3">单价：<span class="b-m_type"></span> <span class="x-mon"></span> <span class="x-bf_r"><i>-</i> 3.5%</span></p>
                     </div>
                     <div class="buy-con">
                         <div class="b-c_h buy-c">
@@ -308,7 +319,7 @@ define([
                     <div class="buy-head">
                         <p class="x-h_p1">X / <span class="x-p_money">CNY</span></p>
                         <p class="x-h_p2"><img src="/static/images/切换X.png" class="fr"/></p>
-                        <p class="x-h_p3">单价：¥ <span class="x-mon"></span> <span class="x-bf_r"><i>-</i> 3.5%</span></p>
+                        <p class="x-h_p3">单价：<span class="s-m_type"></span> <span class="x-mon"></span> <span class="x-bf_r"><i>-</i> 3.5%</span></p>
                     </div>
                     <div class="buy-con">
                         <div class="b-c_h sell-c">
@@ -450,6 +461,10 @@ define([
                 </div>
             </li>`
         return DHtml;
+    }
+
+    function getNumberMoney(symbol, refer){
+        return TradeCtr.getNumberMoney(symbol, refer);
     }
 
     // 初始化交易记录分页器

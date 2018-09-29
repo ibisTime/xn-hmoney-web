@@ -24,11 +24,12 @@ define([
     let pkObjData = {}; // 盘口最优买卖价
     let statusValueList = {}; // 状态
     let userData = [];
-    let bazaarData = []; // 交易对数据
-    let setBazDeal = {
+    let bazaarData = []; // 交易对数据 
+    let setBazDeal = JSON.parse(sessionStorage.getItem('setBazDeal')) || {
         symbol: 'X',
         toSymbol: 'BTC'
     };
+    // console.log(setBazDeal);
     let isType = 0; // 0 表示限价 1 表示市价
     let buyHandicapData = []; // 买盘口数据
     let sellHandicapData = []; // 卖盘口数据
@@ -52,39 +53,8 @@ define([
     function init() {
         addLister();
         base.showLoadingSpin(); // 显示加载
-        getBazaarData().then(data => { // 加载市场数据
-            upBazaarData(data);
-            bazaarData.forEach((item, i) => {
-                $('.baz-list>h5 span').eq(i).text(item.toSymbol);
-            });
-            showBazaar(bazaarData[0]);
-            autoGetData();
-            // clearInterval(timeGet);
-            // var timeGet = setInterval(() => {
-            //     autoGetData();
-            // }, 2000);
-
-            getDepthData().then(data => {
-                let buyData = data.bids;
-                let sellData = data.asks;
-                // 深度图
-                if (buyData.length == 0 && sellData.length == 0) {
-                    return false;
-                }
-                depthFn(buyData, sellData);
-            });
-
-            $('.c-b').text(setBazDeal.symbol);
-            $('.r-b').text(setBazDeal.symbol);
-            $('#tv_chart_container iframe').css('height', '500px');
-
-            setTimeout(() => {
-                window.scrollTo(0, 0);
-                base.hideLoadingSpin(); // 隐藏加载
-            }, 500);
-
-        });
-
+        
+        getBBDataFn();
         //公告
         notice().then(data => {
             ggDataList = data.list;
@@ -98,6 +68,7 @@ define([
             })
             $('.affic-list').html(ggHtml);
         });
+
 
         k(); // k线
 
@@ -126,25 +97,6 @@ define([
             }, base.hideLoadingSpin);
             getUserMoney();
             userAllMoneyX();
-            // AccountCtr.getAccount().then(data => {
-            //     userData = data;
-            //     let btcData = userData.filter((item) => {
-            //         return item.currency == 'BTC';
-            //     })
-            //     let syData = userData.filter(item => {
-            //         return item.currency == setBazDeal.symbol;
-            //     })
-            //     syUserMoney = base.formatMoneySubtract(`${syData[0].amount}`, `${syData[0].frozenAmount}`, setBazDeal.symbol);
-            //     toSyUserMoney = base.formatMoneySubtract(`${btcData[0].amount}`, `${btcData[0].frozenAmount}`, 'BTC');
-            //     $('.baz-all').text(toSyUserMoney);
-            //     $('.sy_all').text(syUserMoney);
-            //     $('.toSdw').text('BTC');
-            //     // let XData = userData.filter(item => {
-            //     //     return item.currency == setBazDeal.symbol;
-            //     // })
-            //     // let xMoney = base.formatMoneySubtract(`${XData[0].amount}`, `${XData[0].frozenAmount}`, setBazDeal.symbol);
-            //     // $('.all-bb').text(xMoney);
-            // });
             autoGetMyDatata();
             // clearInterval(timeMy);
             // var timeMy = setInterval(() => {
@@ -177,6 +129,61 @@ define([
         })
 
 
+    }
+
+    function getBBDataFn(){
+        getBazaarData().then(data => { // 加载市场数据
+            // console.log('交易对：', data);
+            console.log(setBazDeal);
+            // 指定币种换算数据
+            let setBBList = data.list.filter(item => {
+                return item.symbol == setBazDeal.symbol && item.toSymbol == setBazDeal.toSymbol;
+            })
+            console.log('交易对：', setBBList);
+            // 涨幅、k数据
+            let zfKData = setBBList[0].dayLineInfo;
+            if(zfKData){
+                $('.t-zf').text(`${setBBList[0].exchangeRate}%`)
+                $('.t-g').text(base.formatMoney(`${zfKData.high}`, '', setBazDeal.symbol));
+                $('.t-d').text(base.formatMoney(`${zfKData.low}`, '', setBazDeal.symbol));
+                $('.t-h').text(base.formatMoney(`${zfKData.volume}`, '', setBazDeal.toSymbol));
+            }
+            $('.t-jym').text(setBBList[0].price);
+            $('.sym-exc').text(setBBList[0].currencyPrice);
+            upBazaarData(setBBList);
+            data.list.forEach((item, i) => {
+                $('.baz-list>h5 span').eq(i).text(item.toSymbol);
+                if(item.toSymbol == setBazDeal.toSymbol){
+                    $('.baz-list>h5 span').eq(i).addClass('sel-sp');
+                }
+            });
+            showBazaar(bazaarData[0]);
+            autoGetData();
+            // clearInterval(timeGet);
+            // var timeGet = setInterval(() => {
+            //     autoGetData();
+            // }, 2000);
+
+            getDepthData().then(data => {
+                let buyData = data.bids;
+                let sellData = data.asks;
+                // 深度图
+                if (buyData.length == 0 && sellData.length == 0) {
+                    return false;
+                }
+                depthFn(buyData, sellData);
+            });
+
+            $('.c-b').text(setBazDeal.symbol);
+            $('.r-b').text(setBazDeal.symbol);
+            $('#tv_chart_container iframe').css('height', '500px');
+
+            setTimeout(() => {
+                window.scrollTo(0, 0);
+                base.hideLoadingSpin(); // 隐藏加载
+            }, 500);
+
+        });
     }
 
     function autoRealData() {
@@ -358,8 +365,8 @@ define([
 
     //更新bazaarData的值
     function upBazaarData(data) {
-        bazaarData = data.list;
-        if (data.list.lenght > 0) {
+        bazaarData = data;
+        if (bazaarData.lenght > 0) {
             setBazDeal.symbol = bazaarData[0].symbol;
             setBazDeal.toSymbol = bazaarData[0].toSymbol;
         }
@@ -550,18 +557,21 @@ define([
         // 选择基础币种
         $('.baz-list>h5 span').off('click').click(function () {
             $(this).addClass('sel-sp').siblings().removeClass('sel-sp');
-            switch ($(this).text()) {
-                case bazaarData[0].toSymbol:
-                    showBazaar(bazaarData[0]);
-                    break;
-                case bazaarData[1].toSymbol:
-                    showBazaar(bazaarData[1]);
-                    break;
-            }
+            sessionStorage.setItem('setBazDeal', JSON.stringify({symbol: 'X', toSymbol: $(this).text()}));
+            location.reload();
+            // switch ($(this).text()) {
+            //     case bazaarData[0].toSymbol:
+            //         showBazaar(bazaarData[0]);
+            //         break;
+            //     case bazaarData[1].toSymbol:
+            //         showBazaar(bazaarData[1]);
+            //         break;
+            // }
+            // getBBDataFn();
             // 查用户余额
-            if (base.isLogin()) {
-                getUserMoney();
-            }
+            // if (base.isLogin()) {
+            //     getUserMoney();
+            // }
         })
 
         // 限价交易与市价交易
@@ -757,14 +767,18 @@ define([
         $('#buyNum').keyup(function (e) {
             let buyPassage = 0;
             if (outBlur(this)) {
-                $('.jy-me').text(((($('#ym-price').val() * $('#buyNum').val()) * 1000000) / 1000000).toFixed(6) + ' ');
+                if(parseFloat($('.baz-all').text()) != 0){
+                    $('.jy-me').text(((($('#ym-price').val() * $('#buyNum').val()) * 1000000) / 1000000).toFixed(6) + ' ');
+                }
                 let buyNumValue = parseFloat($(this).val());
                 let buyAllValue = parseFloat($('.all-bb').text());
-                if (buyNumValue < buyAllValue) {
-                    buyPassage = (buyNumValue / buyAllValue) * 100;
-                } else {
-                    buyPassage = 100;
-                    $('.jy-me').text(buyAllValue);
+                if(buyAllValue > 0){
+                    if (buyNumValue < buyAllValue) {
+                        buyPassage = (buyNumValue / buyAllValue) * 100;
+                    } else {
+                        buyPassage = 100;
+                        $('.jy-me').text(buyAllValue);
+                    }
                 }
                 let index = parseInt(buyPassage / 26) + 2;
                 $('.j-sp .sel-span').css('left', buyPassage + '%');
@@ -782,14 +796,18 @@ define([
         $('#sellNum').keyup(function () {
             let sellPassage = 0;
             if (outBlur(this)) {
-                $('.jy-ce').text($('#yr-price').val() * $('#sellNum').val() + ' ');
+                if(parseFloat($('.baz-all').text()) != 0){
+                    $('.jy-ce').text($('#yr-price').val() * $('#sellNum').val() + ' ');
+                }
                 let sellNumValue = parseFloat($(this).val());
                 let sellAllValue = parseFloat($('.all-bb_c').text());
-                if (sellNumValue < sellAllValue) {
-                    sellPassage = (sellNumValue / sellAllValue) * 100;
-                } else {
-                    sellPassage = 100;
-                    $('.jy-ce').text(buyAllValue);
+                if(sellAllValue > 0){
+                    if (sellNumValue < sellAllValue) {
+                        sellPassage = (sellNumValue / sellAllValue) * 100;
+                    } else {
+                        sellPassage = 100;
+                        $('.jy-ce').text(buyAllValue);
+                    }
                 }
                 let index = sellPassage / 26 + 1;
                 for (let i = 1; i < index; i++) {
@@ -1117,14 +1135,12 @@ define([
     }
 
     function k() {
-        getKLineData('1min').then(data => {
-            console.log('k', data);
-            if (data.length) {
-                $('.t-g').text(base.formatMoney(`${data[0].high}`, '', setBazDeal.symbol));
-                $('.t-d').text(base.formatMoney(`${data[0].low}`, '', setBazDeal.symbol));
-                $('.t-h').text(base.formatMoney(`${data[0].volume}`, '', setBazDeal.toSymbol));
-            }
-        })
+        // getKLineData('1min').then(data => {
+        //     console.log('k', data);
+        //     if (data.length) {
+                
+        //     }
+        // })
 
         function getParameterByName(name) {
             name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");

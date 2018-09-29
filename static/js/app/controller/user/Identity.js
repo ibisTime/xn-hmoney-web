@@ -68,13 +68,9 @@ define([
     //获取用户详情
     function getUser() {
         return UserCtr.getUser().then((data) => {
-            console.log('user', data, CerStatusList);
-            let idAuthStatus = parseInt(data.idAuthStatus);
-            // if(idAuthStatus == 2 && !data.idKind){
-            //     base.showMsg('认证审核不通过，请重新认证！');
-            //     $('.identity-content').removeClass('none');
-            //     return;
-            // }
+            console.log('user', data.userIdAuthInfo, CerStatusList);
+            let idAuthStatus = '';
+            let userIdAuthInfo = data.userIdAuthInfo;
             function isYz(wId, wClass){
                 $(wId).removeClass('none').find('.yz_p').off('click');
                 $(wClass).text(CerStatusList[idAuthStatus]);
@@ -87,8 +83,14 @@ define([
             }
 
             setTimeout(() => {
-                if(data.idKind){
-                    switch(data.idKind){
+                if(userIdAuthInfo){
+                    idAuthStatus = parseInt(userIdAuthInfo.status);
+                    if(idAuthStatus == 2 && !userIdAuthInfo.idKind){
+                        base.showMsg('认证审核不通过，请重新认证！');
+                        $('.identity-content').removeClass('none');
+                        return;
+                    }
+                    switch(userIdAuthInfo.idKind){
                         case '1':
                             isYz('#alreadyIdentity', '.sfz');
                             break;
@@ -213,7 +215,7 @@ define([
             base.showMsg('认证请求发起成功');
                 setTimeout(() => {
                     location.reload();
-                }, 300);
+                }, 600);
         }
 
 

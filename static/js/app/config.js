@@ -8,10 +8,10 @@ var THUMBNAIL_SUFFIX = "";
 // h5 域名
 //var INVITATION_HREF = 'http://localhost:4009';
 
-// web 域名 测试
+// web 域名 测试 邀请好友
 var DOMAIN_NAME = 'http://www.bcointest.hichengdai.com';
-// h5 域名 测试
-var INVITATION_HREF = 'http://mtest.bcoin.hichengdai.com';
+// h5 域名 测试 邀请好友
+var INVITATION_HREF = 'http://localhost:9999';
 //帮助中心
 var HELPCONTENT = 'https://emcclhelp.zendesk.com/hc/zh-cn/sections/360002016013-%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98';
 var ZENDESK_LABEL = 'search';
