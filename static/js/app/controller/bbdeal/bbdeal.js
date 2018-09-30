@@ -10,7 +10,6 @@ define([
     'app/interface/UserCtr'
 ], function (base, Ajax, echarts, GeneralCtr, pagination, AccountCtr, TradingView, Datafeeds, UserCtr) {
 
-    console.log(TradingView);
     let userConfig = {
         userId: base.getUserId(),
         start: '1',
@@ -29,7 +28,6 @@ define([
         symbol: 'X',
         toSymbol: 'BTC'
     };
-    // console.log(setBazDeal);
     let isType = 0; // 0 表示限价 1 表示市价
     let buyHandicapData = []; // 买盘口数据
     let sellHandicapData = []; // 卖盘口数据
@@ -72,10 +70,10 @@ define([
 
         k(); // k线
 
-        // clearInterval(timeReal);
-        // var timeReal = setInterval(() => {
-        //     autoRealData();
-        // }, 3900);
+        clearInterval(timeReal);
+        var timeReal = setInterval(() => {
+            autoRealData();
+        }, 3900);
 
         // 判断是否登录
         if (!base.isLogin()) {
@@ -98,10 +96,10 @@ define([
             getUserMoney();
             userAllMoneyX();
             autoGetMyDatata();
-            // clearInterval(timeMy);
-            // var timeMy = setInterval(() => {
-            //     autoGetMyDatata();
-            // }, 2800);
+            clearInterval(timeMy);
+            var timeMy = setInterval(() => {
+                autoGetMyDatata();
+            }, 2800);
 
             function autoGetMyDatata() {
                 getMyorderTicket(userConfig).then(data => {
@@ -110,10 +108,10 @@ define([
                 })
             }
             autoGetHisData();
-            // clearInterval(timeHis);
-            // var timeHis = setInterval(() => {
-            //     autoGetHisData();
-            // }, 3400);
+            clearInterval(timeHis);
+            var timeHis = setInterval(() => {
+                autoGetHisData();
+            }, 3400);
 
             function autoGetHisData() {
                 getMyHistoryData(hisConfig).then(data => {
@@ -159,10 +157,10 @@ define([
             });
             showBazaar(bazaarData[0]);
             autoGetData();
-            // clearInterval(timeGet);
-            // var timeGet = setInterval(() => {
-            //     autoGetData();
-            // }, 2000);
+            clearInterval(timeGet);
+            var timeGet = setInterval(() => {
+                autoGetData();
+            }, 2000);
 
             getDepthData().then(data => {
                 let buyData = data.bids;
@@ -286,7 +284,7 @@ define([
             $('.bzz-con_l .txt-h').text(data.cname);
             $('bzz-con_l .txt-p').text(data.ename);
             $('.bzz-box .txt-p').text(data.introduction);
-            $('.bzz-time').text(new Date(data.icoDatetime).toLocaleDateString());
+            $('.bzz-time').text(data.icoDatetime ? new Date(data.icoDatetime).toLocaleDateString() : '');
             $('.bzz-f_all').text(data.maxSupply);
             $('.bzz-l_all').text(data.totalSupply);
             $('.bzz-bps').text(data.whitePaper);
@@ -465,7 +463,8 @@ define([
     function notice() {
         return Ajax.post('805305', {
             start: '1',
-            limit: '10'
+            limit: '10',
+            status: '1'
         });
     }
 
@@ -615,7 +614,7 @@ define([
 
         // input验证事件
         function outBlur(that) {
-            let reg = /^[1-9]\d*.?\d*$|0.\d*[1-9]\d*$|0?.0+|0$/;
+            let reg = /^[1-9]\d*.?\d*$|0.\d*[1-9]\d*$/;
             if ($(that).val().match(reg)) {
                 $(that).css('border-color', '#e5e5e5');
                 return true;
@@ -645,6 +644,9 @@ define([
             let totalCount = $(inpNum).val().trim();
             if (isType == 0) {
                 let price = $(inpPrice).val().trim();
+                if(price == 0){
+                    base.showMsg('价格不为0');
+                }
                 if (outBlur(inpPrice) && outBlur(inpNum) && price != '0') {
                     getLimitedPriceData('1', direction, price, totalCount).then(data => {
                         $(inpNum).val('');

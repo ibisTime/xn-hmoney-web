@@ -73,6 +73,15 @@ define([
                 userId: base.getUserId()
             });
         },
+        //修改手机号
+        detPhone(mobile, smsCaptcha) {
+            return Ajax.post('805061', {
+                newMobile: mobile,
+                smsCaptcha,
+                isSendSms: '0',
+                userId: base.getUserId()
+            });
+        },
 
         // 设置资金密码
         setTradePwd(tradePwd, smsCaptcha) {
@@ -175,7 +184,7 @@ define([
          * type=1 信任，type=0，屏蔽
          */
         getInvitation(refresh) {
-            return Ajax.get("805123", {
+            return Ajax.get("802397", {
                 userId: base.getUserId(),
             }, refresh);
         },

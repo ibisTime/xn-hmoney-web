@@ -26,6 +26,7 @@ define([
         myName = '';
     var limit = '';
     var tradeCoin = 'ETH';
+    let tradeCurrency = 'CNY';
 
     if (!base.isLogin()) {
         base.goLogin();
@@ -96,8 +97,8 @@ define([
             $("#payType").html(bizTypeList[data.payType])
             $("#payLimit").html(data.payLimit)
 
-            $("#truePrice").html(Math.floor(data.truePrice * 100) / 100 + '&nbsp;CNY/' + tradeCoin)
-            $("#submitDialog .tradePrice").html(config.tradePrice + '&nbsp;CNY/' + tradeCoin)
+            $("#truePrice").html(Math.floor(data.truePrice * 100) / 100 + '&nbsp;'+ tradeCurrency +'/' + tradeCoin)
+            $("#submitDialog .tradePrice").html(config.tradePrice + '&nbsp;'+ tradeCurrency +'/' + tradeCoin)
             $("#leftCountString").html(base.formatMoney(data.leftCountString, '', tradeCoin))
             $("#coin").text(tradeCoin)
 
@@ -149,7 +150,7 @@ define([
                 userName: userName,
                 myName: myName,
                 truePrice: $("#truePrice").html(),
-                limit: limit + ' CNY',
+                limit: limit + ' ' + tradeCurrency,
                 success: function() {
                     $("#chatBtn").removeClass("hidden")
                 }
@@ -230,14 +231,14 @@ define([
         })
         $("#buyEth").keyup(function() {
             $("#buyAmount").val(($("#buyEth").val() * config.tradePrice).toFixed(2));
-            $("#submitDialog .tradeAmount").html($("#buyAmount").val() + "CNY")
+            $("#submitDialog .tradeAmount").html($("#buyAmount").val() + tradeCurrency)
             $("#submitDialog .count").html($("#buyEth").val() + tradeCoin)
             config.tradeAmount = $("#buyAmount").val()
             config.count = base.formatMoneyParse($("#buyEth").val(), '', tradeCoin)
         })
         $("#buyAmount").keyup(function() {
                 $("#buyEth").val(($("#buyAmount").val() / config.tradePrice).toFixed(8));
-                $("#submitDialog .tradeAmount").html($("#buyAmount").val() + "CNY")
+                $("#submitDialog .tradeAmount").html($("#buyAmount").val() + tradeCurrency)
                 $("#submitDialog .count").html($("#buyEth").val() + tradeCoin)
                 config.tradeAmount = $("#buyAmount").val()
                 config.count = base.formatMoneyParse($("#buyEth").val(), '', tradeCoin)

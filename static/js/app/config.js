@@ -9,7 +9,7 @@ var THUMBNAIL_SUFFIX = "";
 //var INVITATION_HREF = 'http://localhost:4009';
 
 // web 域名 测试 邀请好友
-var DOMAIN_NAME = 'http://www.bcointest.hichengdai.com';
+var DOMAIN_NAME = 'http://localhost:9999';
 // h5 域名 测试 邀请好友
 var INVITATION_HREF = 'http://localhost:9999';
 //帮助中心

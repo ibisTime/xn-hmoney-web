@@ -3,8 +3,9 @@ define([
     'app/util/ajax',
     'app/interface/GeneralCtr',
     'app/module/qiniu',
+    'app/module/validate',
     'app/interface/UserCtr'
-], function(base, Ajax, GeneralCtr, QiniuUpdata, UserCtr) {
+], function(base, Ajax, GeneralCtr, QiniuUpdata, validate, UserCtr) {
 
     let CerStatusList = {}
 
@@ -150,6 +151,24 @@ define([
 
 
     function addListener() {
+        var _registerForm = $("#sf_form-wrapper");
+        _registerForm.validate({
+            'rules': {
+                "idNo": {
+                    isIdCardNo: true
+                },
+            },
+            onkeyup: false
+        });
+        var _registerFormHz = $("#hz_form-wrapper");
+        _registerFormHz.validate({
+            'rules': {
+                "hz_code": {
+                    isHzCard: true
+                },
+            },
+            onkeyup: false
+        });
         // 展开、收起
         $('.yz_p').off('click').click(function() {
             if ($(this).children('span').text() == '收起') {
@@ -226,9 +245,11 @@ define([
             userConfig.idKind = '1';
             userConfig.idNo = $('#idNo').val().trim();
             userConfig.realName = $('#realName').val().trim();
-            userSFVerify(userConfig).then(data => {
-                loadFn();
-            })
+            if (_registerForm.valid()) {
+                userSFVerify(userConfig).then(data => {
+                    loadFn();
+                })
+            }
         })
 
         //护照认证

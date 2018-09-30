@@ -138,7 +138,7 @@ define([
         return this.optional(element) || /^-?\d+(?:\.\d{1,2})?$/.test(value);
     }, '合法数字，且小数点后最多2位');
 
-    //身份证号码的验证规则
+    //身份证号码的验证规则 
     function isIdCardNo(num) {
         var len = num.length,
             re;
@@ -166,5 +166,9 @@ define([
             return false;
         }
         return true;
-    }
+    };
+    //护照验证
+    $.validator.addMethod("isHzCard", function(value) {
+        return /^((1[45]\d{7})|(G\d{8})|(P\d{7})|(S\d{7,8}))?$/.test(value);
+    }, '格式错误');
 });

@@ -90,7 +90,7 @@ define([
                 $("#content").html(html)
                 config.start == 1 && initPagination(data);
             } else {
-                $("#content").html("<tr><td class='tc'>暂无数据</td></tr>")
+                $(".no-data").removeClass('hidden');
                 $("#pagination").addClass("hidden");
             }
             base.hideLoadingSpin();
@@ -146,13 +146,6 @@ define([
 					</td>
 				</tr>`;
         }
-
-        //					<td>
-        //						<div class="txt2"><p>${item.toUserInfo.userStatistics.jiaoYiCount}</p><samp>歷史成交</samp></div>
-        //					</td>
-        //					<td class="jiaoYiCount">
-        //						<div class="txt1 tr">跟TA交易過<samp>0</samp>次</div>
-        //					</td>
     }
 
     function addListener() {}

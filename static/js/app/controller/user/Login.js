@@ -46,17 +46,26 @@ define([
                 base.goReturn()
             }, 800) */
         return UserCtr.login(params).then((data) => {
-            base.setSessionUser(data)
+            base.setSessionUser(data);
+            base.showMsg("登录成功");
             UserCtr.getUser(true).then((item) => {
                 sessionStorage.setItem("nickname", item.nickname);
                 sessionStorage.setItem("googleAuthFlag", item.googleAuthFlag);
                 sessionStorage.setItem("mobile", item.mobile);
                 sessionStorage.setItem("inviteCode", item.userId);
-                base.hideLoadingSpin()
-                base.showMsg("登录成功");
-                setTimeout(function() {
-                    base.goReturn()
-                }, 800)
+                base.hideLoadingSpin();
+                if (!item.mobile){
+                    setTimeout(() => {
+                        base.showMsg('请绑定手机号');
+                        setTimeout(() => {
+                            base.gohrefReplace("../user/setPhone.html");
+                        }, 2500)
+                    }, 1500);
+                }else{
+                    setTimeout(function() {
+                        base.goReturn()
+                    }, 800)
+                }
             })
         }, base.hideLoadingSpin)
     }

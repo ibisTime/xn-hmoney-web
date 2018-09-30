@@ -25,6 +25,7 @@ define([
         myName = '';
     var limit = '';
     var tradeCoin = 'ETH';
+    let tradeCurrency = 'CNY';
 
     if (!base.isLogin()) {
         base.goLogin();
@@ -42,8 +43,8 @@ define([
             GeneralCtr.getSysConfig("trade_remind")  // 测试
         ).then((data) => {
             $("#tradeWarn").html(data.cvalue.replace(/\n/g, '<br>'))
-                getAdvertiseDetail() // 正式
-        }, base.hideLoadingSpin)
+            getAdvertiseDetail() // 正式
+        })
         addListener();
 
     }
@@ -51,7 +52,9 @@ define([
     //获取详情
     function getAdvertiseDetail() {
         return TradeCtr.getAdvertiseDetail(code).then((data) => {
-
+            tradeCurrency = data.tradeCurrency;
+            $('.item-unit').text(tradeCurrency);
+            $('#limit').next().text(tradeCurrency);
             var user = data.user;
             userName = user.nickname;
             tradeCoin = data.tradeCoin ? data.tradeCoin : 'ETH';
@@ -94,8 +97,8 @@ define([
             $("#payType").html(bizTypeList[data.payType])
             $("#payLimit").html(data.payLimit)
 
-            $("#truePrice").html(Math.floor(data.truePrice * 100) / 100 + '&nbsp;CNY/' + tradeCoin)
-            $("#submitDialog .tradePrice").html(config.tradePrice + '&nbsp;CNY/' + tradeCoin)
+            $("#truePrice").html(Math.floor(data.truePrice * 100) / 100 + '&nbsp;'+ tradeCurrency +'/' + tradeCoin)
+            $("#submitDialog .tradePrice").html(config.tradePrice + '&nbsp;'+ tradeCurrency +'/' + tradeCoin)
             $("#leftCountString").html(base.formatMoney(data.leftCountString, '', tradeCoin))
             $("#coin").text(tradeCoin)
 
@@ -142,7 +145,7 @@ define([
                 userName: userName,
                 myName: myName,
                 truePrice: $("#truePrice").html(),
-                limit: limit + ' CNY',
+                limit: limit + ' ' + tradeCurrency,
                 success: function() {
                     $("#chatBtn").removeClass("hidden")
                 }
@@ -179,20 +182,13 @@ define([
         //立即下单点击
         $("#buyBtn").click(function() {
             $('.bb-m').text(tradeCoin);
-            if (_formWrapper.valid()) {
-                // if ($("#buyAmount").val() != '' && $("#buyAmount").val()) {
-                //     $("#submitDialog").removeClass("hidden")
-                // } else {
-                //     base.showMsg("请输入您购买的金额")
-                // }
-            }
             UserCtr.getUser().then((data) => {
                 if (data.tradepwdFlag && data.realName) {
                     if (_formWrapper.valid()) {
                         if ($("#buyAmount").val() != '' && $("#buyAmount").val()) {
                             $("#submitDialog").removeClass("hidden")
                         } else {
-                            base.showMsg("请输入您购买的金額")
+                            base.showMsg("请输入您购买的金额")
                         }
                     }
                 } else if (!data.tradepwdFlag) {
@@ -224,7 +220,7 @@ define([
         $("#buyEth").keyup(function() {
             let truePrice = $("#buyEth").val() * config.tradePrice;
             $("#buyAmount").val((Math.floor(truePrice * 100) / 100).toFixed(2));
-            $("#submitDialog .tradeAmount").html($("#buyAmount").val() + "CNY")
+            $("#submitDialog .tradeAmount").html($("#buyAmount").val() + tradeCurrency)
             $("#submitDialog .count").html($("#buyEth").val() + tradeCoin);
             config.tradeAmount = $("#buyAmount").val()
             config.count = base.formatMoneyParse($("#buyEth").val(), '', tradeCoin)
@@ -232,7 +228,7 @@ define([
         })
         $("#buyAmount").keyup(function() {
             $("#buyEth").val(($("#buyAmount").val() / config.tradePrice).toFixed(8));
-            $("#submitDialog .tradeAmount").html($("#buyAmount").val() + "CNY")
+            $("#submitDialog .tradeAmount").html($("#buyAmount").val() + tradeCurrency)
             $("#submitDialog .count").html($("#buyEth").val() + tradeCoin)
             config.tradeAmount = $("#buyAmount").val()
             config.count = base.formatMoneyParse($("#buyEth").val(), '', tradeCoin)

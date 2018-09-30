@@ -7,11 +7,10 @@ define([
     var inviteCode = sessionStorage.getItem("inviteCode")
     var config = {
         start: 1,
-        limit: 3,
+        limit: 10,
         userId: base.getUserId()
     };
     let inviNumber = 0;
-    let inviAllNumber = 0;
 
     init();
 
@@ -24,7 +23,7 @@ define([
 
         $.when(
             getInvitationHistory(config),
-            // getInvitation(),
+            getInvitation(),
             getSysConfig(),
             // getUserInviteProfit()
         )
@@ -35,7 +34,8 @@ define([
     //获取我推荐的人数和收益统计
     function getInvitation() {
         return UserCtr.getInvitation().then((data) => {
-            $('.inviteCount').html(data.inviteCount);
+            let settleCount = data.nosettleCount + data.settleCount + data.unsettleCount;
+            $('.inviteProfit').text(settleCount);
         }, base.hideLoadingSpin)
     }
 
@@ -43,7 +43,6 @@ define([
     function getUserInviteProfit() {
         return UserCtr.getUserInviteProfit().then((data) => {
             if (data.length > 0) {
-                var inviteProfit = data[0].inviteProfit == '0' ? '0' : base.formatMoney(data[0].inviteProfit, '0', data[0].coin.symbol) + '+';
                 $(".inviteProfit").html(inviteProfit + data[0].coin.symbol + "<i class='more'>查看更多</i>");
 
                 var html = '';
@@ -103,27 +102,26 @@ define([
     function getInvitationHistory(refresh) {
         return UserCtr.getInvitationHistory(config, refresh).then((data) => {
             var lists = data.list;
-            inviNumber = lists.length;
+            inviNumber = data.totalCount;
             $('.inviteCount').text(inviNumber);
             if (data.list.length) {
                 var html = "";
                 lists.forEach((item, i) => {
-                    let awardCount = item.tradeAwardCount + item.regAwardCount;
-                    inviAllNumber += awardCount;
+                    let tradeAwardCount = base.formatMoney(`${item.tradeAwardCount}`, '', 'X')
+                    let awardCount = (parseFloat(tradeAwardCount) + item.regAwardCount) + ' X ';
+                    let tradeAwardTxt = `(交易佣金：${tradeAwardCount})`;
+                    if(item.tradeAwardCount != 0){
+                        awardCount += tradeAwardTxt;
+                    }
                     html += `<tr>
                         <td>${item.nickname}</td>
                         <td>${base.datetime(item.createDatetime)}</td>
-                        <td>${item.tradeCount} X</td>
-                        <td>${awardCount} X</td>
+                        <td>${base.formatMoney(`${item.tradeCount}`, '', 'X')} X</td>
+                        <td>${awardCount}</td>
                     </tr>`;
                 });
                 $("#yq-content").html(html);
-                $("#userRefereeDialog .no-data").addClass("hidden");
-            } else {
-                config.start == 1 && $("#userRefereeList").empty()
-                config.start == 1 && $("#userRefereeDialog .no-data").removeClass("hidden");
             }
-            $('.inviteProfit').text(inviAllNumber);
             config.start == 1 && initPagination(data);
             base.hideLoadingSpin();
         }, base.hideLoadingSpin)
@@ -162,14 +160,6 @@ define([
             $("#invitationDialog").removeClass("hidden")
         })
 
-        $("#myInvitationList").click(function() {
-            base.showLoadingSpin();
-            config.start = 1;
-            getInvitationHistory(true).then(() => {
-                $("#userRefereeDialog").removeClass("hidden")
-            })
-
-        })
 
     }
 });

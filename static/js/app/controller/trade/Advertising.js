@@ -458,7 +458,7 @@ define([
 
             params.premiumRate = params.premiumRate / 100;
             //广告类型 0=买币，1=卖币
-            params.tradeType = $(".trade-type .item.on").index() == '0' ? '1' : '0';
+            params.tradeType = $(".trade-type .item.on").index() == '0' ? '1' : '0';debugger
             params.onlyTrust = $("#onlyTrust").hasClass("on") ? '1' : '0';
             // params.tradeCoin = $("#tradeCoin").val();
             params.publishType = publishType;

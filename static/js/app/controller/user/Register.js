@@ -20,7 +20,7 @@ define([
     function init() {
         $(".head-button-wrap .button-login").removeClass("hidden");
         base.showLoadingSpin();
-        // getSysConfig();   // 测试
+        getSysConfig();   // 测试
         base.hideLoadingSpin(); // 测试
         addListener();
 
@@ -35,7 +35,6 @@ define([
 
     // 注册
     function register(params, type) {
-        console.log(params);
         if (type == 'mobile') {
             return UserCtr.register(params).then((data) => {
                 base.hideLoadingSpin();
@@ -53,17 +52,19 @@ define([
                             sessionStorage.setItem("mobile", item.mobile);
                             sessionStorage.setItem("inviteCode", item.userId);
                             base.hideLoadingSpin();
-                            base.showMsg("登录成功")
+                            setTimeout(() => {
+                                base.showMsg("登录成功")
+                            }, 1000);
                             setTimeout(function() {
                                 base.goReturn()
-                            }, 1000)
+                            }, 2000)
                         })
                     })
                 }, 300);
             }, base.hideLoadingSpin);
         } else {
             return UserCtr.emailRegister(params).then(() => {
-                base.hideLoadingSpin();debugger
+                base.hideLoadingSpin();
                 base.showMsg("注册成功");
                 let loginParams = {
                     loginName: params.email,
@@ -76,11 +77,13 @@ define([
                         sessionStorage.setItem("googleAuthFlag", item.googleAuthFlag);
                         sessionStorage.setItem("mobile", item.mobile);
                         sessionStorage.setItem("inviteCode", item.userId);
-                        base.hideLoadingSpin()
-                        base.showMsg("登录成功")
+                        base.hideLoadingSpin();
+                        setTimeout(() => {
+                            base.showMsg("登录成功")
+                        }, 1000);
                         setTimeout(function() {
                             base.goReturn()
-                        }, 800)
+                        }, 2000)
                     })
                 })
             }, base.hideLoadingSpin)
@@ -88,7 +91,6 @@ define([
     }
     //获取邮箱验证码
     function emailYzm(config) {
-
         return UserCtr.emailYzm(config).then((data) => {
             console.log(data);
         });

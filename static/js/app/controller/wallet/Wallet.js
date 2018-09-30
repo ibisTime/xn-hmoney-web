@@ -191,7 +191,11 @@ define([
             toType = $(pType + ' .x-p_money').eq(0).text();
             getNumberMoney('X', toType).then(data => {
                 moneyHS = parseFloat(data);
-                $('.x-mon').text((Math.floor(moneyHS * 100) / 100).toFixed(2));
+                if(!isw){
+                    $('.x-mon').text((Math.floor(moneyHS * 100) / 100).toFixed(2));
+                }else{
+                    $(pType + ' .x-mon').text((Math.floor(moneyHS * 100) / 100).toFixed(2));
+                }
             });
             if (toType == 'CNY') {
                 $('.b-m_type').text('￥');
@@ -244,6 +248,11 @@ define([
             GeneralCtr.getSysConfigType('simu_order_rule').then(data => {
                 fvData = parseFloat(data.simu_order_fee_rate) * 100;
                 $('.sxf').text(fvData)
+            })
+            //涨幅
+            getZfData().then(data => {
+                console.log('涨幅：', data);
+                $('.x-bf_r').text(data.list[0].exchangeRate + '%');
             })
             if(!userAccountNum){
                 qhMoneyType('.con-toBuy', 'CNY');
@@ -643,6 +652,16 @@ define([
         });
     }
 
+    // 获取涨幅
+    function getZfData(){
+        return Ajax.post("650100", {
+            start: '1',
+            limit: '10',
+            symbol: 'X',
+            toSymbol: 'BTC'
+        }, true);
+    }
+
     // 购买X币
     function buyX(config) {
         return Ajax.post('625270', config);
@@ -818,8 +837,8 @@ define([
                 return;
             }
             UserCtr.getUser(true).then((data) => {
-                if (data.tradepwdFlag && data.realName) {
-                    if ($(target).text() == '提币') {
+                if ($(target).text() == '提币') {
+                    if (data.tradepwdFlag && data.realName) {
                         $('.bb-box').hide(200);
                         if ($(target).attr('class') == 'sel-sp') {
                             $(target).parents('.tr-mx').siblings('.con-tb').hide(200);
@@ -829,17 +848,17 @@ define([
                             $(target).addClass('sel-sp').siblings().removeClass('sel-sp');
                             $(target).parents('.tr-mx').siblings('.con-tb').show(200).siblings('.con-box').hide(200);
                         }
+                    } else if (!data.tradepwdFlag) {
+                        base.showMsg("请先设置资金密码")
+                        setTimeout(function() {
+                            base.gohref("../user/setTradePwd.html?type=0")
+                        }, 1800)
+                    } else if (!data.realName) {
+                        base.showMsg("请先进行身份验证")
+                        setTimeout(function() {
+                            base.gohref("../user/identity.html")
+                        }, 1800)
                     }
-                } else if (!data.tradepwdFlag) {
-                    base.showMsg("请先设置资金密码")
-                    setTimeout(function() {
-                        base.gohref("../user/setTradePwd.html?type=1")
-                    }, 1800)
-                } else if (!data.realName) {
-                    base.showMsg("请先进行身份验证")
-                    setTimeout(function() {
-                        base.gohref("../user/identity.html")
-                    }, 1800)
                 }
             }, base.hideLoadingSpin);
         })

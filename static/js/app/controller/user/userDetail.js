@@ -131,8 +131,8 @@ define([
         return `<tr>
 					<td class="currency">${base.getCoinName(item.tradeCoin)}(${item.tradeCoin})</td>
 					<td class="payType">${payType[item.payType]}</td>
-					<td class="limit">${item.minTrade}-${item.maxTrade}CNY</td>
-					<td class="price">${item.truePrice}CNY/${item.tradeCoin?item.tradeCoin:' ETH'}</td>
+					<td class="limit">${item.minTrade}-${item.maxTrade} ${item.tradeCurrency}</td>
+					<td class="price">${item.truePrice} ${item.tradeCurrency}/${item.tradeCoin?item.tradeCoin:' ETH'}</td>
 					<td class="operation">
 						${operationHtml}
 					</td>

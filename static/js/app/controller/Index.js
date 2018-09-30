@@ -3,8 +3,9 @@ define([
     'app/util/handlebarsHelpers',
     'swiper',
     'app/interface/GeneralCtr',
+    'app/interface/UserCtr',
     'app/util/ajax'
-], function(base, Handlebars, Swiper, GeneralCtr, Ajax) {
+], function(base, Handlebars, Swiper, GeneralCtr, UserCtr, Ajax) {
 
     let adverData = []; // 广告数据
     let aarketData = []; // 行情数据
@@ -28,7 +29,18 @@ define([
             })
             base.hideLoadingSpin()
         }, base.hideLoadingSpin)
-        $(".head-nav-wrap .index").addClass("active")
+        $(".head-nav-wrap .index").addClass("active");
+        UserCtr.getUser(true).then((item) => {
+            base.hideLoadingSpin();
+            if (!item.mobile){
+                setTimeout(() => {
+                    base.showMsg('请绑定手机号');
+                    setTimeout(() => {
+                        base.gohrefReplace("../user/setPhone.html");
+                    }, 2000)
+                }, 500);
+            }
+        })
 
         addListener();
         getAdvertising().then(data => {
@@ -53,11 +65,11 @@ define([
                         <img src="${item.tradeType == 0 ? '/static/images/buy.png' : '/static/images/sell.png'}" alt="">
                     </div>
                     <h5>${typeList[item.tradeType]} ${item.tradeCoin}</h5>
-                    <p>价格：<span>${(Math.floor(item.truePrice * 1000)/1000).toFixed(3)}</span> CNY</p>
-                    <p>交易限额：<span>${item.minTrade}</span> ～ <span>${item.maxTrade}</span> CNY</p>
+                    <p>价格：<span>${(Math.floor(item.truePrice * 1000)/1000).toFixed(3)}</span>  ${item.tradeCurrency}</p>
+                    <p>交易限额：<span>${item.minTrade}</span> ～ <span>${item.maxTrade}</span>  ${item.tradeCurrency}</p>
                     <p>付款方式：<span><img src="${payImage}" alt=""></span></p>
                     <div class="btn-box">
-                        <button class="goHref" data-href="${item.tradeType == 0 ? '../trade/buy-list.html' : '../trade/sell-list.html'}">${typeList[item.tradeType]}</button>
+                        <button class="goHref" data-href="${item.tradeType == 0 ? '../trade/sell-list.html' : '../trade/buy-list.html'}">${typeList[item.tradeType]}</button>
                     </div>
                 </li>`
             })

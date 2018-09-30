@@ -15,11 +15,11 @@
         <div class="invitation-content over-hide bg_fff">
             <div class="fl txt mr220 cur-pointer" id="myInvitationList">
                 <p>成功邀请</p>
-                <p><samp class="inviteCount"></samp> 人</p>
+                <p><samp class="inviteCount"></samp> (人)</p>
             </div>
             <div class="fl txt">
-                <p>提成收益</p>
-                <p><samp class="inviteProfit"></samp> X</p>
+                <p>既得收益</p>
+                <p><samp class="inviteProfit"></samp> (X)</p>
             </div>
             <div class="fr pt10">
                 <div class="am-button am-button-red mr30 none" id="qrcodeBtn">二维码推荐</div>
@@ -39,7 +39,7 @@
                                 <td>用户名</td>
                                 <td>注册时间</td>
                                 <td>交易总额</td>
-                                <td>佣金计算(交易佣金 + 注册佣金)</td>
+                                <td>佣金计算(注册佣金 + 交易佣金)</td>
                             </tr>
                         </thead>
                         <tbody id="yq-content">
@@ -49,9 +49,9 @@
                         <img src="../../images/暂无明细.png" />
                         <p>暂无广告</p>
                     </div>
-                </div>
-                <div id="pagination" class="wp100 pagination-wrap tc hidden">
-                    <p class="pagination"></p>
+                    <div id="pagination" class="wp100 pagination-wrap tc">
+                        <p class="pagination"></p>
+                    </div>
                 </div>
 
             </div>
@@ -88,7 +88,7 @@
                             <p>复制下面这段文字给好友，好友通过你的专属链接注册成功，你就可以享受好友的交易提成了</p>
                         </div>
                         <div class="hrefWrap b_e">
-                            <p>http://localhost:400915761663457</p>
+                            <p></p>
                         </div>
                     </div>
                 </div>
@@ -96,7 +96,7 @@
         </div>
 
         <!--推荐人列表弹窗-->
-        <div class="am-modal-wrap dialog userReferee-dialog hidden" id="userRefereeDialog">
+        <!-- <div class="am-modal-wrap dialog userReferee-dialog hidden" id="userRefereeDialog">
             <div class="am-modal-mask"></div>
             <div class="am-modal">
                 <div class="am-modal-content">
@@ -106,20 +106,7 @@
                     <div class="am-modal-body">
                         <div class="trust-wrap over-hide wp100">
                             <table id="userRefereeList" class="wp100 trust-form" cellpadding="0" cellspacing="0">
-                                <!--<tr>
-										<td>
-											<div class="photoWrap">
-												<div class="photo"><div class="noPhoto">J</div></div>
-											</div>
-										</td>
-										<td><div class="txt1">junxi</div></td>
-										<td class="credit">
-											<p>交易15·好评率100% · 信任15</p>
-										</td>
-										<td>
-											<div class="datetime">2018-01-25</div>
-										</td>
-									</tr>-->
+                                
                             </table>
                         </div>
                         <div class="no-data hidden">
@@ -132,7 +119,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> -->
         <!--提成收益列表弹窗-->
         <div class="am-modal-wrap dialog inviteProfit-dialog hidden" id="inviteProfitDialog">
             <div class="am-modal-mask"></div>
