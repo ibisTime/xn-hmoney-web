@@ -173,18 +173,30 @@ define([
             if (isw == '0') {
                 if (m_type == 'CNY') {
                     $('.con-toBuy .x-p_money').text('USD');
+                    if($('.con-toBuy .sel-p').text() === '数量'){
+                        $('.con-toBuy .m_bb').text('X');
+                    }
                     $('.con-toBuy .m_cyn').text('USD');
                 } else {
                     $('.con-toBuy .x-p_money').text('CNY');
+                    if($('.con-toBuy .sel-p').text() === '数量'){
+                        $('.con-toBuy .m_bb').text('X');
+                    }
                     $('.con-toBuy .m_cyn').text('CNY');
                 }
             }
             if (isw == '1') {
                 if (m_type == 'CNY') {
                     $('.con-toSell .x-p_money').text('USD');
+                    if($('.con-toSell .sel-p').text() === '数量'){
+                        $('.con-toSell .m_bb').text('X');
+                    }
                     $('.con-toSell .m_cyn').text('USD');
                 } else {
                     $('.con-toSell .x-p_money').text('CNY');
+                    if($('.con-toSell .sel-p').text() === '数量'){
+                        $('.con-toSell .m_bb').text('X');
+                    }
                     $('.con-toSell .m_cyn').text('CNY');
                 }
             }
@@ -199,14 +211,20 @@ define([
             });
             if (toType == 'CNY') {
                 $('.b-m_type').text('￥');
+                $(pType + ' .x-p_money').text('CNY');
+                if($(pType + ' .sel-p').text() === '数量'){
+                    $(pType + ' .m_bb').text('X');
+                }
                 $(pType + ' .min-money').text(data.accept_order_min_cny_amount);
                 $(pType + ' .max-money').text(data.accept_order_max_cny_amount);
-                $(pType + ' .x-p_money').text('CNY');
             } else {
                 $('.s-m_type').text('$');
                 $(pType + ' .min-money').text(data.accept_order_min_usd_amount);
                 $(pType + ' .max-money').text(data.accept_order_max_usd_amount);
                 $(pType + ' .x-p_money').text('USD');
+                if($(pType + ' .sel-p').text() === '数量'){
+                    $(pType + ' .m_bb').text('X');
+                }
             }
         })
     }
@@ -849,12 +867,12 @@ define([
                             $(target).parents('.tr-mx').siblings('.con-tb').show(200).siblings('.con-box').hide(200);
                         }
                     } else if (!data.tradepwdFlag) {
-                        base.showMsg("请先设置资金密码")
+                        base.showMsg("请先设置资金密码");
                         setTimeout(function() {
                             base.gohref("../user/setTradePwd.html?type=0")
                         }, 1800)
                     } else if (!data.realName) {
-                        base.showMsg("请先进行身份验证")
+                        base.showMsg("请先进行身份验证");
                         setTimeout(function() {
                             base.gohref("../user/identity.html")
                         }, 1800)
@@ -866,11 +884,15 @@ define([
         // 切换交易货币类型
         $('.con-toBuy .x-h_p2 img').click(function () {
             let m_type = $(this).parent().prev().children('.x-p_money').text();
+            $('.b-c_put input').val('');
+            $('.x_num').text('0.00');
             qhMoneyType('.con-toBuy', m_type, '0');
         })
 
         $('.con-toSell .x-h_p2 img').click(function () {
             let m_type = $(this).parent().prev().children('.x-p_money').text();
+            $('.b-c_put input').val('');
+            $('.x_num').text('0.00');
             qhMoneyType('.con-toSell', m_type, '1');
         })
 
@@ -880,6 +902,7 @@ define([
         $('.to-buy').off('click').click(function () {
             $('.b-c_h p').eq(0).addClass('sel-p').siblings().removeClass('sel-p');
             $('.b-c_put input').val('');
+            $('.x_num').text('0.00');
             isSell = false;
             if ($(this).hasClass('sel-sp')) {
                 $('.con-toBuy').hide();
@@ -895,6 +918,7 @@ define([
         $('.to-sell').off('click').click(function () {
             $('.b-c_h p').eq(0).addClass('sel-p').siblings().removeClass('sel-p');
             $('.b-c_put input').val('');
+            $('.x_num').text('0.00');
             isSell = true;
             $('.b-c_put p').text('请输入卖出金额');
             if ($(this).hasClass('sel-sp')) {
@@ -913,24 +937,24 @@ define([
             $('.b-c_put input').val('');
             $('.x_num').text('0.00');
             if (isSell) {
+                let m_type = $('.con-toSell .x-p_money').eq(0).text();
                 if ($(this).text() == '金额') {
                     $('.b-c_put p').text('请输入卖出金额');
-                    $('.m_bb').text('CNY');
                     $('.m_cyn').text('X');
                 } else {
                     $('.b-c_put p').text('请输入卖出数量');
                     $('.m_bb').text('X');
-                    $('.m_cyn').text('CNY');
+                    $('.con-toSell .m_cyn').text(m_type);
                 }
             } else {
+                let m_type = $('.con-toBuy .x-p_money').eq(0).text();
                 if ($(this).text() == '金额') {
                     $('.b-c_put p').text('请输入购买金额');
-                    $('.m_bb').text('CNY');
                     $('.m_cyn').text('X');
                 } else {
                     $('.b-c_put p').text('请输入购买数量');
                     $('.m_bb').text('X');
-                    $('.m_cyn').text('CNY');
+                    $('.con-toBuy .m_cyn').text(m_type);
                 }
             }
         })
@@ -955,7 +979,7 @@ define([
             } else {
                 rmb = parseFloat($(this).val()) * moneyHS;
             }
-            rmb = (Math.floor(rmb * 1000) / 1000).toFixed(3);
+            rmb = (Math.floor(rmb * 100000000) / 100000000).toFixed(8);
             if (isNaN(rmb)) {
                 rmb = '0.00';
             }
@@ -969,7 +993,7 @@ define([
             //买入
             if ($(this).text() == '买入' && $('.buy-c .sel-p').text() == '金额') {
                 let allMoney = parseFloat($('.con-toBuy .b-c_put input').val().trim());
-                let m_count = base.formatMoneyParse($('.con-toBuy .x_num').text().trim(), '', 'X');
+                let m_count = base.formatMoneyParse($('.con-toBuy .x_num').text(), '', 'X');
                 changeBuyMoney(p_money, allMoney, m_count);
             }
 
@@ -981,9 +1005,8 @@ define([
             }
 
             function changeBuyMoney(p_money, allMoney, m_count) {
-                
                 if (p_money == 'CNY') {
-                    if (moneyXZ.min < allMoney && allMoney < moneyXZ.max_cny) {
+                    if (moneyXZ.min_cny <= allMoney && allMoney <= moneyXZ.max_cny) {
                         let buyConfig = {
                             tradeCurrency: 'CNY',
                             tradePrice: moneyHS,
@@ -1000,7 +1023,7 @@ define([
                     }
                 }
                 if (p_money == 'USD') {
-                    if (moneyXZ.min_usd < allMoney && allMoney < moneyXZ.max_usd) {
+                    if (moneyXZ.min_usd <= allMoney && allMoney <= moneyXZ.max_usd) {
                         let buyConfig = {
                             tradeCurrency: 'USD',
                             tradePrice: moneyHS,
@@ -1038,7 +1061,7 @@ define([
 
                 function changeSellMoney(p_money, allMoney, m_count, m_receiveCardNo) {
                     if (p_money == 'CNY') {
-                        if (moneyXZ.min_cny < allMoney && allMoney < moneyXZ.max_cny) {
+                        if (moneyXZ.min_cny <= allMoney && allMoney <= moneyXZ.max_cny) {
                             let sellConfig = {
                                 userId: base.getUserId(),
                                 tradeCurrency: 'X',
@@ -1056,7 +1079,7 @@ define([
                         }
                     }
                     if (p_money == 'USD') {
-                        if (moneyXZ.min_usd < allMoney && allMoney < moneyXZ.max_usd) {
+                        if (moneyXZ.min_usd <= allMoney && allMoney <= moneyXZ.max_usd) {
                             let sellConfig = {
                                 userId: base.getUserId(),
                                 tradeCurrency: 'X',
@@ -1080,7 +1103,7 @@ define([
         function showMsg(txt) {
             let text = txt || '订单提交成功'
             $('.b-c_put input').val('');
-            $('.x_num').text('0.000');
+            $('.x_num').text('0.00');
             $('.back-type input').val('');
             base.showMsg(text);
         }

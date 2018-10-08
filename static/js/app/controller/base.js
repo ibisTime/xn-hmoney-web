@@ -201,9 +201,11 @@ define([
             var r = r || new BigDecimal.BigDecimal(unit);
             if (m == '') {
                 return '-';
+            } else {
+                m = Number(m).toString();
             }
             m = new BigDecimal.BigDecimal(m);
-            m = m.multiply(r).toString();
+            m = m.multiply(r).toString();console.log(m)
             return m;
         },
         //密码强度等级判断

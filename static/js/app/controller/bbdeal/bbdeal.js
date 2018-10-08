@@ -473,7 +473,8 @@ define([
         UserCtr.userAllMoneyX('CNY').then(data => {
             console.log('总资产', data);
             $('.u-bb').text(data.symbol);
-            $('.u-money').text(data.currency);
+            let currency = (Math.floor(data.currency * 100) / 100).toFixed(2);
+            $('.u-money').text(currency).prop('title', currency);
         })
     }
 
@@ -645,7 +646,7 @@ define([
             if (isType == 0) {
                 let price = $(inpPrice).val().trim();
                 if(price == 0){
-                    base.showMsg('价格不为0');
+                    base.showMsg('价格不能小于等于0');
                 }
                 if (outBlur(inpPrice) && outBlur(inpNum) && price != '0') {
                     getLimitedPriceData('1', direction, price, totalCount).then(data => {

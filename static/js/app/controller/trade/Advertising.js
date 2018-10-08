@@ -428,8 +428,7 @@ define([
                 } else {
                     publishType = '1';
                 }
-
-                doSubmit(publishType)
+                doSubmit(publishType);
             }
         })
 
@@ -441,7 +440,7 @@ define([
             }
             if (_formWrapper.valid()) {
                 var publishType = '0';
-                doSubmit(publishType)
+                doSubmit(publishType);
             }
         })
 
@@ -458,7 +457,7 @@ define([
 
             params.premiumRate = params.premiumRate / 100;
             //广告类型 0=买币，1=卖币
-            params.tradeType = $(".trade-type .item.on").index() == '0' ? '1' : '0';debugger
+            params.tradeType = $(".trade-type .item.on").index() == '0' ? '1' : '0';
             params.onlyTrust = $("#onlyTrust").hasClass("on") ? '1' : '0';
             // params.tradeCoin = $("#tradeCoin").val();
             params.publishType = publishType;

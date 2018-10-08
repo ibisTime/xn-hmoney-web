@@ -7,7 +7,7 @@ define([
     var inviteCode = sessionStorage.getItem("inviteCode")
     var config = {
         start: 1,
-        limit: 10,
+        limit: 5,
         userId: base.getUserId()
     };
     let inviNumber = 0;
@@ -34,7 +34,7 @@ define([
     //获取我推荐的人数和收益统计
     function getInvitation() {
         return UserCtr.getInvitation().then((data) => {
-            let settleCount = data.nosettleCount + data.settleCount + data.unsettleCount;
+            let settleCount = base.formatMoney(`${data.nosettleCount + data.settleCount + data.unsettleCount}`, '', 'X');
             $('.inviteProfit').text(settleCount);
         }, base.hideLoadingSpin)
     }
@@ -67,7 +67,6 @@ define([
     //活动说明
     function getSysConfig() {
         return GeneralCtr.getSysConfig("activity_rule").then((data) => {
-            console.log('规则', data);
             $(".activity-content").html(data.cvalue.replace(/\n/g, '<br>'));
             base.hideLoadingSpin();
         }, base.hideLoadingSpin)

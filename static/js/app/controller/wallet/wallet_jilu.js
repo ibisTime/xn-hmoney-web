@@ -24,14 +24,14 @@ define([
     function init() {
         base.showLoadingSpin();
         addListener();
-        getCTSFn(j_config);
         GeneralCtr.getDictList({
             "parentKey": "accept_order_status"
         }).then((data) => {
             data.forEach(item => {
                 statusList[item.dkey] = item.dvalue;
             })
-        })
+            getCTSFn(j_config);
+        });
     }
 
     function getCTSFn(j_config) {
@@ -74,7 +74,6 @@ define([
                         <p class="${item.type == 0 ? 'd-mr' : 'd-mc'}">${typeList[item.type]}</p>
                         <p>${item.tradeCurrency}</p>
                         <p>${item.tradeAmount}</p>
-                        <p>$</p>
                         <p class="date_num">${base.formatMoney(`${item.count}`, '', 'X')}</p>
                         <p class="date_p">${base.formateDatetime(item.createDatetime)}</p>
                         <p>${statusList[item.status]}</p>

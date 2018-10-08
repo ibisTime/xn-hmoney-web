@@ -45,6 +45,7 @@ define([
         $('.o-all').text(userCTSList.tradeAmount);
         $('.o-status').text(statusList[userCTSList.status]);
         $('.o-date').text(base.formateDatetime(userCTSList.createDatetime));
+        $('.o-money').text(userCTSList.tradeCurrency)
 
         $('.u-name').text(userCTSList.bankcard.realName);
         $('.u-kcode').text(userCTSList.receiveCardNo);

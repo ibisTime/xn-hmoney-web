@@ -5,6 +5,7 @@ define([
 ], function(base, GeneralCtr, Ajax) {
     init();
     getFooData();
+    getAboutUs();
     // 获取Q社群
     function getFooData(){
         return GeneralCtr.getBanner({
@@ -26,6 +27,12 @@ define([
         }, (msg) => {
             base.showMsg(msg || "加载失败");
         });
+    }
+
+    function getAboutUs(){
+        return GeneralCtr.getSysConfig('service').then(data => {
+            console.log('us', data);
+        })
     }
 
     function init(){

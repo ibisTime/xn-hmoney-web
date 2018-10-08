@@ -2440,7 +2440,7 @@ table {
                 width: 100%;
                 padding: 0;
                 li {
-                    width: 129px;
+                    width: 133px;
                     margin: 0;
                     text-align: center;
                     cursor: default !important;
@@ -3080,6 +3080,9 @@ table {
                 padding-left: 0px;
                 margin-bottom: 20px;
                 background-color: #d53d3d;
+            }
+            .sel-li{
+                color: #d53d3d;
             }
         }
     }
@@ -5249,7 +5252,7 @@ table {
             }
             .baz-p {
                 font-family: 'PingFangSC-Semibold';
-                padding: 29px 0 42px;
+                padding: 9px 0 12px;
                 color: #333333;
                 font-size: 14px;
                 .baz-all {
@@ -5262,6 +5265,13 @@ table {
                         font-weight: 500;
                         margin-right: 5px;
                     }
+                }
+                .u-money{
+                    display: inline-block;
+                    max-width: 94px;
+                    vertical-align: bottom;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
                 }
             }
             .baz-search {

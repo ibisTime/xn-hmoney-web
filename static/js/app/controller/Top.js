@@ -204,7 +204,7 @@ define([
             // }
         })
 
-        $("#head-user-wrap .isTradePwdFlag").click(function () {
+        $("body").on('click','.isTradePwdFlag', function () {
             var _this = $(this);
 
             UserCtr.getUser().then((data) => {

@@ -37,7 +37,9 @@ define([
             });
             getOrderDetail();
         }, base.hideLoadingSpin);
-
+        GeneralCtr.getSysConfig('tips').then(data => {
+            $('.wxtip-txt').html(data.cvalue.replace(/\n/g, '<br>'));
+        })
         addListener();
     }
 
@@ -987,16 +989,16 @@ define([
 
         //表情
         $('#msgImg').on('click', function() {
-                if ($(this).hasClass("on")) {
-                    $(".emotionUL-wrap").addClass("hidden");
-                    $(this).removeClass("on")
-                } else {
-                    $(".emotionUL-wrap").removeClass("hidden");
-                    $(this).addClass("on")
-                    showEmotionDialog();
-                }
-            })
-            //--end--
+            if ($(this).hasClass("on")) {
+                $(".emotionUL-wrap").addClass("hidden");
+                $(this).removeClass("on");
+            } else {
+                $(".emotionUL-wrap").removeClass("hidden");
+                $(this).addClass("on");
+                showEmotionDialog();
+            }
+        })
+
 
         //评价
         $("#commentDialog .comment-Wrap .item").click(function() {

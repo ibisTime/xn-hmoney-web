@@ -2,23 +2,45 @@ define([
     'app/controller/base',
     'app/interface/GeneralCtr'
 ], function(base, GeneralCtr) {
-    var key = base.getUrlParam("key");
+    var key = base.getUrlParam('key') || '1';
 
     init();
 
     function init() {
         base.showLoadingSpin();
-        getSysConfig();
+        let wLi = $('.article-left li').eq(key);
+        wLi.addClass('sel-li');
+        $('.hmoney-tit').text(wLi.text());
+        selContent(key);
         addListener();
     }
 
-    function getSysConfig() {
-        return GeneralCtr.getSysConfig(key).then((data) => {
-            $("title").html(data.remark + "-HappyMoney");
+    function getSysConfig(ckey) {
+        return GeneralCtr.getSysConfig(ckey).then((data) => {
             $("#content").html(data.cvalue);
-            base.hideLoadingSpin();
         }, base.hideLoadingSpin)
     }
 
-    function addListener() {}
+    function selContent(key){
+        switch(key){
+            case '1': 
+                getSysConfig('about_us');
+                break;
+            case '2': 
+                getSysConfig('service');
+                break;
+            case '4': 
+                getSysConfig('privacy');
+                break;
+        }
+    }
+
+    function addListener() {
+        $('.article-left li').click(function(e){
+            let target = e.target;
+            $(this).addClass('sel-li').siblings('li').not($('.art-tit')).removeClass('sel-li');
+            $('.hmoney-tit').text($(this).text());
+            selContent($(this).index().toString());
+        })
+    }
 });
