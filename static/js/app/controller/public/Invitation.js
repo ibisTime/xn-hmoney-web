@@ -11,24 +11,34 @@ define([
         userId: base.getUserId()
     };
     let inviNumber = 0;
-
+    let INVITATION_HREF = '';
     init();
 
     function init() {
         // base.showLoadingSpin();
         $(".head-nav-wrap .advertise").addClass("active");//DOMAIN_NAME
+        // web端文字推荐
         $("#invitationDialog .hrefWrap p").html(DOMAIN_NAME + "/user/register.html?inviteCode=" + inviteCode)
-        var qrcode = new QRCode('qrcode', INVITATION_HREF + "/user/register.html?inviteCode=" + inviteCode);
-        qrcode.makeCode(INVITATION_HREF + "/user/register.html?inviteCode=" + inviteCode);
 
         $.when(
             getInvitationHistory(config),
             getInvitation(),
             getSysConfig(),
+            getInvitaFn()
             // getUserInviteProfit()
         )
         addListener();
 
+    }
+
+    // 获取邀请好友的链接
+    function getInvitaFn(){
+        return GeneralCtr.getSysConfig('invite_url').then(data => {
+            INVITATION_HREF = data.cvalue;
+            // h5 二维码推荐
+            var qrcode = new QRCode('qrcode', INVITATION_HREF + "?inviteCode=" + inviteCode);
+            qrcode.makeCode(INVITATION_HREF + "?inviteCode=" + inviteCode);
+        })
     }
 
     //获取我推荐的人数和收益统计

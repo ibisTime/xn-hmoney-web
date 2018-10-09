@@ -368,6 +368,14 @@ define([
             setBazDeal.symbol = bazaarData[0].symbol;
             setBazDeal.toSymbol = bazaarData[0].toSymbol;
         }
+        userConfig = {
+            ...userConfig,
+            ...setBazDeal
+        }
+        hisConfig = {
+            ...hisConfig,
+            ...setBazDeal
+        }
     }
 
     // 市场（交易对）
@@ -412,7 +420,7 @@ define([
 
     // 分页查询我的委托单
     function getMyorderTicket(config) {
-        return Ajax.post('650058', config)
+        return Ajax.post('650058', config);
     }
 
     // 分页查询我的历史委托单
@@ -594,7 +602,7 @@ define([
                     $('.bb-jiaoyi input').css('border-color', '#e5e5e5').val('');
                     $('.jy-money').css('opacity', '1');
                     $('.all-bb').text('0.00');
-                    $('.jy-me').text('0.000000');
+                    $('.jy-me').text('0.00000000');
                     $('.mr-exc').text('0.00');
                     break;
                 case '市价交易':
@@ -701,8 +709,8 @@ define([
                     return false;
                 }
             }
-            $('.jy-ce').text('0.000000');
-            $('.jy-me').text('0.000000');
+            $('.jy-ce').text('0.00000000');
+            $('.jy-me').text('0.00000000');
             $('#buyNum').val('');
             $('#sellNum').val('');
         }
@@ -771,7 +779,7 @@ define([
             let buyPassage = 0;
             if (outBlur(this)) {
                 if(parseFloat($('.baz-all').text()) != 0){
-                    $('.jy-me').text(((($('#ym-price').val() * $('#buyNum').val()) * 1000000) / 1000000).toFixed(6) + ' ');
+                    $('.jy-me').text(((($('#ym-price').val() * $('#buyNum').val()) * 100000000) / 100000000).toFixed(8) + ' ');
                 }
                 let buyNumValue = parseFloat($(this).val());
                 let buyAllValue = parseFloat($('.all-bb').text());
@@ -779,7 +787,7 @@ define([
                     if (buyNumValue < buyAllValue) {
                         buyPassage = (buyNumValue / buyAllValue) * 100;
                     } else {
-                        buyPassage = 100;
+                        buyPassage = 0;
                         $('.jy-me').text(buyAllValue);
                     }
                 }
@@ -793,7 +801,7 @@ define([
                     $(`.j-sp .br-${i}`).css('background-color', '#f1f1f1');
                 }
             } else {
-                $('.jy-me').text('0.000000')
+                $('.jy-me').text('0.00000000')
             }
         })
         $('#sellNum').keyup(function () {
@@ -822,7 +830,7 @@ define([
                 $('.y-sp .sel-span').css('left', sellPassage + '%');
                 $('.y-sp .br-p').css('width', sellPassage + '%');
             } else {
-                $('.jy-ce').text('0.000000 ')
+                $('.jy-ce').text('0.00000000 ')
             }
         })
 
@@ -914,7 +922,7 @@ define([
                 let mcBB = parseFloat($('.all-bb').text());
                 let r_bb = (Math.floor((gleft * mcBB) * 10000) / 10000).toFixed(4);
                 $(target).parents('.dr-box').prev().children('input').val(r_bb);
-                $('.jy-me').text(((Math.floor((r_bb * $('#ym-price').val()) * 10000)) / 10000).toFixed(4));
+                $('.jy-me').text(((Math.floor((r_bb * $('#ym-price').val()) * 100000000)) / 100000000).toFixed(8));
 
                 for (let i = 1; i < index; i++) {
                     $(`.j-sp .br-${i}`).css('background-color', '#d53d3d');
@@ -931,7 +939,7 @@ define([
                 let mcBB = parseFloat($('.all-bb_c').text());
                 let r_bb = (Math.floor((gleft * mcBB) * 10000) / 10000).toFixed(4);
                 $(target).parents('.dr-box').prev().children('input').val(r_bb);
-                $('.jy-ce').text(((Math.floor((r_bb * $('#yr-price').val()) * 10000)) / 10000).toFixed(4));
+                $('.jy-ce').text(((Math.floor((r_bb * $('#yr-price').val()) * 100000000)) / 100000000).toFixed(8));
 
                 for (let i = 1; i < index; i++) {
                     $(`.y-sp .br-${i}`).css('background-color', '#d53d3d');
@@ -993,14 +1001,14 @@ define([
             if (allBB != 0 && type == '买') {
                 let m_bb = (Math.floor(((gLeft * allBB) / 100) * 10000) / 10000).toFixed(4);
                 $(that).parents('.dr-box').prev().children('input').val(m_bb);
-                $('.jy-me').text(((Math.floor((m_bb * $('#ym-price').val()) * 10000)) / 10000).toFixed(4));
+                $('.jy-me').text(((Math.floor((m_bb * $('#ym-price').val()) * 100000000)) / 100000000).toFixed(8));
             }
             // 卖人量
             let mcBB = parseFloat($('.all-bb_c').text());
             let r_bb = (Math.floor(((gLeft * mcBB) / 100) * 10000) / 10000).toFixed(4);
             if (mcBB != 0 && type == '卖') {
                 $(that).parents('.dr-box').prev().children('input').val(r_bb);
-                $('.jy-ce').text(((Math.floor((r_bb * $('#yr-price').val()) * 10000)) / 10000).toFixed(4));
+                $('.jy-ce').text(((Math.floor((r_bb * $('#yr-price').val()) * 100000000)) / 100000000).toFixed(8));
             }
             i++;
         }).one('mouseup', function () {

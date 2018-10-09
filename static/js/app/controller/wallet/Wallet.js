@@ -20,7 +20,8 @@ define([
     let ismx = arrHref[arrHref.length - 1];
 
     let moneyHS = 0;
-    let zfType = {}; // 支付方式
+    let zfType = {}; // 去购买支付方式
+    let gmType = {}; // 去出售支付方式
 
     let moneyXZ = {};
 
@@ -101,6 +102,11 @@ define([
         getBankData().then(data => {
             data.forEach(item => {
                 zfType[item.bankName] = item.bankCode
+            })
+        });
+        getGmBankData().then(data => {
+            data.forEach(item => {
+                gmType[item.bankName] = item.bankCode
             })
         });
         //总资产
@@ -267,6 +273,11 @@ define([
                 fvData = parseFloat(data.simu_order_fee_rate) * 100;
                 $('.sxf').text(fvData)
             })
+            // 提现手续费
+            GeneralCtr.getSysConfig('withdraw_fee').then(data => {
+                let txFee = parseFloat(data.cvalue);
+                $('.tx-fee').val(txFee);
+            })
             //涨幅
             getZfData().then(data => {
                 console.log('涨幅：', data);
@@ -275,13 +286,20 @@ define([
             if(!userAccountNum){
                 qhMoneyType('.con-toBuy', 'CNY');
             }
-            let zfTypeHtml = '';
             // zfType[item.zfType[item.bankName] = item.bankCode] = item.bankCode
             getBankData().then(data => {
+                let zfTypeHtml = '';
                 data.forEach(item => {
                     zfTypeHtml += `<option value="${item.bankName}">${item.bankName}</option>`
                 });
                 $('#zf_select').html(zfTypeHtml);
+            });
+            getGmBankData().then(data => {
+                let zfTypeHtml = '';
+                data.forEach(item => {
+                    zfTypeHtml += `<option value="${item.bankName}">${item.bankName}</option>`
+                });
+                $('#zf_select1').html(zfTypeHtml);
             });
             if (ismx != 'wallet-mx') {
                 setTimeout(() => {
@@ -367,9 +385,7 @@ define([
                             <p>付款方式</p>
                             <div>
                                 <span><img src="" alt=""></span>
-                                <select name="zf-type" id="zf_select">
-                                            <option value="支付宝">支付宝</option>
-                                            <option value="银行卡">银行卡</option>
+                                <select name="zf-type" id="zf_select1">
                                         </select>
                                 <span></span>
                             </div>
@@ -423,8 +439,6 @@ define([
                         <h5>温馨提示</h5>
                         <ul class="ts-ul">
                             <li> ${item.currency} 地址只能充值 ${item.currency} 资产，任何充入 ${item.currency} 地址的非 ${item.currency} 资产将不可找回。</li>
-                            <li> 使用${item.currency}地址充值需要 2 个网络确认才能到账。</li>
-                            <li> 最低存入金额为 0.0025 ${item.currency}，我们不会处理少于该金额的 ${item.currency} 存入请求。</li>
                             <li> 在平台内相互转账是实时到账且免费的。</li>
                         </ul>
                     </div>
@@ -448,13 +462,13 @@ define([
                             <div class="form-item-wrap" id="withdrawFee-wrap${i}">
                                 <samp class="label">手续费</samp>
                                 <div class="form-item k_b">
-                                    <input type="text" class="input-item withdrawFee" id="withdrawFee${i}" value="0" disabled="disabled" />
+                                    <input type="text" class="input-item withdrawFee tx-fee" id="withdrawFee${i}" value="" disabled="disabled" />
                                 </div>
                             </div>
                             <div class="form-item-wrap tradePwdWrap">
-                                <samp class="label">支付密码</samp>
+                                <samp class="label">资金密码</samp>
                                 <div class="form-item k_b mr20">
-                                    <input type="password" class="input-item" name="tradePwd" placeholder="请输入支付密码" />
+                                    <input type="password" class="input-item" name="tradePwd" placeholder="请输入资金密码" />
                                 </div>
                                 <div class="findPwd fl goHref" data-href="../user/setTradePwd.html?type=1&isWallet=1">忘记密码？</div>
                             </div>
@@ -480,8 +494,6 @@ define([
                         <h5>温馨提示</h5>
                         <ul class="ts-ul">
                             <li> ${item.currency} 地址只能充值 ${item.currency} 资产，任何充入 ${item.currency} 地址的非 ${item.currency} 资产将不可找回。</li>
-                            <li> 使用${item.currency}地址充值需要 2 个网络确认才能到账。</li>
-                            <li> 最低存入金额为 0.0025 ${item.currency}，我们不会处理少于该金额的 ${item.currency} 存入请求。</li>
                             <li> 在平台内相互转账是实时到账且免费的。</li>
                         </ul>
                     </div>
@@ -629,7 +641,7 @@ define([
     function withDraw(params) {
         return AccountCtr.withDraw(params).then((data) => {
             base.hideLoadingSpin();
-            base.showMsg("操作成功");
+            base.showMsg("操作成功");debugger
             $("#addWAddressDialog").addClass("hidden")
             base.showLoadingSpin();
             config.start = 1;
@@ -653,8 +665,15 @@ define([
         }, base.hideLoadingSpin)
     }
 
-    // 获取银行渠道
+    // 获取银行卡
     function getBankData() {
+        return Ajax.post('802026', {
+            status: '1'
+        })
+    }
+
+    // 获取银行渠道
+    function getGmBankData() {
         return Ajax.post('802116', {
             status: '1'
         })
@@ -989,6 +1008,7 @@ define([
         // 点击下订单
         $('.b-c_foo button').off('click').click(function () {
             let receiveType = $("#zf_select").find("option:selected").val();
+            let receiveType1 = $("#zf_select1").find("option:selected").val();
             let p_money = $('.con-toBuy .x-p_money').eq(0).text(); //判断货币类型
             //买入
             if ($(this).text() == '买入' && $('.buy-c .sel-p').text() == '金额') {
@@ -1064,11 +1084,11 @@ define([
                         if (moneyXZ.min_cny <= allMoney && allMoney <= moneyXZ.max_cny) {
                             let sellConfig = {
                                 userId: base.getUserId(),
-                                tradeCurrency: 'X',
+                                tradeCurrency: 'CNY',
                                 tradePrice: moneyHS,
                                 count: m_count,
                                 receiveCardNo: m_receiveCardNo,
-                                receiveType: zfType[receiveType],
+                                receiveType: gmType[receiveType1],
                                 tradeAmount: allMoney
                             }
                             sellX(sellConfig).then(() => {
@@ -1082,11 +1102,11 @@ define([
                         if (moneyXZ.min_usd <= allMoney && allMoney <= moneyXZ.max_usd) {
                             let sellConfig = {
                                 userId: base.getUserId(),
-                                tradeCurrency: 'X',
+                                tradeCurrency: 'USD',
                                 tradePrice: moneyHS,
                                 count: m_count,
                                 receiveCardNo: m_receiveCardNo,
-                                receiveType: zfType[receiveType],
+                                receiveType: gmType[receiveType1],
                                 tradeAmount: allMoney
                             }
                             sellX(sellConfig).then(() => {

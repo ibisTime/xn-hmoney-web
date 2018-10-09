@@ -32,6 +32,15 @@ define([
             case '4': 
                 getSysConfig('privacy');
                 break;
+            case '5': 
+                getSysConfig('privacy');
+                break;
+            case '6': 
+                getSysConfig('privacy');
+                break;
+            case '7': 
+                getSysConfig('privacy');
+                break;
         }
     }
 

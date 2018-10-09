@@ -155,6 +155,8 @@ define([
 
     //购买
     function buyETH() {
+        config.tradeAmount = $("#buyAmount").val();
+        config.count = base.formatMoneyParse($("#buyEth").val(), '', tradeCoin);
         return TradeCtr.buyETH(config).then((data) => {
                 base.showMsg("购买成功")
 
@@ -222,16 +224,12 @@ define([
             $("#buyAmount").val((Math.floor(truePrice * 100) / 100).toFixed(2));
             $("#submitDialog .tradeAmount").html($("#buyAmount").val() + tradeCurrency)
             $("#submitDialog .count").html($("#buyEth").val() + tradeCoin);
-            config.tradeAmount = $("#buyAmount").val()
-            config.count = base.formatMoneyParse($("#buyEth").val(), '', tradeCoin)
 
         })
         $("#buyAmount").keyup(function() {
             $("#buyEth").val(($("#buyAmount").val() / config.tradePrice).toFixed(8));
-            $("#submitDialog .tradeAmount").html($("#buyAmount").val() + tradeCurrency)
-            $("#submitDialog .count").html($("#buyEth").val() + tradeCoin)
-            config.tradeAmount = $("#buyAmount").val()
-            config.count = base.formatMoneyParse($("#buyEth").val(), '', tradeCoin)
+            $("#submitDialog .tradeAmount").html($("#buyAmount").val() + tradeCurrency);
+            $("#submitDialog .count").html($("#buyEth").val() + tradeCoin);
         })
 
         //下架-点击

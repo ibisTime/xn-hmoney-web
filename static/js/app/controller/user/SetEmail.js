@@ -48,7 +48,7 @@ define([
             checkInfo: function() {
                 return $("#email").valid();
             },
-            bizType: "805043",
+            bizType: "805086",
             id: "getVerification",
             mobile: "email",
             sendCode: '630093',
