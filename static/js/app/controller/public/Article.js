@@ -29,7 +29,7 @@ define([
             case '2': 
                 getSysConfig('service');
                 break;
-            case '4': 
+            case '3': 
                 getSysConfig('privacy');
                 break;
             case '5': 
@@ -39,6 +39,9 @@ define([
                 getSysConfig('privacy');
                 break;
             case '7': 
+                getSysConfig('privacy');
+                break;
+            case '8': 
                 getSysConfig('privacy');
                 break;
         }

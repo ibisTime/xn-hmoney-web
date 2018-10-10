@@ -111,7 +111,7 @@ define([
         });
         //总资产
         UserCtr.userAllMoneyX('CNY').then(data => {
-            console.log('总资产', data);
+            // console.log('总资产', data);
             $('.u-bb').text(data.symbol);
             $('.u-money').text(data.currency);
         })
@@ -133,7 +133,7 @@ define([
                 "parentKey": "jour_biz_type_user"
             }),
         ).then((data1, data2) => {
-
+            // console.log('data1', data1);
             data1.forEach(function (item) {
                 bizTypeValueList[item.dkey] = item.dvalue
             })
@@ -280,7 +280,7 @@ define([
             })
             //涨幅
             getZfData().then(data => {
-                console.log('涨幅：', data);
+                // console.log('涨幅：', data);
                 $('.x-bf_r').text(data.list[0].exchangeRate + '%');
             })
             if(!userAccountNum){
@@ -386,12 +386,18 @@ define([
                             <div>
                                 <span><img src="" alt=""></span>
                                 <select name="zf-type" id="zf_select1">
-                                        </select>
-                                <span></span>
+                                </select>
+                                <span><img src="/static/images/下拉黑.png" alt=""></span>
                             </div>
                         </div>
                         <div class="back-type">
                             <input type="text" placeholder="请输入账号或卡号" />
+                        </div>
+                        <div class="form-item-wrap tradePwdWrap" style="margin-top: 20px;">
+                            <samp class="label">资金密码</samp>
+                            <div class="form-item k_b b-p_m" style="margin-top: 5px;margin-bottom: 20px;">
+                                <input type="password" id="money_pow" class="input-item" name="tradePwd" placeholder="请输入资金密码" />
+                            </div>
                         </div>
                         <div class="b-c_foo">
                             <button>卖出</button>
@@ -407,7 +413,7 @@ define([
                 <li>
                 <ul class="tr-mx">
                     <li>${item.currency}</li>
-                    <li>${kyAmount}</li>
+                    <li title="${kyAmount}">${kyAmount}</li>
                     <li>${frozenAmount}</li>
                     <li>
                         <p class="cz-btns">
@@ -556,7 +562,7 @@ define([
         return `<div class="list-item">
 					<div>${base.formateDatetime(item.createDatetime)}</div>
 					<div>${bizTypeValueList[item.bizType]}</div>
-					<div>${base.formatMoney(item.transAmountString,'',item.currency)}</div>
+					<div title="${base.formatMoney(item.transAmountString,'',item.currency)}">${base.formatMoney(item.transAmountString,'',item.currency)}</div>
 					<div>${item.bizNote}</div>
 				</div>`
     }
@@ -641,7 +647,7 @@ define([
     function withDraw(params) {
         return AccountCtr.withDraw(params).then((data) => {
             base.hideLoadingSpin();
-            base.showMsg("操作成功");debugger
+            base.showMsg("操作成功");
             $("#addWAddressDialog").addClass("hidden")
             base.showLoadingSpin();
             config.start = 1;
@@ -734,9 +740,9 @@ define([
             params.payCardInfo = $(this).parents('.con-tb').siblings('.tr-mx').children('li').eq(0).text();
             params.accountNumber = $(this).prev().attr('data-accountNumber');
             params.amount = base.formatMoneyParse(params.amount, '', params.payCardInfo);
-            console.log(params.payCardInfo);
+            // console.log(params.payCardInfo);
             withDraw(params).then(data => {
-                console.log(data);
+                // console.log(data);
                 $(this).parents('form').reset();
             })
         })
@@ -1064,6 +1070,7 @@ define([
             //卖出
             if ($(this).text() == '卖出') { //back-type
                 let p_money = $('.con-toSell .x-p_money').eq(0).text(); //判断货币类型
+                let moneyPow = $('#money_pow').val().trim();
                 if ($('.sell-c .sel-p').text() == '金额') {
                     let allMoney = $('.con-toSell .b-c_put input').val().trim();
                     let m_count = base.formatMoneyParse($('.con-toSell .x_num').text().trim(), '', 'X');
@@ -1089,7 +1096,8 @@ define([
                                 count: m_count,
                                 receiveCardNo: m_receiveCardNo,
                                 receiveType: gmType[receiveType1],
-                                tradeAmount: allMoney
+                                tradeAmount: allMoney,
+                                tradePwd: moneyPow
                             }
                             sellX(sellConfig).then(() => {
                                 showMsg();
@@ -1107,7 +1115,8 @@ define([
                                 count: m_count,
                                 receiveCardNo: m_receiveCardNo,
                                 receiveType: gmType[receiveType1],
-                                tradeAmount: allMoney
+                                tradeAmount: allMoney,
+                                tradePwd: moneyPow
                             }
                             sellX(sellConfig).then(() => {
                                 showMsg();
@@ -1125,6 +1134,7 @@ define([
             $('.b-c_put input').val('');
             $('.x_num').text('0.00');
             $('.back-type input').val('');
+            $('#money_pow').val('');
             base.showMsg(text);
         }
 

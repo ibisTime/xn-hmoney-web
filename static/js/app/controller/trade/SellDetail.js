@@ -160,8 +160,9 @@ define([
 
     //出售
     function sellETH() {
-        config.tradeAmount = $("#buyAmount").val()
-        config.count = base.formatMoneyParse($("#buyEth").val(), '', tradeCoin)
+        config.tradeAmount = $("#buyAmount").val();
+        config.count = base.formatMoneyParse($("#buyEth").val(), '', tradeCoin);
+        config.tradePwd = $('#moneyPow').val();
         return TradeCtr.sellETH(config).then((data) => {
             base.showMsg("出售成功");
             setTimeout(function() {
@@ -191,6 +192,8 @@ define([
         //立即下单点击
         $("#buyBtn").click(function() {
             $('.bb-m').text(tradeCoin);
+            $("#submitDialog .tradeAmount").html($("#buyAmount").val() + tradeCurrency);
+            $("#submitDialog .count").html($("#buyEth").val() + tradeCoin);
             if (_formWrapper.valid()) {
                 // if ($("#buyAmount").val() != '' && $("#buyAmount").val()) {
                 //     $("#submitDialog").removeClass("hidden")
@@ -204,7 +207,7 @@ define([
                         if ($("#buyAmount").val() != '' && $("#buyAmount").val()) {
                             $("#submitDialog").removeClass("hidden")
                         } else {
-                            base.showMsg("请输入您购买的金額")
+                            base.showMsg("请输入您购买的金額");
                         }
                     }
                 } else if (!data.tradepwdFlag) {
@@ -221,25 +224,35 @@ define([
             }, base.hideLoadingSpin);
         })
 
+        //资金密码-放弃点击
+        $("#submitMon .closeBtn").click(function() {
+            $("#submitMon").addClass("hidden");
+            $('#moneyPow').val('');
+        })
+
+        //下单确认弹窗-确认点击
+        $("#submitMon .subBtn").click(function() {
+            sellETH();
+            $("#submitMon").addClass("hidden");
+            $('#moneyPow').val('');
+        })
+
+
         //下单确认弹窗-放弃点击
         $("#submitDialog .closeBtn").click(function() {
-            $("#submitDialog").addClass("hidden")
+            $("#submitDialog").addClass("hidden");
         })
 
         //下单确认弹窗-确认点击
         $("#submitDialog .subBtn").click(function() {
-            sellETH()
-            $("#submitDialog").addClass("hidden")
+            $("#submitDialog").addClass("hidden");
+            $("#submitMon").removeClass("hidden");
         })
         $("#buyEth").keyup(function() {
             $("#buyAmount").val(($("#buyEth").val() * config.tradePrice).toFixed(2));
-            $("#submitDialog .tradeAmount").html($("#buyAmount").val() + tradeCurrency)
-            $("#submitDialog .count").html($("#buyEth").val() + tradeCoin)
         })
         $("#buyAmount").keyup(function() {
                 $("#buyEth").val(($("#buyAmount").val() / config.tradePrice).toFixed(8));
-                $("#submitDialog .tradeAmount").html($("#buyAmount").val() + tradeCurrency)
-                $("#submitDialog .count").html($("#buyEth").val() + tradeCoin)
             })
             //下架-点击
         $("#doDownBtn").click(function() {

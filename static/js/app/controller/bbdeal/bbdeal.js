@@ -46,6 +46,8 @@ define([
 
     let oneIndex = 0;
 
+    let zfData = 0;
+
     init();
 
     function init() {
@@ -131,17 +133,17 @@ define([
 
     function getBBDataFn(){
         getBazaarData().then(data => { // 加载市场数据
-            // console.log('交易对：', data);
             console.log(setBazDeal);
             // 指定币种换算数据
             let setBBList = data.list.filter(item => {
                 return item.symbol == setBazDeal.symbol && item.toSymbol == setBazDeal.toSymbol;
             })
-            console.log('交易对：', setBBList);
+            // console.log('交易对：', setBBList);
             // 涨幅、k数据
             let zfKData = setBBList[0].dayLineInfo;
+            zfData = setBBList[0].exchangeRate * 100;
             if(zfKData){
-                $('.t-zf').text(`${setBBList[0].exchangeRate}%`)
+                $('.t-zf').text(`${zfData}%`)
                 $('.t-g').text(base.formatMoney(`${zfKData.high}`, '', setBazDeal.symbol));
                 $('.t-d').text(base.formatMoney(`${zfKData.low}`, '', setBazDeal.symbol));
                 $('.t-h').text(base.formatMoney(`${zfKData.volume}`, '', setBazDeal.toSymbol));
@@ -162,15 +164,25 @@ define([
                 autoGetData();
             }, 2000);
 
-            getDepthData().then(data => {
-                let buyData = data.bids;
-                let sellData = data.asks;
-                // 深度图
-                if (buyData.length == 0 && sellData.length == 0) {
-                    return false;
-                }
-                depthFn(buyData, sellData);
-            });
+            setInterval(() => {
+                sdFn()
+            }, 4000);
+            sdFn();
+            function sdFn(){
+                getDepthData().then(data => {
+                    let buyData = data.bids;
+                    let sellData = data.asks;
+                    // 深度图
+                    if (buyData.length == 0 && sellData.length == 0) {
+                        $('.depth-c').css({
+                            overflow: 'hidden',
+                            height: 0,
+                        })
+                        return false;
+                    }
+                    depthFn(buyData, sellData);
+                });
+            }
 
             $('.c-b').text(setBazDeal.symbol);
             $('.r-b').text(setBazDeal.symbol);
@@ -186,7 +198,7 @@ define([
 
     function autoRealData() {
         getRealTimeData().then(data => {
-            console.log('实时', data);
+            // console.log('实时', data);
             if (data.list.length > 0) {
                 realTimeData = data.list;
                 let bb_zxj = base.formatMoney(`${realTimeData[0].tradedPrice}`, '', setBazDeal.toSymbol);
@@ -330,7 +342,7 @@ define([
             return false;
         }
         let userOrderHtml = '';
-        console.log('当前', userOrderData);
+        // console.log('当前', userOrderData);
 
         userOrderData.forEach((item, i) => {
             //base.formatMoney(`${item.totalCount - item.tradedCount}`, '', item.symbol) (item.totalCount - item.tradedCount).toFixed(2)
@@ -338,7 +350,7 @@ define([
             //base.formatMoney(`${item.totalCount}`, '', item.symbol)
             let showTotalCount = item.direction == 0 && item.type == 0;
             let showTotalAmount = item.direction == 1 && item.type == 0;
-            console.log(showTotalCount, showTotalAmount);
+            // console.log(showTotalCount, showTotalAmount);
             userOrderHtml += `<tr>
                     <td colspan="2">${base.formateDatetime(item.createDatetime)}</td>
                     <td>${item.symbol}/${item.toSymbol}</td>
@@ -479,8 +491,8 @@ define([
     //总资产
     function userAllMoneyX() {
         UserCtr.userAllMoneyX('CNY').then(data => {
-            console.log('总资产', data);
-            $('.u-bb').text(data.symbol);
+            // console.log('总资产', data);
+            $('.u-bb').text(data.symbol).attr('title', data.symbol);
             let currency = (Math.floor(data.currency * 100) / 100).toFixed(2);
             $('.u-money').text(currency).prop('title', currency);
         })
@@ -496,7 +508,7 @@ define([
                             <span>${bazaarData.symbol}</span>
                         </p>
                         <p class="li-con bb-zxj">0.0</p>
-                        <p class="li-right d-baz"><span>-</span>0.00%</p>
+                        <p class="li-right d-baz"><span> </span>${zfData}%</p>
                     </li>`;
             $('.baz-ul').html(bazULHtml);
             setBazDeal.symbol = bazaarData.symbol;
@@ -528,7 +540,7 @@ define([
             syUserMoney = base.formatMoneySubtract(`${syData[0].amount}`, `${syData[0].frozenAmount}`, setBazDeal.symbol);
             toSyUserMoney = base.formatMoneySubtract(`${btcData[0].amount}`, `${btcData[0].frozenAmount}`, setBazDeal.toSymbol);
             $('.baz-all').text(toSyUserMoney);
-            $('.sy_all').text(syUserMoney);
+            $('.sy_all').text(syUserMoney).attr('title', syUserMoney);
             $('.toSdw').text(btcData[0].currency);
             if (toSyUserMoney == 0) {
                 $('.bb-exc').text('0.00');
@@ -1055,9 +1067,9 @@ define([
         buyLjListData = [...buyLjData];
         sellLjListData = [...sellList, ...sellLjData];
         wtXListData = [...buyWtData, ...sellWtData];
-        console.log(buyLjListData)
-        console.log(sellLjListData);
-        console.log(wtXListData);
+        // console.log(buyLjListData)
+        // console.log(sellLjListData);
+        // console.log(wtXListData);
         var myChart = echarts.init(document.getElementById('main'));
         var colors = ['rgba(79, 213, 141, 0.8)', 'rgba(225, 118, 118, 0.8)', '#6a7985'];
 

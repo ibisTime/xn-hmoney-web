@@ -92,7 +92,7 @@ define([
     //获取邮箱验证码
     function emailYzm(config) {
         return UserCtr.emailYzm(config).then((data) => {
-            console.log(data);
+            // console.log(data);
         });
     }
 

@@ -2477,6 +2477,9 @@ table {
                 }
                 &:nth-of-type(3) {
                     width: 160px;
+                    white-space: nowrap;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
                 }
                 &:nth-of-type(4) {
                     width: 530px;
@@ -2541,6 +2544,8 @@ table {
                         line-height: 60px;
                         font-size: 14px;
                         color: #333;
+                        text-overflow: ellipsis;
+                        overflow: hidden;
                         &:nth-of-type(1) {
                             width: 200px;
                         }
@@ -2713,7 +2718,7 @@ table {
                             border-color: #d53d3d;
                         }
                     }
-                    .b-c_put {
+                    .b-c_put, .b-p_m {
                         width: 100%;
                         position: relative;
                         margin-bottom: 12px;
@@ -2752,14 +2757,14 @@ table {
                         color: #666;
                         font-size: 14px;
                         letter-spacing: 0.12px;
-                        margin-bottom: 42px;
+                        margin-bottom: 22px;
                     }
                     .b-c_fs {
                         display: flex;
                         justify-content: space-between;
                     }
                     .back-type {
-                        margin-top: 20px;
+                        margin-top: 10px;
                         width: 100%;
                         input {
                             width: 100%;
@@ -2772,7 +2777,7 @@ table {
                         }
                     }
                     .b-c_foo {
-                        margin-top: 51px;
+                        margin-top: 40px;
                         button {
                             color: #fff;
                             background-color: #d53d3d;
@@ -2896,7 +2901,7 @@ table {
 .invitation-wrap {
     .invitation-top {
         height: 620px;
-        background-image: url('../images/邀请好友.png');
+        background-image: url('../images/邀请好友.jpg');
         background-position: center;
         background-repeat: no-repeat;
         background-size: cover;
@@ -5273,6 +5278,13 @@ table {
                     overflow: hidden;
                     text-overflow: ellipsis;
                 }
+                .u-bb{
+                    display: inline-block;
+                    max-width: 140px;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    vertical-align: bottom;
+                }
             }
             .baz-search {
                 display: flex;
@@ -5520,6 +5532,13 @@ table {
                                 color: #d53d3d;
                                 cursor: pointer;
                             }
+                            .sy_all{
+                                display: inline-block;
+                                max-width: 180px;
+                                overflow: hidden;
+                                text-overflow: ellipsis;
+                                vertical-align: bottom;
+                            }
                         }
                         p {
                             font-size: 14px;
@@ -5548,7 +5567,7 @@ table {
                             }
                         }
                         .jy-r-h {
-                            padding-right: 40px;
+                            // padding-right: 40px;
                         }
                         .yj-btc {
                             color: #333;
@@ -6254,6 +6273,16 @@ html {
     tr {
         height: 48px;
         line-height: 48px;
+    }
+}
+
+#submitMon{
+    background-color: rgba(0, 0, 0, .6);
+    input{
+        width: 100%;
+        padding: 8px 10px;
+        border: 1px solid #ccc;
+        border-radius: 3px;
     }
 }
 

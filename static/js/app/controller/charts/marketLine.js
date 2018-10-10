@@ -66,7 +66,6 @@ define([
     }
 
     function setChart(refresh) {
-        console.log(option);
         chartOption = {
             animation: false,
             tooltip: {

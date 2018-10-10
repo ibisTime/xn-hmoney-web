@@ -69,7 +69,6 @@ define([
     //获取用户详情
     function getUser() {
         return UserCtr.getUser().then((data) => {
-            console.log('user', data.userIdAuthInfo, CerStatusList);
             let idAuthStatus = '';
             let userIdAuthInfo = data.userIdAuthInfo;
             function isYz(wId, wClass){
@@ -108,9 +107,9 @@ define([
             }, 100);
             if (data.realName) {
                 $("#form-wrapper").setForm(data);
-                $("#alreadyIdentity").removeClass("hidden")
+                $("#alreadyIdentity").removeClass("hidden");
             } else {
-                $("#goAppIdentity").removeClass("hidden")
+                $("#goAppIdentity").removeClass("hidden");
             }
             base.hideLoadingSpin();
         }, base.hideLoadingSpin)

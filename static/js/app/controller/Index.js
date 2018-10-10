@@ -66,7 +66,7 @@ define([
                 mButHtml = `<button class="goHref" data-href="${item.tradeType == 0 ? '../trade/sell-list.html?coin=' + item.tradeCoin : '../trade/buy-list.html?coin=' + item.tradeCoin}">${typeList[item.tradeType]}</button>`
                 adverHtml += `<li>
                     <div class="bb-img">
-                        <img src="${item.tradeType == 0 ? '/static/images/buy.png' : '/static/images/sell.png'}" alt="">
+                        <img src="${item.tradeType == 1 ? '/static/images/buy.png' : '/static/images/sell.png'}" alt="">
                     </div>
                     <h5>${typeList[item.tradeType]} ${item.tradeCoin}</h5>
                     <p>价格：<span>${(Math.floor(item.truePrice * 1000)/1000).toFixed(3)}</span>  ${item.tradeCurrency}</p>
@@ -80,7 +80,7 @@ define([
             $('.bb-jy ul').html(adverHtml);
         });
         getBazaarData().then(data => {
-            console.log('交易', data);
+            // console.log('交易', data);
             let bzfList = [];
             aarketData = data.list;
             aarketData.forEach(item => {

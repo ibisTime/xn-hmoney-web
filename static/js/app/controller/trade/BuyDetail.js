@@ -157,6 +157,7 @@ define([
     function buyETH() {
         config.tradeAmount = $("#buyAmount").val();
         config.count = base.formatMoneyParse($("#buyEth").val(), '', tradeCoin);
+        // config.资金密码 = $('#moneyPow').val();
         return TradeCtr.buyETH(config).then((data) => {
                 base.showMsg("购买成功")
 
@@ -184,6 +185,8 @@ define([
         //立即下单点击
         $("#buyBtn").click(function() {
             $('.bb-m').text(tradeCoin);
+            $("#submitDialog .tradeAmount").html($("#buyAmount").val() + tradeCurrency)
+            $("#submitDialog .count").html($("#buyEth").val() + tradeCoin);
             UserCtr.getUser().then((data) => {
                 if (data.tradepwdFlag && data.realName) {
                     if (_formWrapper.valid()) {
@@ -207,6 +210,17 @@ define([
             }, base.hideLoadingSpin);
         })
 
+        //资金密码-放弃点击
+        // $("#submitMon .closeBtn").click(function() {
+        //     $("#submitMon").addClass("hidden");
+        // })
+
+        //下单确认弹窗-确认点击
+        // $("#submitMon .subBtn").click(function() {
+        //     $("#submitMon").addClass("hidden");
+        //     $("#submitDialog").removeClass("hidden")
+        // })
+
         //下单确认弹窗-放弃点击
         $("#submitDialog .closeBtn").click(function() {
             $("#submitDialog").addClass("hidden")
@@ -222,14 +236,10 @@ define([
         $("#buyEth").keyup(function() {
             let truePrice = $("#buyEth").val() * config.tradePrice;
             $("#buyAmount").val((Math.floor(truePrice * 100) / 100).toFixed(2));
-            $("#submitDialog .tradeAmount").html($("#buyAmount").val() + tradeCurrency)
-            $("#submitDialog .count").html($("#buyEth").val() + tradeCoin);
 
         })
         $("#buyAmount").keyup(function() {
             $("#buyEth").val(($("#buyAmount").val() / config.tradePrice).toFixed(8));
-            $("#submitDialog .tradeAmount").html($("#buyAmount").val() + tradeCurrency);
-            $("#submitDialog .count").html($("#buyEth").val() + tradeCoin);
         })
 
         //下架-点击

@@ -228,7 +228,6 @@ define([
                 base.showLoadingSpin()
                 TradeCtr.payOrder(orderCode).then(() => {
                     base.hideLoadingSpin();
-
                     base.showMsg("操作成功");
                     setTimeout(function() {
                         base.showLoadingSpin();
