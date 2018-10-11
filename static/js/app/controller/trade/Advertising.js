@@ -279,7 +279,7 @@ define([
             $("#payLimitExp").html(data.payLimit)
             $("#payTypeExp").html(data.payType)
             $("#premiumRateExp").html(data.premiumRate)
-            $("#priceExp").html(data.price)
+            $("#priceExp").html(data.price);
 
             if (type == 'buy') {
                 $("#protectPriceExp").siblings('.txt').text('最高价格：');

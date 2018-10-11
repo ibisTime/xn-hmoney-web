@@ -24,25 +24,32 @@ define([
     function selContent(key){
         switch(key){
             case '1': 
+                $("#content").html('');
                 getSysConfig('about_us');
                 break;
             case '2': 
+                $("#content").html('');
                 getSysConfig('service');
                 break;
             case '3': 
-                getSysConfig('privacy');
+                // getSysConfig('privacy');
+                $("#content").html('暂无公告');
                 break;
             case '5': 
-                getSysConfig('privacy');
+                $("#content").html('');
+                getSysConfig('reg_protocol');
                 break;
             case '6': 
+                $("#content").html('');
                 getSysConfig('privacy');
                 break;
             case '7': 
-                getSysConfig('privacy');
+                // getSysConfig('privacy');
+                $("#content").html('暂无申明');
                 break;
             case '8': 
-                getSysConfig('privacy');
+                // getSysConfig('privacy');
+                $("#content").html('暂无说明');
                 break;
         }
     }
