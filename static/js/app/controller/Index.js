@@ -53,13 +53,13 @@ define([
                 let payImage = '';
                 switch (item.payType) {
                     case '0':
-                        payImage = '/static/images/支付宝.png';
+                        payImage = '/static/images/zfb.png';
                         break;
                     case '1':
                         payImage = '/static/images/wxpay.png';
                         break;
                     case '2':
-                        payImage = '/static/images/银行卡.png';
+                        payImage = '/static/images/yhk.png';
                         break;
                 }
                 let mButHtml = '';
@@ -93,7 +93,7 @@ define([
                 aarketHtml += `<li>
                     <p><span>${item.symbol}</span> / <span>${item.toSymbol}</span></p>
                     <h5>${(Math.floor(item.price * 10000) / 10000).toFixed(4)}</h5>
-                    <p><span class="zj"></span><span class="zf">${bzfList[index]}</span>% <span class="zf-img"><img src=${bzfList[index].indexOf('-') == 0 ? '/static/images/下降.png' : '/static/images/上升.png'} alt=""></span></p>
+                    <p><span class="zj"></span><span class="zf">${bzfList[index]}</span>% <span class="zf-img"><img src=${bzfList[index].indexOf('-') == 0 ? '/static/images/xj.png' : '/static/images/ss.png'} alt=""></span></p>
                 </li>`
             })
             $('.bb-hq_r ul').html(aarketHtml);

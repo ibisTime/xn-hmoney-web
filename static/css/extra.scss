@@ -127,7 +127,7 @@ table {
             top: 45%;
             width: 10px;
             height: 5px;
-            background-image: url(/static/images/下拉黑色发布广告.png);
+            background-image: url(/static/images/xlhsfbgg.png);
             -webkit-background-size: 10px 10px;
             background-size: 10px;
         }
@@ -144,19 +144,19 @@ table {
 //表單icon
 .form-wrapper {
     .icon-phone {
-        background-image: url('../images/手机.png');
+        background-image: url('../images/sj.png');
     }
     .icon-pwd {
-        background-image: url('../images/输入密码.png');
+        background-image: url('../images/srmm.png');
     }
     .icon-user {
-        background-image: url('../images/昵称.png');
+        background-image: url('../images/nc.png');
     }
     .icon-sms {
-        background-image: url('../images/验证码.png');
+        background-image: url('../images/yzm.png');
     }
     .icon-email {
-        background-image: url('../images/用户中心邮箱.png');
+        background-image: url('../images/yhzxyx.png');
     }
 }
 
@@ -277,7 +277,7 @@ table {
         .icon-up {
             width: 10px;
             height: 5px;
-            background-image: url('../images/页眉下拉.png');
+            background-image: url('../images/ymxl.png');
             background-size: 10px;
         }
         &:hover {
@@ -390,19 +390,19 @@ table {
             top: 3px;
         }
         .icon-order {
-            background-image: url('../images/订单.png');
+            background-image: url('../images/dd.png');
         }
         .icon-wallet {
-            background-image: url('../images/资产.png');
+            background-image: url('../images/zc.png');
         }
         .icon-user {
-            background-image: url('../images/我的.png');
+            background-image: url('../images/wd.png');
         }
         .head-triangle {
             width: 18px;
             height: 11px;
             opacity: 0;
-            background-image: url('../images/页眉三角形.png');
+            background-image: url('../images/ymsjx.png');
             background-size: contain;
             position: absolute;
             top: 41px;
@@ -490,32 +490,32 @@ table {
                             color: #333;
                         }
                         .icon-downUser {
-                            background-image: url('../images/用户中心黑色.png');
+                            background-image: url('../images/yhzxhs.png');
                         }
                         .icon-advertisement {
-                            background-image: url('../images/我的广告.png');
+                            background-image: url('../images/wdgg.png');
                         }
                         .icon-invitation {
-                            background-image: url('../images/邀请好友黑.png');
+                            background-image: url('../images/yqhyh.png');
                         }
                         .icon-lgout {
-                            background-image: url('../images/退出登录.png');
+                            background-image: url('../images/logout.png');
                         }
                         &:hover {
                             samp {
                                 color: $primary-color;
                             }
                             .icon-downUser {
-                                background-image: url('../images/用户中心点击红色.png');
+                                background-image: url('../images/yhzxdjhs.png');
                             }
                             .icon-advertisement {
-                                background-image: url('../images/我的广告点击.png');
+                                background-image: url('../images/wdggdj.png');
                             }
                             .icon-invitation {
-                                background-image: url('../images/邀请好友点击.png');
+                                background-image: url('../images/yqhydj.png');
                             }
                             .icon-lgout {
-                                background-image: url('../images/退出登录点击.png');
+                                background-image: url('../images/tcdldj.png');
                             }
                         }
                     }
@@ -533,7 +533,7 @@ table {
                 .zzc {
                     margin-top: 15px;
                     .icon-zzc {
-                        background-image: url('../images/总资产.png');
+                        background-image: url('../images/zzc.png');
                     }
                 }
                 .wallet-account-wrap {
@@ -596,10 +596,10 @@ table {
                         cursor: pointer;
                     }
                     .icon-cz {
-                        background-image: url('../images/充币.png');
+                        background-image: url('../images/cb.png');
                     }
                     .icon-tx {
-                        background-image: url('../images/提币.png');
+                        background-image: url('../images/tb.png');
                     }
                 }
             }
@@ -750,11 +750,11 @@ table {
         cursor: pointer;
         &.arrow-left {
             left: 20px;
-            background-image: url(../images/左滑.png);
+            background-image: url(../images/zh.png);
         }
         &.arrow-right {
             right: 20px;
-            background-image: url(../images/右滑.png);
+            background-image: url(../images/yh.png);
         }
     }
     img {
@@ -1030,7 +1030,7 @@ table {
 .bb-hq {
     padding: 70px 0 90px 0;
     height: 408px;
-    background-image: url('/static/images/背景.png');
+    background-image: url('/static/images/bj.png');
     background-size: 100%;
     background-repeat: no-repeat;
     display: flex;
@@ -1469,12 +1469,12 @@ table {
                 width: 16px;
                 height: 16px;
                 background-size: contain;
-                background-image: url('../images/选框（未选）.png');
+                background-image: url('../images/xkwx.png');
                 position: relative;
                 top: 3px;
                 cursor: pointer;
                 &.active {
-                    background-image: url('../images/选框（已选）.png');
+                    background-image: url('../images/xkyx.png');
                 }
             }
             p {
@@ -1611,15 +1611,15 @@ table {
                     top: 3px;
                 }
                 .icon-ziliao {
-                    background-image: url('../images/我的资料.png');
+                    background-image: url('../images/wdzl.png');
                     background-size: auto 17px;
                 }
                 .icon-anquan {
-                    background-image: url('../images/账户安全.png');
+                    background-image: url('../images/zhaq.png');
                     background-size: 17px;
                 }
                 .icon-xinren {
-                    background-image: url('../images/受信任.png');
+                    background-image: url('../images/sxr.png');
                     background-size: auto 17px;
                 }
             }
@@ -1665,7 +1665,7 @@ table {
             width: 12px;
             height: 7px;
             margin-bottom: 5px;
-            background-image: url('/static/images/展开.png')
+            background-image: url('/static/images/zk.png')
         }
     }
     .right-wrap {
@@ -1870,21 +1870,21 @@ table {
             left: 0;
         }
         .icon-zijnmima {
-            background-image: url('../images/资金密码.png');
+            background-image: url('../images/zjmm.png');
         }
         .icon-email {
-            background-image: url('../images/绑定邮箱.png');
+            background-image: url('../images/bdyx.png');
             top: 0;
         }
         .icon-iphone {
-            background-image: url('../images/绑定手机.png');
+            background-image: url('../images/bdsj.png');
             top: 0;
         }
         .icon-mima {
-            background-image: url('../images/登录密码.png');
+            background-image: url('../images/dlmm.png');
         }
         .icon-google {
-            background-image: url('../images/谷歌验证.png');
+            background-image: url('../images/ggyz.png');
         }
         .btn {
             position: absolute;
@@ -1991,7 +1991,7 @@ table {
         .icon-warning {
             width: 14px;
             height: 49px;
-            background-image: url('../images/用户中心注意.png');
+            background-image: url('../images/yhzxzy.png');
             background-size: 14px;
             background-position: 0 6px;
             margin-right: 10px;
@@ -2016,7 +2016,7 @@ table {
                 width: 45px;
                 height: 30px;
                 margin-right: 22px;
-                background-image: url('../images/用户中心身份证.png');
+                background-image: url('../images/yhzxsfz.png');
                 margin-top: 3px;
             }
             div {
@@ -2131,7 +2131,7 @@ table {
             i {
                 width: 18px;
                 height: 18px;
-                background-image: url(/static/images/搜索灰.png);
+                background-image: url(/static/images/ssh.png);
                 -webkit-background-size: contain;
                 background-size: contain;
                 margin-right: 8px;
@@ -2222,7 +2222,7 @@ table {
                     width: 10px;
                     height: 20px;
                     background-size: 10px;
-                    background-image: url('../images/提示.png');
+                    background-image: url('../images/ts.png');
                     background-position: 0 4px;
                     margin-right: 8px;
                 }
@@ -2253,12 +2253,12 @@ table {
             .icon-qrcode {
                 width: 18px;
                 height: 18px;
-                background-image: url('../images/二维码.png');
+                background-image: url('../images/ewm.png');
                 background-size: contain;
                 position: relative;
                 &:hover {
                     cursor: pointer;
-                    background-image: url('../images/二维码点击.png');
+                    background-image: url('../images/ewmdj.png');
                     .qrcode {
                         width: 200px;
                         height: 200px;
@@ -2596,7 +2596,7 @@ table {
                                 width: 10px;
                                 height: 20px;
                                 background-size: 10px;
-                                background-image: url('../images/提示.png');
+                                background-image: url('../images/ts.png');
                                 background-position: 0 4px;
                                 margin-right: 8px;
                             }
@@ -2818,9 +2818,9 @@ table {
                 top: 18px;
                 right: 0px;
                 margin-left: 10px;
-                background-image: url('../images/删除灰.png');
+                background-image: url('../images/sch.png');
                 &:hover {
-                    background-image: url('../images/删除点击.png');
+                    background-image: url('../images/scdj.png');
                 }
             }
             &.on,
@@ -2882,12 +2882,12 @@ table {
             width: 40px;
             height: 26px;
             background-size: contain;
-            background-image: url('../images/关.png');
+            background-image: url('../images/close.png');
             position: relative;
             top: 7px;
             margin-left: 80px;
             &.on {
-                background-image: url('../images/开.png');
+                background-image: url('../images/open.png');
             }
         }
     }
@@ -3419,7 +3419,7 @@ table {
             .icon-search {
                 width: 18px;
                 height: 18px;
-                background-image: url('../images/搜索icon.png');
+                background-image: url('../images/scicon.png');
                 background-size: contain;
                 margin-right: 8px;
                 position: relative;
@@ -3591,13 +3591,13 @@ table {
             margin-right: 12px;
         }
         .icon-buy {
-            background-image: url('../images/出售多少.png');
+            background-image: url('../images/csds.png');
         }
         .icon-warn {
-            background-image: url('../images/提醒.png');
+            background-image: url('../images/tx.png');
         }
         .icon-advwarn {
-            background-image: url('../images/发布广告.png');
+            background-image: url('../images/fbgg.png');
             width: 30px;
             height: 30px;
         }
@@ -3645,7 +3645,7 @@ table {
                     width: 18px;
                     height: 18px;
                     background-size: contain;
-                    background-image: url('../images/留言.png');
+                    background-image: url('../images/ly.png');
                     position: relative;
                     top: 4px;
                     margin-left: 12px;
@@ -3684,7 +3684,7 @@ table {
                 width: 18px;
                 height: 54px;
                 background-size: contain;
-                background-image: url('../images/切换.png');
+                background-image: url('../images/qh.png');
                 position: relative;
                 margin: 0 22px;
             }
@@ -3718,7 +3718,7 @@ table {
                 width: 20px;
                 height: 24px;
                 background-size: contain;
-                background-image: url('../images/下单确定.png');
+                background-image: url('../images/xdqd.png');
                 position: relative;
             }
         }
@@ -3738,7 +3738,7 @@ table {
                     width: 10px;
                     height: 35px;
                     background-size: contain;
-                    background-image: url('../images/提示红.png');
+                    background-image: url('../images/tsh.png');
                     background-position: center 5px;
                     margin-right: 8px;
                 }
@@ -3783,7 +3783,7 @@ table {
                 width: 13px;
                 height: 60px;
                 background-size: 100%;
-                background-image: url('../images/订单信息.png');
+                background-image: url('../images/ddxx.png');
                 margin-right: 10px;
             }
             samp {
@@ -3917,7 +3917,7 @@ table {
                     width: 26px;
                     height: 26px;
                     background-size: 12px;
-                    background-image: url('../images/订单更多.png');
+                    background-image: url('../images/ddgd.png');
                     position: relative;
                     top: 2px;
                 }
@@ -4024,14 +4024,14 @@ table {
         width: 16px;
         height: 16px;
         background-size: 16px;
-        background-image: url('../images/未选择.png');
+        background-image: url('../images/wxz.png');
         position: relative;
         top: 2px;
         margin-right: 10px;
     }
     .type {
         &.on .icon-check {
-            background-image: url('../images/选中.png');
+            background-image: url('../images/chose.png');
         }
     }
     .form-wrapper {
@@ -4057,11 +4057,11 @@ table {
                 width: 16px;
                 height: 16px;
                 background-size: 16px;
-                background-image: url('../images/未选择.png');
+                background-image: url('../images/wxz.png');
                 position: relative;
                 top: 2px;
                 &.on {
-                    background-image: url('../images/选择高级设置.png');
+                    background-image: url('../images/xzgjsz.png');
                 }
             }
             .item {
@@ -4120,7 +4120,7 @@ table {
                 width: 8px;
                 height: 6px;
                 background-size: 8px;
-                background-image: url('../images/下拉黑色.png');
+                background-image: url('../images/xlhs.png');
                 position: absolute;
                 top: 22px;
                 right: 20px;
@@ -4214,15 +4214,15 @@ table {
                 }
                 .icon-email {
                     background-size: 22px;
-                    background-image: url('../images/绑定邮箱.png');
+                    background-image: url('../images/bdyx.png');
                 }
                 .icon-mobile {
                     background-size: 12px;
-                    background-image: url('../images/手机已验证.png');
+                    background-image: url('../images/sjyyz.png');
                 }
                 .icon-identity {
                     background-size: 20px;
-                    background-image: url('../images/身份已验证.png');
+                    background-image: url('../images/sfyyz.png');
                 }
             }
         }
@@ -4437,16 +4437,16 @@ table {
                 background-size: 44px;
             }
             .icon-yixiadan {
-                background-image: url('../images/已下单.png');
+                background-image: url('../images/yxd.png');
             }
             .icon-daifukuan {
-                background-image: url('../images/待付款.png');
+                background-image: url('../images/dfk.png');
             }
             .icon-daishifang {
-                background-image: url('../images/待收货.png');
+                background-image: url('../images/dsh.png');
             }
             .icon-daipingjia {
-                background-image: url('../images/待评价.png');
+                background-image: url('../images/dpj.png');
             }
             p {
                 font-size: 16px;
@@ -4462,7 +4462,7 @@ table {
             width: 15px;
             height: 15px;
             background-size: 15px;
-            background-image: url('../images/详情提示.png');
+            background-image: url('../images/xqts.png');
             position: relative;
             top: 2px;
             margin-right: 10px;
@@ -4491,7 +4491,7 @@ table {
             width: 15px;
             height: 18px;
             background-size: 14px;
-            background-image: url('../images/订单信息.png');
+            background-image: url('../images/ddxx.png');
             position: relative;
             top: 3px;
             margin-right: 10px;
@@ -4690,20 +4690,20 @@ table {
                 background-size: 40px;
             }
             .icon-good {
-                background-image: url('../images/好评灰@2x.png');
+                background-image: url('../images/hph.png');
             }
             .icon-bad {
-                background-image: url('../images/差评灰@2x.png');
+                background-image: url('../images/cph.png');
             }
             &.on {
                 p {
                     color: $red-color;
                 }
                 .icon-good {
-                    background-image: url('../images/好评红@2x.png');
+                    background-image: url('../images/hph@2x.png');
                 }
                 .icon-bad {
-                    background-image: url('../images/差评红@2x.png');
+                    background-image: url('../images/cph@2x.png');
                 }
             }
             &:hover {
@@ -4744,13 +4744,13 @@ table {
         }
         .msgImg {
             width: 30px;
-            background-image: url('../images/发送表情.png');
+            background-image: url('../images/fsbq.png');
             right: 90px;
             background-size: 30px;
         }
         .openPic {
             width: 40px;
-            background-image: url('../images/添加.png');
+            background-image: url('../images/tj.png');
             right: 30px;
             background-size: 34px;
         }
@@ -4982,7 +4982,7 @@ table {
             top: 10px;
             right: 15px;
             z-index: 9;
-            background-image: url('../images/聊天关闭.png');
+            background-image: url('../images/ltgb.png');
             background-size: 28px;
         }
         .advertise-info {
@@ -5180,7 +5180,7 @@ table {
     margin-right: 10px;
     width: 18px;
     height: 18px;
-    background-image: url('../images/注意灰色.png');
+    background-image: url('../images/zyhs.png');
 }
 
 .btn-wrap {
@@ -5774,7 +5774,7 @@ table {
                 vertical-align: middle;
             }
             .down-i {
-                background-image: url('../images/下拉黑.png');
+                background-image: url('../images/xlh.png');
             }
             .r-i {
                 font-size: 18px;
@@ -6066,7 +6066,7 @@ table {
     width: 18px;
     height: 11px;
     opacity: 0;
-    background-image: url('../images/页眉三角形.png');
+    background-image: url('../images/ymsjx.png');
     background-size: contain;
     position: absolute;
     top: -10px;

@@ -322,7 +322,7 @@ define([
                 <div class="buy-box">
                     <div class="buy-head">
                         <p class="x-h_p1">X / <span class="x-p_money">CNY</span></p>
-                        <p class="x-h_p2"><img src="/static/images/切换X.png" class="fr"/></p>
+                        <p class="x-h_p2"><img src="/static/images/qhX.png" class="fr"/></p>
                         <p class="x-h_p3">单价：<span class="b-m_type"></span> <span class="x-mon"></span> <span class="x-bf_r"><i>-</i> 3.5%</span></p>
                     </div>
                     <div class="buy-con">
@@ -347,7 +347,7 @@ define([
                                 <select name="zf-type" id="zf_select">
                                 
                                 </select>
-                                <span><img src="/static/images/下拉黑.png" alt=""></span>
+                                <span><img src="/static/images/xlh.png" alt=""></span>
                             </div>
                         </div>
                         <div class="b-c_foo">
@@ -363,7 +363,7 @@ define([
                 <div class="buy-box">
                     <div class="buy-head">
                         <p class="x-h_p1">X / <span class="x-p_money">CNY</span></p>
-                        <p class="x-h_p2"><img src="/static/images/切换X.png" class="fr"/></p>
+                        <p class="x-h_p2"><img src="/static/images/qhX.png" class="fr"/></p>
                         <p class="x-h_p3">单价：<span class="s-m_type"></span> <span class="x-mon"></span> <span class="x-bf_r"><i>-</i> 3.5%</span></p>
                     </div>
                     <div class="buy-con">
@@ -387,7 +387,7 @@ define([
                                 <span><img src="" alt=""></span>
                                 <select name="zf-type" id="zf_select1">
                                 </select>
-                                <span><img src="/static/images/下拉黑.png" alt=""></span>
+                                <span><img src="/static/images/xlh.png" alt=""></span>
                             </div>
                         </div>
                         <div class="back-type">
