@@ -672,6 +672,8 @@ define([
                     getLimitedPriceData('1', direction, price, totalCount).then(data => {
                         $(inpNum).val('');
                         $(inpPrice).val('');
+                        $('.mr-exc').text('0.00');
+                        $('.mc-exc').text('0.00');
                         $('.y-sp .br-p').css('width', '0%');
                         $('.y-sp span:not(.sel-span)').css('background-color', '#f1f1f1');
                         $('.j-sp .br-p').css('width', '0%');

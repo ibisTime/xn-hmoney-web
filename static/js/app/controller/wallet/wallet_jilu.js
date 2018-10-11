@@ -128,7 +128,7 @@ define([
 
     // 取消订单
     function qxOrder(config) {
-        return Ajax.get('625272', config)
+        return Ajax.get('625272', config);
     }
 
 

@@ -14,6 +14,7 @@ define([
         jdLeft = 0,
         selOnlyCert = 0;
     var pay = '';
+    var midBlv = 0;
     init();
 
     function init() {
@@ -597,13 +598,23 @@ define([
         function advertiseData(mType) {
             var m_type = mType;
             getAdvertisePrice(coin, m_type).then(data => {
-                console.log(data)
                 mid = data.mid;
+                let bblv = midBlv / mid;
                 $("#price").val(mid);
+                if(bblv < 0){
+                    $('#protectPrice').val((bblv * parseFloat($('#protectPrice').val())).toFixed(2));
+                    $('#minTrade').val((bblv * parseFloat($('#minTrade').val())).toFixed(2));
+                    $('#maxTrade').val((bblv * parseFloat($('#maxTrade').val())).toFixed(2));
+                }else{
+                    $('#protectPrice').val((parseFloat($('#protectPrice').val()) / bblv).toFixed(2));
+                    $('#minTrade').val((parseFloat($('#minTrade').val()) / bblv).toFixed(2));
+                    $('#maxTrade').val((parseFloat($('#maxTrade').val()) / bblv).toFixed(2));
+                }
             });
         }
 
         $('#tradeCurrency').change(function() {
+            midBlv = $('#price').val();
             let receiveType = $(this).find("option:selected").val();
             switch (receiveType) {
                 case 'CNY':

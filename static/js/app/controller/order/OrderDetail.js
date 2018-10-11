@@ -421,7 +421,6 @@ define([
             webim.syncGroupMsgs(
                 options,
                 function(msgList) {
-                    //					console.log(msgList)
                     if (msgList.length == 0) {
                         webim.Log.warn("该群没有历史消息了:options=" + JSON.stringify(options));
                         return;

@@ -45,13 +45,17 @@ define([
         $('.o-all').text(userCTSList.tradeAmount);
         $('.o-status').text(statusList[userCTSList.status]);
         $('.o-date').text(base.formateDatetime(userCTSList.createDatetime));
-        $('.o-money').text(userCTSList.tradeCurrency)
+        $('.o-money').text(userCTSList.tradeCurrency);
+        $('.o-fee').text(base.formatMoney(`${userCTSList.fee}`, '', 'X'));
 
-        $('.u-name').text(userCTSList.bankcard.realName);
+        let realName = userCTSList.bankcard ? userCTSList.bankcard.realName : userCTSList.user.realName;
+        $('.u-name').text(realName);
         $('.u-kcode').text(userCTSList.receiveCardNo);
-        $('.u-bank').text(userCTSList.receiveBank);
         $('.u-khu').text(userCTSList.receiveInfo);
         $('.u-type').text(zfType[userCTSList.receiveType]);
+        if(userCTSList.receiveType === 'alipay'){
+            $('.l-khu').addClass('hidden');
+        }
     })
 
     //查询我的承兑商信息

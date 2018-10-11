@@ -75,7 +75,6 @@ define([
     function getPageOrder(refresh) {
         return TradeCtr.getPageOrder(config, refresh).then((data) => {
             lists = data.list;
-            console.log(lists)
             if (data.list.length) {
                 var html = "";
                 lists.forEach((item, i) => {

@@ -80,7 +80,6 @@ define([
             $('.bb-jy ul').html(adverHtml);
         });
         getBazaarData().then(data => {
-            // console.log('交易', data);
             let bzfList = [];
             aarketData = data.list;
             aarketData.forEach(item => {
@@ -128,6 +127,7 @@ define([
     // 获取banner
     function getBanner(refresh) {
         return GeneralCtr.getBanner({
+            type: '2',
             location: 'web_banner'
         }, refresh).then((data) => {
             var bannerHtml = "";

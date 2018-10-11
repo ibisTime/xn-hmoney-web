@@ -3,33 +3,34 @@ define([
     'app/interface/GeneralCtr',
     'app/util/ajax'
 ], function(base, GeneralCtr, Ajax) {
+    let srcList = {};
     init();
     getFooData();
     getAboutUs();
     // 获取Q社群
     function getFooData(){
         return GeneralCtr.getBanner({
-            location: 'community',
-            type: '6'
+            location: 'community'
         }).then((data) => {
             let qHtml = '';
             if(data.length === 0){
                 $('.foot-text').addClass('hidden');
             }else{
-                var qrcode = new QRCode('qrcodeF', data[0].url);
-                qrcode.makeCode(data[0].url);
+                $('#qrcodeF').children('img').prop('src', base.getAvatar(data[0].pic));
             }
             data.forEach(item => {
+                srcList[item.name] = item.pic;
                 qHtml += `
                 <div class="contact-info">
                     <div class="foo-tip">
-                        <img src="${base.getAvatar(item.pic)}">
-                        <div class="foo-qq">${item.name}：<span class="foo-url">${item.url}</span></div>
+                        <img src="${item.type === 'qq' ? '/static/images/qq.png' : '/static/images/weixin.png'}">
+                        <div class="foo-qq"><span class="fname">${item.name}</span>：<span class="foo-url">${item.url}</span></div>
                     </div>
                 </div>
                 `
             })
             $('.contact-info-wrap').html(qHtml);
+            init();
         }, (msg) => {
             base.showMsg(msg || "加载失败");
         });
@@ -49,15 +50,11 @@ define([
         $('.help').click(function(){
             location.href = HELPCONTENT;
         });
-
+        
         $('.contact-info-wrap .contact-info').mouseenter(function(){
-            $('#qrcodeF').addClass('hidden').empty();
-            let qUrl = $('.foo-url').text();
-            var qrcode = new QRCode('qrcodeF', qUrl);
-            qrcode.makeCode(qUrl);
-            setTimeout(() => {
-                $('#qrcodeF').removeClass('hidden');
-            }, 100);
+            let text = $(this).children('.foo-tip').children('.foo-qq').children('.fname').text();
+            let src = srcList[text];
+            $('#qrcodeF').children('img').prop('src', base.getAvatar(src));
         })
     }
 })

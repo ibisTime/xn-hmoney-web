@@ -81,7 +81,6 @@ define([
     function getPageTrust(params, to) {
         return UserCtr.getPageTrust(params, to).then((data) => {
             var lists = data.list;
-            console.log(lists)
             if (data.list.length) {
                 var html = "";
                 lists.forEach((item, i) => {

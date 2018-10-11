@@ -21,6 +21,8 @@ define([
 
     let moneyHS = 0;
     let zfType = {}; // 去购买支付方式
+    let zfNumber = {};
+    let zfOne = '';
     let gmType = {}; // 去出售支付方式
 
     let moneyXZ = {};
@@ -42,10 +44,12 @@ define([
             "2": "withdraw",
             "3": "ccorder_buy",
             "4": "ccorder_sell",
-            "5": "ccorder_fee",
-            "6": "withdraw_fee",
-            "7": "award_reg",
-            "8": "",
+            '5': "accept_buy",
+            '6': "accept_sell",
+            "7": "ccorder_fee",
+            "8": "withdraw_fee",
+            "9": "award_reg",
+            "10": "",
         },
         bizTypeValueList = {};
 
@@ -100,9 +104,11 @@ define([
             });
         }
         getBankData().then(data => {
-            data.forEach(item => {
-                zfType[item.bankName] = item.bankCode
-            })
+            data.forEach((item) => {
+                zfType[item.bankName] = item.bankCode;
+                zfNumber[item.bankName] = item.bankcardNumber;
+            });
+            zfOne = data[0].bankName;
         });
         getGmBankData().then(data => {
             data.forEach(item => {
@@ -111,7 +117,6 @@ define([
         });
         //总资产
         UserCtr.userAllMoneyX('CNY').then(data => {
-            // console.log('总资产', data);
             $('.u-bb').text(data.symbol);
             $('.u-money').text(data.currency);
         })
@@ -133,7 +138,6 @@ define([
                 "parentKey": "jour_biz_type_user"
             }),
         ).then((data1, data2) => {
-            // console.log('data1', data1);
             data1.forEach(function (item) {
                 bizTypeValueList[item.dkey] = item.dvalue
             })
@@ -280,11 +284,11 @@ define([
             })
             //涨幅
             getZfData().then(data => {
-                // console.log('涨幅：', data);
                 $('.x-bf_r').text(data.list[0].exchangeRate + '%');
             })
             if(!userAccountNum){
                 qhMoneyType('.con-toBuy', 'CNY');
+                qhMoneyType('.con-toSell', 'CNY');
             }
             // zfType[item.zfType[item.bankName] = item.bankCode] = item.bankCode
             getBankData().then(data => {
@@ -312,6 +316,11 @@ define([
             if (userAccountNum) {
                 getPageFlow(config);
             }
+            $('.zhanghao').text(zfNumber[zfOne]);
+            $('#zf_select').change(function(){
+                let zf_zhanghao = $(this).find("option:selected").val();
+                $('.zhanghao').text(zfNumber[zf_zhanghao]);
+            })
             addListener();
             base.hideLoadingSpin();
         }, base.hideLoadingSpin)
@@ -329,7 +338,7 @@ define([
                         <div class="b-c_h buy-c">
                             <p class="sel-p">金额</p>
                             <p>数量</p>
-                            <div class="b-c_d">单笔限制：<span class="min-money">100</span> - <span class="max-money">5000</span> <span class="x-p_money"></span></div>
+                            <div class="b-c_d">单笔限制：<span class="min-money"></span> - <span class="max-money"></span> <span class="x-p_money"></span></div>
                         </div>
                         <div class="b-c_put">
                             <input type="text">
@@ -350,6 +359,7 @@ define([
                                 <span><img src="/static/images/xlh.png" alt=""></span>
                             </div>
                         </div>
+                        <div style="margin-top: 20px;">账号：<span class="zhanghao"></span></div>
                         <div class="b-c_foo">
                             <button>买入</button>
                         </div>
@@ -370,7 +380,7 @@ define([
                         <div class="b-c_h sell-c">
                             <p class="sel-p">金额</p>
                             <p>数量</p>
-                            <div class="b-c_d">单笔限制：<span class="min-money">100</span> - <span class="max-money">5000</span> <span class="x-p_money">CNY</span></div>
+                            <div class="b-c_d">单笔限制：<span class="min-money"></span> - <span class="max-money"></span> <span class="x-p_money">CNY</span></div>
                         </div>
                         <div class="b-c_put">
                             <input type="text">
@@ -740,9 +750,7 @@ define([
             params.payCardInfo = $(this).parents('.con-tb').siblings('.tr-mx').children('li').eq(0).text();
             params.accountNumber = $(this).prev().attr('data-accountNumber');
             params.amount = base.formatMoneyParse(params.amount, '', params.payCardInfo);
-            // console.log(params.payCardInfo);
             withDraw(params).then(data => {
-                // console.log(data);
                 $(this).parents('form').reset();
             })
         })
@@ -965,7 +973,8 @@ define([
                 let m_type = $('.con-toSell .x-p_money').eq(0).text();
                 if ($(this).text() == '金额') {
                     $('.b-c_put p').text('请输入卖出金额');
-                    $('.m_cyn').text('X');
+                    $('.m_cyn').text('CNY');
+                    $('.m_bb').text(m_type);
                 } else {
                     $('.b-c_put p').text('请输入卖出数量');
                     $('.m_bb').text('X');
@@ -976,6 +985,7 @@ define([
                 if ($(this).text() == '金额') {
                     $('.b-c_put p').text('请输入购买金额');
                     $('.m_cyn').text('X');
+                    $('.m_bb').text(m_type);
                 } else {
                     $('.b-c_put p').text('请输入购买数量');
                     $('.m_bb').text('X');
@@ -1043,6 +1053,9 @@ define([
                         }
                         buyX(buyConfig).then(() => {
                             showMsg();
+                            setTimeout(() => {
+                                base.gohref('./wallet-jilu.html');
+                            }, 1500);
                         });
                     } else {
                         showMsg('输入金额不在限额之内，请重新输入！');
@@ -1060,6 +1073,9 @@ define([
                         }
                         buyX(buyConfig).then(() => {
                             showMsg();
+                            setTimeout(() => {
+                                base.gohref('./wallet-jilu.html');
+                            }, 1500);
                         });
                     } else {
                         showMsg('输入金额不在限额之内，请重新输入！');
@@ -1101,6 +1117,9 @@ define([
                             }
                             sellX(sellConfig).then(() => {
                                 showMsg();
+                                setTimeout(() => {
+                                    base.gohref('./wallet-jilu.html');
+                                }, 1500);
                             })
                         } else {
                             showMsg('输入金额不在限额之内，请重新输入！');
@@ -1120,6 +1139,9 @@ define([
                             }
                             sellX(sellConfig).then(() => {
                                 showMsg();
+                                setTimeout(() => {
+                                    base.gohref('./wallet-jilu.html');
+                                }, 1500);
                             })
                         } else {
                             showMsg('输入金额不在限额之内，请重新输入！');

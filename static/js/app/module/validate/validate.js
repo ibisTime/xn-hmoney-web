@@ -122,7 +122,7 @@ define([
 
     $.validator.addMethod("tradePwdLength", function(value, element) {
         return this.optional(element) || /^\d{6}$/.test(value);
-    }, '资金密码长度为6位');
+    }, '资金密码长度为6位且为数字');
 
     //小数最后8位
     $.validator.addMethod("amountEth", function(value, element) {
