@@ -503,8 +503,8 @@ define([
         if (bazaarData) {
             bazULHtml += `<li>
                         <p class="li-left">
-                            <img src="/static/images/自选.png" alt="">
-                            <img src="/static/images/星星空.png" alt="" class="none">
+                            <img src="/static/images/zx.png" alt="">
+                            <img src="/static/images/xxk.png" alt="" class="none">
                             <span>${bazaarData.symbol}</span>
                         </p>
                         <p class="li-con bb-zxj">0.0</p>

@@ -173,14 +173,14 @@ define([
             if ($(this).children('span').text() == '收起') {
                 $(this).parent().next().hide(200);
                 $(this).children('span').text('展开');
-                $(this).children('i').css('background-image', 'url(/static/images/展开.png)');
+                $(this).children('i').css('background-image', 'url(/static/images/zk.png)');
             } else {
                 $('.form-detail').hide(200);
                 $('.yz_p').children('span').text('展开');
-                $('.yz_p').children('i').css('background-image', 'url(/static/images/展开.png)');
+                $('.yz_p').children('i').css('background-image', 'url(/static/images/zk.png)');
                 $(this).parent().next().show(200);
                 $(this).children('span').text('收起');
-                $(this).children('i').css('background-image', 'url(/static/images/收起.png)');
+                $(this).children('i').css('background-image', 'url(/static/images/sq.png)');
             }
         })
 
