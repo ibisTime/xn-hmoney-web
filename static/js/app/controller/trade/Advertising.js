@@ -13,7 +13,7 @@ define([
     var mid = 0,
         jdLeft = 0,
         selOnlyCert = 0;
-
+    var pay = '';
     init();
 
     function init() {
@@ -96,11 +96,10 @@ define([
 
             //价格
             $("#price").attr("data-coin", coin.toUpperCase());
+
             if (code == ""){
                 $("#price").val(data3.mid);
                 mid = data3.mid;
-            }else{
-                $('.m-type').text('USD');
             }
 
             if (code != "") {
@@ -184,6 +183,12 @@ define([
     //获取广告详情
     function getAdvertiseDetail() {
         return TradeCtr.getAdvertiseDetail(code).then((data) => {
+            pay = data.tradeCurrency
+            if(pay == 'CNY'){
+                $('.m-type').text('CNY');
+            }else{
+                $('.m-type').text('USD');
+            }
             status = data.status;
             data.premiumRate = data.premiumRate * 10;
             let premiumRate = (Math.floor(data.premiumRate * 100) / 100).toFixed(2);
