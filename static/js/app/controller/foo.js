@@ -38,7 +38,7 @@ define([
 
     function getAboutUs(){
         return GeneralCtr.getSysConfig('service').then(data => {
-            console.log('us', data);
+            // console.log('us', data);
         })
     }
 

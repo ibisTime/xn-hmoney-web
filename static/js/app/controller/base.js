@@ -163,12 +163,12 @@ define([
         },
         // 金额格式化 默认保留t || 8位  小数 coin 默认eth
         formatMoney: function(s, t, coin) {
-            var unit = coin ? Base.getCoinUnit(coin) : "1e18";
+            var unit = coin ? Base.getCoinUnit(coin) : "1000";
 
             if (!$.isNumeric(s))
                 return "-";
             if (t == '' || t == null || t == undefined || typeof t == 'object') {
-                t = 8;
+                t = 2;
             }
             //保留8位小数
             s = new BigDecimal.BigDecimal(s);

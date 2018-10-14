@@ -1,7 +1,8 @@
 define([
     'app/controller/base',
+    'app/util/ajax',
     'app/interface/GeneralCtr'
-], function(base, GeneralCtr) {
+], function(base, Ajax, GeneralCtr) {
     var key = base.getUrlParam('key') || '1';
 
     init();
@@ -21,6 +22,15 @@ define([
         }, base.hideLoadingSpin)
     }
 
+    // 系统公告
+    function notice() {
+        return Ajax.post('805305', {
+            start: '1',
+            limit: '10',
+            status: '1'
+        });
+    }
+
     function selContent(key){
         switch(key){
             case '1': 
@@ -32,8 +42,19 @@ define([
                 getSysConfig('service');
                 break;
             case '3': 
-                // getSysConfig('privacy');
-                $("#content").html('暂无公告');
+                $("#content").html('');
+                notice().then(data => {
+                    let ggHtml = '';
+                    data.list.forEach(item => {
+                        ggHtml += `
+                            <li>
+                                <h5 style="font-size: 16px;font-weight: 400;">${item.content}</h5>
+                                <p style="text-align: right; padding-right: 20px; font-size: 13px;">${base.formateDatetime(item.createDatetime)}</p>
+                            </li>
+                        `
+                        $("#content").html(ggHtml);
+                    })
+                });
                 break;
             case '5': 
                 $("#content").html('');
@@ -44,12 +65,12 @@ define([
                 getSysConfig('privacy');
                 break;
             case '7': 
-                // getSysConfig('privacy');
-                $("#content").html('暂无申明');
+                $("#content").html('');
+                getSysConfig('raw_note');
                 break;
             case '8': 
-                // getSysConfig('privacy');
-                $("#content").html('暂无说明');
+                $("#content").html('');
+                getSysConfig('fee_note');
                 break;
         }
     }

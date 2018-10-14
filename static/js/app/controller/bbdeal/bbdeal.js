@@ -26,8 +26,11 @@ define([
     let bazaarData = []; // 交易对数据 
     let setBazDeal = JSON.parse(sessionStorage.getItem('setBazDeal')) || {
         symbol: 'X',
-        toSymbol: 'BTC'
+        toSymbol: 'BTC',
+        unit: base.getCoinUnit('X'),
+        toUnit: base.getCoinUnit('BTC')
     };
+    console.log('setBazDeal', setBazDeal);
     let isType = 0; // 0 表示限价 1 表示市价
     let buyHandicapData = []; // 买盘口数据
     let sellHandicapData = []; // 卖盘口数据
@@ -149,7 +152,7 @@ define([
                 $('.t-h').text(base.formatMoney(`${zfKData.volume}`, '', setBazDeal.toSymbol));
             }
             $('.t-jym').text(setBBList[0].price);
-            $('.sym-exc').text(setBBList[0].currencyPrice);
+            $('.sym-exc').text((Math.floor(setBBList[0].currencyPrice * 100) / 100).toFixed(2));
             upBazaarData(setBBList);
             data.list.forEach((item, i) => {
                 $('.baz-list>h5 span').eq(i).text(item.toSymbol);
@@ -202,7 +205,7 @@ define([
             if (data.list.length > 0) {
                 realTimeData = data.list;
                 let bb_zxj = base.formatMoney(`${realTimeData[0].tradedPrice}`, '', setBazDeal.toSymbol);
-                let zx_exc = (Math.floor(bb_zxj * bb_exchange * 1000) / 1000).toFixed(3);
+                let zx_exc = (Math.floor(bb_zxj * bb_exchange * 100) / 100).toFixed(2);
                 $('.bb-zxj').text(bb_zxj);
                 $('.zx-exc').text(zx_exc);
                 let realTimeHtml = '';
@@ -233,14 +236,14 @@ define([
                 if (pkObjData.buy) {
                     let toPrice = base.formatMoney(`${pkObjData.buy.price}`, '', setBazDeal.toSymbol);
                     $('#ym-price').val(toPrice);
-                    $('.mr-exc').text((Math.floor(toPrice * bb_exchange * 1000) / 1000).toFixed(3));
-                    $('.all-bb').text((Math.floor((toSyUserMoney / toPrice) * 1000) / 1000).toFixed(3));
+                    $('.mr-exc').text((Math.floor(toPrice * bb_exchange * 100) / 100).toFixed(2));
+                    $('.all-bb').text((Math.floor((toSyUserMoney / toPrice) * 100) / 100).toFixed(2));
                 }
                 if (pkObjData.sell) {
                     let toPrice = base.formatMoney(`${pkObjData.sell.price}`, '', setBazDeal.toSymbol)
                     $('#yr-price').val(toPrice);
-                    $('.mc-exc').text(toPrice * bb_exchange);
-                    $('.all-bb_c').text((Math.floor((syUserMoney) * 1000) / 1000).toFixed(3)); //syUserMoney
+                    $('.mc-exc').text(((Math.floor(toPrice * bb_exchange) * 100) / 100).toFixed(2));
+                    $('.all-bb_c').text((Math.floor((syUserMoney) * 100) / 100).toFixed(2)); //syUserMoney
                 }
             }
             oneIndex++;
@@ -411,6 +414,7 @@ define([
             }
 
         }
+        base.showLoadingSpin();
         return Ajax.post("650050", {
             userId: base.getUserId(),
             type, // 委托类型，0=市价，1=限价
@@ -577,7 +581,12 @@ define([
         // 选择基础币种
         $('.baz-list>h5 span').off('click').click(function () {
             $(this).addClass('sel-sp').siblings().removeClass('sel-sp');
-            sessionStorage.setItem('setBazDeal', JSON.stringify({symbol: 'X', toSymbol: $(this).text()}));
+            sessionStorage.setItem('setBazDeal', JSON.stringify({
+                symbol: 'X', 
+                toSymbol: $(this).text(),
+                unit: base.getCoinUnit('X'),
+                toUnit: base.getCoinUnit($(this).text())
+            }));
             location.reload();
             // switch ($(this).text()) {
             //     case bazaarData[0].toSymbol:
@@ -670,6 +679,7 @@ define([
                 }
                 if (outBlur(inpPrice) && outBlur(inpNum) && price != '0') {
                     getLimitedPriceData('1', direction, price, totalCount).then(data => {
+                        base.hideLoadingSpin();
                         $(inpNum).val('');
                         $(inpPrice).val('');
                         $('.mr-exc').text('0.00');
@@ -705,6 +715,7 @@ define([
             if (isType == 1) {
                 if (outBlur(inpNum)) {
                     getLimitedPriceData('0', direction, '', totalCount).then(data => {
+                        base.hideLoadingSpin();
                         $(inpNum).val('');
                         if (data.code) {
                             base.showMsg('订单提交成功');
@@ -740,6 +751,7 @@ define([
             if (!base.isLogin()) {
                 return false;
             }
+
             placeAnOrder('1', '#yr-price', '#sellNum');
         })
 
@@ -775,16 +787,16 @@ define([
         //订单输入 汇率换算
         $('#ym-price').keyup(function () {
             let ym_price = $(this).val();
-            $('.mr-exc').text(ym_price * bb_exchange);
+            $('.mr-exc').text(((Math.floor(ym_price * bb_exchange) * 100) / 100).toFixed(2));
             if (ym_price > 0) {
-                $('.all-bb').text((Math.floor((toSyUserMoney / ym_price) * 1000) / 1000).toFixed(3));
+                $('.all-bb').text((Math.floor((toSyUserMoney / ym_price) * 100) / 100).toFixed(2));
             }
         })
         $('#yr-price').keyup(function () {
             let yr_price = $(this).val();
-            $('.mc-exc').text(yr_price * bb_exchange);
+            $('.mc-exc').text(((Math.floor(yr_price * bb_exchange) * 100) / 100).toFixed(2));
             if (yr_price > 0) {
-                $('.all-bb_c').text((Math.floor((syUserMoney / yr_price) * 1000) / 1000).toFixed(3));
+                $('.all-bb_c').text((Math.floor((syUserMoney / yr_price) * 100) / 100).toFixed(2));
             }
         })
 

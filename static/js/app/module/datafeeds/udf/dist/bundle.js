@@ -113,14 +113,22 @@
                         $("#tv_chart_container").attr("firstLoadTime", Date.parse(new Date()));
                         sessionStorage.setItem("firstLoad", "1");
                         sessionStorage.setItem("firstLoadTime", Date.parse(new Date()));
+                        let setBazDeal = JSON.parse(sessionStorage.getItem('setBazDeal')) || {
+                            symbol: 'X',
+                            toSymbol: 'BTC',
+                            unit: 1000000000000000000,
+                            toUnit: 100000000
+                        };
+                        let unit = Number(setBazDeal.unit);
+                        let toUnit = Number(setBazDeal.toUnit);
                         for (var i = 0; i < response.length; ++i) {
                             var barValue = {
                                 time: Date.parse(new Date(response[i].createDatetime)),//createDatetime
-                                close: Number(response[i].close),
-                                open: Number(response[i].open),
-                                high: Number(response[i].high),
-                                low: Number(response[i].low),
-                                volume: Number(response[i].volume),
+                                close: (Number(response[i].close) / toUnit).toFixed(8),
+                                open: (Number(response[i].open) / toUnit).toFixed(8),
+                                high: (Number(response[i].high) / toUnit).toFixed(8),
+                                low: (Number(response[i].low) / toUnit).toFixed(8),
+                                volume: (Number(response[i].volume) / unit).toFixed(8),
                                 isBarClosed: true,
                                 isLastBar: false
                             };
@@ -643,9 +651,9 @@
 
             let setBazDeal = JSON.parse(sessionStorage.getItem('setBazDeal')) || {
                 symbol: 'X',
-                toSymbol: 'BTC'
+                toSymbol: 'BTC',
+                unit: '1e8'
             }
-            
             var symbolInfo = {
                 "name": "X",
                 "timezone": "Asia/Shanghai",
@@ -657,12 +665,11 @@
                 has_weekly_and_monthly: !0,
                 "description": "BTC",
                 "type": "coin",
-                "pricescale": 100,
                 "ticker": setBazDeal.symbol,
                 'toSymbol': setBazDeal.toSymbol,
                 'period': '30min',
-                pricescale: Number("1e2"),
-                volumescale: Number("1e4"),
+                pricescale: Number(setBazDeal.toUnit),
+                volumescale: Number(setBazDeal.unit),
             };
             onResultReady(symbolInfo);
             //      if (!this._configuration.supports_group_request) {

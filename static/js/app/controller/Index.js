@@ -89,13 +89,28 @@ define([
             aarketData.length = 2;
             let aarketHtml = '';
             aarketData.forEach((item, index) => {
-                aarketHtml += `<li>
+                aarketHtml += `<li class="toHref" style="cursor: pointer;" data-href="../bbdeal/bbdeal.html" data-sym="${item.toSymbol}">
                     <p><span>${item.symbol}</span> / <span>${item.toSymbol}</span></p>
                     <h5>${(Math.floor(item.price * 10000) / 10000).toFixed(4)}</h5>
                     <p><span class="zj"></span><span class="zf">${bzfList[index]}</span>% <span class="zf-img"><img src=${bzfList[index].indexOf('-') == 0 ? '/static/images/xj.png' : '/static/images/ss.png'} alt=""></span></p>
                 </li>`
             })
             $('.bb-hq_r ul').html(aarketHtml);
+            $('.bb-hq_r li').click(function(){
+                let href = $(this).attr('data-href');
+                let sym = $(this).attr('data-sym');
+                let setBazDeal = {
+                    symbol: 'X',
+                    toSymbol: 'BTC',
+                    unit: base.getCoinUnit('BTC')
+                }
+                if(sym == 'ETH'){
+                    setBazDeal.toSymbol = 'ETH';
+                    setBazDeal.unit = base.getCoinUnit('ETH');
+                }
+                sessionStorage.setItem('setBazDeal', JSON.stringify(setBazDeal));
+                base.gohref(href);
+            })
         })
     }
 

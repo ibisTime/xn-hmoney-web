@@ -42,7 +42,7 @@ define([
         $('.o-type').text(typeList[userCTSList.type]);
         $('.x-num').text(base.formatMoney(`${userCTSList.count}`, '', 'X'));
         $('.o-code').text(userCTSList.code);
-        $('.o-all').text(userCTSList.tradeAmount);
+        $('.o-all').text((Math.floor(userCTSList.tradeAmount * 100) / 100).toFixed(2));
         $('.o-status').text(statusList[userCTSList.status]);
         $('.o-date').text(base.formateDatetime(userCTSList.createDatetime));
         $('.o-money').text(userCTSList.tradeCurrency);
@@ -82,7 +82,7 @@ define([
 
     // 取消订单
     function qxOrder(config) {
-        return Ajax.get('625272', config)
+        return Ajax.get('625272', config);
     }
 
     addListener();

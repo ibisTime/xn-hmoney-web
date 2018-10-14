@@ -118,7 +118,7 @@ define([
         //总资产
         UserCtr.userAllMoneyX('CNY').then(data => {
             $('.u-bb').text(data.symbol);
-            $('.u-money').text(data.currency);
+            $('.u-money').text((Math.floor(data.currency * 100) / 100).toFixed(2));
         })
 
         if (base.getGoogleAuthFlag() == "true" && base.getGoogleAuthFlag()) {
@@ -969,6 +969,8 @@ define([
             $(this).addClass('sel-p').siblings('p').removeClass('sel-p');
             $('.b-c_put input').val('');
             $('.x_num').text('0.00');
+            $('.back-type input').val('');
+            $('#money_pow').val('');
             if (isSell) {
                 let m_type = $('.con-toSell .x-p_money').eq(0).text();
                 if ($(this).text() == '金额') {
@@ -1043,6 +1045,7 @@ define([
             function changeBuyMoney(p_money, allMoney, m_count) {
                 if (p_money == 'CNY') {
                     if (moneyXZ.min_cny <= allMoney && allMoney <= moneyXZ.max_cny) {
+                        // allMoney = allMoney * 1000;
                         let buyConfig = {
                             tradeCurrency: 'CNY',
                             tradePrice: moneyHS,
@@ -1063,6 +1066,7 @@ define([
                 }
                 if (p_money == 'USD') {
                     if (moneyXZ.min_usd <= allMoney && allMoney <= moneyXZ.max_usd) {
+                        // allMoney = allMoney * 1000;
                         let buyConfig = {
                             tradeCurrency: 'USD',
                             tradePrice: moneyHS,
@@ -1105,6 +1109,7 @@ define([
                 function changeSellMoney(p_money, allMoney, m_count, m_receiveCardNo) {
                     if (p_money == 'CNY') {
                         if (moneyXZ.min_cny <= allMoney && allMoney <= moneyXZ.max_cny) {
+                            // allMoney = allMoney * 1000;
                             let sellConfig = {
                                 userId: base.getUserId(),
                                 tradeCurrency: 'CNY',
@@ -1127,6 +1132,7 @@ define([
                     }
                     if (p_money == 'USD') {
                         if (moneyXZ.min_usd <= allMoney && allMoney <= moneyXZ.max_usd) {
+                            // allMoney = allMoney * 1000;
                             let sellConfig = {
                                 userId: base.getUserId(),
                                 tradeCurrency: 'USD',

@@ -61,7 +61,7 @@ define([
         }).then((data) => {
             data.forEach(item => {
                 CerStatusList[`${item.dkey}`] = item.dvalue;
-            })
+            });
         })
         addListener();
     }

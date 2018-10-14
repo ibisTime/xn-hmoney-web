@@ -538,7 +538,6 @@ define([
                 base.showLoadingSpin()
                 TradeCtr.downAdvertise(code).then(() => {
                     base.hideLoadingSpin();
-
                     base.showMsg("操作成功");
                     setTimeout(function() {
                         history.go(-1)
