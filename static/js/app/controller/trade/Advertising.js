@@ -596,24 +596,27 @@ define([
 
         function advertiseData(mType) {
             var m_type = mType;
+            let protectPrice = $('#protectPrice').val() || 0;
+            let minTrade = $('#minTrade').val() || 0;
+            let maxTrade = $('#maxTrade').val() || 0;
             getAdvertisePrice(coin, m_type).then(data => {
                 mid = data.mid;
                 let bblv = midBlv / mid;
                 $("#price").val(mid);
                 if(bblv < 0){
-                    $('#protectPrice').val((bblv * parseFloat($('#protectPrice').val())).toFixed(2));
-                    $('#minTrade').val((bblv * parseFloat($('#minTrade').val())).toFixed(2));
-                    $('#maxTrade').val((bblv * parseFloat($('#maxTrade').val())).toFixed(2));
+                    $('#protectPrice').val((bblv * parseFloat(protectPrice)).toFixed(2));
+                    $('#minTrade').val((bblv * parseFloat(minTrade)).toFixed(2));
+                    $('#maxTrade').val((bblv * parseFloat(maxTrade)).toFixed(2));
                 }else{
-                    $('#protectPrice').val((parseFloat($('#protectPrice').val()) / bblv).toFixed(2));
-                    $('#minTrade').val((parseFloat($('#minTrade').val()) / bblv).toFixed(2));
-                    $('#maxTrade').val((parseFloat($('#maxTrade').val()) / bblv).toFixed(2));
+                    $('#protectPrice').val((parseFloat(protectPrice) / bblv).toFixed(2));
+                    $('#minTrade').val((parseFloat(minTrade) / bblv).toFixed(2));
+                    $('#maxTrade').val((parseFloat(maxTrade) / bblv).toFixed(2));
                 }
             });
         }
 
         $('#tradeCurrency').change(function() {
-            midBlv = $('#price').val();
+            midBlv = $('#price').val() || 0;
             let receiveType = $(this).find("option:selected").val();
             switch (receiveType) {
                 case 'CNY':

@@ -702,7 +702,7 @@ define([
                                 curOrder(userOrderData);
                             })
                         }, 200);
-                    }); // 委托类型，买卖方向，价格，委托数量
+                    }, base.hideLoadingSpin); // 委托类型，买卖方向，价格，委托数量
                 } else {
                     return false;
                 }
@@ -729,6 +729,8 @@ define([
                                 curOrder(userOrderData);
                             })
                         }, 200);
+                    }, () => {
+                        base.hideLoadingSpin();
                     }); // 委托类型，买卖方向，价格，委托数量
                 } else {
                     return false;

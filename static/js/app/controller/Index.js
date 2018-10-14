@@ -102,11 +102,12 @@ define([
                 let setBazDeal = {
                     symbol: 'X',
                     toSymbol: 'BTC',
-                    unit: base.getCoinUnit('BTC')
+                    unit: base.getCoinUnit('X'),
+                    toUnit: base.getCoinUnit('BTC')
                 }
                 if(sym == 'ETH'){
                     setBazDeal.toSymbol = 'ETH';
-                    setBazDeal.unit = base.getCoinUnit('ETH');
+                    setBazDeal.toUnit = base.getCoinUnit('ETH');
                 }
                 sessionStorage.setItem('setBazDeal', JSON.stringify(setBazDeal));
                 base.gohref(href);
