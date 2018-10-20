@@ -67,6 +67,7 @@ define([
             }
             $("#statusInfo samp").html(data.remark)
             $("#tradePrice").html(data.tradePrice);
+            $('.m_type').text(data.tradeCurrency);
             tradeCoin = data.tradeCoin ? data.tradeCoin : 'ETH';
             $("#countString").html(base.formatMoney(data.countString, '', tradeCoin) + '&nbsp;' + tradeCoin);
 
