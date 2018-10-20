@@ -18,7 +18,7 @@ define([
         this.options = $.extend({}, this.defaultOptions, opt);
         var _self = this;
         var verification = $("#" + _self.options.id);
-        verification.text("獲取驗證碼").prop("disabled", false);
+        verification.text("获取验证码").prop("disabled", false);
         clearInterval(_self.timer);
 
         $("#" + this.options.id).off("click")
@@ -43,17 +43,24 @@ define([
         GeneralCtr.sendCaptcha(_this.options.bizType, $("#" + _this.options.mobile).val(), _this.options.sendCode)
             .then(() => {
                 var i = 60;
+                $('#getVerification').css({
+                    color: '#ccc',
+                    'background-color': '#fff'
+                });
                 _this.timer = window.setInterval(() => {
                     if (i > 0 && verification.attr("disabled")) {
-                        verification.text("重新發送(" + i-- + "s)");
+                        verification.text("重新发送(" + i-- + "s)");
                     } else {
-                        verification.text("獲取驗證碼").prop("disabled", false);
+                        verification.text("获取验证码").prop("disabled", false);
+                        $('#getVerification').css({
+                            color: '#d53d3d'
+                        });
                         clearInterval(_this.timer);
                     }
                 }, 1000);
             }, function() {
                 _this.options.errorFn && _this.options.errorFn();
-                verification.text("獲取驗證碼").prop("disabled", false);
+                verification.text("获取验证码").prop("disabled", false);
             });
     };
     return {

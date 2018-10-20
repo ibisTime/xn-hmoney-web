@@ -1,109 +1,121 @@
-<!DOCTYPE html>
-<html lang="zh-CN">
-    <head>
-        <link rel="import" href="../head.html?__inline">
-        <title>購買-倍可盈</title>
-    	<!--SCRIPT_PLACEHOLDER-->
-        <link rel="import" href="../top/top-zendesk.html?__inline">
-    </head>
-    
-    <body>
-        <link rel="import" href="../top/top.html?__inline">
-		<div class="public-container trade-container">
-			<!--幣種選擇-->
-			<div class="wallet-top-wrap b_e_b mb20" id="coin-top">
-				<ul></ul>
-			</div>
-			
-			<div class="search-wrap mt20">
-				<div class="searchType-wrap fl userSelect_none" id="searchTypeWrap">
-					<div class="show-wrap b_e" data-type="adver"><samp>搜廣告</samp><i class="icon icon-down"></i></div>
-					<ul class="select-ul bg_fff">
-						<li data-type="adver">搜廣告</li>
-						<li data-type="user">搜用戶</li>
-					</ul>
-				</div>
-				<div class="search-con fl bg_fff b_e_b b_e_t" id="searchConWrap">
-					<div class="advertisement-wrap adver">
-						<div class="item fl mr10">
-							<samp>價格區間:</samp>
-							<input type="text" name="minPrice" class="text ml5 minPrice"  />
-							<samp>~</samp>
-							<input type="text" name="maxPrice" class="text maxPrice"  />
-						</div>
-						<div class="item fl">
-							<samp>付款方式:</samp>
-							<select class="payType ml5" name="payType">
-								<option value="">請選擇</option>
-								<option value="0">支付寶</option>
-								<option value="1">微信</option>
-								<option value="2">銀行卡轉賬</option>
-							</select>
-							<i class="icon icon-down"></i>
-						</div>
-					</div>
-					<div class="user-wrap user hidden">
-						<input type="text" class="nickname" placeholder="請輸入完整用戶名" />
-					</div>
-				</div>
-				<div class="search-btn fl">
-					<div class="am-button am-button-red am-button-noradius" id="searchBtn">
-						<i class="icon icon-search"></i>搜索
-					</div>
-				</div>
-			</div>
-			
-			<!--可配置banner-->
-			<div class="tradeBanner" id="tradeBanner"></div>
-			
-			<div class="trade-list-wrap mt20 userSelect_none minheight">
-				<div class="trade-wrap wp100 b_e">
-					<table class="wp100 trade-form" cellpadding="0" cellspacing="0">
-						<thead>
-							<tr>
-								<td class="nickname">暱稱</td>
-								<td class="credit">信用</td>
-								<td class="payType">付款方式</td>
-								<td class="limit">限額</td>
-								<td class="price">價格</td>
-								<td class="operation"></td>
-							</tr>
-						</thead>
-						<tbody id="content">
-							<!--<tr>
-								<td class="nickname">
-									<div class="photoWrap fl goHref" data-href="../user/user-detail.html">
-										<div class="photo"><div class="noPhoto">J</div></div>
-										<div class="dot green"></div>
-									</div>
-									<samp class="name">junxi</samp>
-								</td>
-								<td class="credit">
-									<samp>交易<i>134</i></samp> · <samp>好評度<i>100%</i></samp> · <samp>信任<i>284</i></samp>
-								</td>
-								<td class="payType">現金存款</td>
-								<td class="limit">100000-10000000CNY</td>
-								<td class="price">100541.15CNY</td>
-								<td class="operation"><div class="am-button am-button-ghost goHref" data-href="../trade/buy-detail.html">購買ETH</div></td>
-							</tr>-->
-						</tbody>
-					</table>
-					<div class="no-data b_e_t hidden">
-						<img src="../../images/zwmx.png" />
-						<p>暫無广告</p>
-					</div>
-				</div>
-				<div id="pagination" class="wp100 pagination-wrap tc">
-					<p class="pagination"></p>
-				</div>
+<link rel="import" href="../public/deal-left.html?__inline">
+<div class="right-wrap bg_fff fr minheight">
+    <div class="public-container trade-container">
+        <!--幣種選擇-->
+        <div class="wallet-top-wrap b_e_b mb20" id="coin-top">
+            <ul></ul>
+            <p class="coin-search">
+                <i class="icon icon-search"></i>
+                <span class="show-search">全部货币，全部付款方式</span>
+            </p>
+        </div>
 
-			</div>
-			
-		</div>	
-		
-        <link rel="import" href="../footer.html?__inline">
-        <script>
-            require(['app/controller/trade/BuyList']);
-        </script>
-    </body>
+        <div class="search-wrap mt20 none">
+            <div class="searchType-wrap fl userSelect_none" id="searchTypeWrap">
+                <div class="show-wrap b_e" data-type="adver"><samp>搜广告</samp><i class="icon icon-down"></i></div>
+                <ul class="select-ul bg_fff">
+                    <li data-type="adver">搜广告</li>
+                    <li data-type="user">搜用户</li>
+                </ul>
+            </div>
+            <div class="search-con fl bg_fff b_e_b b_e_t" id="searchConWrap">
+                <div class="advertisement-wrap adver">
+                    <!-- <div class="item fl mr10">
+                                <samp>价格區間:</samp>
+                                <input type="text" name="minPrice" class="text ml5 minPrice" />
+                                <samp>~</samp>
+                                <input type="text" name="maxPrice" class="text maxPrice" />
+                            </div> -->
+                    <div class="item fl">
+                        <samp>货币</samp>
+                        <select class="payTypeMoney ml5" name="payTypeMoney">
+                            <option value="">请选择</option>
+                            <option value="CNY">CNY人民币</option>
+                            <option value="USD">USD美元</option>
+                        </select>
+                        <i class="icon icon-down"></i>
+                    </div>
+                    <div class="item fl">
+                        <samp>付款方式:</samp>
+                        <select class="payType ml5" name="payType">
+								<option value="">请选择</option>
+								<option value="0">支付宝</option>
+								<option value="1">微信</option>
+								<option value="2">银行卡转账</option>
+							</select>
+                        <i class="icon icon-down"></i>
+                    </div>
+                </div>
+                <div class="user-wrap user hidden">
+                    <input type="text" class="nickname" placeholder="请输入完整用户名" />
+                </div>
+            </div>
+            <div class="search-btn fl">
+                <div class="am-button am-button-red am-button-noradius" id="searchBtn">
+                    <i class="icon icon-search"></i>搜索
+                </div>
+            </div>
+        </div>
+
+        <div class="trade-list-wrap mt20 userSelect_none minheight">
+            <div class="trade-wrap wp100 b_e">
+                <table class="wp100 trade-form" cellpadding="0" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <td class="nickname">昵称</td>
+                            <!-- <td class="credit">信用</td> -->
+                            <td class="payType">付款方式</td>
+                            <td class="limit">限额</td>
+                            <td class="price">价格</td>
+                            <td class="operation"></td>
+                        </tr>
+                    </thead>
+                    <tbody id="content">
+                        <!-- <tr> -->
+                        <!-- <td class="nickname con-nickname">
+                                <div class="photoWrap goHref" data-href="../user/user-detail.html">
+                                    <div class="photo">
+                                        <div class="noPhoto">J</div>
+                                    </div>
+                                    <div class="dot green"></div>
+                                </div>
+                                <div class="nick-right">
+                                    <samp class="name">junxi <span class="sp-yrz">已认证</span></samp>
+                                    <p class="n-dist" style="margin-left: 15px;"><samp>交易<i>134</i></samp> · <samp>好评度<i>100%</i></samp> · <samp>信任<i>284</i></samp></p>
+                                </div>
+                            </td> -->
+                        <!-- <td class="credit">
+                                        
+                                    </td> -->
+                        <!-- <td class="payType"><img src="../../images/yhk.png" alt=""></td>
+                            <td class="limit">100000-10000000CNY</td>
+                            <td class="price">100541.15CNY</td>
+                            <td class="operation">
+                                <div class="am-button am-button-ghost goHref" data-href="../trade/buy-detail.html">购买BTC</div>
+                            </td> -->
+                        <!-- </tr> -->
+                    </tbody>
+                </table>
+                <div class="no-data b_e_t hidden">
+                    <img src="../../images/no-detail.png" />
+                    <p>暂无广告</p>
+                </div>
+            </div>
+            <div id="pagination" class="wp100 pagination-wrap tc">
+                <p class="pagination"></p>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+</div>
+
+<link rel="import" href="../footer.html?__inline">
+<script>
+    require(['app/controller/trade/BuyList']);
+    require(['app/controller/public/DealPub']);
+</script>
+</body>
+
 </html>

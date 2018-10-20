@@ -5,7 +5,7 @@ define([
     return {
         // 获取账户
         getAccount() {
-            return Ajax.get("802503", {
+            return Ajax.get("802301", { // 802503   802301
                 userId: base.getUserId()
             }, true);
         },
@@ -13,9 +13,9 @@ define([
          * 分页查询流水
          * @param config: {start, limit, accountNumber, bizType,kind}
          */
-        getPageFlow(config,refresh) {
-            return Ajax.get("802524", {
-            	...config
+        getPageFlow(config, refresh) {
+            return Ajax.get("802322", { // 802320 802524
+                ...config
             }, refresh);
         },
         /**
@@ -34,7 +34,7 @@ define([
          * @param config: {accountNumber,amount,applyUser,applyNote,tradePwd,googleCaptcha}
          */
         withDraw(config) {
-            return Ajax.post("802750", {
+            return Ajax.post("802350", {
                 applyUser: base.getUserId(),
                 ...config
             });
@@ -43,13 +43,13 @@ define([
          * 分页查询地址
          * @param config: {address,limit,start,statusList,type,userId,currency}
          */
-        getPageCoinAddress(config,refresh) {
+        getPageCoinAddress(config, refresh) {
             return Ajax.post("802175", {
                 userId: base.getUserId(),
-                type:'Y',
-                statusList: ['0','1'],
+                type: 'Y',
+                statusList: ['0', '1'],
                 ...config
-            },refresh);
+            }, refresh);
         },
         /**
          * 新增地址
@@ -59,13 +59,13 @@ define([
             return Ajax.post("802170", {
                 userId: base.getUserId(),
                 ...config
-            },true);
+            }, true);
         },
         //弃用地址
-		deleteCoinAddress(code) {
+        deleteCoinAddress(code) {
             return Ajax.post("802171", {
                 code
-            },true);
+            }, true);
         },
     };
 })

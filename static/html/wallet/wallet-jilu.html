@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <link rel="import" href="../head.html?__inline">
+    <title>订单记录-FUNMVP区块链技术应用实验平台</title>
+    <!--SCRIPT_PLACEHOLDER-->
+</head>
+
+<body>
+    <link rel="import" href="../top/top.html?__inline">
+    <div class="wallet-container public-container wallet-container-sc">
+        <div class="tradeRecord-wrap mb80">
+            <div class="tradeRecord-wrap-title b_e">订单记录</div>
+            <div class="tradeRecord-top b_e_b x-order">
+                <ul>
+                    <li>类型</li>
+                    <li>币种</li>
+                    <li>总金额</li>
+                    <li class="date_n">数量</li>
+                    <li class="date_li">下单日期</li>
+                    <li>状态</li>
+                    <li>操作</li>
+                </ul>
+            </div>
+            <div class="tradeRecord-list-wrap">
+                <div class="x-order_warp">
+                    <ul>
+                        <!-- <li>
+                            <p>买入</p>
+                            <p>X</p>
+                            <p>¥100.00</p>
+                            <p>$100.00</p>
+                            <p class="date_num">100.002860</p>
+                            <p class="date_p">2018-9-8 15:14:23</p>
+                            <p>待支付</p>
+                            <div>
+                                <p>
+                                    <span>标记付款</span>
+                                    <span>取消订单</span>
+                                    <span class="goHref" data-href="../wallet/wallet-det.html">详情</span>
+                                </p>
+                            </div>
+                        </li> -->
+                    </ul>
+                </div>
+                <div class="no-data hidden">
+                    <img src="../../images/no-detail.png" />
+                    <p>暂无明细</p>
+                </div>
+                <div id="pagination" class="wp100 pagination-wrap tc">
+                    <p class="pagination"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <link rel="import" href="../footer.html?__inline">
+    <script src="../../js/lib/qrcode.js"></script>
+    <script>
+        require(['app/controller/wallet/wallet_jilu']);
+    </script>
+</body>
+
+</html>

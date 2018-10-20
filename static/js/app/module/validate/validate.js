@@ -42,6 +42,9 @@ define([
     $.validator.addMethod("chinese", function(value, element) {
         return this.optional(element) || /^[\u4e00-\u9fa5]+$/.test(value);
     }, "只能输入中文");
+    $.validator.addMethod("english", function(value, element) {
+        return this.optional(element) || /^[a-zA-Z]+$/.test(value);
+    }, "请输入英文名称");
     //验证当前值和目标val的值相等 相等返回为 false
     jQuery.validator.addMethod("equalTo2", function(value, element) {
         var returnVal = true;
@@ -96,13 +99,13 @@ define([
 
     //手机验证规则
     jQuery.validator.addMethod("mobile", function(value, element) {
-        var mobile = /^1[3|4|5|7|8]\d{9}$/;
+        var mobile = /^1[3|4|5|6|7|8|9]\d{9}$/;
         return this.optional(element) || (mobile.test(value));
     }, "手机格式错误");
 
     //邮箱或手机验证规则
     jQuery.validator.addMethod("mm", function(value, element) {
-        var mm = /^[a-z0-9._%-]+@([a-z0-9-]+\.)+[a-z]{2,4}$|^1[3|4|5|7|8]\d{9}$/;
+        var mm = /^[a-z0-9._%-]+@([a-z0-9-]+\.)+[a-z]{2,4}$|^1[3|4|5|6|7|8|9]\d{9}$/;
         return this.optional(element) || (mm.test(value));
     }, "邮箱或手机格式错误");
 
@@ -116,26 +119,26 @@ define([
         var tm = /^\d{4}$/;
         return this.optional(element) || (tm.test(value));
     }, "验证码格式错误");
-    
+
     $.validator.addMethod("tradePwdLength", function(value, element) {
         return this.optional(element) || /^\d{6}$/.test(value);
-    }, '资金密码长度为6位');
-    
+    }, '资金密码长度为6位且为数字');
+
     //小数最后8位
-	$.validator.addMethod("amountEth", function(value, element) {
-	    return this.optional(element) || (value > 0 && /^\d+(?:\.\d{1,8})?$/.test(value));
-	}, '必须>0，且小数点后最多8位');
-	//小数最后2位
-	$.validator.addMethod("amountCny", function(value, element) {
-	    return this.optional(element) || (value > 0 && /^\d+(?:\.\d{1,2})?$/.test(value));
-	}, '必须>0，且小数点后最多2位');
-	
-	//小数最后2位
-	$.validator.addMethod("tofixed2", function(value, element) {
-		return this.optional(element) || /^-?\d+(?:\.\d{1,2})?$/.test(value);
-	}, '合法数字，且小数点后最多2位');
-    
-    //身份证号码的验证规则
+    $.validator.addMethod("amountEth", function(value, element) {
+        return this.optional(element) || (value > 0 && /^\d+(?:\.\d{1,8})?$/.test(value));
+    }, '必须>0，且小数点后最多8位');
+    //小数最后2位
+    $.validator.addMethod("amountCny", function(value, element) {
+        return this.optional(element) || (value > 0 && /^\d+(?:\.\d{1,2})?$/.test(value));
+    }, '必须>0，且小数点后最多2位');
+
+    //小数最后2位
+    $.validator.addMethod("tofixed2", function(value, element) {
+        return this.optional(element) || /^-?\d+(?:\.\d{1,2})?$/.test(value);
+    }, '合法数字，且小数点后最多2位');
+
+    //身份证号码的验证规则 
     function isIdCardNo(num) {
         var len = num.length,
             re;
@@ -163,5 +166,9 @@ define([
             return false;
         }
         return true;
-    }
+    };
+    //护照验证
+    $.validator.addMethod("isHzCard", function(value) {
+        return /^((1[45]\d{7})|(G\d{8})|(P\d{7})|(S\d{7,8}))?$/.test(value);
+    }, '格式错误');
 });

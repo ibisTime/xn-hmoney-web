@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <link rel="import" href="../head.html?__inline">
+    <title>钱包-FUNMVP区块链技术应用实验平台</title>
+    <!--SCRIPT_PLACEHOLDER-->
+</head>
+
+<body>
+    <link rel="import" href="../top/top.html?__inline">
+    <div class="wallet-container public-container wallet-container-sc">
+        <div class="tradeRecord-wrap mb80">
+            <div class="tradeRecord-wrap-title b_e">场外交易明细</div>
+            <div class="tradeRecord-top b_e_b">
+                <ul>
+                    <li class="on"><span class="tr-l"> </span> 全部</li>
+                    <li>充币</li>
+                    <li>提现</li>
+                    <li>交易买入</li>
+                    <li>交易卖出</li>
+                    <li>场外承兑商购买</li>
+                    <li>场外承兑商出售</li>
+                    <li>交易手续费</li>
+                    <li>提现手续费</li>
+                    <li>邀请好友收入</li>
+                    <li>冻结记录 <span class="tr-r"> </span></li>
+                </ul>
+            </div>
+            <div class="tradeRecord-list-wrap">
+                <div class="list-item title">
+                    <div>时间</div>
+                    <div>类型</div>
+                    <div>数量</div>
+                    <div>说明</div>
+                </div>
+                <div class="list-wrap">
+                </div>
+                <div class="no-data hidden">
+                    <img src="../../images/no-detail.png" />
+                    <p>暂无明细</p>
+                </div>
+                <div id="pagination" class="wp100 pagination-wrap tc">
+                    <p class="pagination"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <link rel="import" href="../footer.html?__inline">
+    <script src="../../js/lib/qrcode.js"></script>
+    <script>
+        require(['app/controller/wallet/Wallet']);
+    </script>
+</body>
+
+</html>

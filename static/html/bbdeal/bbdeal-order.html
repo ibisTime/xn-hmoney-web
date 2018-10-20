@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <link rel="import" href="../head.html?__inline">
+    <title>币币交易订单-FUNMVP区块链技术应用实验平台</title>
+    <!--SCRIPT_PLACEHOLDER-->
+</head>
+
+<body>
+    <link rel="import" href="../top/top.html?__inline">
+    <div class="wallet-container public-container wallet-container-sc">
+        <div class="tradeRecord-wrap mb80">
+            <div class="tradeRecord-wrap-title b_e">币币交易订单</div>
+            <div class="bbOrder-wrap">
+                <p>
+                    <span class="sel-sp" data-type="history">历史委托</span>
+                </p>
+                <!-- <table class="bb-table">
+                    <thead>
+                        <tr>
+                            <th>时间</th>
+                            <th>交易对</th>
+                            <th>方向</th>
+                            <th>委托方式</th>
+                            <th>委托价</th>
+                            <th>委托量</th>
+                            <th>总额</th>
+                            <th>已成交量</th>
+                            <th>未成交量</th>
+                            <th>已成交额</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>08-13 21:40</td>
+                            <td>X/ETH</td>
+                            <td class="or-mr">买入</td>
+                            <td>市价</td>
+                            <td>14.37</td>
+                            <td>40.0000</td>
+                            <td>587.4 USD</td>
+                            <td>40.0000</td>
+                            <td>0.0000</td>
+                            <td>587.4 USD</td>
+                            <td>
+                                <button class="">取消</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table> -->
+                <div class="bborder-p">
+                    <span>时间</span>
+                    <span>交易对</span>
+                    <span>方向</span>
+                    <span>委托方式</span>
+                    <span>委托价(<i class="tos-pr">btc</i>)</span>
+                    <span>委托量(<i class="s-pr"></i>)</span>
+                    <span>总额(<i class="tos-pr">btc</i>)</span>
+                    <span>已成交量(<i class="s-pr">x</i>)</span>
+                    <span>未成交量(<i class="s-pr">x</i>)</span>
+                    <span style="width: 120px;">已成交额(<i class="tos-pr">btc</i>)</span>
+                    <span>状态</span>
+                    <span>操作</span>
+                </div>
+                <ul class="bborder-ul">
+                    <!-- <li>
+                        <div class="list-l">
+                            <span>08-13 21:40</span>
+                            <span>X/ETH</span>
+                            <span class="or-mr">买入</span>
+                            <span>市价</span>
+                            <span>14.37</span>
+                            <span>40.0000</span>
+                            <span>587.4 USD</span>
+                            <span>40.0000</span>
+                            <span>0.0000</span>
+                            <span>587.4 USD</span>
+                            <span>
+                                    <button class="">详情</button>
+                                </span>
+                        </div>
+                        <ul class="det-l">
+                            <div>
+                                <span>时间</span>
+                                <span>价格</span>
+                                <span>数量</span>
+                                <span>成交额</span>
+                                <span>手续费</span>
+                            </div>
+                            <li>
+                                <div>
+                                    <span>1</span>
+                                    <span>1</span>
+                                    <span>1</span>
+                                    <span>1</span>
+                                    <span>1</span>
+                                </div>
+                            </li>
+                        </ul>
+                    </li> -->
+                </ul>
+                <div class="no-data hidden">
+                    <img src="../../images/no-detail.png" />
+                    <p>暂无明细</p>
+                </div>
+                <div id="pagination" class="wp100 pagination-wrap tc">
+                    <p class="pagination"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <link rel="import" href="../footer.html?__inline">
+    <script src="../../js/lib/qrcode.js"></script>
+    <script>
+        require(['app/controller/bbdeal/bbOrder']);
+    </script>
+</body>
+
+</html>

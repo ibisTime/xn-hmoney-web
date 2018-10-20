@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <link rel="import" href="../head.html?__inline">
+    <title>订单记录-FUNMVP区块链技术应用实验平台</title>
+    <!--SCRIPT_PLACEHOLDER-->
+</head>
+
+<body>
+    <link rel="import" href="../top/top.html?__inline">
+    <div class="wallet-container public-container wallet-container-sc">
+        <div class="tradeRecord-wrap mb80">
+            <div class="tradeRecord-wrap-title b_e">订单记录</div>
+            <div class="x-det">
+                <div class="order-msg">
+                    <h5>订单信息</h5>
+                    <ul>
+                        <li>类型：<span class='o-type'></span></li>
+                        <li>X币数量：<span class="x-num"></span></li>
+                        <li>订单号：<span class="o-code"></span></li>
+                        <li>订单总额(<span class="o-money"></span>)：<span class="o-all"></span></li>
+                        <li>手续费：<span class="o-fee"></span></li>
+                        <li>状态：<span class="o-status"></span></li>
+                        <li>下单时间：<span class="o-date"></span></li>
+                    </ul>
+                </div>
+                <div class="sk-msg">
+                    <h5>收款信息</h5>
+                    <ul>
+                        <li>收款人：<span class="u-name"></span></li>
+                        <li>收款方式：<span class="u-type"></span></li>
+                        <li>账号：<span class="u-kcode"></span></li>
+                        <li class="l-khu">开户行：<span class="u-khu"></span></li>
+                    </ul>
+                </div>
+                <div class="cz-btn none">
+                    <button class="qr none">我已完成付款</button>
+                    <button class="qx none">取消交易</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <link rel="import" href="../footer.html?__inline">
+    <script>
+        require(['app/controller/wallet/wallet_det']);
+    </script>
+</body>
+
+</html>

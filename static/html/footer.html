@@ -7,70 +7,50 @@
 <div id="footer" class="allfooter">
     <div class="container hp100 foo-con-flex">
         <div class="foot-text">
-            <div class="foo-erwm"></div>
+            <div class="foo-erwm">
+                <div class="wp100" id="qrcodeF" style="width: 100%; height: 100%">
+                    <img src="" alt="" width="100%" height="100%">
+                </div>
+            </div>
             <p>fun mvp</p>
         </div>
         <div class="contact-info-wrap">
+            <!-- <div class="contact-info">
+                <div class="foo-tip">
+                    <img src="../images/weibo.png">
+                    <div class="foo-qq">QQ客服群：<span class="foo-url">4001566899</span></div>
+                </div>
+            </div>
             <div class="contact-info">
                 <div class="foo-tip">
                     <img src="../images/weibo.png">
-                    <div class="foo-qq">QQ客服群：4001566899</div>
+                    <div class="foo-qq">QQ客服群：<span class="foo-url">4001566899</span></div>
                 </div>
-            </div>
-            <div class="contact-info">
-                <div class="foo-tip">
-                    <img src="../images/weixin.png">
-                    <div class="foo-qq">QQ客服群：4001566899</div>
-                </div>
-            </div>
-            <div class="contact-info">
-                <div class="foo-tip">
-                    <img src="../images/weixin.png">
-                    <div class="foo-wx">微信客服：FUN MVP</div>
-                </div>
-            </div>
-            <div class="contact-info">
-                <div class="foo-tip">
-                    <img src="../images/weixin.png">
-                    <div class="foo-wx">微信客服：FUN MVP</div>
-                </div>
-            </div>
-            <div class="contact-info">
-                <div class="foo-tip">
-                    <img src="../images/weixin.png">
-                    <div class="foo-wx">微信客服：FUN MVP</div>
-                </div>
-            </div>
-            <div class="contact-info">
-                <div class="foo-tip">
-                    <img src="../images/weixin.png">
-                    <div class="foo-wx">微信客服：FUN MVP</div>
-                </div>
-            </div>
+            </div> -->
         </div>
         <div class="contact-txt">
             <ul class="foo-right">
                 <li class="foo-li">
                     <h2>工具</h2>
                     <ul>
-                        <li>帮助中心</li>
+                        <li class="help" data-href="../public/article.html?key=questions">帮助中心</li>
                     </ul>
                 </li>
                 <li class="foo-li">
                     <h2>关于我们</h2>
                     <ul>
-                        <li>fun Mvp介绍</li>
-                        <li>联系我们</li>
-                        <li>公告</li>
+                        <li class="goHref" data-href="../public/article.html?key=1">平台介绍</li>
+                        <li class="goHref" data-href="../public/article.html?key=2">联系我们</li>
+                        <li class="goHref" data-href="../public/article.html?key=3">公告</li>
                     </ul>
                 </li>
                 <li class="foo-li">
                     <h2>条款说明</h2>
                     <ul>
-                        <li>用户协议</li>
-                        <li>隐私条款</li>
-                        <li>法律申明</li>
-                        <li>费率说明</li>
+                        <li class="goHref" data-href="../public/article.html?key=5">用户协议</li>
+                        <li class="goHref" data-href="../public/article.html?key=6">隐私条款</li>
+                        <li class="goHref" data-href="../public/article.html?key=7">法律申明</li>
+                        <li class="goHref" data-href="../public/article.html?key=8">费率说明</li>
                     </ul>
                 </li>
             </ul>
@@ -78,7 +58,10 @@
     </div>
 </div>
 <script src="../js/require.js"></script>
-<script src="../js/lib/jquery-1.10.2.js"></script>
 <script src="../js/lib/webim/spark-md5.js"></script>
 <script src="../js/lib/webim/json2.js"></script>
 <script src="../js/lib/webim/webim.min.js"></script>
+<script src="../../js/lib/qrcode.js"></script>
+<script>
+    require(['app/controller/foo'])
+</script>

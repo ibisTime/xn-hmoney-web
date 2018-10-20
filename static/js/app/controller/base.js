@@ -8,20 +8,20 @@ define([
     'app/interface/BaseCtr'
 ], function($, CookieUtil, dialog, loading, Ajax, BigDecimal, BaseCtr) {
 
-    if (/AppleWebKit.*Mobile/i.test(navigator.userAgent)  ||  (/MIDP|SymbianOS|NOKIA|SAMSUNG|LG|NEC|TCL|Alcatel|BIRD|DBTEL|Dopod|PHILIPS|HAIER|LENOVO|MOT-|Nokia|SonyEricsson|SIE-|Amoi|ZTE/.test(navigator.userAgent))) {
-        if (window.location.href.indexOf("?mobile") < 0) {
-            try {
-                if (/Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent)) {
-                    window.location.href = INVITATION_HREF + '/share/share-upload.html'
-                } else 
-                if (/iPad/i.test(navigator.userAgent)) {
-                    window.location.href = INVITATION_HREF + '/share/share-upload.html'
-                } else {
-                    window.location.href = INVITATION_HREF + '/share/share-upload.html'
-                }
-            } catch (e) {}
-        }
-    }
+    // if (/AppleWebKit.*Mobile/i.test(navigator.userAgent)  ||  (/MIDP|SymbianOS|NOKIA|SAMSUNG|LG|NEC|TCL|Alcatel|BIRD|DBTEL|Dopod|PHILIPS|HAIER|LENOVO|MOT-|Nokia|SonyEricsson|SIE-|Amoi|ZTE/.test(navigator.userAgent))) {
+    //     if (window.location.href.indexOf("?mobile") < 0) {
+    //         try {
+    //             if (/Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent)) {
+    //                 window.location.href = INVITATION_HREF + '/share/share-upload.html'
+    //             } else 
+    //             if (/iPad/i.test(navigator.userAgent)) {
+    //                 window.location.href = INVITATION_HREF + '/share/share-upload.html'
+    //             } else {
+    //                 window.location.href = INVITATION_HREF + '/share/share-upload.html'
+    //             }
+    //         } catch (e) {}
+    //     }
+    // }
 
     if (Number.prototype.toFixed) {
         var ori_toFixed = Number.prototype.toFixed;
@@ -34,15 +34,17 @@ define([
         }
     }
 
-    $("body").on("click", ".goHref", function() {
-        var thishref = $(this).attr("data-href");
-        if (thishref != "" && thishref) {
-            if (Base.isLogin()) {
-                Base.updateLoginTime();
+    setTimeout(() => {
+        $("body").on("click", ".goHref", function() {
+            var thishref = $(this).attr("data-href");
+            if (thishref != "" && thishref) {
+                if (Base.isLogin()) {
+                    //Base.updateLoginTime();
+                }
+                Base.gohref(thishref)
             }
-            Base.gohref(thishref)
-        }
-    })
+        })
+    }, 1);
 
     //给form表单赋值
     $.fn.setForm = function(jsonValue) {
@@ -131,6 +133,14 @@ define([
         formateDatetime: function(date) {
             return date ? new Date(date).format("yyyy-MM-dd hh:mm:ss") : "--";
         },
+        //日期格式化 MM-dd hh:mm:ss
+        datetime: function(date) {
+            return date ? new Date(date).format("MM-dd hh:mm") : "--";
+        },
+        //日期格式化 hh:mm:ss
+        todayDatetime: function(date) {
+            return date ? new Date(date).format("hh:mm:ss") : "--";
+        },
         //获取链接入参
         getUrlParam: function(name, locat) {
             var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
@@ -153,12 +163,12 @@ define([
         },
         // 金额格式化 默认保留t || 8位  小数 coin 默认eth
         formatMoney: function(s, t, coin) {
-            var unit = coin ? Base.getCoinUnit(coin) : "1e18";
+            var unit = coin ? Base.getCoinUnit(coin) : "1000";
 
             if (!$.isNumeric(s))
                 return "-";
             if (t == '' || t == null || t == undefined || typeof t == 'object') {
-                t = 8;
+                t = 2;
             }
             //保留8位小数
             s = new BigDecimal.BigDecimal(s);
@@ -188,13 +198,14 @@ define([
         //金额金额放大 默认 放大 r || 8位 
         formatMoneyParse: function(m, r, coin) {
             var unit = coin ? Base.getCoinUnit(coin) : "1e18";
-
             var r = r || new BigDecimal.BigDecimal(unit);
             if (m == '') {
                 return '-';
+            } else {
+                m = Number(m).toString();
             }
             m = new BigDecimal.BigDecimal(m);
-            m = m.multiply(r).toString();
+            m = Number(m.multiply(r)).toString();
             return m;
         },
         //密码强度等级判断
@@ -331,6 +342,9 @@ define([
         getUserMobile: function() {
             return sessionStorage.getItem("mobile");
         },
+        getUserEmail: function() {
+            return sessionStorage.getItem("email");
+        },
         getToken: function() {
             return sessionStorage.getItem("token");
         },
@@ -389,9 +403,11 @@ define([
         },
         showLoadingSpin: function() {
             $("#loadingSpin").removeClass("hidden");
+            $('html').css('overflow', 'hidden');
         },
         hideLoadingSpin: function() {
             $("#loadingSpin").addClass("hidden");
+            $('html').css('overflow', 'auto');
         },
         // 获取数据字典 
         getDictList: function(code, type) {
@@ -495,7 +511,7 @@ define([
         },
         //隐藏手机号中间4位
         hideMobile: function(mobile) {
-            var mobile = mobile.substring(0, 3) + "****" + mobile.substring(7, 11)
+            var mobile = mobile ? mobile.substring(0, 3) + "****" + mobile.substring(7, 11) : '';
             return mobile;
         },
         //计算百分比
@@ -530,8 +546,11 @@ define([
         },
         //获取币种type  1是token币
         getCoinType: function(coin) {
-            var n = Base.getCoinList()[coin].type
-            return n;
+            if (Base.getCoinList()[coin]) {
+                var n = Base.getCoinList()[coin].type
+                return n;
+            }
+            return '';
         },
         //获取币种coin
         getCoinCoin: function(coin) {
@@ -543,6 +562,27 @@ define([
             var n = Base.getCoinList()[coin].withdrawFeeString
             return n;
         },
+        // 根据语言获取文本
+        getText: function(text, lang) {
+            if (lang == '' || !lang) {
+                lang = NOWLANG
+            }
+            var t = LANGUAGE[text] && LANGUAGE[text][lang] ? LANGUAGE[text][lang] : '';
+            if (!LANGUAGE[text] || t == '') {
+                if (!LANGUAGE[text]) {
+                    t = text;
+                    console.log('[' + text + ']没有翻译配置');
+                } else {
+                    if (!LANGUAGE[text]['EN']) {
+                        t = LANGUAGE[text]['ZH_CN']
+                    } else {
+                        t = LANGUAGE[text]['EN'];
+                    }
+                    console.log(lang + ': [' + text + ']没有翻译配置');
+                }
+            }
+            return t;
+        }
     };
 
     return Base;

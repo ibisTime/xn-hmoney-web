@@ -15,17 +15,33 @@ define([
 	}
     
     function init() {
-    	$("#mobile").val(base.getUserMobile())
-    	
-        base.hideLoadingSpin();
+		base.showLoadingSpin();
+		let valText = base.getUserMobile() != 'undefined' ? base.getUserMobile() : '';
+    	$("#mobile").val(valText);
+    	getUser();
         addListener();
+	}
+	
+	//获取用户详情
+    function getUser() {
+        return UserCtr.getUser().then((data) => {
+            if (!data.mobile) {
+				sessionStorage.setItem('l-return', '../user/setTradePwd.html');
+				base.showMsg('请绑定手机号');
+				setTimeout(() => {
+					base.gohrefReplace("../user/setPhone.html");
+				}, 2000);
+            }else{
+				$("#mobile").val(data.mobile);
+			}
+        })
     }
     
     //设置资金密码
     function setTradePwd(tradePwd, smsCaptcha){
     	return UserCtr.setTradePwd(tradePwd, smsCaptcha).then(()=>{
 			base.hideLoadingSpin()
-			base.showMsg("设置成功")
+			base.showMsg("设置成功");
 			setTimeout(function(){
 				base.gohrefReplace("../user/security.html")
 			},800)
@@ -36,7 +52,7 @@ define([
     function changeTradePwd(tradePwd, smsCaptcha){
     	return UserCtr.changeTradePwd(tradePwd, smsCaptcha).then(()=>{
 			base.hideLoadingSpin()
-			base.showMsg("修改成功")
+			base.showMsg("修改成功");
 			setTimeout(function(){
 				if(isWallet){
 					base.gohrefReplace("../wallet/wallet-eth.html?isWithdraw=1")
@@ -45,29 +61,30 @@ define([
 				}
 			},800)
 		},base.hideLoadingSpin)
-    }
-    
+	}
+	
     
     function addListener() {
-    	var _formWrapper = $("#form-wrapper");
-	    _formWrapper.validate({
-	    	'rules': {
-	        	"mobile": {
-	        		required: true,
-	        		mobile: true
-	        	},
-	        	"smsCaptcha": {
-	        		required: true,
-	        		sms: true
-	        	},
-	        	"tradePwd": {
-	        		required: true,
-	        		tradePwdLength: true,
-	        	},
-	    	},
-	    	onkeyup: false
-	    });
-    	smsCaptcha.init({
+		var _formWrapper = $("#form-wrapper");
+		// let reg = /^[a-z0-9._%-]+@([a-z0-9-]+\.)+[a-z]{2,4}$/;
+		_formWrapper.validate({
+			'rules': {
+				"mobile": {
+					required: true,
+					mobile: true
+				},
+				"smsCaptcha": {
+					required: true,
+					sms: true
+				},
+				"tradePwd": {
+					required: true,
+					tradePwdLength: true,
+				},
+			},
+			onkeyup: false
+		});
+		smsCaptcha.init({
 			checkInfo: function() {
 				return $("#mobile").valid();
 			},
@@ -77,18 +94,19 @@ define([
 			errorFn: function(){
 			}
 		});
+
 		$("#subBtn").click(function(){
-    		if(_formWrapper.valid()){
-	    		base.showLoadingSpin();
-	    		var params=_formWrapper.serializeObject()
-	    		if(type=='0'){
-	    			setTradePwd(params.tradePwd,params.smsCaptcha)
-	    		}else if(type=='1'){
-	    			changeTradePwd(params.tradePwd,params.smsCaptcha)
-	    			
-	    		}
-	    		
-	    	}
+			if(_formWrapper.valid()){
+				base.showLoadingSpin();
+				var params=_formWrapper.serializeObject()
+				if(type=='0'){
+					setTradePwd(params.tradePwd,params.smsCaptcha)
+				}else if(type=='1'){
+					changeTradePwd(params.tradePwd,params.smsCaptcha)
+				}
+				
+			}
+    		
 	    })
     }
 });

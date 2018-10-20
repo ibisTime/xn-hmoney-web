@@ -4,7 +4,8 @@ define([
     'app/module/loading'
 ], function($, dialog, loading) {
     var cache = {};
-	function showMsg(msg, time) {
+
+    function showMsg(msg, time) {
         var d = dialog({
             content: msg,
             quickClose: true
@@ -40,34 +41,37 @@ define([
                 cache[code][cache_url] = $.ajax({
                     type: 'post',
                     url: '/api',
+                    // headers: {
+                    //     language: "en_US"
+                    // },
                     data: param
                 });
             }
             return cache[code][cache_url].pipe(function(res) {
-            	if (res.errorCode == "4") {
-		            sessionStorage.removeItem("userId"); //userId
-		            sessionStorage.removeItem("token"); //token
-                	sessionStorage.setItem("l-return", location.pathname + location.search);
-                   // 登录
-                	return $.Deferred().reject("登录超时，请重新登录",res.errorCode);
-            	}
-                if(res.errorCode != "0"){
+                if (res.errorCode == "4") {
+                    sessionStorage.removeItem("userId"); //userId
+                    sessionStorage.removeItem("token"); //token
+                    sessionStorage.setItem("l-return", location.pathname + location.search);
+                    // 登录
+                    return $.Deferred().reject("登录超时，请重新登录", res.errorCode);
+                }
+                if (res.errorCode != "0") {
                     return $.Deferred().reject(res.errorInfo);
                 }
                 return res.data;
-            }).fail(function(error,eCode,eTxt){
-            	if(eCode=="error"||eCode=="timeout"){
-            		showMsg(eCode+"("+error.status+"):"+eTxt,10000);
-            		console.log(eCode+"("+error.status+"):"+eTxt)
-            	}else{
-            		showMsg(error)
-            	}
-                
-                if(eCode&&eCode== "4"){
-                	setTimeout(function(){
-                		var timestamp = new Date().getTime();
-                		location.href = "../user/login.html?v="+timestamp;
-                	},2000)
+            }).fail(function(error, eCode, eTxt) {
+                if (eCode == "error" || eCode == "timeout") {
+                    showMsg(eCode + "(" + error.status + "):" + eTxt, 10000);
+                    console.log(eCode + "(" + error.status + "):" + eTxt)
+                } else {
+                    showMsg(error)
+                }
+
+                if (eCode && eCode == "4") {
+                    setTimeout(function() {
+                        var timestamp = new Date().getTime();
+                        location.href = "../user/login.html?v=" + timestamp;
+                    }, 2000)
                 }
             });
         }
