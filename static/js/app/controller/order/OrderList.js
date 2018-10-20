@@ -270,7 +270,6 @@ define([
                 reason: params.reason
             }).then(() => {
                 base.hideLoadingSpin();
-
                 base.showMsg("操作成功");
                 $("#arbitrationDialog").addClass("hidden");
                 setTimeout(function() {

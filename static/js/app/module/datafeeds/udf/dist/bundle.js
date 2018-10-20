@@ -139,7 +139,7 @@
                             bars.push(barValue);
                         }
                     }
-                    console.log(bars, meta)
+                    console.log(bars, meta);
                     resolve({
                         bars: bars,
                         meta: meta,
