@@ -138,6 +138,13 @@ define([
         return this.optional(element) || /^-?\d+(?:\.\d{1,2})?$/.test(value);
     }, '合法数字，且小数点后最多2位');
 
+    //小数最后2位
+    $.validator.addMethod("pwd", function(value, element) {
+        return this.optional(element) || /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[^]$/.test(value);
+    }, '必须由数字和大小写字母组成');
+
+
+
     //身份证号码的验证规则 
     function isIdCardNo(num) {
         var len = num.length,

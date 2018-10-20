@@ -1,17 +1,15 @@
 define([
     'app/controller/base',
-    'app/util/ajax'
-], function(base, Ajax) {
+    'app/interface/StoreCtr',
+], function(base, StoreCtr) {
     init();
 
     function init() {
-        if(base.isLogin()){
-            gramMoney().then(data => {
-                $('.yxye').text(base.formatMoney(data.balance, '', data.currency) + ' ' + data.currency);
-            })
-        }else{
+        if(!base.isLogin()){
             base.goLogin();
+            return ;
         }
+
         let stoType = base.getUrlParam('type');
         if(stoType == 'rs'){
             $('.rs-li').addClass('sel-store').siblings().removeClass('sel-store');
@@ -19,6 +17,14 @@ define([
             $('.er-box').removeClass('none');
         }
         base.showLoadingSpin();
+
+        $.when(
+            gramMoney(),
+            gramUrl()
+        ).then(data => {
+            base.hideLoadingSpin();
+            $('.yxye').text(base.formatMoney(data.balance, '', data.currency) + ' ' + data.currency);
+        }, base.hideLoadingSpin)
         $('.head-nav-wrap .store').addClass('active');
         addLister();
         base.hideLoadingSpin();
@@ -26,12 +32,15 @@ define([
 
     // 进入游戏
     function gramUrl(){
-        return Ajax.post('600101');
+        return StoreCtr.gramUrl().then(data => {
+            var url = `${data.gameUrl}?userId=${data.userId}&phone=${data.phone}&hashID=${data.hashID}&sign=${data.sign}`;
+            $(".goGram").attr('href', url);
+        });
     }
 
     // 游戏余额
     function gramMoney(){
-        return Ajax.post('600104');
+        return StoreCtr.gramMoney().then();
     }
 
     function addLister() {
@@ -57,11 +66,5 @@ define([
                 $('html').removeClass('overflow');
             }
         });
-
-        $('.str-h_r').click(function(){
-            gramUrl().then(data => {
-                location.href = `${data.gameUrl}?userId=${data.userId}&phone=${data.phone}&hashID=${data.hashID}&sign=${data.sign}`;
-            })
-        })
     }
 })

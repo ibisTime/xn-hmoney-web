@@ -151,7 +151,7 @@ define([
         $("#headLogout").click(function () {
             base.logout()
         })
-        $(".am-modal-mask").click(function () {
+        $(".am-modal-mask").on('click', function () {
             $(this).parent(".dialog").addClass("hidden")
         })
 

@@ -102,8 +102,7 @@ define([
         _registerForm.validate({
             'rules': {
                 "nickname": {
-                    required: true,
-                    english: true
+                    required: true
                 },
                 "mobile": {
                     required: true,
@@ -116,6 +115,7 @@ define([
                 "loginPwd": {
                     required: true,
                     minlength: 6,
+                    pwd: true
                 },
                 "userReferee": {
                     mobile: true
@@ -126,11 +126,11 @@ define([
         _registerForm1.validate({
             'rules': {
                 "nickname1": {
-                    required: true,
-                    english: true
+                    required: true
                 },
                 "email": {
-                    required: true
+                    required: true,
+                    email: true
                 },
                 "smsCaptcha": {
                     required: true,
@@ -139,6 +139,7 @@ define([
                 "loginPwd1": {
                     required: true,
                     minlength: 6,
+                    pwd: true
                 }
             },
             onkeyup: false
@@ -216,6 +217,15 @@ define([
                 $("#subBtn").removeClass("am-button-disabled")
             }
         })
+        $("#subFlag1").click(function() {
+            if ($(this).hasClass("active")) {
+                $(this).removeClass("active")
+                $("#subBtn1").addClass("am-button-disabled")
+            } else {
+                $(this).addClass("active")
+                $("#subBtn1").removeClass("am-button-disabled")
+            }
+        })
         smsCaptcha.init({
             checkInfo: function() {
                 return $("#mobile").valid();
@@ -241,6 +251,10 @@ define([
                     $('.eml-reg').removeClass('none').prev().addClass('none');
                 }
             }
+        })
+
+        $("#registerDialog .am-modal-header").on('click', '.close', function () {
+            $("#registerDialog").addClass("hidden")
         })
     }
 });

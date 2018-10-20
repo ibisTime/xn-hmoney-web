@@ -76,11 +76,8 @@ define([
     }
 
     function addListener() {
-        $('.article-left li').click(function(e){
-            let target = e.target;
-            $(this).addClass('sel-li').siblings('li').not($('.art-tit')).removeClass('sel-li');
-            $('.hmoney-tit').text($(this).text());
-            selContent($(this).index().toString());
+        $('.article-left li.article-item').click(function(e){
+            base.gohref(base.changeURLArg(location.href, "key", $(this).index()));
         })
     }
 });

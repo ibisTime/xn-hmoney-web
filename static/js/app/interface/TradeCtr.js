@@ -135,7 +135,7 @@ define([
                 code
             });
         },
-        //訂單-释放以太币
+        //訂單-解凍以太币
         releaseOrder(code) {
             return Ajax.get("625244", {
                 updater: base.getUserId(),
