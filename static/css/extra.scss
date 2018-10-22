@@ -810,7 +810,6 @@ table {
         flex-wrap: wrap;
         .contact-info {
             height: 36px;
-            margin-left: 1.5%;
             width: 41.5%;
             padding: 3px 8px;
             margin: 10px 0;
@@ -855,7 +854,6 @@ table {
                     overflow: hidden;
                     opacity: 0;
                     transition: all .4s;
-                    -ms-transition: all .4s;
                     -moz-transition: all .4s;
                     -webkit-transition: all .4s;
                     position: absolute;
@@ -981,7 +979,6 @@ table {
         color: #4D4D4D;
         letter-spacing: 0.2px;
         margin-bottom: 52px;
-        font-size: 400;
     }
     .sec-ul {
         display: flex;
@@ -999,7 +996,7 @@ table {
                 font-size: 24px;
             }
             >p {
-                font-size: 18pz;
+                font-size: 18px;
                 margin-bottom: 39px;
             }
             .btn-box {
@@ -1369,7 +1366,6 @@ table {
     width: 100%;
     height: 606px;
     background-color: #fff;
-    background-image: url();
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -4452,7 +4448,6 @@ table {
             p {
                 font-size: 16px;
                 margin-top: 15px;
-                line-break: 1;
             }
         }
     }
@@ -4562,7 +4557,7 @@ table {
             font-size: 20px;
             font-weight: normal;
             color: #000;
-            margin: 0px 0 16px;
+            margin: 0 0 16px;
         }
         .txt {
             p {
@@ -4597,7 +4592,7 @@ table {
             }
             .yj-rm {
                 color: #999;
-                border: 1px soild #dedede;
+                border: 1px solid #dedede;
             }
         }
         .jb-msg {
@@ -4788,63 +4783,6 @@ table {
             }
         }
     }
-    .pic-dialog {
-        .am-modal-content {
-            width: 500px;
-        }
-        .am-modal-header {
-            position: relative;
-            .close {
-                width: 40px;
-                height: 40px;
-                line-height: 40px;
-                font-size: 30px;
-                color: #484848;
-                position: absolute;
-                top: 10px;
-                right: 10px;
-                background-color: #fff;
-                cursor: pointer;
-            }
-            h4 {
-                font-size: 18px;
-                font-weight: normal;
-            }
-        }
-        .am-modal-body {
-            .form-group {
-                width: 100%;
-                margin-bottom: 15px;
-                img {
-                    max-width: 100%;
-                }
-                .control-label {
-                    font-size: 14px;
-                    color: #484848;
-                }
-            }
-            .file-wrap {
-                position: relative;
-                .file {
-                    width: 80px;
-                    height: 40px;
-                    overflow: hidden;
-                    opacity: 0;
-                    position: relative;
-                    z-index: 9;
-                }
-                .am-button {
-                    width: 80px;
-                    height: 40px;
-                    line-height: 40px !important;
-                    position: absolute;
-                    top: 0;
-                    left: 0;
-                    z-index: 8;
-                }
-            }
-        }
-    }
     .msgflow {
         .onemsg {
             width: 100%;
@@ -4948,6 +4886,64 @@ table {
             }
         }
     }
+}
+.pic-dialog {
+  .am-modal-content {
+    width: 500px;
+  }
+  .am-modal-header {
+    position: relative;
+    .close {
+      width: 40px;
+      height: 40px;
+      line-height: 40px;
+      font-size: 30px;
+      color: #484848;
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background-image: none;
+      background-color: #fff;
+      cursor: pointer;
+    }
+    h4 {
+      font-size: 18px;
+      font-weight: normal;
+    }
+  }
+  .am-modal-body {
+    .form-group {
+      width: 100%;
+      margin-bottom: 15px;
+      img {
+        max-width: 100%;
+      }
+      .control-label {
+        font-size: 14px;
+        color: #484848;
+      }
+    }
+    .file-wrap {
+      position: relative;
+      .file {
+        width: 80px;
+        height: 40px;
+        overflow: hidden;
+        opacity: 0;
+        position: relative;
+        z-index: 9;
+      }
+      .am-button {
+        width: 80px;
+        height: 40px;
+        line-height: 40px !important;
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 8;
+      }
+    }
+  }
 }
 
 .tencentChatContainer-wrap {
