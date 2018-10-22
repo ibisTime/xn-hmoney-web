@@ -26,6 +26,7 @@ define([
     let gmType = {}; // 去出售支付方式
 
     let moneyXZ = {};
+    let acceptRule = {};
 
     var config = {
             start: 1,
@@ -172,6 +173,20 @@ define([
         })
     }
 
+    // 获取承兑商FMVP价格
+    function getAcceptRule() {
+        return GeneralCtr.getSysConfigType('accept_rule', true).then(data => {
+            base.hideLoadingSpin();
+            data.map(item => {
+                if (item.ckey === 'accept_cny_price'){
+                  acceptRule['cny'] = item.cvalue;
+                } else if (item.ckey === 'accept_usd_price') {
+                  acceptRule['usdt'] = item.cvalue;
+                }
+            })
+        }, base.hideLoadingSpin);
+    }
+
     function qhMoneyType(pType, m_type, isw) { //m_cyn
         let toType = '';
         GeneralCtr.getSysConfigType('accept_rule').then(data => {
@@ -238,7 +253,6 @@ define([
             }
         })
     }
-
 
     //我的账户
     function getAccount() {
