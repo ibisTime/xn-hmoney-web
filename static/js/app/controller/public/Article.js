@@ -1,8 +1,10 @@
 define([
     'app/controller/base',
     'app/util/ajax',
-    'app/interface/GeneralCtr'
-], function(base, Ajax, GeneralCtr) {
+    'app/interface/GeneralCtr',
+    'app/controller/Top',
+    'app/controller/foo'
+], function(base, Ajax, GeneralCtr, Top, Foo) {
     var key = base.getUrlParam('key') || '1';
 
     init();

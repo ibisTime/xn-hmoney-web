@@ -53,6 +53,10 @@ fis.match('*.{js,css}', {
 }).match('config.js', {
     useHash: false
 });
+fis.match('/js/lib/jquery-1.10.2.js', {
+  useHash: false,
+  release: '/$0'
+});
 fis.match('/js/app/module/charting_library/**.html', {
     release : '/static/$0'
 }).match('/js/app/module/charting_library/**.js', {
@@ -62,7 +66,6 @@ fis.match('/js/app/module/charting_library/**.html', {
 }).match('/js/app/module/charting_library/static/lib/external/**.js', {
     url : '/static$0'
 });
-
 //npm install -g fis-parser-handlebars-3.x
 fis.match('*.handlebars', {
     rExt: '.js', // from .handlebars to .js 虽然源文件不需要编译，但是还是要转换为 .js 后缀

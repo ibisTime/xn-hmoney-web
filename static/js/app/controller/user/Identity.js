@@ -4,8 +4,10 @@ define([
     'app/interface/GeneralCtr',
     'app/module/qiniu',
     'app/module/validate',
-    'app/interface/UserCtr'
-], function(base, Ajax, GeneralCtr, QiniuUpdata, validate, UserCtr) {
+    'app/interface/UserCtr',
+    'app/controller/Top',
+    'app/controller/foo'
+], function(base, Ajax, GeneralCtr, QiniuUpdata, validate, UserCtr, Top, Foo) {
 
     let CerStatusList = {}
 

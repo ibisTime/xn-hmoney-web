@@ -2,7 +2,9 @@ define([
     'app/controller/base',
     'pagination',
     'app/interface/TradeCtr',
-], function(base, pagination, TradeCtr) {
+    'app/controller/Top',
+    'app/controller/foo'
+], function(base, pagination, TradeCtr, Top, Foo) {
     var coin = base.getUrlParam("coin"); // 币种
     //币种
     var config = {
@@ -276,6 +278,14 @@ define([
         //币种点击
         $("#coin-top ul li").click(function() {
             base.gohrefReplace("../trade/sell-list.html?coin=" + $(this).attr("data-coin").toUpperCase())
+        })
+        $('.show-search').click(() => {
+            let reg = /none/g;
+            if (reg.test($('.search-wrap').attr('class'))) {
+                $('.search-wrap').removeClass('none');
+            } else {
+                $('.search-wrap').addClass('none');
+            }
         })
     }
 });

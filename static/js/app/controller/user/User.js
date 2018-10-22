@@ -2,8 +2,10 @@ define([
     'app/controller/base',
     'app/interface/UserCtr',
     'app/interface/GeneralCtr',
-    'app/module/qiniu'
-], function(base, UserCtr, GeneralCtr, QiniuUpdata) {
+    'app/module/qiniu',
+    'app/controller/Top',
+    'app/controller/foo'
+], function(base, UserCtr, GeneralCtr, QiniuUpdata, Top, Foo) {
 
     if (!base.isLogin()) {
         base.goLogin();

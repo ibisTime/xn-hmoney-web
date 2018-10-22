@@ -2,8 +2,10 @@ define([
     'app/controller/base',
     'app/module/validate',
     'app/module/smsCaptcha',
-    'app/interface/UserCtr'
-], function(base, Validate, smsCaptcha, UserCtr) {
+    'app/interface/UserCtr',
+    'app/controller/Top',
+    'app/controller/foo'
+], function(base, Validate, smsCaptcha, UserCtr, Top, Foo) {
 
     if (!base.isLogin()) {
         base.goLogin()

@@ -1,52 +1,54 @@
 define([
-            'app/controller/base',
-            'app/util/ajax',
-            'app/interface/GeneralCtr',
-            'pagination',
-            'app/interface/AccountCtr'
-        ], function(base, Ajax, GeneralCtr, pagination, AccountCtr) {
-            let hisConfig = {
-                userId: base.getUserId(),
-                start: '1',
-                limit: '10'
-            };
+    'app/controller/base',
+    'app/util/ajax',
+    'app/interface/GeneralCtr',
+    'pagination',
+    'app/interface/AccountCtr',
+    'app/controller/Top',
+    'app/controller/foo'
+], function (base, Ajax, GeneralCtr, pagination, AccountCtr, Top, Foo) {
+    let hisConfig = {
+        userId: base.getUserId(),
+        start: '1',
+        limit: '10'
+    };
 
-            let userHistoryData = []; //用户历史委托数据
-            let userMxData = []; // 用户明细
-            let statusValueList = {}; // 状态
+    let userHistoryData = []; //用户历史委托数据
+    let userMxData = []; // 用户明细
+    let statusValueList = {}; // 状态
 
-            init();
+    init();
 
-            function init() {
-                // 判断是否登录
-                if (!base.isLogin()) {
-                    base.goLogin();
-                    return false;
-                } else {
-                    //状态
-                    GeneralCtr.getDictList({ "parentKey": "simu_order_status" }).then((data) => {
-                        data.forEach(function(item) {
-                            statusValueList[item.dkey] = item.dvalue
-                        })
-                        getHistory(hisConfig);
-                    })
-                }
+    function init() {
+        // 判断是否登录
+        if (!base.isLogin()) {
+            base.goLogin();
+            return false;
+        } else {
+            //状态
+            GeneralCtr.getDictList({"parentKey": "simu_order_status"}).then((data) => {
+                data.forEach(function (item) {
+                    statusValueList[item.dkey] = item.dvalue
+                })
+                getHistory(hisConfig);
+            })
+        }
 
+    }
+
+    function getHistory(hisConfig) {
+        getMyHistoryData(hisConfig, true).then(data => {
+            userHistoryData = data.list;
+            if (userHistoryData.length == 0) {
+                $('.no-data').removeClass('hidden');
+                return;
             }
-
-            function getHistory(hisConfig) {
-                getMyHistoryData(hisConfig, true).then(data => {
-                            userHistoryData = data.list;
-                            if (userHistoryData.length == 0) {
-                                $('.no-data').removeClass('hidden');
-                                return;
-                            }
-                            $('.tos-pr').text(userHistoryData[0].toSymbol);
-                            $('.s-pr').text(userHistoryData[0].symbol);
-                            let hisToryHtml = '';
-                            //(item.totalCount - item.tradedCount).toFixed(2)
-                            userHistoryData.forEach(item => {
-                                        hisToryHtml += `<li>
+            $('.tos-pr').text(userHistoryData[0].toSymbol);
+            $('.s-pr').text(userHistoryData[0].symbol);
+            let hisToryHtml = '';
+            //(item.totalCount - item.tradedCount).toFixed(2)
+            userHistoryData.forEach(item => {
+                hisToryHtml += `<li>
                             <div class="list-l">
                             <span>${base.formatDate(item.createDatetime)}</span>
                             <span>${item.symbol}/${item.toSymbol}</span>
@@ -65,13 +67,14 @@ define([
                             </div>
                             <ul class="det-l">
                             </ul>
-                        </li>`});
-                $('.bborder-ul').html(hisToryHtml);
-                hisConfig.start == 1 && initPagination(data);
-                addLister();
-                base.hideLoadingSpin();
-            }, base.hideLoadingSpin)
-        }
+                        </li>`
+            });
+            $('.bborder-ul').html(hisToryHtml);
+            hisConfig.start == 1 && initPagination(data);
+            addLister();
+            base.hideLoadingSpin();
+        }, base.hideLoadingSpin)
+    }
 
 
     // 初始化交易记录分页器
@@ -89,7 +92,7 @@ define([
             jumpBtnCls: 'pagination-btn',
             jumpBtn: '确定',
             isHide: true,
-            callback: function(_this) {
+            callback: function (_this) {
                 if (_this.getCurrent() != hisConfig.start) {
                     base.showLoadingSpin();
                     hisConfig.start = _this.getCurrent();
@@ -114,7 +117,7 @@ define([
     }
 
     function addLister() {
-        $('.his-detail').off('click').click(function() {
+        $('.his-detail').off('click').click(function () {
             let code = $(this).attr('data-code');
             let status = $(this).attr('data-status');
             getMyDetailData(code).then(data => {

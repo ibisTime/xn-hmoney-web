@@ -5,8 +5,10 @@ define([
     'app/interface/UserCtr',
     'app/interface/TradeCtr',
     'app/interface/AccountCtr',
-    'app/module/tencentChat'
-], function(base, Validate, GeneralCtr, UserCtr, TradeCtr, AccountCtr, TencentChat) {
+    'app/module/tencentChat',
+    'app/controller/Top',
+    'app/controller/foo'
+], function(base, Validate, GeneralCtr, UserCtr, TradeCtr, AccountCtr, TencentChat, Top, Foo) {
     var code = base.getUrlParam("code");
     var isDetail = !!base.getUrlParam("isD"); //是否我的广告查看详情
     var bizTypeList = {

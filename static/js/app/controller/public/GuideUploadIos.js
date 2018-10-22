@@ -1,7 +1,9 @@
 define([
     'app/controller/base',
-    'app/interface/GeneralCtr'
-], function(base,GeneralCtr) {
+    'app/interface/GeneralCtr',
+    'app/controller/Top',
+    'app/controller/foo'
+], function(base,GeneralCtr, Top, Foo) {
 	
 	init();
     
