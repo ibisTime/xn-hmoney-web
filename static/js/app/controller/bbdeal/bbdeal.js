@@ -1220,7 +1220,7 @@ define([
             //	BEWARE: no trailing slash is expected in feed URL
             datafeed: new Datafeeds.UDFCompatibleDatafeed("https://demo_feed.tradingview.com"),
             library_path: "/static/js/app/module/charting_library/",
-            locale: getParameterByName('lang') || "en",
+            locale: getParameterByName('lang') || "zh",
             disabled_features: [
                 'use_localstorage_for_settings',
                 // 头部
@@ -1258,12 +1258,10 @@ define([
                 resolution: "1",
                 chartType: 3
               },{
-  
                 label:'1min',
                 resolution: "1",
               },
               {
-  
                 label:'5min',
                 resolution: "5",
               },

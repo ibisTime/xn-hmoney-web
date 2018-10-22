@@ -18,7 +18,7 @@ define([
         myName = '';
     var defaultOpt = {};
     var firstChat = true; //页面第一次点击聊天
-    var newMsgHtml = '<div id="newMsgWrap" class="newMsg-wrap goHref" data-href="../order/order-list.html">您有未读消息</div>';
+    var newMsgHtml = '<div id="newMsgWrap" class="newMsg-wrap goHref" data-href="../order/order-list.html?mod=dd">您有未读消息</div>';
     var unreadMsgList = {}; //未读消息数
     var unreadMsgFlag = false;
 
