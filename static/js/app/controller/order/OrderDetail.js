@@ -931,6 +931,11 @@ define([
                 }
             })
             //--聊天 star--
+            $('#send').on('click', function() {
+                if($('#msgedit').val()!=""&&$('#msgedit').val()){
+                    onSendMsg($('#msgedit').val());
+                }
+            });
             // $('#msgedit').on('click', function() {
             //     if ($('#msgedit').val() != "" && $('#msgedit').val()) {
             //         onSendMsg($('#msgedit').val());
