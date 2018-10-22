@@ -7,8 +7,10 @@ define([
     'app/interface/AccountCtr',
     'app/module/charting_library/charting_library.min',
     'app/module/datafeeds/udf/dist/bundle',
-    'app/interface/UserCtr'
-], function (base, Ajax, echarts, GeneralCtr, pagination, AccountCtr, TradingView, Datafeeds, UserCtr) {
+    'app/interface/UserCtr',
+    'app/controller/Top',
+    'app/controller/foo'
+], function (base, Ajax, echarts, GeneralCtr, pagination, AccountCtr, TradingView, Datafeeds, UserCtr, Top, Foo) {
 
     let userConfig = {
         userId: base.getUserId(),
@@ -25,9 +27,9 @@ define([
     let userData = [];
     let bazaarData = []; // 交易对数据 
     let setBazDeal = JSON.parse(sessionStorage.getItem('setBazDeal')) || {
-        symbol: 'X',
+        symbol: 'FMVP',
         toSymbol: 'BTC',
-        unit: base.getCoinUnit('X'),
+        unit: base.getCoinUnit('FMVP'),
         toUnit: base.getCoinUnit('BTC')
     };
     console.log('setBazDeal', setBazDeal);
@@ -582,9 +584,9 @@ define([
         $('.baz-list>h5 span').off('click').click(function () {
             $(this).addClass('sel-sp').siblings().removeClass('sel-sp');
             sessionStorage.setItem('setBazDeal', JSON.stringify({
-                symbol: 'X', 
+                symbol: 'FMVP',
                 toSymbol: $(this).text(),
-                unit: base.getCoinUnit('X'),
+                unit: base.getCoinUnit('FMVP'),
                 toUnit: base.getCoinUnit($(this).text())
             }));
             location.reload();
@@ -1213,7 +1215,7 @@ define([
             width: '100%',
             height: '500px',
             fullscreen: false,
-            symbol: 'X',
+            symbol: 'FMVP',
             interval: '1', // 时间
             container_id: "tv_chart_container",
             //	BEWARE: no trailing slash is expected in feed URL

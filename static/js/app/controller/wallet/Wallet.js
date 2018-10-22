@@ -7,8 +7,10 @@ define([
     'app/interface/GeneralCtr',
     'app/interface/UserCtr',
     'app/interface/TradeCtr',
-    'app/util/ajax'
-], function (base, pagination, Validate, smsCaptcha, AccountCtr, GeneralCtr, UserCtr, TradeCtr, Ajax) {
+    'app/util/ajax',
+    'app/controller/Top',
+    'app/controller/foo'
+], function (base, pagination, Validate, smsCaptcha, AccountCtr, GeneralCtr, UserCtr, TradeCtr, Ajax, Top, Foo) {
     var userAccountNum = base.getUrlParam('account'); // 用户编号
     var withdrawFee = 0; // 取现手续费
     let fvData = 0;

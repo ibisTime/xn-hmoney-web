@@ -6,8 +6,10 @@ define([
     'app/interface/AccountCtr',
     'app/interface/GeneralCtr',
     'app/interface/UserCtr',
-    'app/interface/TradeCtr'
-], function(base, pagination, Validate, smsCaptcha, AccountCtr, GeneralCtr, UserCtr, TradeCtr) {
+    'app/interface/TradeCtr',
+    'app/controller/Top',
+    'app/controller/foo'
+], function(base, pagination, Validate, smsCaptcha, AccountCtr, GeneralCtr, UserCtr, TradeCtr, Top, Foo) {
     var userId = base.getUrlParam('userId');
     var adsCode = base.getUrlParam('adsCode');
     var currency = base.getUrlParam('coin') || 'BTC';

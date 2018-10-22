@@ -4,8 +4,10 @@ define([
     'app/interface/GeneralCtr',
     'app/interface/UserCtr',
     'app/interface/TradeCtr',
-    'app/interface/AccountCtr'
-], function(base, Validate, GeneralCtr, UserCtr, TradeCtr, AccountCtr) {
+    'app/interface/AccountCtr',
+    'app/controller/Top',
+    'app/controller/foo'
+], function(base, Validate, GeneralCtr, UserCtr, TradeCtr, AccountCtr, Top, Foo) {
     var code = base.getUrlParam("code") || '';
     var coin = base.getUrlParam("coin"); // 币种
     var status = '1';

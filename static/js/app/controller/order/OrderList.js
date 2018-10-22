@@ -5,8 +5,10 @@ define([
     'app/interface/GeneralCtr',
     'app/interface/UserCtr',
     'app/interface/TradeCtr',
-    'app/module/tencentCloudLogin/orderList'
-], function(base, pagination, Validate, GeneralCtr, UserCtr, TradeCtr, TencentCloudLogin) {
+    'app/module/tencentCloudLogin/orderList',
+    'app/controller/Top',
+    'app/controller/foo'
+], function(base, pagination, Validate, GeneralCtr, UserCtr, TradeCtr, TencentCloudLogin, Top, Foo) {
     var coin = base.getUrlParam("coin") || 'progress';
     var statusList = {
             "progress": ["-1", "0", "1", "5"],

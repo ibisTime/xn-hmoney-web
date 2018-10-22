@@ -2,8 +2,10 @@ define([
     'app/controller/base',
     'app/util/ajax',
     'app/interface/GeneralCtr',
-    'pagination'
-], function(base, Ajax, GeneralCtr, pagination) {
+    'pagination',
+    'app/controller/Top',
+    'app/controller/foo'
+], function(base, Ajax, GeneralCtr, pagination, Top, Foo) {
 
     let fvData = 0;
     let jyDataList = [];
@@ -37,8 +39,6 @@ define([
             limit: '10'
         }, true);
     }
-
-
 
     // 初始化交易记录分页器
     function initPagination(data) {

@@ -168,7 +168,11 @@ define([
             if (!$.isNumeric(s))
                 return "-";
             if (t == '' || t == null || t == undefined || typeof t == 'object') {
-                t = 2;
+                if(coin === 'CNY') {
+                  t = 2;
+                } else {
+                  t = 8;
+                }
             }
             //保留8位小数
             s = new BigDecimal.BigDecimal(s);

@@ -1,7 +1,9 @@
 define([
     'app/controller/base',
-    'app/interface/UserCtr'
-], function(base, UserCtr) {
+    'app/interface/UserCtr',
+    'app/controller/Top',
+    'app/controller/foo'
+], function(base, UserCtr, Top, Foo) {
 
     if (!base.isLogin()) {
         base.goLogin()

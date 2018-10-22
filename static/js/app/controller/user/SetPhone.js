@@ -2,8 +2,10 @@ define([
     'app/controller/base',
     'app/module/validate',
     'app/module/smsCaptcha',
-    'app/interface/UserCtr'
-], function(base, Validate, smsCaptcha, UserCtr) {
+    'app/interface/UserCtr',
+    'app/controller/Top',
+    'app/controller/foo'
+], function(base, Validate, smsCaptcha, UserCtr, Top, Foo) {
     var type = base.getUrlParam("type");//设置类型： 0,设置  1，修改 
     if (!base.isLogin()) {
         base.goLogin()

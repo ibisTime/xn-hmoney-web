@@ -4,8 +4,10 @@ define([
     'swiper',
     'app/interface/GeneralCtr',
     'app/interface/UserCtr',
-    'app/util/ajax'
-], function(base, Handlebars, Swiper, GeneralCtr, UserCtr, Ajax) {
+    'app/util/ajax',
+    'app/controller/Top',
+    'app/controller/foo'
+], function(base, Handlebars, Swiper, GeneralCtr, UserCtr, Ajax, Top, Foo) {
 
     let adverData = []; // 广告数据
     let aarketData = []; // 行情数据

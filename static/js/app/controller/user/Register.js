@@ -5,7 +5,9 @@ define([
     'app/interface/UserCtr',
     'app/interface/GeneralCtr',
     'app/module/smsCaptcha',
-], function(base, Swiper, Validate, UserCtr, GeneralCtr, smsCaptcha) {
+    'app/controller/Top',
+    'app/controller/foo'
+], function(base, Swiper, Validate, UserCtr, GeneralCtr, smsCaptcha, Top, Foo) {
     var inviteCode = base.getUrlParam("inviteCode") || "";
 
     if (inviteCode != "") {
