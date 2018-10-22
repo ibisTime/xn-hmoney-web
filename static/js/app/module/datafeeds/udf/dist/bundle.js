@@ -63,13 +63,20 @@
             let reg = /[a-zA-Z]/g;
             let period = '';
             var loadTime = new Date(Number($("#tv_chart_container").attr("firstLoadTime"))).getTime();
-            
+            var foramtList = {
+                '1': '1min',
+                '5': '5min',
+                '30': '30min',
+                '60': '60min',
+                '1D': '1day',
+                '1W': '1week',
+                '1M': '1mon'
+            }
+            period = foramtList[resolution];
             if(!resolution.match(reg)){
-                period = resolution + 'min';
                 loadTime = new Date(loadTime + resolution * 60 * 1000);
             }else{
-                period = resolution;
-                loadTime = new Date(loadTime + resolution * 60 * 1000 * 60 * 60);
+                loadTime = new Date(loadTime + 60 * 1000 * 60);
             }
             setTimeout(() => {
                 $("#tv_chart_container").attr("firstLoad", "0");
@@ -670,8 +677,8 @@
                 "ticker": setBazDeal.symbol,
                 'toSymbol': setBazDeal.toSymbol,
                 'period': '30min',
-                pricescale: Number(setBazDeal.toUnit),
-                volumescale: Number(setBazDeal.unit),
+                pricescale: 100000000,
+                volumescale: 10000,
             };
             onResultReady(symbolInfo);
             //      if (!this._configuration.supports_group_request) {
