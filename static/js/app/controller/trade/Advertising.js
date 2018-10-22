@@ -194,14 +194,14 @@ define([
             }
             status = data.status;
             data.premiumRate = data.premiumRate * 10;
-            let premiumRate = (Math.floor(data.premiumRate * 100) / 100).toFixed(2);
+            let premiumRate = (Math.floor(data.premiumRate * 1000) / 100).toFixed(2);
             data.minTrade = data.minTrade;
             data.maxTrade = (Math.floor(parseInt(data.maxTrade) * 100) / 100).toFixed(2);
             mid = data.marketPrice;
             var tradeCoin = data.tradeCoin ? data.tradeCoin : 'ETH';
             data.totalCount = base.formatMoney(data.totalCountString, '', tradeCoin)
             // 进度条初始化
-            $('.yj-num').text(premiumRate);
+            $('.yj-num').val(premiumRate);
             let parWidth = $('.num-huadtiao').width();
             jdLeft = (parWidth * data.premiumRate) / 100;
             let goLeft = (parseInt($('.num-go').css('left')) / parWidth).toFixed(2) * 100;
@@ -323,7 +323,7 @@ define([
                 $(".accountCount").addClass("hidden")
                 getExplain('buy');
                 $('.num-go').css('left', '50%');
-                $('.yj-num').text('0.00');
+                $('.yj-num').val('0.00');
             }
             _this.parent(".item").addClass("on").siblings(".item").removeClass("on");
         })
@@ -418,6 +418,10 @@ define([
             onkeyup: false
         })
 
+        $('.yj-num').keyup(function(){
+            $("#price").val((mid + mid * ($(".yj-num").val() / 100)).toFixed(2));
+        })
+
         //发布
         $("#submitBtn").click(function() {
             if (!base.isLogin()) {
@@ -478,7 +482,7 @@ define([
 
             // 总价
             params.payLimit = 12;
-            params.premiumRate = parseInt($('.yj-num').text()) / 100;
+            params.premiumRate = parseFloat($('.yj-num').val()) / 100;
             params.tradeCoin = coin;
             params.minTrade = params.minTrade;
 
@@ -520,9 +524,9 @@ define([
                 base.showLoadingSpin();
                 setTimeout(() => {
                     if (params.tradeType == '0') {
-                        base.gohref('../trade/sell-list.html?coin=' + coin);
+                        base.gohref('../trade/sell-list.html?coin=' + coin + '&mod=cs');
                     } else {
-                        base.gohref('../trade/buy-list.html?coin=' + coin);
+                        base.gohref('../trade/buy-list.html?coin=' + coin + '&mod=gm');
                     }
                     base.hideLoadingSpin()
                 }, 1000)
@@ -582,12 +586,12 @@ define([
                 $('.num-go').css({
                     left: (left + Number(mlen)) + '%'
                 })
-                $('.yj-num').text(mlen);
+                $('.yj-num').val(mlen);
                 //溢价
-                if ($(".yj-num").text() == '0' || !$(".yj-num").text()) {
+                if ($(".yj-num").val() == '0' || !$(".yj-num").val()) {
                     $("#price").val(mid);
                 } else {
-                    $("#price").val((mid + mid * ($(".yj-num").text() / 100)).toFixed(2));
+                    $("#price").val((mid + mid * ($(".yj-num").val() / 100)).toFixed(2));
                 }
             }).mouseup(() => {
                 $('.go-box').unbind('mousemove');

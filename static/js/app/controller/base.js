@@ -209,7 +209,7 @@ define([
                 m = Number(m).toString();
             }
             m = new BigDecimal.BigDecimal(m);
-            m = Number(m.multiply(r)).toString();
+            m = m.multiply(r).toString();
             return m;
         },
         //密码强度等级判断

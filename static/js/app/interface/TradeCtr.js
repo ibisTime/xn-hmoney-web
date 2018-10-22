@@ -23,7 +23,7 @@ define([
         },
         //用户昵称查询广告
         getListAdvertiseNickname(nickName, refresh) {
-            return Ajax.get("625229", { nickName }, refresh);
+            return Ajax.get("625228", { nickName }, refresh);
         },
         /**
          * 发布/编辑广告

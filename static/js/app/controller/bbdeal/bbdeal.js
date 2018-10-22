@@ -11,7 +11,7 @@ define([
     'app/controller/Top',
     'app/controller/foo'
 ], function (base, Ajax, echarts, GeneralCtr, pagination, AccountCtr, TradingView, Datafeeds, UserCtr, Top, Foo) {
-
+    $('.trade').addClass('active');
     let userConfig = {
         userId: base.getUserId(),
         start: '1',
@@ -32,7 +32,6 @@ define([
         unit: base.getCoinUnit('FMVP'),
         toUnit: base.getCoinUnit('BTC')
     };
-    console.log('setBazDeal', setBazDeal);
     let isType = 0; // 0 表示限价 1 表示市价
     let buyHandicapData = []; // 买盘口数据
     let sellHandicapData = []; // 卖盘口数据
@@ -298,15 +297,15 @@ define([
 
     function symbolDetail() {
         getSymbolDetail().then(data => {
-            $('.bzz-con_l .txt-h').text(data.cname);
-            $('bzz-con_l .txt-p').text(data.ename);
-            $('.bzz-box .txt-p').text(data.introduction);
-            $('.bzz-time').text(data.icoDatetime ? new Date(data.icoDatetime).toLocaleDateString() : '');
-            $('.bzz-f_all').text(data.maxSupply);
-            $('.bzz-l_all').text(data.totalSupply);
-            $('.bzz-bps').text(data.whitePaper);
-            $('.bzz-gw').text(data.webUrl);
-            $('.bzz-qk').text(data.blockUrl);
+            $('.bzz-con_l .txt-h').html(data.cname);
+            $('bzz-con_l .txt-p').html(data.ename);
+            $('.bzz-box .txt-p').html(data.introduction);
+            $('.bzz-time').html(data.icoDatetime ? new Date(data.icoDatetime).toLocaleDateString() : '');
+            $('.bzz-f_all').html(data.maxSupply);
+            $('.bzz-l_all').html(data.totalSupply);
+            $('.bzz-bps').html(data.whitePaper);
+            $('.bzz-gw').html(data.webUrl);
+            $('.bzz-qk').html(data.blockUrl);
         })
     }
 
