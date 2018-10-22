@@ -150,7 +150,7 @@ define([
         }
         let hpCount = 0;
         if (item.userStatistics.beiPingJiaCount != 0) {
-            hpCount = (item.userStatistics.beiHaoPingCount / item.userStatistics.beiPingJiaCount) * 100;
+            hpCount = base.getPercentum(item.userStatistics.beiHaoPingCount, item.userStatistics.beiPingJiaCount);
         }
         return `<tr>
 					<td class="nickname" style="padding-left: 20px;">
