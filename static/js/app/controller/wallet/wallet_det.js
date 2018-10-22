@@ -40,13 +40,13 @@ define([
             $('.qr').removeClass('none');
         }
         $('.o-type').text(typeList[userCTSList.type]);
-        $('.x-num').text(base.formatMoney(`${userCTSList.count}`, '', 'X'));
+        $('.x-num').text(base.formatMoney(`${userCTSList.count}`, '', 'FMVP'));
         $('.o-code').text(userCTSList.code);
         $('.o-all').text((Math.floor(userCTSList.tradeAmount * 100) / 100).toFixed(2));
         $('.o-status').text(statusList[userCTSList.status]);
         $('.o-date').text(base.formateDatetime(userCTSList.createDatetime));
         $('.o-money').text(userCTSList.tradeCurrency);
-        $('.o-fee').text(base.formatMoney(`${userCTSList.fee}`, '', 'X'));
+        $('.o-fee').text(base.formatMoney(`${userCTSList.fee}`, '', 'FMVP'));
 
         let realName = userCTSList.bankcard ? userCTSList.bankcard.realName : userCTSList.user.realName;
         $('.u-name').text(realName);

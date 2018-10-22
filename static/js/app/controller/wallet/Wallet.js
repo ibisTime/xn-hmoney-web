@@ -25,7 +25,6 @@ define([
     let zfOne = '';
     let gmType = {}; // 去出售支付方式
 
-    let moneyXZ = {};
     let acceptRule = {};
 
     var config = {
@@ -97,19 +96,19 @@ define([
         $("#addWAddressMobile").val(base.getUserMobile());
         //$(".currency").text(currency);  测试
         getCoinList();
-        // X币转换
+        // FMVP币转换
         // 数字货币转换
         if(!userAccountNum){
-            getNumberMoney('X', 'CNY').then(data => {
-                moneyHS = parseFloat(data);
-            });
+            getAcceptRule();
         }
         getBankData().then(data => {
-            data.forEach((item) => {
-                zfType[item.bankName] = item.bankCode;
-                zfNumber[item.bankName] = item.bankcardNumber;
-            });
-            zfOne = data[0].bankName;
+            if(data.length > 0){
+                data.forEach((item) => {
+                    zfType[item.bankName] = item.bankCode;
+                    zfNumber[item.bankName] = item.bankcardNumber;
+                });
+                zfOne = data[0].bankName;
+            }
         });
         getGmBankData().then(data => {
             data.forEach(item => {
@@ -177,81 +176,76 @@ define([
     function getAcceptRule() {
         return GeneralCtr.getSysConfigType('accept_rule', true).then(data => {
             base.hideLoadingSpin();
-            data.map(item => {
-                if (item.ckey === 'accept_cny_price'){
-                  acceptRule['cny'] = item.cvalue;
-                } else if (item.ckey === 'accept_usd_price') {
-                  acceptRule['usdt'] = item.cvalue;
-                }
-            })
+            console.log(data);
+            acceptRule = data;
         }, base.hideLoadingSpin);
     }
 
     function qhMoneyType(pType, m_type, isw) { //m_cyn
         let toType = '';
-        GeneralCtr.getSysConfigType('accept_rule').then(data => {
-            moneyXZ = data;
-            moneyXZ.min_cny = parseFloat(moneyXZ.accept_order_min_cny_amount);
-            moneyXZ.max_cny = parseFloat(moneyXZ.accept_order_max_cny_amount);
-            moneyXZ.min_usd = parseFloat(moneyXZ.accept_order_min_usd_amount);
-            moneyXZ.max_usd = parseFloat(moneyXZ.accept_order_max_usd_amount);
-            if (isw == '0') {
-                if (m_type == 'CNY') {
-                    $('.con-toBuy .x-p_money').text('USD');
-                    if($('.con-toBuy .sel-p').text() === '数量'){
-                        $('.con-toBuy .m_bb').text('X');
-                    }
-                    $('.con-toBuy .m_cyn').text('USD');
-                } else {
-                    $('.con-toBuy .x-p_money').text('CNY');
-                    if($('.con-toBuy .sel-p').text() === '数量'){
-                        $('.con-toBuy .m_bb').text('X');
-                    }
-                    $('.con-toBuy .m_cyn').text('CNY');
+        acceptRule.min_cny = parseFloat(acceptRule.accept_order_min_cny_amount);
+        acceptRule.max_cny = parseFloat(acceptRule.accept_order_max_cny_amount);
+        acceptRule.min_usd = parseFloat(acceptRule.accept_order_min_usd_amount);
+        acceptRule.max_usd = parseFloat(acceptRule.accept_order_max_usd_amount);
+        if (isw == '0') {
+            if (m_type == 'CNY') {
+                $('.con-toBuy .x-p_money').text('USD');
+                if($('.con-toBuy .sel-p').text() === '数量'){
+                    $('.con-toBuy .m_bb').text('FMVP');
                 }
-            }
-            if (isw == '1') {
-                if (m_type == 'CNY') {
-                    $('.con-toSell .x-p_money').text('USD');
-                    if($('.con-toSell .sel-p').text() === '数量'){
-                        $('.con-toSell .m_bb').text('X');
-                    }
-                    $('.con-toSell .m_cyn').text('USD');
-                } else {
-                    $('.con-toSell .x-p_money').text('CNY');
-                    if($('.con-toSell .sel-p').text() === '数量'){
-                        $('.con-toSell .m_bb').text('X');
-                    }
-                    $('.con-toSell .m_cyn').text('CNY');
-                }
-            }
-            toType = $(pType + ' .x-p_money').eq(0).text();
-            getNumberMoney('X', toType).then(data => {
-                moneyHS = parseFloat(data);
-                if(!isw){
-                    $('.x-mon').text((Math.floor(moneyHS * 100) / 100).toFixed(2));
-                }else{
-                    $(pType + ' .x-mon').text((Math.floor(moneyHS * 100) / 100).toFixed(2));
-                }
-            });
-            if (toType == 'CNY') {
-                $('.b-m_type').text('￥');
-                $(pType + ' .x-p_money').text('CNY');
-                if($(pType + ' .sel-p').text() === '数量'){
-                    $(pType + ' .m_bb').text('X');
-                }
-                $(pType + ' .min-money').text(data.accept_order_min_cny_amount);
-                $(pType + ' .max-money').text(data.accept_order_max_cny_amount);
+                $('.con-toBuy .m_cyn').text('USD');
             } else {
-                $('.s-m_type').text('$');
-                $(pType + ' .min-money').text(data.accept_order_min_usd_amount);
-                $(pType + ' .max-money').text(data.accept_order_max_usd_amount);
-                $(pType + ' .x-p_money').text('USD');
-                if($(pType + ' .sel-p').text() === '数量'){
-                    $(pType + ' .m_bb').text('X');
+                $('.con-toBuy .x-p_money').text('CNY');
+                if($('.con-toBuy .sel-p').text() === '数量'){
+                    $('.con-toBuy .m_bb').text('FMVP');
                 }
+                $('.con-toBuy .m_cyn').text('CNY');
             }
-        })
+        }
+        if (isw == '1') {
+            if (m_type == 'CNY') {
+                $('.con-toSell .x-p_money').text('USD');
+                if($('.con-toSell .sel-p').text() === '数量'){
+                    $('.con-toSell .m_bb').text('FMVP');
+                }
+                $('.con-toSell .m_cyn').text('USD');
+            } else {
+                $('.con-toSell .x-p_money').text('CNY');
+                if($('.con-toSell .sel-p').text() === '数量'){
+                    $('.con-toSell .m_bb').text('FMVP');
+                }
+                $('.con-toSell .m_cyn').text('CNY');
+            }
+        }
+        toType = $(pType + ' .x-p_money').eq(0).text();
+        if(toType == 'CNY'){
+            moneyHS = parseFloat(acceptRule.accept_cny_price);
+        }else{
+            moneyHS = parseFloat(acceptRule.accept_cny_price);
+        }
+        if(!isw){
+            $('.x-mon').text((Math.floor(moneyHS * 100) / 100).toFixed(2));
+        }else{
+            $(pType + ' .x-mon').text((Math.floor(moneyHS * 100) / 100).toFixed(2));
+        }
+
+        if (toType == 'CNY') {
+            $('.b-m_type').text('￥');
+            $(pType + ' .x-p_money').text('CNY');
+            if($(pType + ' .sel-p').text() === '数量'){
+                $(pType + ' .m_bb').text('FMVP');
+            }
+            $(pType + ' .min-money').text(acceptRule.accept_order_min_cny_amount);
+            $(pType + ' .max-money').text(acceptRule.accept_order_max_cny_amount);
+        } else {
+            $('.s-m_type').text('$');
+            $(pType + ' .min-money').text(acceptRule.accept_order_min_usd_amount);
+            $(pType + ' .max-money').text(acceptRule.accept_order_max_usd_amount);
+            $(pType + ' .x-p_money').text('USD');
+            if($(pType + ' .sel-p').text() === '数量'){
+                $(pType + ' .m_bb').text('FMVP');
+            }
+        }
     }
 
     //我的账户
@@ -280,6 +274,7 @@ define([
             config.accountNumber = userAccountNum;
             let ulElement = '';
             let erWm = [];
+            console.log(data);
             data.forEach((item, i) => {
                 ulElement += buildHtml(item, i);
                 erWm.push(item.address);
@@ -344,7 +339,7 @@ define([
                 <h5 class="x-tit">去购买</h5>
                 <div class="buy-box">
                     <div class="buy-head">
-                        <p class="x-h_p1">X / <span class="x-p_money">CNY</span></p>
+                        <p class="x-h_p1">FMVP / <span class="x-p_money">CNY</span></p>
                         <p class="x-h_p2"><img src="/static/images/qhX.png" class="fr"/></p>
                         <p class="x-h_p3">单价：<span class="b-m_type"></span> <span class="x-mon"></span> <span class="x-bf_r"><i>-</i> 3.5%</span></p>
                     </div>
@@ -360,7 +355,7 @@ define([
                             <span class="m_bb x-p_money">CNY</span>
                         </div>
                         <div class="b-c_yue">
-                            <p>≈ <span class="x_num">0.0000</span> <span class="m_cyn">X</span><span class="fr">手续费：<span class="sxf">2</span> %</span>
+                            <p>≈ <span class="x_num">0.0000</span> <span class="m_cyn">FMVP</span><span class="fr">手续费：<span class="sxf">2</span> %</span>
                             </p>
                         </div>
                         <div class="b-c_fs">
@@ -386,7 +381,7 @@ define([
                 <h5 class="x-tit">去出售</h5>
                 <div class="buy-box">
                     <div class="buy-head">
-                        <p class="x-h_p1">X / <span class="x-p_money">CNY</span></p>
+                        <p class="x-h_p1">FMVP / <span class="x-p_money">CNY</span></p>
                         <p class="x-h_p2"><img src="/static/images/qhX.png" class="fr"/></p>
                         <p class="x-h_p3">单价：<span class="s-m_type"></span> <span class="x-mon"></span> <span class="x-bf_r"><i>-</i> 3.5%</span></p>
                     </div>
@@ -402,7 +397,7 @@ define([
                             <span class="m_bb x-p_money">CNY</span>
                         </div>
                         <div class="b-c_yue">
-                            <p>≈ <span class="x_num">0.0000</span><span class="m_cyn">X</span> <span class="fr">手续费：<span class="sxf">2</span> %</span>
+                            <p>≈ <span class="x_num">0.0000</span><span class="m_cyn">FMVP</span> <span class="fr">手续费：<span class="sxf">2</span> %</span>
                             </p>
                         </div>
                         <div class="b-c_fs">
@@ -443,17 +438,17 @@ define([
                         <p class="cz-btns">
                             <span>充币</span>
                             <span>提币</span>
-                            <span class="${item.currency == 'X' ? 'to-buy' : 'none'}">去购买</span>
-                            <span class="${item.currency == 'X' ? 'to-sell' : 'none'}">去出售</span>
+                            <span class="${item.currency == 'FMVP' ? 'to-buy' : 'none'}">去购买</span>
+                            <span class="${item.currency == 'FMVP' ? 'to-sell' : 'none'}">去出售</span>
                         </p>
                         <p class="jy-btns">
                             <span class="goHref"  data-href="./wallet-mx.html?account=${item.accountNumber}">交易明细</span>
-                            <span class="goHref" data-href="${item.currency == 'X' ? '../wallet/wallet-jilu.html' : '../trade/buy-list.html?type=sell&mod=gm'}">${item.currency == 'X' ? '订单记录' : '去交易'}</span>
+                            <span class="goHref" data-href="${item.currency == 'FMVP' ? '../wallet/wallet-jilu.html' : '../trade/buy-list.html?type=sell&mod=gm'}">${item.currency == 'FMVP' ? '订单记录' : '去交易'}</span>
                         </p>
                     </li>
                 </ul>
-                ${item.currency == 'X' ? tuBuyHtml : ''}
-                ${item.currency == 'X' ? tuSellHtml : ''}
+                ${item.currency == 'FMVP' ? tuBuyHtml : ''}
+                ${item.currency == 'FMVP' ? tuSellHtml : ''}
                 <div class="con-box bb-box" style="display: none;">
                     <div class="contant-mx">
                         <h3>充币</h3>
@@ -530,10 +525,6 @@ define([
                 </div>
             </li>`
         return DHtml;
-    }
-
-    function getNumberMoney(symbol, refer){
-        return TradeCtr.getNumberMoney(symbol, refer);
     }
 
     // 初始化交易记录分页器
@@ -724,17 +715,17 @@ define([
         return Ajax.post("650100", {
             start: '1',
             limit: '10',
-            symbol: 'X',
+            symbol: 'FMVP',
             toSymbol: 'BTC'
         }, true);
     }
 
-    // 购买X币
+    // 购买FMVP币
     function buyX(config) {
         return Ajax.post('625270', config);
     }
 
-    // 出售X币
+    // 出售FMVP币
     function sellX(config) {
         return Ajax.post('625271', config);
     }
@@ -930,6 +921,7 @@ define([
 
         // 切换交易货币类型
         $('.con-toBuy .x-h_p2 img').click(function () {
+            event.stopPropagation();
             let m_type = $(this).parent().prev().children('.x-p_money').text();
             $('.b-c_put input').val('');
             $('.x_num').text('0.00');
@@ -937,6 +929,7 @@ define([
         })
 
         $('.con-toSell .x-h_p2 img').click(function () {
+            event.stopPropagation();
             let m_type = $(this).parent().prev().children('.x-p_money').text();
             $('.b-c_put input').val('');
             $('.x_num').text('0.00');
@@ -980,6 +973,7 @@ define([
 
         //切换方式
         $('.b-c_h p').off('click').click(function () {
+            event.stopPropagation();
             $(this).addClass('sel-p').siblings('p').removeClass('sel-p');
             $('.b-c_put input').val('');
             $('.x_num').text('0.00');
@@ -993,18 +987,18 @@ define([
                     $('.m_bb').text(m_type);
                 } else {
                     $('.b-c_put p').text('请输入卖出数量');
-                    $('.m_bb').text('X');
+                    $('.m_bb').text('FMVP');
                     $('.con-toSell .m_cyn').text(m_type);
                 }
             } else {
                 let m_type = $('.con-toBuy .x-p_money').eq(0).text();
                 if ($(this).text() == '金额') {
                     $('.b-c_put p').text('请输入购买金额');
-                    $('.m_cyn').text('X');
+                    $('.m_cyn').text('FMVP');
                     $('.m_bb').text(m_type);
                 } else {
                     $('.b-c_put p').text('请输入购买数量');
-                    $('.m_bb').text('X');
+                    $('.m_bb').text('FMVP');
                     $('.con-toBuy .m_cyn').text(m_type);
                 }
             }
@@ -1039,26 +1033,27 @@ define([
 
         // 点击下订单
         $('.b-c_foo button').off('click').click(function () {
+            event.stopPropagation();
             let receiveType = $("#zf_select").find("option:selected").val();
             let receiveType1 = $("#zf_select1").find("option:selected").val();
             let p_money = $('.con-toBuy .x-p_money').eq(0).text(); //判断货币类型
             //买入
             if ($(this).text() == '买入' && $('.buy-c .sel-p').text() == '金额') {
                 let allMoney = parseFloat($('.con-toBuy .b-c_put input').val().trim());
-                let m_count = base.formatMoneyParse($('.con-toBuy .x_num').text(), '', 'X');
+                let m_count = base.formatMoneyParse($('.con-toBuy .x_num').text(), '', 'FMVP');
                 changeBuyMoney(p_money, allMoney, m_count);
             }
 
 
             if ($(this).text() == '买入' && $('.con-toBuy .sel-p').text() == '数量') {
                 let allMoney = $('.con-toBuy .x_num').text().trim();
-                let m_count = base.formatMoneyParse($('.con-toBuy .b-c_put input').val().trim(), '', 'X');
+                let m_count = base.formatMoneyParse($('.con-toBuy .b-c_put input').val().trim(), '', 'FMVP');
                 changeBuyMoney(p_money, allMoney, m_count);
             }
 
             function changeBuyMoney(p_money, allMoney, m_count) {
                 if (p_money == 'CNY') {
-                    if (moneyXZ.min_cny <= allMoney && allMoney <= moneyXZ.max_cny) {
+                    if (acceptRule.min_cny <= allMoney && allMoney <= acceptRule.max_cny) {
                         // allMoney = allMoney * 1000;
                         let buyConfig = {
                             tradeCurrency: 'CNY',
@@ -1079,7 +1074,7 @@ define([
                     }
                 }
                 if (p_money == 'USD') {
-                    if (moneyXZ.min_usd <= allMoney && allMoney <= moneyXZ.max_usd) {
+                    if (acceptRule.min_usd <= allMoney && allMoney <= acceptRule.max_usd) {
                         // allMoney = allMoney * 1000;
                         let buyConfig = {
                             tradeCurrency: 'USD',
@@ -1107,14 +1102,14 @@ define([
                 let moneyPow = $('#money_pow').val().trim();
                 if ($('.sell-c .sel-p').text() == '金额') {
                     let allMoney = $('.con-toSell .b-c_put input').val().trim();
-                    let m_count = base.formatMoneyParse($('.con-toSell .x_num').text().trim(), '', 'X');
+                    let m_count = base.formatMoneyParse($('.con-toSell .x_num').text().trim(), '', 'FMVP');
                     let m_receiveCardNo = $('.back-type input').val().trim();
                     changeSellMoney(p_money, allMoney, m_count, m_receiveCardNo);
                 }
 
                 if ($('.sell-c .sel-p').text() == '数量') {
                     let allMoney = $('.con-toSell .x_num').text().trim();
-                    let m_count = base.formatMoneyParse($('.con-toSell .b-c_put input').val().trim(), '', 'X');
+                    let m_count = base.formatMoneyParse($('.con-toSell .b-c_put input').val().trim(), '', 'FMVP');
                     let m_receiveCardNo = $('.back-type input').val().trim();
                     changeSellMoney(p_money, allMoney, m_count, m_receiveCardNo);
                 }
@@ -1122,7 +1117,7 @@ define([
 
                 function changeSellMoney(p_money, allMoney, m_count, m_receiveCardNo) {
                     if (p_money == 'CNY') {
-                        if (moneyXZ.min_cny <= allMoney && allMoney <= moneyXZ.max_cny) {
+                        if (acceptRule.min_cny <= allMoney && allMoney <= acceptRule.max_cny) {
                             // allMoney = allMoney * 1000;
                             let sellConfig = {
                                 userId: base.getUserId(),
@@ -1145,7 +1140,7 @@ define([
                         }
                     }
                     if (p_money == 'USD') {
-                        if (moneyXZ.min_usd <= allMoney && allMoney <= moneyXZ.max_usd) {
+                        if (acceptRule.min_usd <= allMoney && allMoney <= acceptRule.max_usd) {
                             // allMoney = allMoney * 1000;
                             let sellConfig = {
                                 userId: base.getUserId(),
@@ -1182,6 +1177,7 @@ define([
 
         // 发送-确定
         $("#sendOut-form .subBtn").click(function () {
+            event.stopPropagation();
             if (_sendOutWrapper.valid()) {
                 base.showLoadingSpin();
                 var params = _sendOutWrapper.serializeObject();

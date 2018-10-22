@@ -44,7 +44,7 @@ define([
     //获取我推荐的人数和收益统计
     function getInvitation() {
         return UserCtr.getInvitation().then((data) => {
-            let settleCount = base.formatMoney(`${data.nosettleCount + data.settleCount + data.unsettleCount}`, '', 'X');
+            let settleCount = base.formatMoney(`${data.nosettleCount + data.settleCount + data.unsettleCount}`, '', 'FMVP');
             $('.inviteProfit').text(settleCount);
         }, base.hideLoadingSpin)
     }
@@ -116,8 +116,8 @@ define([
             if (data.list.length) {
                 var html = "";
                 lists.forEach((item, i) => {
-                    let tradeAwardCount = base.formatMoney(`${item.tradeAwardCount}`, '', 'X')
-                    let awardCount = (parseFloat(tradeAwardCount) + item.regAwardCount) + ' X ';
+                    let tradeAwardCount = base.formatMoney(`${item.tradeAwardCount}`, '', 'FMVP')
+                    let awardCount = (parseFloat(tradeAwardCount) + item.regAwardCount) + ' FMVP ';
                     let tradeAwardTxt = `(交易佣金：${tradeAwardCount})`;
                     if(item.tradeAwardCount != 0){
                         awardCount += tradeAwardTxt;
@@ -125,7 +125,7 @@ define([
                     html += `<tr>
                         <td>${item.nickname}</td>
                         <td>${base.datetime(item.createDatetime)}</td>
-                        <td>${base.formatMoney(`${item.tradeCount}`, '', 'X')} X</td>
+                        <td>${base.formatMoney(`${item.tradeCount}`, '', 'FMVP')} FMVP</td>
                         <td>${awardCount}</td>
                     </tr>`;
                 });

@@ -74,7 +74,7 @@ define([
                         <p class="${item.type == 0 ? 'd-mr' : 'd-mc'}">${typeList[item.type]}</p>
                         <p>${item.tradeCurrency}</p>
                         <p>${(Math.floor(item.tradeAmount * 100) / 100).toFixed(2)}</p>
-                        <p class="date_num">${base.formatMoney(`${item.count}`, '', 'X')}</p>
+                        <p class="date_num">${base.formatMoney(`${item.count}`, '', 'FMVP')}</p>
                         <p class="date_p">${base.formateDatetime(item.createDatetime)}</p>
                         <p>${statusList[item.status]}</p>
                         <div class="cz-type" data-code="${item.code}">

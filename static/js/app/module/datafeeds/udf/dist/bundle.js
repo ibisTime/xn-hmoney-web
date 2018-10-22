@@ -124,11 +124,11 @@
                         for (var i = 0; i < response.length; ++i) {
                             var barValue = {
                                 time: Date.parse(new Date(response[i].createDatetime)),//createDatetime
-                                close: (Number(response[i].close) / toUnit).toFixed(8),
-                                open: (Number(response[i].open) / toUnit).toFixed(8),
-                                high: (Number(response[i].high) / toUnit).toFixed(8),
-                                low: (Number(response[i].low) / toUnit).toFixed(8),
-                                volume: (Number(response[i].volume) / unit).toFixed(8),
+                                close: response[i].close,
+                                open: response[i].open,
+                                high: response[i].high,
+                                low: response[i].low,
+                                volume: response[i].volume,
                                 isBarClosed: true,
                                 isLastBar: false
                             };
