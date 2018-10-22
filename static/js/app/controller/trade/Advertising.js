@@ -276,8 +276,9 @@ define([
         } else if (type == 'sell') {
             param = 'sell_ads_hint'
         }
-
-        document.getElementById("form-wrapper").reset();
+        if(document.getElementById("form-wrapper")){
+            document.getElementById("form-wrapper").reset();
+        }
         $("#price").val(mid);
 
         return GeneralCtr.getSysConfigType(param, true).then((data) => {

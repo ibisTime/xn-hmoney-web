@@ -137,12 +137,10 @@ define([
 
     function getBBDataFn(){
         getBazaarData().then(data => { // 加载市场数据
-            console.log(setBazDeal);
             // 指定币种换算数据
             let setBBList = data.list.filter(item => {
                 return item.symbol == setBazDeal.symbol && item.toSymbol == setBazDeal.toSymbol;
             })
-            // console.log('交易对：', setBBList);
             // 涨幅、k数据
             let zfKData = setBBList[0].dayLineInfo;
             zfData = setBBList[0].exchangeRate * 100;
@@ -202,7 +200,6 @@ define([
 
     function autoRealData() {
         getRealTimeData().then(data => {
-            // console.log('实时', data);
             if (data.list.length > 0) {
                 realTimeData = data.list;
                 let bb_zxj = base.formatMoney(`${realTimeData[0].tradedPrice}`, '', setBazDeal.toSymbol);
@@ -346,7 +343,6 @@ define([
             return false;
         }
         let userOrderHtml = '';
-        // console.log('当前', userOrderData);
 
         userOrderData.forEach((item, i) => {
             //base.formatMoney(`${item.totalCount - item.tradedCount}`, '', item.symbol) (item.totalCount - item.tradedCount).toFixed(2)
@@ -354,7 +350,6 @@ define([
             //base.formatMoney(`${item.totalCount}`, '', item.symbol)
             let showTotalCount = item.direction == 0 && item.type == 0;
             let showTotalAmount = item.direction == 1 && item.type == 0;
-            // console.log(showTotalCount, showTotalAmount);
             userOrderHtml += `<tr>
                     <td colspan="2">${base.formateDatetime(item.createDatetime)}</td>
                     <td>${item.symbol}/${item.toSymbol}</td>
@@ -496,7 +491,6 @@ define([
     //总资产
     function userAllMoneyX() {
         UserCtr.userAllMoneyX('CNY').then(data => {
-            // console.log('总资产', data);
             $('.u-bb').text(data.symbol).attr('title', data.symbol);
             let currency = (Math.floor(data.currency * 100) / 100).toFixed(2);
             $('.u-money').text(currency).prop('title', currency);
@@ -790,6 +784,14 @@ define([
         //订单输入 汇率换算
         $('#ym-price').keyup(function () {
             let ym_price = $(this).val();
+            let ym =  (ym_price > 0 && /^\d+(?:\.\d{1,8})?$/.test(ym_price));
+            if(!ym){
+                let yRight = ym_price.split('.')[1].substring(0, 8);
+                let yLeft = ym_price.split('.')[0];
+                base.showMsg('最大不得大于八位');
+                $(this).val(yLeft + '.' + yRight);
+                return;
+            }
             $('.mr-exc').text(((Math.floor(ym_price * bb_exchange) * 100) / 100).toFixed(2));
             if (ym_price > 0) {
                 $('.all-bb').text((Math.floor((toSyUserMoney / ym_price) * 100) / 100).toFixed(2));
@@ -797,6 +799,14 @@ define([
         })
         $('#yr-price').keyup(function () {
             let yr_price = $(this).val();
+            let ym =  (yr_price > 0 && /^\d+(?:\.\d{1,8})?$/.test(yr_price));
+            if(!ym){
+                let yRight = yr_price.split('.')[1].substring(0, 8);
+                let yLeft = yr_price.split('.')[0];
+                base.showMsg('最大不得大于八位');
+                $(this).val(yLeft + '.' + yRight);
+                return;
+            }
             $('.mc-exc').text(((Math.floor(yr_price * bb_exchange) * 100) / 100).toFixed(2));
             if (yr_price > 0) {
                 $('.all-bb_c').text((Math.floor((syUserMoney / yr_price) * 100) / 100).toFixed(2));
@@ -1084,9 +1094,6 @@ define([
         buyLjListData = [...buyLjData];
         sellLjListData = [...sellList, ...sellLjData];
         wtXListData = [...buyWtData, ...sellWtData];
-        // console.log(buyLjListData)
-        // console.log(sellLjListData);
-        // console.log(wtXListData);
         var myChart = echarts.init(document.getElementById('main'));
         var colors = ['rgba(79, 213, 141, 0.8)', 'rgba(225, 118, 118, 0.8)', '#6a7985'];
 
@@ -1175,12 +1182,6 @@ define([
     }
 
     function k() {
-        // getKLineData('1min').then(data => {
-        //     console.log('k', data);
-        //     if (data.length) {
-                
-        //     }
-        // })
 
         function getParameterByName(name) {
             name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");

@@ -63,6 +63,7 @@
             let reg = /[a-zA-Z]/g;
             let period = '';
             var loadTime = new Date(Number($("#tv_chart_container").attr("firstLoadTime"))).getTime();
+            
             if(!resolution.match(reg)){
                 period = resolution + 'min';
                 loadTime = new Date(loadTime + resolution * 60 * 1000);
@@ -140,7 +141,7 @@
                             bars.push(barValue);
                         }
                     }
-                    console.log(bars, meta);
+                    // console.log(bars, meta);
                     resolve({
                         bars: bars,
                         meta: meta,
