@@ -5,8 +5,9 @@ define([
     'app/interface/TradeCtr',
     'pagination',
     'app/controller/Top',
-    'app/controller/foo'
-], function(base, AccountCtr, GeneralCtr, TradeCtr, pagination, Top, Foo) {
+    'app/controller/foo',
+    'app/controller/public/DealLeft'
+], function(base, AccountCtr, GeneralCtr, TradeCtr, pagination, Top, Foo, DealLeft) {
     var type = base.getUrlParam("type") || "sell"; // buy: 购买，sell:出售
     var coin = base.getUrlParam("coin") || 'BTC'; // wait
     var adsStatusValueList = {}; // 广告狀態

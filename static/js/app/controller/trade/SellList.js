@@ -3,8 +3,9 @@ define([
     'pagination',
     'app/interface/TradeCtr',
     'app/controller/Top',
-    'app/controller/foo'
-], function(base, pagination, TradeCtr, Top, Foo) {
+    'app/controller/foo',
+    'app/controller/public/DealLeft'
+], function(base, pagination, TradeCtr, Top, Foo, DealLeft) {
     var coin = base.getUrlParam("coin"); // 币种
     //币种
     var config = {

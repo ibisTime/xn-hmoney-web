@@ -3,8 +3,9 @@ define([
     'pagination',
     'app/interface/UserCtr',
     'app/controller/Top',
-    'app/controller/foo'
-], function(base, pagination, UserCtr, Top, Foo) {
+    'app/controller/foo',
+    'app/controller/public/DealLeft'
+], function(base, pagination, UserCtr, Top, Foo, DealLeft) {
     var type = base.getUrlParam("type") || '1'; // 0: 你屏蔽的人，1:你信任的人，2:信任你的人
     let gohref = base.getUrlParam('go') || 'm_xr'; // m_xr: 你信任的人, xr_m: 信任你的人, m_pb:你屏蔽的人
     var config = {
