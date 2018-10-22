@@ -152,7 +152,7 @@ define([
             data.forEach((d) => {
                 var pics = base.getPicArr(d.pic);
                 pics.forEach((pic) => {
-                    bannerHtml += `<div class='swiper-slide'><div class="banner" data-url="${d.url || ""}" style="background-image:url(${pic});"></div></div>`;
+                    bannerHtml += `<div class='swiper-slide'><a href="${d.url || ""}" class="banner" data-url="${d.url || ""}" style="background-image:url(${pic});"></a></div>`;
                 });
             });
             base.hideLoadingSpin()
