@@ -8,7 +8,7 @@ var THUMBNAIL_SUFFIX = "";
 // h5 域名
 //var INVITATION_HREF = 'http://localhost:4009';
 // web 域名 测试 邀请好友  http://www.funmvp.com/
-var DOMAIN_NAME = 'http://120.26.6.213:2810';
+var DOMAIN_NAME = 'http://www.funmvp.com';
 // h5 域名 测试 邀请好友
 // var INVITATION_HREF = 'http://localhost:9999';
 //帮助中心

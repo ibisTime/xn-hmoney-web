@@ -12,7 +12,7 @@ define([
             return ;
         }
 
-        let stoType = base.getUrlParam('type');
+        let stoType = base.getUrlParam('type') || 'yx';
         if(stoType == 'rs'){
             $('.rs-li').addClass('sel-store').siblings().removeClass('sel-store');
             $('.qk-box').addClass('none');
@@ -46,13 +46,6 @@ define([
     }
 
     function addLister() {
-        $('.store-left li').off('click').click(function() {
-            $(this).addClass('sel-store').siblings().removeClass('sel-store');
-            if ($(this).hasClass('sel-store')) {
-                let index = $(this).index() - 1;
-                $('.store-right>div').eq(index).removeClass('none').siblings().addClass('none');
-            }
-        })
 
         //转币
         $('.zb-btn').off('click').click(function() {

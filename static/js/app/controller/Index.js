@@ -8,7 +8,6 @@ define([
     'app/controller/Top',
     'app/controller/foo'
 ], function(base, Handlebars, Swiper, GeneralCtr, UserCtr, Ajax, Top, Foo) {
-
     let adverData = []; // 广告数据
     let aarketData = []; // 行情数据
     let typeList = {
