@@ -11,7 +11,7 @@ define([
     'app/controller/Top',
     'app/controller/foo'
 ], function (base, Ajax, echarts, GeneralCtr, pagination, AccountCtr, TradingView, Datafeeds, UserCtr, Top, Foo) {
-
+    $('.trade').addClass('active');
     let userConfig = {
         userId: base.getUserId(),
         start: '1',
@@ -32,7 +32,6 @@ define([
         unit: base.getCoinUnit('FMVP'),
         toUnit: base.getCoinUnit('BTC')
     };
-    console.log('setBazDeal', setBazDeal);
     let isType = 0; // 0 表示限价 1 表示市价
     let buyHandicapData = []; // 买盘口数据
     let sellHandicapData = []; // 卖盘口数据

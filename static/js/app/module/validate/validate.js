@@ -140,7 +140,7 @@ define([
 
     //小数最后2位
     $.validator.addMethod("pwd", function(value, element) {
-        return this.optional(element) || /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[^]$/.test(value);
+        return this.optional(element) || /[A-Za-z].*[0-9]|[0-9].*[A-Za-z]/.test(value);
     }, '必须由数字和大小写字母组成');
 
 

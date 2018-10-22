@@ -74,12 +74,13 @@
                 $("#tv_chart_container").attr("firstLoad", "0");
             }, 500);
             var requestParams = {
-                symbol: 'X',
+                symbol: 'FMVP',
                 toSymbol: symbolInfo.toSymbol || 'BTC',
                 period: period,
                 resolution: resolution,
                 from: rangeStartDate,
                 to: rangeEndDate,
+                size: 500
             };
             var sendParam = {
                 code: '650066',
@@ -114,7 +115,7 @@
                         sessionStorage.setItem("firstLoad", "1");
                         sessionStorage.setItem("firstLoadTime", Date.parse(new Date()));
                         let setBazDeal = JSON.parse(sessionStorage.getItem('setBazDeal')) || {
-                            symbol: 'X',
+                            symbol: 'FMVP',
                             toSymbol: 'BTC',
                             unit: 1000000000000000000,
                             toUnit: 100000000
@@ -650,12 +651,12 @@
             }
 
             let setBazDeal = JSON.parse(sessionStorage.getItem('setBazDeal')) || {
-                symbol: 'X',
+                symbol: 'FMVP',
                 toSymbol: 'BTC',
                 unit: '1e8'
             }
             var symbolInfo = {
-                "name": "X",
+                "name": "FMVP",
                 "timezone": "Asia/Shanghai",
                 minmov: 1,
                 "pointvalue": 1,

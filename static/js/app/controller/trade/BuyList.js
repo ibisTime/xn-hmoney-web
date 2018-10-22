@@ -266,7 +266,7 @@ define([
 
         //币种点击
         $("#coin-top ul li").click(function() {
-            base.gohrefReplace("../trade/buy-list.html?coin=" + $(this).attr("data-coin").toUpperCase())
+            base.gohrefReplace("../trade/buy-list.html?coin=" + $(this).attr("data-coin").toUpperCase() + "&mod=gm")
         })
 
         $('.show-search').click(() => {

@@ -152,7 +152,7 @@ define([
     function addListener() {
         $(".titleStatus li").click(function() {
             var _this = $(this);
-            base.gohrefReplace("../user/advertise.html?coin=" + $(this).attr("data-coin").toUpperCase() + "&type=" + $(this).attr("data-type").toUpperCase());
+            base.gohrefReplace("../user/advertise.html?coin=" + $(this).attr("data-coin").toUpperCase() + "&type=" + $(this).attr("data-type").toUpperCase() + '&mod=gg');
             _this.addClass("on").siblings('li').removeClass("on");
             if (_this.hasClass("wait")) {
                 config.statusList = ['0'];

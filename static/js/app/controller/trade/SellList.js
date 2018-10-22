@@ -278,7 +278,7 @@ define([
 
         //币种点击
         $("#coin-top ul li").click(function() {
-            base.gohrefReplace("../trade/sell-list.html?coin=" + $(this).attr("data-coin").toUpperCase())
+            base.gohrefReplace("../trade/sell-list.html?coin=" + $(this).attr("data-coin").toUpperCase() + "&mod=cs")
         })
         $('.show-search').click(() => {
             let reg = /none/g;
