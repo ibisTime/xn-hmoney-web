@@ -1000,7 +1000,7 @@ define([
                 $(".emotionUL-wrap").addClass("hidden");
                 $("#msgImg").removeClass("on");
             }
-        })
+        });
         $('#msgImg').on('click', function() {
             event.stopPropagation();
             if ($(this).hasClass("on")) {

@@ -284,6 +284,7 @@ define([
                 })
             }, base.hideLoadingSpin)
 
-        })
+        });
+        
     }
 });

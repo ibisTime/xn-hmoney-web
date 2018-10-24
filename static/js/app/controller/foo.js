@@ -47,7 +47,7 @@ define([
 
   function addListener() {
     $('.help').click(function () {
-      location.href = HELPCONTENT;
+      window.open(HELPCONTENT);
     });
 
     $('.contact-info-wrap .contact-info').mouseenter(function () {

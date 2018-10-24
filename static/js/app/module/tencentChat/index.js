@@ -873,15 +873,22 @@ define([
 
         //表情
         $('#msgImg').on('click', function() {
-                if ($(this).hasClass("on")) {
-                    $(".emotionUL-wrap").addClass("hidden");
-                    $(this).removeClass("on")
-                } else {
-                    $(".emotionUL-wrap").removeClass("hidden");
-                    $(this).addClass("on")
-                    showEmotionDialog();
-                }
-            })
+            event.stopPropagation();
+            if ($(this).hasClass("on")) {
+                $(".emotionUL-wrap").addClass("hidden");
+                $(this).removeClass("on")
+            } else {
+                $(".emotionUL-wrap").removeClass("hidden");
+                $(this).addClass("on")
+                showEmotionDialog();
+            }
+        })
+    $('#TencentChatContainer').on('click', function(){
+        if($("#msgImg").hasClass("on")){
+            $(".emotionUL-wrap").addClass("hidden");
+            $("#msgImg").removeClass("on");
+        }
+    });
             //--end--
     }
 
