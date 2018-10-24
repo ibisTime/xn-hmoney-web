@@ -659,21 +659,21 @@
                 toSymbol: 'BTC'
             }
             var symbolInfo = {
-                "name": "FMVP",
-                "timezone": "Asia/Shanghai",
+                name: "FMVP",
+                timezone: "Asia/Shanghai",
                 minmov: 1,
-                "pointvalue": 1,
+                pointvalue: 1,
                 session: "24x7",
                 has_intraday: !0,
                 has_daily: !0,
                 has_weekly_and_monthly: !0,
-                "description": "BTC",
-                "type": "coin",
-                "ticker": setBazDeal.symbol,
-                'toSymbol': setBazDeal.toSymbol,
-                'period': '30min',
+                description: "BTC",
+                type: "coin",
+                ticker: setBazDeal.symbol,
+                toSymbol: setBazDeal.toSymbol,
+                period: '30min',
                 pricescale: 100000000,
-                volumescale: 10000,
+                volumescale: 100000000,
             };
             onResultReady(symbolInfo);
             //      if (!this._configuration.supports_group_request) {

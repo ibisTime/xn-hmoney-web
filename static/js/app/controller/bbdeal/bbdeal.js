@@ -147,6 +147,7 @@ define([
                 $('.t-g').text(base.formatMoney(`${zfKData.high}`, '', setBazDeal.symbol));
                 $('.t-d').text(base.formatMoney(`${zfKData.low}`, '', setBazDeal.symbol));
                 $('.t-h').text(base.formatMoney(`${zfKData.volume}`, '', setBazDeal.toSymbol));
+                debugger;
             }
             $('.t-jym').text(setBBList[0].price);
             $('.sym-exc').text((Math.floor(setBBList[0].currencyPrice * 100) / 100).toFixed(2));
@@ -209,8 +210,8 @@ define([
                     realTimeHtml += `<tr>
                                 <td>${base.todayDatetime(item.createDatetime)}</td>
                                 <td class="${item.direction == 0 ? 'd-mr' : 'd-mc'}">${item.direction == 0 ? '买入' : '卖出'}</td>
-                                <td>${base.formatMoney(`${item.tradedPrice}`, '', setBazDeal.toSymbol)}</td>
-                                <td>${base.formatMoney(`${item.tradedCount}`, '', setBazDeal.symbol)}</td>
+                                <td>${base.formatMoney(`${item.tradedPrice}`, '', setBazDeal.toSymbol, false)}</td>
+                                <td>${base.formatMoney(`${item.tradedCount}`, '', setBazDeal.symbol, false)}</td>
                             </tr>`
                 });
                 // ${base.formatMoney(`${item.tradedPrice}`, '', item.toSymbol)}
@@ -260,16 +261,16 @@ define([
             buyHandicapData.forEach((item, i) => {
                 buyHtml += `<li>
                         <p class="b-p">买<span>${i + 1}</span></p>
-                        <p>${item.price ? base.formatMoney(`${item.price}`, '', setBazDeal.toSymbol) : '--'}</p>
-                        <p>${item.count ? base.formatMoney(`${item.count}`, '', setBazDeal.symbol) : '--'}</p>
+                        <p>${item.price ? base.formatMoney(item.price, '', setBazDeal.toSymbol, false) : '--'}</p>
+                        <p>${item.count ? base.formatMoney(item.count, '', setBazDeal.symbol, false) : '--'}</p>
                     </li>`
             })
             $('.b-new_ul').html(buyHtml);
             for (let i = 6; i >= 0; i--) {
                 sellHtml += `<li>
                         <p class="s-p">卖<span>${i + 1}</span></p>
-                        <p>${sellHandicapData[i].price ? base.formatMoney(`${sellHandicapData[i].price}`, '', setBazDeal.toSymbol) : '--'}</p>
-                        <p>${sellHandicapData[i].count ? base.formatMoney(`${sellHandicapData[i].count}`, '', setBazDeal.symbol) : '--'}</p>
+                        <p>${sellHandicapData[i].price ? base.formatMoney(sellHandicapData[i].price, '', setBazDeal.toSymbol, false) : '--'}</p>
+                        <p>${sellHandicapData[i].count ? base.formatMoney(sellHandicapData[i].count, '', setBazDeal.symbol, false) : '--'}</p>
                     </li>`
             }
             $('.s-new_ul').html(sellHtml)
@@ -1250,6 +1251,7 @@ define([
 
             const _self = this;
             let chart = widget.chart();
+            let activeChart = widget.activeChart();
             const btnList = [
               {
                 label:'分时',
@@ -1285,6 +1287,7 @@ define([
                 resolution: "1M"
               }
             ];
+            activeChart.setTimezone('Asia/Shanghai');
             chart.onIntervalChanged().subscribe(null, function (interval, obj) {
               widget.changingInterval = false;
             });
