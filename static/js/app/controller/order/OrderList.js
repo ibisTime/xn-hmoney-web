@@ -156,7 +156,7 @@ define([
         }
         return `<tr data-code="${item.code}">
 					<td class="nickname" style="border-left:1px solid #eee;">
-                        <div class="photoWrap fl goHref" data-href="../user/user-detail.html?coin=${item.tradeCoin}&userId=${item.type == 'sell' ? item.sellUser : item.buyUser}&adsCode=${item.code}">
+                        <div class="photoWrap fl goHref" data-href="../user/user-detail.html?coin=${item.tradeCoin}&userId=${type == 'sell' ? item.sellUser : item.buyUser}&adsCode=${item.code}">
 							${photoHtml}
 						</div>
 						<samp class="name k-name">${user.nickname ? user.nickname : '-'}</samp>
