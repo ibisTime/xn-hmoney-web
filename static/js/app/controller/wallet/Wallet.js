@@ -178,7 +178,6 @@ define([
     function getAcceptRule() {
         return GeneralCtr.getSysConfigType('accept_rule', true).then(data => {
             base.hideLoadingSpin();
-            console.log(data);
             acceptRule = data;
         }, base.hideLoadingSpin);
     }
@@ -276,7 +275,6 @@ define([
             config.accountNumber = userAccountNum;
             let ulElement = '';
             let erWm = [];
-            console.log(data);
             data.forEach((item, i) => {
                 ulElement += buildHtml(item, i);
                 erWm.push(item.address);

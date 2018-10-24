@@ -173,7 +173,7 @@ define([
 						</div>
                         <samp class="name">${item.user.nickname ? item.user.nickname : '-'}</samp>
                         <p class="n-dist"><samp>交易<i>${item.userStatistics.jiaoYiCount}</i></samp> ·
-                            <samp>好评度<i>${hpCount}%</i></samp> ·
+                            <samp>好评度<i>${hpCount}</i></samp> ·
                             <samp>信任<i>${item.userStatistics.beiXinRenCount}</i></samp>
                         </p>
 					</td>
