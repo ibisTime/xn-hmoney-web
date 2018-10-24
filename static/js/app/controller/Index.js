@@ -102,9 +102,7 @@ define([
                 let sym = $(this).attr('data-sym');
                 let setBazDeal = {
                     symbol: 'FMVP',
-                    toSymbol: 'BTC',
-                    unit: base.getCoinUnit('FMVP'),
-                    toUnit: base.getCoinUnit('BTC')
+                    toSymbol: 'BTC'
                 }
                 if(sym == 'ETH'){
                     setBazDeal.toSymbol = 'ETH';

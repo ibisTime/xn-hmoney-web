@@ -28,9 +28,7 @@ define([
     let bazaarData = []; // 交易对数据 
     let setBazDeal = JSON.parse(sessionStorage.getItem('setBazDeal')) || {
         symbol: 'FMVP',
-        toSymbol: 'BTC',
-        unit: base.getCoinUnit('FMVP'),
-        toUnit: base.getCoinUnit('BTC')
+        toSymbol: 'BTC'
     };
     let isType = 0; // 0 表示限价 1 表示市价
     let buyHandicapData = []; // 买盘口数据
@@ -578,9 +576,7 @@ define([
             $(this).addClass('sel-sp').siblings().removeClass('sel-sp');
             sessionStorage.setItem('setBazDeal', JSON.stringify({
                 symbol: 'FMVP',
-                toSymbol: $(this).text(),
-                unit: base.getCoinUnit('FMVP'),
-                toUnit: base.getCoinUnit($(this).text())
+                toSymbol: $(this).text()
             }));
             location.reload();
             // switch ($(this).text()) {

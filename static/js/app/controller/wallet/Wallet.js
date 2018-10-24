@@ -30,6 +30,8 @@ define([
 
     let acceptRule = {};
 
+    let picList = {};
+
     var config = {
             start: 1,
             limit: 10,
@@ -109,9 +111,11 @@ define([
                 data.forEach((item) => {
                     zfType[item.bankName] = item.bankCode;
                     zfNumber[item.bankName] = item.bankcardNumber;
+                    picList[item.bankName] = item.pic;
                 });
                 zfOne = data[0].bankName;
             }
+            console.log(zfType, picList);
         });
         getGmBankData().then(data => {
             data.forEach(item => {
@@ -223,7 +227,7 @@ define([
         if(toType == 'CNY'){
             moneyHS = parseFloat(acceptRule.accept_cny_price);
         }else{
-            moneyHS = parseFloat(acceptRule.accept_cny_price);
+            moneyHS = parseFloat(acceptRule.accept_usd_price);
         }
         if(!isw){
             $('.x-mon').text((Math.floor(moneyHS * 100) / 100).toFixed(2));
@@ -284,11 +288,16 @@ define([
             $('.tr-ul').html(ulElement);
             $('.con-toBuy .sxf').text(parseFloat(acceptRule.accept_order_buy_fee_rate) * 100);
             $('.con-toSell .sxf').text(parseFloat(acceptRule.accept_order_sell_fee_rate) * 100);
+            if(isbuy){
+                $('.b-c_h p').eq(0).addClass('sel-p').siblings().removeClass('sel-p');
+            }
             if(isbuy == '1'){
-                $('.con-toBuy .b-c_h p').eq(0).addClass('sel-p').siblings().removeClass('sel-p');
+                $('.to-buy').addClass('sel-sp');
+                $('.con-toBuy').show();
             }
             if(isbuy == '0'){
-                $('.con-toSell .b-c_h p').eq(0).addClass('sel-p').siblings().removeClass('sel-p');
+                $('.to-sell').addClass('sel-sp');
+                $('.con-toSell').show();
             }
             base.hideLoadingSpin();
 
@@ -321,7 +330,11 @@ define([
             getGmBankData().then(data => {
                 let zfTypeHtml = '';
                 data.forEach(item => {
-                    zfTypeHtml += `<option value="${item.bankName}">${item.bankName}</option>`
+                    zfTypeHtml += `<option value="${item.bankName}">${item.bankName}</option>`;
+                    if(item.bankName == '支付宝'){
+                        let rwmcode = new QRCode('rwmcode', picList['支付宝']);
+                        rwmcode.makeCode(picList['支付宝']);
+                    }
                 });
                 $('#zf_select1').html(zfTypeHtml);
             });
@@ -337,10 +350,6 @@ define([
                 getPageFlow(config);
             }
             $('.zhanghao').text(zfNumber[zfOne]);
-            $('#zf_select').change(function(){
-                let zf_zhanghao = $(this).find("option:selected").val();
-                $('.zhanghao').text(zfNumber[zf_zhanghao]);
-            })
             addListener();
             base.hideLoadingSpin();
         }, base.hideLoadingSpin)
@@ -373,17 +382,19 @@ define([
                             <p>付款方式</p>
                             <div>
                                 <span><img src="" alt=""></span>
-                                <select name="zf-type" id="zf_select">
-                                
-                                </select>
-                                <span><img src="/static/images/xlh.png" alt=""></span>
+                                <span>支付宝</span>
                             </div>
                         </div>
-                        <div style="margin-top: 20px;">账号：<span class="zhanghao"></span></div>
+                        <div class="zhang-rwm">
+                            <div class="rwm-box" id="rwmcode"></div>
+                        </div>
+                        <div class="bz_put">
+                            <div><textarea placeholder="请输入自己的支付宝账号（以便确认）"></textarea></div>
+                            <p class="rwm-p">付款备注里不得出现 BTC/ETH/FMVP、数字货币、区块链等字眼。</p>
+                        </div>
                         <div class="b-c_foo">
                             <button>买入</button>
                         </div>
-                        <div class="zhang-rwm"></div>
                     </div>
                 </div>
             </div>`
@@ -711,14 +722,10 @@ define([
         })
     }
 
-    //获取币换人民币价格
+    //获取支付二维码
 
-    function getAdvertisePrice(coin, ctype) {
-        let refCurrency = ctype || 'CNY';
-        return Ajax.get("625292", {
-            coin,
-            refCurrency
-        });
+    function getErCode() {
+        return Ajax.get("802020");
     }
 
     // 获取涨幅
@@ -1050,21 +1057,22 @@ define([
             let receiveType = $("#zf_select").find("option:selected").val();
             let receiveType1 = $("#zf_select1").find("option:selected").val();
             let p_money = $('.con-toBuy .x-p_money').eq(0).text(); //判断货币类型
+            let buyNote = $('.con-toBuy .bz_put textarea').val();
             //买入
             if ($(this).text() == '买入' && $('.buy-c .sel-p').text() == '金额') {
                 let allMoney = parseFloat($('.con-toBuy .b-c_put input').val().trim());
                 let m_count = base.formatMoneyParse($('.con-toBuy .x_num').text(), '', 'FMVP');
-                changeBuyMoney(p_money, allMoney, m_count);
+                changeBuyMoney(p_money, allMoney, m_count, buyNote);
             }
 
 
             if ($(this).text() == '买入' && $('.con-toBuy .sel-p').text() == '数量') {
                 let allMoney = $('.con-toBuy .x_num').text().trim();
                 let m_count = base.formatMoneyParse($('.con-toBuy .b-c_put input').val().trim(), '', 'FMVP');
-                changeBuyMoney(p_money, allMoney, m_count);
+                changeBuyMoney(p_money, allMoney, m_count, buyNote);
             }
 
-            function changeBuyMoney(p_money, allMoney, m_count) {
+            function changeBuyMoney(p_money, allMoney, m_count, buyNote) {
                 if (p_money == 'CNY') {
                     if (acceptRule.min_cny <= allMoney && allMoney <= acceptRule.max_cny) {
                         // allMoney = allMoney * 1000;
@@ -1073,8 +1081,9 @@ define([
                             tradePrice: moneyHS,
                             userId: base.getUserId(),
                             count: m_count,
-                            receiveType: zfType[receiveType],
-                            tradeAmount: allMoney
+                            receiveType: 'alipay',
+                            tradeAmount: allMoney,
+                            remark: buyNote
                         }
                         buyX(buyConfig).then(() => {
                             showMsg();
@@ -1094,8 +1103,9 @@ define([
                             tradePrice: moneyHS,
                             userId: base.getUserId(),
                             count: m_count,
-                            receiveType: zfType[receiveType],
-                            tradeAmount: allMoney
+                            receiveType: 'alipay',
+                            tradeAmount: allMoney,
+                            remark: buyNote
                         }
                         buyX(buyConfig).then(() => {
                             showMsg();

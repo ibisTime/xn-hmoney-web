@@ -124,12 +124,8 @@
                         sessionStorage.setItem("firstLoadTime", Date.parse(new Date()));
                         let setBazDeal = JSON.parse(sessionStorage.getItem('setBazDeal')) || {
                             symbol: 'FMVP',
-                            toSymbol: 'BTC',
-                            unit: 1000000000000000000,
-                            toUnit: 100000000
+                            toSymbol: 'BTC'
                         };
-                        let unit = Number(setBazDeal.unit);
-                        let toUnit = Number(setBazDeal.toUnit);
                         for (var i = 0; i < response.length; ++i) {
                             var barValue = {
                                 time: Date.parse(new Date(response[i].createDatetime)),//createDatetime
@@ -660,8 +656,7 @@
 
             let setBazDeal = JSON.parse(sessionStorage.getItem('setBazDeal')) || {
                 symbol: 'FMVP',
-                toSymbol: 'BTC',
-                unit: '1e8'
+                toSymbol: 'BTC'
             }
             var symbolInfo = {
                 "name": "FMVP",

@@ -2776,7 +2776,7 @@ table {
                         }
                     }
                     .b-c_foo {
-                        margin-top: 40px;
+                        margin-top: 10px;
                         button {
                             color: #fff;
                             background-color: #d53d3d;
@@ -2791,12 +2791,33 @@ table {
                         }
                     }
                     .zhang-rwm{
-                        position: absolute;
-                        right: 0;
-                        bottom: 0;
-                        width: 100px;
-                        height: 100px;
-                        background-color: red;
+                        margin-top: 10px;
+                        padding: 5px 0px;
+                        .rwm-box{
+                            width: 100px;
+                            height: 100px;
+                            float: right;
+                            img{
+                                width: 100%;
+                                height: 100%;
+                            }
+                        }
+                    }
+                    .bz_put{
+                        clear: both;
+                        margin-top: 10px;
+                        padding-top: 10px;
+                        textarea{
+                            border: 1px solid #ddd;
+                            border-radius: 4px;
+                            height: 80px;
+                            width: 100%;
+                            padding: 5px 10px;
+                        }
+                        .rwm-p{
+                            margin-top: 10px;
+                            font-size: 12px;
+                        }
                     }
                 }
             }
