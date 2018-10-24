@@ -995,7 +995,14 @@ define([
         });
 
         //表情
+        $('.k-orderDet-mid').on('click', function(){
+            if($("#msgImg").hasClass("on")){
+                $(".emotionUL-wrap").addClass("hidden");
+                $("#msgImg").removeClass("on");
+            }
+        })
         $('#msgImg').on('click', function() {
+            event.stopPropagation();
             if ($(this).hasClass("on")) {
                 $(".emotionUL-wrap").addClass("hidden");
                 $(this).removeClass("on");

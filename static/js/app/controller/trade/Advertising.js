@@ -17,6 +17,7 @@ define([
         selOnlyCert = 0;
     var pay = '';
     var midBlv = 0;
+    var isKup = true;
     init();
 
     function init() {
@@ -203,10 +204,10 @@ define([
             // 进度条初始化
             $('.yj-num').val(premiumRate);
             let parWidth = $('.num-huadtiao').width();
-            jdLeft = (parWidth * data.premiumRate) / 100;
-            let goLeft = (parseInt($('.num-go').css('left')) / parWidth).toFixed(2) * 100;
+            let xLeft = (parWidth * data.premiumRate) / 30;
+            jdLeft = parseInt($('.num-go').css('left')) - 50 - xLeft;
             $('.num-go').css({
-                left: (goLeft + jdLeft) + '%'
+                left: (50 + xLeft) + '%'
             })
             //广告类型
             if (data.tradeType == '1') {
@@ -302,7 +303,7 @@ define([
                 $("#totalCount").attr('placeholder', '请输入售卖币的总量');
             }
 
-            $("#protectPriceExp").html(data.protectPrice)
+            $("#protectPriceExp").html(data.protectPrice);
             $("#totalCountExp").html(data.totalCount);
             $("#trustExp").html(data.trust);
             base.hideLoadingSpin();
@@ -420,18 +421,28 @@ define([
         })
 
         $('.yj-num').keyup(function(){//(parWidth * data.premiumRate) / 100;
-            let leftValue = parseFloat($(".yj-num").val()) / 2;
-            if(isNaN(leftValue)){
-                base.showMsg('请输入数字');
+            let leftValue = parseFloat($(".yj-num").val());
+            if($(".yj-num").val() != '-' && $(".yj-num").val().length == 1){
+                if(isNaN(leftValue)){
+                    base.showMsg('请输入数字');
+                }
                 return;
             }
+            if($(".yj-num").val() == ''){
+                $(".yj-num").val('0');
+                leftValue = 0;
+            }
             if(leftValue > 50){
+                $(".yj-num").val('50');
                 leftValue = 50;
             }
             if(leftValue < -50){
+                $(".yj-num").val('-50');
                 leftValue = -50;
             }
-            jdLeft = leftValue;
+            let parWidth = $('.num-huadtiao').width();
+            jdLeft = (parWidth * leftValue) / 100;
+            isKup = false;
             let jdValue = (mid + mid * leftValue / 100).toFixed(2);
             let ccWidth = 50 / $('.num-huadtiao').width();
             $("#price").val(jdValue);
@@ -590,6 +601,7 @@ define([
                 goX = e.pageX - jdLeft;
                 goLeft = parseInt($(this).css('left')) - jdLeft;
             }
+            console.log(e.pageX);
             i++;
             let parWidth = $('.num-huadtiao').width();
             let left = (goLeft / parWidth).toFixed(1) * 100;

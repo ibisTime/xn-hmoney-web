@@ -58,8 +58,8 @@ define([
 
         for (var i = 0; i < coinListKey.length; i++) {
             var tmpl = coinList[coinListKey[i]]
-            buylistHtml += `<div class="nav-item goHref buy ${tmpl.coin.toLowerCase()}" data-href="../user/advertise.html?type=buy&coin=${tmpl.coin.toLowerCase()}">${tmpl.coin}</div>`;
-            selllistHtml += `<div class="nav-item goHref sell ${tmpl.coin.toLowerCase()}" data-href="../user/advertise.html?type=sell&coin=${tmpl.coin.toLowerCase()}">${tmpl.coin}</div>`;
+            buylistHtml += `<div class="nav-item goHref buy ${tmpl.coin.toLowerCase()}" data-href="../user/advertise.html?type=buy&mod=gg&coin=${tmpl.coin.toLowerCase()}">${tmpl.coin}</div>`;
+            selllistHtml += `<div class="nav-item goHref sell ${tmpl.coin.toLowerCase()}" data-href="../user/advertise.html?type=sell&mod=gg&coin=${tmpl.coin.toLowerCase()}">${tmpl.coin}</div>`;
         }
 
         $("#left-wrap .buy-nav-item").html(buylistHtml);
