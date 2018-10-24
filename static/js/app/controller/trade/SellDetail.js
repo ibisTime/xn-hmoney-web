@@ -209,7 +209,7 @@ define([
                         if ($("#buyAmount").val() != '' && $("#buyAmount").val()) {
                             $("#submitDialog").removeClass("hidden")
                         } else {
-                            base.showMsg("请输入您购买的金額");
+                            base.showMsg("请输入您购买的金额");
                         }
                     }
                 } else if (!data.tradepwdFlag) {

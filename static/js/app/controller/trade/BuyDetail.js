@@ -247,7 +247,7 @@ define([
 
         //下架-点击
         $("#doDownBtn").click(function() {
-            base.confirm("确认下架此廣告？").then(() => {
+            base.confirm("确认下架此广告？").then(() => {
                 base.showLoadingSpin()
                 TradeCtr.downAdvertise(code).then(() => {
                     base.hideLoadingSpin();

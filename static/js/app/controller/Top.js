@@ -62,7 +62,7 @@ define([
             var tmpl = coinList[coinListKey[i]]
             buyListHtml += `<li class="goHref" data-href="../trade/buy-list.html?coin=${tmpl.coin.toLowerCase()}&mod=gm">${tmpl.coin}</li>`;
             sellListHtml += `<li class="goHref" data-href="../trade/sell-list.html?coin=${tmpl.coin.toLowerCase()}&mod=cs">${tmpl.coin}</li>`;
-            advListHtml += `<li class="goHref" data-href="../trade/advertise.html?coin=${tmpl.coin.toLowerCase()}">${tmpl.coin}</li>`;
+            advListHtml += `<li class="goHref" data-href="../trade/advertise.html?coin=${tmpl.coin.toLowerCase()}&mod=gg">${tmpl.coin}</li>`;
         }
 
         //购买

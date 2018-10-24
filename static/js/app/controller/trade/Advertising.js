@@ -368,7 +368,7 @@ define([
         $('.fb-ul').click((e) => {
             let target = e.target;
             if (target.tagName == 'LI') {
-                base.gohrefReplace("../trade/advertise.html?coin=" + $(target).attr("data-coin").toUpperCase())
+                base.gohrefReplace("../trade/advertise.html?mod=gg&coin=" + $(target).attr("data-coin").toUpperCase())
             }
         })
 
