@@ -1,8 +1,10 @@
 define([
     'app/controller/base',
     'pagination',
-    'app/util/ajax'
-], function(base, pagination, Ajax) {
+    'app/util/ajax',
+    'app/controller/Top',
+    'app/controller/foo'
+], function(base, pagination, Ajax,Top, Foo) {
 
     let code = base.getUrlParam('code');
     let userCTSList = {};

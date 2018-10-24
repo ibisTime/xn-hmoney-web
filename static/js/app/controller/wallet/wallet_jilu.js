@@ -2,8 +2,10 @@ define([
     'app/controller/base',
     'pagination',
     'app/util/ajax',
-    'app/interface/GeneralCtr'
-], function (base, pagination, Ajax, GeneralCtr) {
+    'app/interface/GeneralCtr',
+    'app/controller/Top',
+    'app/controller/foo'
+], function (base, pagination, Ajax, GeneralCtr, Top, Foo) {
 
     let userCTSList = [];
 
