@@ -157,7 +157,6 @@ define([
                 $('.t-g').text(base.formatMoney(`${zfKData.high}`, '', setBazDeal.symbol));
                 $('.t-d').text(base.formatMoney(`${zfKData.low}`, '', setBazDeal.symbol));
                 $('.t-h').text(base.formatMoney(`${zfKData.volume}`, '', setBazDeal.toSymbol));
-                debugger;
             }
             $('.t-jym').text(setBBList[0].price);
             $('.sym-exc').text((Math.floor(setBBList[0].currencyPrice * 100) / 100).toFixed(2));
