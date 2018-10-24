@@ -39,7 +39,6 @@ define([
     function register(params, type) {
         if (type == 'mobile') {
             return UserCtr.register(params).then((data) => {
-                base.hideLoadingSpin();
                 base.showMsg("注册成功");
                 let loginParams = {
                     loginName: params.mobile,
@@ -59,14 +58,13 @@ define([
                             }, 1000);
                             setTimeout(function() {
                                 base.goReturn()
-                            }, 2000)
-                        })
-                    })
+                            }, 2500)
+                        }, base.hideLoadingSpin);
+                    }, base.hideLoadingSpin)
                 }, 300);
             }, base.hideLoadingSpin);
         } else {
             return UserCtr.emailRegister(params).then(() => {
-                base.hideLoadingSpin();
                 base.showMsg("注册成功");
                 let loginParams = {
                     loginName: params.email,
@@ -85,9 +83,9 @@ define([
                         }, 1000);
                         setTimeout(function() {
                             base.goReturn()
-                        }, 2000)
-                    })
-                })
+                        }, 2500)
+                    }, base.hideLoadingSpin)
+                }, base.hideLoadingSpin)
             }, base.hideLoadingSpin)
         }
     }
@@ -132,7 +130,7 @@ define([
                 },
                 "email": {
                     required: true,
-                    email: true
+                    mail: true
                 },
                 "smsCaptcha": {
                     required: true,
@@ -176,12 +174,7 @@ define([
             }
         })
 
-        function gcGetYzm() {
-            var i = 60;
-            $('#getVerification1').css({
-                color: '#ccc',
-                'background-color': '#fff'
-            });
+        function gcGetYzm(i) {
             $('#getVerification1').prop("disabled", true)
             var timer = window.setInterval(() => {
                 if (i > 0 && $('#getVerification1').prop("disabled")) {
@@ -200,11 +193,22 @@ define([
         $('#getVerification1').off('click').click(function() {
             let reg = /^[a-z0-9._%-]+@([a-z0-9-]+\.)+[a-z]{2,4}$/;
             if ($('#email').val().match(reg)) {
+                var i = 60;
+                $('#getVerification1').css({
+                    color: '#ccc',
+                    'background-color': '#fff'
+                });
+                $('#getVerification1').text("正在发送中...").prop("disabled", false);
                 emailYzm({
                     bizType: '805043',
                     email: $('#email').val()
                 }).then(data => {
-                    gcGetYzm();
+                    gcGetYzm(i);
+                }, () => {
+                    $('#getVerification1').text("获取验证码").prop("disabled", false);
+                    $('#getVerification1').css({
+                        color: '#d53d3d'
+                    });
                 });
             }
             return false;

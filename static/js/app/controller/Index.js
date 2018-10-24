@@ -31,19 +31,19 @@ define([
             base.hideLoadingSpin()
         }, base.hideLoadingSpin)
         $(".head-nav-wrap .index").addClass("active");
-        if(base.isLogin()){
-            UserCtr.getUser(true).then((item) => {
-                base.hideLoadingSpin();
-                if (!item.mobile){
-                    setTimeout(() => {
-                        base.showMsg('请绑定手机号');
-                        setTimeout(() => {
-                            base.gohrefReplace("../user/setPhone.html");
-                        }, 2000)
-                    }, 500);
-                }
-            })
-        }
+        // if(base.isLogin()){ 
+        //     UserCtr.getUser(true).then((item) => {
+        //         base.hideLoadingSpin();
+        //         if (!item.mobile){
+        //             setTimeout(() => {
+        //                 base.showMsg('请绑定手机号');
+        //                 setTimeout(() => {
+        //                     base.gohrefReplace("../user/setPhone.html");
+        //                 }, 2000)
+        //             }, 500);
+        //         }
+        //     })
+        // }
 
         addListener();
         getAdvertising().then(data => {

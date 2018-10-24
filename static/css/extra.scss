@@ -2643,6 +2643,7 @@ table {
         }
         .con-toSell,
         .con-toBuy {
+            position: relative;
             font-family: 'PingFangSC-Regular';
             padding: 30px 0 43px 30px;
             width: 100%;
@@ -2688,6 +2689,7 @@ table {
                     }
                 }
                 .buy-con {
+                    position: relative;
                     width: 100%;
                     .b-c_h {
                         display: flex;
@@ -2787,6 +2789,14 @@ table {
                             border-radius: 4px;
                             cursor: pointer;
                         }
+                    }
+                    .zhang-rwm{
+                        position: absolute;
+                        right: 0;
+                        bottom: 0;
+                        width: 100px;
+                        height: 100px;
+                        background-color: red;
                     }
                 }
             }

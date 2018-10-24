@@ -784,11 +784,12 @@ define([
         //订单输入 汇率换算
         $('#ym-price').keyup(function () {
             let ym_price = $(this).val();
-            let ym =  (ym_price > 0 && /^\d+(?:\.\d{1,8})?$/.test(ym_price));
-            if(!ym){
-                let yRight = ym_price.split('.')[1].substring(0, 8);
-                let yLeft = ym_price.split('.')[0];
-                base.showMsg('最大不得大于八位');
+            // let ym =  (ym_price > 0 && /^\d+(?:\.\d{1,8})?$/.test(ym_price));
+            let yRight = ym_price.split('.')[1];
+            let yLeft = ym_price.split('.')[0];
+            if(yRight.length > 8){
+                yRight = yRight.substring(0, 8);
+                base.showMsg('小数点后最大不得大于八位');
                 $(this).val(yLeft + '.' + yRight);
                 return;
             }
@@ -799,11 +800,11 @@ define([
         })
         $('#yr-price').keyup(function () {
             let yr_price = $(this).val();
-            let ym =  (yr_price > 0 && /^\d+(?:\.\d{1,8})?$/.test(yr_price));
-            if(!ym){
-                let yRight = yr_price.split('.')[1].substring(0, 8);
-                let yLeft = yr_price.split('.')[0];
-                base.showMsg('最大不得大于八位');
+            let yRight = yr_price.split('.')[1];
+            let yLeft = yr_price.split('.')[0];
+            if(yRight.length > 8){
+                yRight = yRight.substring(0, 8);
+                base.showMsg('小数点后最大不得大于八位');
                 $(this).val(yLeft + '.' + yRight);
                 return;
             }

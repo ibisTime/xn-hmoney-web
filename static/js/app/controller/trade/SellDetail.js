@@ -217,12 +217,13 @@ define([
                     setTimeout(function() {
                         base.gohref("../user/setTradePwd.html?type=1")
                     }, 1800)
-                } else if (!data.realName) {
-                    base.showMsg("请先进行身份验证")
-                    setTimeout(function() {
-                        base.gohref("../user/identity.html")
-                    }, 1800)
-                }
+                } 
+                // else if (!data.realName) {
+                //     base.showMsg("请先进行身份验证")
+                //     setTimeout(function() {
+                //         base.gohref("../user/identity.html")
+                //     }, 1800)
+                // }
             }, base.hideLoadingSpin);
         })
 

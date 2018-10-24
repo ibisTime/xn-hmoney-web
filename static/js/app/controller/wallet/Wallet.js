@@ -12,6 +12,7 @@ define([
     'app/controller/foo'
 ], function (base, pagination, Validate, smsCaptcha, AccountCtr, GeneralCtr, UserCtr, TradeCtr, Ajax, Top, Foo) {
     var userAccountNum = base.getUrlParam('account'); // 用户编号
+    var isbuy = base.getUrlParam('isbuy');  // 1 去购买   0 去出售
     var withdrawFee = 0; // 取现手续费
     let fvData = 0;
     var currency = base.getUrlParam("c") || 'BTC'; //币种
@@ -178,7 +179,6 @@ define([
     function getAcceptRule() {
         return GeneralCtr.getSysConfigType('accept_rule', true).then(data => {
             base.hideLoadingSpin();
-            console.log(data);
             acceptRule = data;
         }, base.hideLoadingSpin);
     }
@@ -273,21 +273,30 @@ define([
 
             //     })
             // }
+            base.showLoadingSpin();
             config.accountNumber = userAccountNum;
             let ulElement = '';
             let erWm = [];
-            console.log(data);
             data.forEach((item, i) => {
                 ulElement += buildHtml(item, i);
                 erWm.push(item.address);
             });
             $('.tr-ul').html(ulElement);
+            $('.con-toBuy .sxf').text(parseFloat(acceptRule.accept_order_buy_fee_rate) * 100);
+            $('.con-toSell .sxf').text(parseFloat(acceptRule.accept_order_sell_fee_rate) * 100);
+            if(isbuy == '1'){
+                $('.con-toBuy .b-c_h p').eq(0).addClass('sel-p').siblings().removeClass('sel-p');
+            }
+            if(isbuy == '0'){
+                $('.con-toSell .b-c_h p').eq(0).addClass('sel-p').siblings().removeClass('sel-p');
+            }
+            base.hideLoadingSpin();
 
             // 手续费
-            GeneralCtr.getSysConfigType('simu_order_rule').then(data => {
-                fvData = parseFloat(data.simu_order_fee_rate) * 100;
-                $('.sxf').text(fvData)
-            })
+            // GeneralCtr.getSysConfigType('simu_order_rule').then(data => {
+            //     fvData = parseFloat(data.simu_order_fee_rate) * 100;
+                
+            // })
             // 提现手续费
             GeneralCtr.getSysConfig('withdraw_fee').then(data => {
                 let txFee = parseFloat(data.cvalue);
@@ -374,6 +383,7 @@ define([
                         <div class="b-c_foo">
                             <button>买入</button>
                         </div>
+                        <div class="zhang-rwm"></div>
                     </div>
                 </div>
             </div>`
@@ -599,7 +609,6 @@ define([
                 configAddress.start == 1 && $("#wAddressDialog .list").html("<div class='tc ptb30 fs13'>暂无地址</div>")
             }
             configAddress.start == 1 && initPaginationAddress(data);
-            base.hideLoadingSpin();
         }, base.hideLoadingSpin)
     }
 
@@ -911,12 +920,13 @@ define([
                         setTimeout(function() {
                             base.gohref("../user/setTradePwd.html?type=0")
                         }, 1800)
-                    } else if (!data.realName) {
-                        base.showMsg("请先进行身份验证");
-                        setTimeout(function() {
-                            base.gohref("../user/identity.html")
-                        }, 1800)
-                    }
+                    } 
+                    // else if (!data.realName) {
+                    //     base.showMsg("请先进行身份验证");
+                    //     setTimeout(function() {
+                    //         base.gohref("../user/identity.html")
+                    //     }, 1800)
+                    // }
                 }
             }, base.hideLoadingSpin);
         })
@@ -942,6 +952,7 @@ define([
 
         // 去购买操作
         $('.to-buy').off('click').click(function () {
+            // if(isbuy == '1'){}
             $('.b-c_h p').eq(0).addClass('sel-p').siblings().removeClass('sel-p');
             $('.b-c_put input').val('');
             $('.x_num').text('0.00');
