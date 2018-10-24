@@ -12,7 +12,7 @@ var DOMAIN_NAME = 'http://www.funmvp.com';
 // h5 域名 测试 邀请好友
 // var INVITATION_HREF = 'http://localhost:9999';
 //帮助中心
-var HELPCONTENT = 'https://emcclhelp.zendesk.com/hc/zh-cn/sections/360002016013-%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98';
+var HELPCONTENT = 'https://funmvp.zendesk.com/hc/zh-cn/sections/360002329954-%E9%80%9A%E7%9F%A5';
 var ZENDESK_LABEL = 'search';
 var FOOT_TETUI = 'Bcoin Exchange';
 var FOOT_EMAIL = 'contact@bcoin.im';

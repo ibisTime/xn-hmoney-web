@@ -43,7 +43,7 @@ define([
         GeneralCtr.getDictList({ "parentKey": "trade_order_status" }).then((data) => {
                 data.forEach(function(item) {
                     statusValueList[item.dkey] = item.dvalue
-                })
+                });
                 getPageOrder();
             }, base.hideLoadingSpin)
             // getPageOrder(); // new
@@ -144,6 +144,11 @@ define([
             operationHtml += `<div class="am-button arbitrationBtn"  data-ocode="${item.code}">申请仲裁</div>`
         }
 
+        //待下单
+        if (item.status == "-1") {
+            operationHtml += `<div class="am-button cancelBtn"  data-ocode="${item.code}">取消订单</div>`
+        }
+
         if (user.photo) {
             photoHtml = `<div class="photo" style="background-image:url('${base.getAvatar(user.photo)}')"></div>`
         } else {
@@ -213,7 +218,6 @@ define([
                 base.showLoadingSpin()
                 TradeCtr.cancelOrder(orderCode).then(() => {
                     base.hideLoadingSpin();
-
                     base.showMsg("操作成功");
                     setTimeout(function() {
                         base.showLoadingSpin();
@@ -247,6 +251,8 @@ define([
             $("#arbitrationDialog").removeClass("hidden")
 
         })
+
+        
 
         //彈窗-放棄
         $("#arbitrationDialog .closeBtn").click(function() {
