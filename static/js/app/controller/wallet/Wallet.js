@@ -13,6 +13,7 @@ define([
 ], function (base, pagination, Validate, smsCaptcha, AccountCtr, GeneralCtr, UserCtr, TradeCtr, Ajax, Top, Foo) {
     var userAccountNum = base.getUrlParam('account'); // 用户编号
     var isbuy = base.getUrlParam('isbuy');  // 1 去购买   0 去出售
+    var bbKey = base.getUrlParam('key');
     var withdrawFee = 0; // 取现手续费
     let fvData = 0;
     var currency = base.getUrlParam("c") || 'BTC'; //币种
@@ -299,6 +300,14 @@ define([
                 $('.to-sell').addClass('sel-sp');
                 $('.con-toSell').show();
             }
+            if(bbKey == 'BTC'){
+                $('.toCbBTC').addClass('sel-sp');
+                $('.toCbBTC').parents('.tr-mx').siblings('.con-box').show();
+            }
+            if(bbKey == 'ETH'){
+                $('.toCbETH').addClass('sel-sp');
+                $('.toCbETH').parents('.tr-mx').siblings('.con-box').show();
+            }
             base.hideLoadingSpin();
 
             // 手续费
@@ -459,7 +468,7 @@ define([
                     <li>${frozenAmount}</li>
                     <li>
                         <p class="cz-btns">
-                            <span>充币</span>
+                            <span class="toCb${item.currency}">充币</span>
                             <span>提币</span>
                             <span class="${item.currency == 'FMVP' ? 'to-buy' : 'none'}">去购买</span>
                             <span class="${item.currency == 'FMVP' ? 'to-sell' : 'none'}">去出售</span>
@@ -900,7 +909,7 @@ define([
             let target = e.target;
             if ($(target).text() == '充币') {
                 $('.bb-box').hide(200);
-                if ($(target).attr('class') == 'sel-sp') {
+                if ($(target).hasClass('sel-sp')) {
                     $(target).parents('.tr-mx').siblings('.con-box').hide(200);
                     $(target).removeClass('sel-sp');
                 } else {

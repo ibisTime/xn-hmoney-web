@@ -124,6 +124,16 @@ define([
                 })
             }
 
+            let jyType = sessionStorage.getItem('jyType');
+            if(jyType == 'xj'){
+                $('.xj_type').addClass('sel-jy').siblings().removeClass('sel-jy');
+                jyFn($('.xj_type').text());
+            }
+            if(jyType == 'sj'){
+                $('.sj_type').addClass('sel-jy').siblings().removeClass('sel-jy');
+                jyFn($('.sj_type').text());
+            }
+
         }
 
         $('a').off('click').click(function () {
@@ -597,40 +607,7 @@ define([
         // 限价交易与市价交易
         $('.bb-jiaoyi>h5 span').off('click').click(function () {
             $(this).addClass('sel-jy').siblings().removeClass('sel-jy');
-            $('.jy-btc1 .c-b').text(setBazDeal.symbol);
-            $('.y-sp .br-p').css('width', '0%');
-            $('.y-sp span:not(.sel-span)').css('background-color', '#f1f1f1');
-            $('.j-sp .br-p').css('width', '0%');
-            $('.j-sp span:not(.sel-span)').css('background-color', '#f1f1f1');
-            $('.br-sp .sel-span').css('left', '0%');
-            switch ($(this).text()) {
-                case '限价交易':
-                    isType = 0;
-                    $('.yj-m>input').eq(0).val('').prop('disabled', false).removeClass('dis-inp');
-                    $('.jy-r>input').val('').prop('disabled', false).removeClass('dis-inp');
-                    $('.yj-btc').css('opacity', '1').eq(0).next().text('买入量');
-                    $('.btc-toSm span').text(setBazDeal.symbol); // 当前交易对 sm
-                    $('.jy-btc1 .r-b').text(setBazDeal.symbol);
-                    $('.bb-jiaoyi input').css('border-color', '#e5e5e5').val('');
-                    $('.jy-money').css('opacity', '1');
-                    $('.all-bb').text('0.00');
-                    $('.jy-me').text('0.00000000');
-                    $('.mr-exc').text('0.00');
-                    break;
-                case '市价交易':
-                    isType = 1;
-                    $('.bb-jiaoyi input').css('border-color', '#e5e5e5').val('');
-                    $('.yj-m>input').eq(0).val('以市场上最优价格买入').prop('disabled', true).addClass('dis-inp');
-                    $('.jy-r>input').val('以市场最优价格卖出').prop('disabled', true).addClass('dis-inp');
-                    $('.yj-btc').css('opacity', '0').eq(0).next().text('交易额');
-                    $('.btc-toSm span').text(setBazDeal.toSymbol); // 当前交易对 tosm
-                    $('.jy-btc1 .r-b').text(setBazDeal.toSymbol);
-                    $('.jy-money').css('opacity', '0');
-                    $('.all-bb').text($('.baz-all').text());
-                    $('.all-bb_c').text($('.sy_all').text());
-                    $('.mcexc').text('0.00');
-                    break;
-            }
+            jyFn($(this).text());
         })
 
         // input验证事件
@@ -755,6 +732,14 @@ define([
                 userOrderData = data.list;
                 curOrder(userOrderData);
             })
+        })
+
+        // 充币
+        $('.bb-jiaoyi').off('click').click(function(e){
+            let target = e.target;
+            if($(target).hasClass('bb-cb')){
+                base.gohref(base.changeURLArg('../wallet/wallet.html', "key", setBazDeal.toSymbol));
+            }
         })
 
         // 历史委托单 买入 卖出
@@ -984,6 +969,45 @@ define([
                     $(`.y-sp .br-${i}`).css('background-color', '#f1f1f1');
                 }
             }
+        }
+    }
+
+    function jyFn(jyText){
+        $('.jy-btc1 .c-b').text(setBazDeal.symbol);
+        $('.y-sp .br-p').css('width', '0%');
+        $('.y-sp span:not(.sel-span)').css('background-color', '#f1f1f1');
+        $('.j-sp .br-p').css('width', '0%');
+        $('.j-sp span:not(.sel-span)').css('background-color', '#f1f1f1');
+        $('.br-sp .sel-span').css('left', '0%');
+        switch (jyText) {
+            case '限价交易':
+                isType = 0;
+                sessionStorage.setItem('jyType', 'xj');
+                $('.yj-m>input').eq(0).val('').prop('disabled', false).removeClass('dis-inp');
+                $('.jy-r>input').val('').prop('disabled', false).removeClass('dis-inp');
+                $('.yj-btc').css('opacity', '1').eq(0).next().text('买入量');
+                $('.btc-toSm span').text(setBazDeal.symbol); // 当前交易对 sm
+                $('.jy-btc1 .r-b').text(setBazDeal.symbol);
+                $('.bb-jiaoyi input').css('border-color', '#e5e5e5').val('');
+                $('.jy-money').css('opacity', '1');
+                $('.all-bb').text('0.00');
+                $('.jy-me').text('0.00000000');
+                $('.mr-exc').text('0.00');
+                break;
+            case '市价交易':
+                isType = 1;
+                sessionStorage.setItem('jyType', 'sj');
+                $('.bb-jiaoyi input').css('border-color', '#e5e5e5').val('');
+                $('.yj-m>input').eq(0).val('以市场上最优价格买入').prop('disabled', true).addClass('dis-inp');
+                $('.jy-r>input').val('以市场最优价格卖出').prop('disabled', true).addClass('dis-inp');
+                $('.yj-btc').css('opacity', '0').eq(0).next().text('交易额');
+                $('.btc-toSm span').text(setBazDeal.toSymbol); // 当前交易对 tosm
+                $('.jy-btc1 .r-b').text(setBazDeal.toSymbol);
+                $('.jy-money').css('opacity', '0');
+                $('.all-bb').text($('.baz-all').text());
+                $('.all-bb_c').text($('.sy_all').text());
+                $('.mcexc').text('0.00');
+                break;
         }
     }
 
