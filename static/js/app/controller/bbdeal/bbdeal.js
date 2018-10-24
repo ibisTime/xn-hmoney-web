@@ -55,7 +55,7 @@ define([
     function init() {
         addLister();
         base.showLoadingSpin(); // 显示加载
-        
+
         getBBDataFn();
         //公告
         notice().then(data => {
@@ -111,6 +111,7 @@ define([
                     curOrder(userOrderData);
                 })
             }
+
             autoGetHisData();
             clearInterval(timeHis);
             var timeHis = setInterval(() => {
@@ -125,11 +126,11 @@ define([
             }
 
             let jyType = sessionStorage.getItem('jyType');
-            if(jyType == 'xj'){
+            if (jyType == 'xj') {
                 $('.xj_type').addClass('sel-jy').siblings().removeClass('sel-jy');
                 jyFn($('.xj_type').text());
             }
-            if(jyType == 'sj'){
+            if (jyType == 'sj') {
                 $('.sj_type').addClass('sel-jy').siblings().removeClass('sel-jy');
                 jyFn($('.sj_type').text());
             }
@@ -143,7 +144,7 @@ define([
 
     }
 
-    function getBBDataFn(){
+    function getBBDataFn() {
         getBazaarData().then(data => { // 加载市场数据
             // 指定币种换算数据
             let setBBList = data.list.filter(item => {
@@ -152,7 +153,7 @@ define([
             // 涨幅、k数据
             let zfKData = setBBList[0].dayLineInfo;
             zfData = setBBList[0].exchangeRate * 100;
-            if(zfKData){
+            if (zfKData) {
                 $('.t-zf').text(`${zfData}%`)
                 $('.t-g').text(base.formatMoney(`${zfKData.high}`, '', setBazDeal.symbol));
                 $('.t-d').text(base.formatMoney(`${zfKData.low}`, '', setBazDeal.symbol));
@@ -163,7 +164,7 @@ define([
             upBazaarData(setBBList);
             data.list.forEach((item, i) => {
                 $('.baz-list>h5 span').eq(i).text(item.toSymbol);
-                if(item.toSymbol == setBazDeal.toSymbol){
+                if (item.toSymbol == setBazDeal.toSymbol) {
                     $('.baz-list>h5 span').eq(i).addClass('sel-sp');
                 }
             });
@@ -178,7 +179,8 @@ define([
                 sdFn()
             }, 4000);
             sdFn();
-            function sdFn(){
+
+            function sdFn() {
                 getDepthData().then(data => {
                     let buyData = data.bids;
                     let sellData = data.asks;
@@ -219,8 +221,8 @@ define([
                     realTimeHtml += `<tr>
                                 <td>${base.todayDatetime(item.createDatetime)}</td>
                                 <td class="${item.direction == 0 ? 'd-mr' : 'd-mc'}">${item.direction == 0 ? '买入' : '卖出'}</td>
-                                <td>${base.formatMoney(`${item.tradedPrice}`, '', setBazDeal.toSymbol)}</td>
-                                <td>${base.formatMoney(`${item.tradedCount}`, '', setBazDeal.symbol)}</td>
+                                <td>${base.formatMoney(`${item.tradedPrice}`, '', setBazDeal.toSymbol, false)}</td>
+                                <td>${base.formatMoney(`${item.tradedCount}`, '', setBazDeal.symbol, false)}</td>
                             </tr>`
                 });
                 // ${base.formatMoney(`${item.tradedPrice}`, '', item.toSymbol)}
@@ -270,16 +272,16 @@ define([
             buyHandicapData.forEach((item, i) => {
                 buyHtml += `<li>
                         <p class="b-p">买<span>${i + 1}</span></p>
-                        <p>${item.price ? base.formatMoney(`${item.price}`, '', setBazDeal.toSymbol) : '--'}</p>
-                        <p>${item.count ? base.formatMoney(`${item.count}`, '', setBazDeal.symbol) : '--'}</p>
+                        <p>${item.price ? base.formatMoney(item.price, '', setBazDeal.toSymbol, false) : '--'}</p>
+                        <p>${item.count ? base.formatMoney(item.count, '', setBazDeal.symbol, false) : '--'}</p>
                     </li>`
             })
             $('.b-new_ul').html(buyHtml);
             for (let i = 6; i >= 0; i--) {
                 sellHtml += `<li>
                         <p class="s-p">卖<span>${i + 1}</span></p>
-                        <p>${sellHandicapData[i].price ? base.formatMoney(`${sellHandicapData[i].price}`, '', setBazDeal.toSymbol) : '--'}</p>
-                        <p>${sellHandicapData[i].count ? base.formatMoney(`${sellHandicapData[i].count}`, '', setBazDeal.symbol) : '--'}</p>
+                        <p>${sellHandicapData[i].price ? base.formatMoney(sellHandicapData[i].price, '', setBazDeal.toSymbol, false) : '--'}</p>
+                        <p>${sellHandicapData[i].count ? base.formatMoney(sellHandicapData[i].count, '', setBazDeal.symbol, false) : '--'}</p>
                     </li>`
             }
             $('.s-new_ul').html(sellHtml)
@@ -621,6 +623,7 @@ define([
                 return false;
             }
         }
+
         $('.bb-jiaoyi input').blur(function () {
             outBlur(this);
         })
@@ -642,7 +645,7 @@ define([
             let totalCount = $(inpNum).val().trim();
             if (isType == 0) {
                 let price = $(inpPrice).val().trim();
-                if(price == 0){
+                if (price == 0) {
                     base.showMsg('价格不能小于等于0');
                 }
                 if (outBlur(inpPrice) && outBlur(inpNum) && price != '0') {
@@ -709,6 +712,7 @@ define([
             $('#buyNum').val('');
             $('#sellNum').val('');
         }
+
         //买入
         $('.jy-con-left .am-button-g').off('click').click(function () {
             if (!base.isLogin()) {
@@ -735,9 +739,9 @@ define([
         })
 
         // 充币
-        $('.bb-jiaoyi').off('click').click(function(e){
+        $('.bb-jiaoyi').off('click').click(function (e) {
             let target = e.target;
-            if($(target).hasClass('bb-cb')){
+            if ($(target).hasClass('bb-cb')) {
                 base.gohref(base.changeURLArg('../wallet/wallet.html', "key", setBazDeal.toSymbol));
             }
         })
@@ -768,7 +772,7 @@ define([
             // let ym =  (ym_price > 0 && /^\d+(?:\.\d{1,8})?$/.test(ym_price));
             let yRight = ym_price.split('.')[1];
             let yLeft = ym_price.split('.')[0];
-            if(yRight.length > 8){
+            if (yRight.length > 8) {
                 yRight = yRight.substring(0, 8);
                 base.showMsg('小数点后最大不得大于八位');
                 $(this).val(yLeft + '.' + yRight);
@@ -783,7 +787,7 @@ define([
             let yr_price = $(this).val();
             let yRight = yr_price.split('.')[1];
             let yLeft = yr_price.split('.')[0];
-            if(yRight.length > 8){
+            if (yRight.length > 8) {
                 yRight = yRight.substring(0, 8);
                 base.showMsg('小数点后最大不得大于八位');
                 $(this).val(yLeft + '.' + yRight);
@@ -799,12 +803,12 @@ define([
         $('#buyNum').keyup(function (e) {
             let buyPassage = 0;
             if (outBlur(this)) {
-                if(parseFloat($('.baz-all').text()) != 0){
+                if (parseFloat($('.baz-all').text()) != 0) {
                     $('.jy-me').text(((($('#ym-price').val() * $('#buyNum').val()) * 100000000) / 100000000).toFixed(8) + ' ');
                 }
                 let buyNumValue = parseFloat($(this).val());
                 let buyAllValue = parseFloat($('.all-bb').text());
-                if(buyAllValue > 0){
+                if (buyAllValue > 0) {
                     if (buyNumValue < buyAllValue) {
                         buyPassage = (buyNumValue / buyAllValue) * 100;
                     } else {
@@ -828,12 +832,12 @@ define([
         $('#sellNum').keyup(function () {
             let sellPassage = 0;
             if (outBlur(this)) {
-                if(parseFloat($('.baz-all').text()) != 0){
+                if (parseFloat($('.baz-all').text()) != 0) {
                     $('.jy-ce').text($('#yr-price').val() * $('#sellNum').val() + ' ');
                 }
                 let sellNumValue = parseFloat($(this).val());
                 let sellAllValue = parseFloat($('.all-bb_c').text());
-                if(sellAllValue > 0){
+                if (sellAllValue > 0) {
                     if (sellNumValue < sellAllValue) {
                         sellPassage = (sellNumValue / sellAllValue) * 100;
                     } else {
@@ -972,7 +976,7 @@ define([
         }
     }
 
-    function jyFn(jyText){
+    function jyFn(jyText) {
         $('.jy-btc1 .c-b').text(setBazDeal.symbol);
         $('.y-sp .br-p').css('width', '0%');
         $('.y-sp span:not(.sel-span)').css('background-color', '#f1f1f1');
@@ -1138,17 +1142,17 @@ define([
                 bottom: 50
             },
             xAxis: [{
-                    type: 'category',
-                    scale: true,
-                    boundaryGap: false,
-                    axisTick: {
-                        alignWithLabel: true
-                    },
-                    axisLine: {
-                        onZero: false
-                    },
-                    data: wtXListData
+                type: 'category',
+                scale: true,
+                boundaryGap: false,
+                axisTick: {
+                    alignWithLabel: true
                 },
+                axisLine: {
+                    onZero: false
+                },
+                data: wtXListData
+            },
                 {
                     type: 'category',
                     scale: true,
@@ -1170,18 +1174,18 @@ define([
                 scale: true
             }],
             series: [{
-                    name: '买入',
-                    type: 'line',
-                    smooth: false,
-                    step: 'end',
-                    lineStyle: {
-                        width: 0
-                    },
-                    areaStyle: {
-                        normal: {}
-                    },
-                    data: buyLjListData
+                name: '买入',
+                type: 'line',
+                smooth: false,
+                step: 'end',
+                lineStyle: {
+                    width: 0
                 },
+                areaStyle: {
+                    normal: {}
+                },
+                data: buyLjListData
+            },
                 {
                     name: '卖出',
                     type: 'line',
@@ -1274,69 +1278,89 @@ define([
 
             const _self = this;
             let chart = widget.chart();
+            let activeChart = widget.activeChart();
             const btnList = [
-              {
-                label:'分时',
-                resolution: "1",
-                chartType: 3
-              },{
-                label:'1min',
-                resolution: "1",
-              },
-              {
-                label:'5min',
-                resolution: "5",
-              },
-              {
-                label:'30min',
-                resolution: "30",
-              },
-              {
-                label:'1 h',
-                resolution: "60",
-              },
-              {
-                class:'selected',
-                label:'1 day',
-                resolution: "1D"
-              },{
-                class:'selected',
-                label:'1 week',
-                resolution: "1W"
-              },{
-                class:'selected',
-                label:'1 month',
-                resolution: "1M"
-              }
+                {
+                    class: 'chart-buttons',
+                    label: '分时',
+                    resolution: "1",
+                    chartType: 3
+                }, {
+                    class: 'selected',
+                    label: '1min',
+                    resolution: "1",
+                },
+                {
+                    class: '',
+                    label: '5min',
+                    resolution: "5",
+                },
+                {
+                    class: '',
+                    label: '15min',
+                    resolution: "15",
+                },
+                {
+                    class: '',
+                    label: '30min',
+                    resolution: "30",
+                },
+                {
+                    class: '',
+                    label: '1 h',
+                    resolution: "60",
+                },
+                {
+                    class: '',
+                    label: '4 h',
+                    resolution: "240",
+                },
+                {
+                    class: '',
+                    label: '1 day',
+                    resolution: "1D"
+                }, {
+                    class: '',
+                    label: '1 week',
+                    resolution: "1W"
+                }, {
+                    class: '',
+                    label: '1 month',
+                    resolution: "1M"
+                }
             ];
+            activeChart.setTimezone('Asia/Shanghai');
             chart.onIntervalChanged().subscribe(null, function (interval, obj) {
-              widget.changingInterval = false;
+                widget.changingInterval = false;
             });
             btnList.forEach(function (item) {
-              let button = widget.createButton({
-                align: "left"
-              });
-              item.resolution === widget._options.interval && updateSelectedIntervalButton(button);
-              button.attr('class', "button " + item.class).attr("data-chart-type", item.chartType === undefined ? 8 : item.chartType).on('click', function (e) {
-                // if (!_self.widget.changingInterval && !button.hasClass("selected")) {
-                let chartType = +button.attr("data-chart-type");
-                // let resolution = button.attr("data-resolution");
-                if (chart.resolution() !== item.resolution) {
-                  // _self.widget.changingInterval = true;
-                  chart.setResolution(item.resolution);
-                }
-                if (chart.chartType() !== chartType) {
-                  chart.setChartType(chartType);
-                }
-                updateSelectedIntervalButton(button);
-                // }
-              }).append(item.label);
+                let button = widget.createButton({
+                    align: "left"
+                });
+                item.resolution === widget._options.interval && updateSelectedIntervalButton(button);
+                button.parent().addClass('chart-buttons-wrap');
+                button.addClass("button " + item.class).attr("data-chart-type", item.chartType === undefined ? 8 : item.chartType);
+                button.on('click', function (e) {
+                    // if (!_self.widget.changingInterval && !button.hasClass("selected")) {
+                    let chartType = +button.attr("data-chart-type");
+                    // let resolution = button.attr("data-resolution");
+                    if (chart.resolution() !== item.resolution) {
+                        // _self.widget.changingInterval = true;
+                        chart.setResolution(item.resolution);
+                    }
+                    if (chart.chartType() !== chartType) {
+                        chart.setChartType(chartType);
+                    }
+                    updateSelectedIntervalButton(button);
+                    // }
+                }).append(item.label);
             });
+
             function updateSelectedIntervalButton(button) {
-              widget.selectedIntervalButton && widget.selectedIntervalButton.removeClass("selected");
-              button.addClass("selected");
-              widget.selectedIntervalButton = button;
+                widget.selectedIntervalButton && widget.selectedIntervalButton.removeClass("selected");
+                button.addClass("selected");
+                widget.selectedIntervalButton = button;
             }
-          })
+        })
     }
 })

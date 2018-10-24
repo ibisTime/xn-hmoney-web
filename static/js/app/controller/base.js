@@ -162,11 +162,14 @@ define([
             }
         },
         // 金额格式化 默认保留t || 8位  小数 coin 默认eth
-        formatMoney: function(s, t, coin) {
+        formatMoney: function(s, t, coin, noZero = true) {
             var unit = coin ? Base.getCoinUnit(coin) : "1000";
 
-            if (!$.isNumeric(s))
-                return "-";
+            if (!$.isNumeric(s)){
+                return "-"
+            } else {
+                s = Number(s).toString();
+            }
             if (t == '' || t == null || t == undefined || typeof t == 'object') {
                 if(coin === 'CNY') {
                   t = 2;
@@ -177,9 +180,11 @@ define([
             //保留8位小数
             s = new BigDecimal.BigDecimal(s);
             s = s.divide(new BigDecimal.BigDecimal(unit), t, BigDecimal.MathContext.ROUND_DOWN).toString();
-            s = s.replace(/(-?\d+)\.0+$/, '$1')
-            if (!/^-?\d+$/.test(s)) {
-                s = s.replace(/(.+[^0]+)0+$/, '$1')
+            if (noZero) {
+                s = s.replace(/(-?\d+)\.0+$/, '$1')
+                if (!/^-?\d+$/.test(s)) {
+                    s = s.replace(/(.+[^0]+)0+$/, '$1')
+                }
             }
             return s;
         },
