@@ -116,7 +116,6 @@ define([
                 });
                 zfOne = data[0].bankName;
             }
-            console.log(zfType, picList);
         });
         getGmBankData().then(data => {
             data.forEach(item => {
@@ -257,28 +256,8 @@ define([
 
     //我的账户
     function getAccount() {
+        base.showLoadingSpin();
         return AccountCtr.getAccount().then((data) => {
-            // if (data.accountList) {
-            //     data.accountList.forEach(function(item) {
-            //         if (item.currency == currency) {
-            //             $(".wallet-account-wrap .amount").text(base.formatMoneySubtract(item.amountString, item.frozenAmountString, currency));
-            //             $(".wallet-account-wrap .frozenAmountString").text(base.formatMoney(item.frozenAmountString, '', currency));
-            //             $(".wallet-account-wrap .amountString").text(base.formatMoney(item.amountString, '', currency));
-            //             config.accountNumber = item.accountNumber;
-            //             accountNumber = item.accountNumber;
-            //             $("#myCoinAddress").text(item.coinAddress);
-            //             var qrcode = new QRCode('qrcode', item.coinAddress);
-            //             qrcode.makeCode(item.coinAddress);
-            //             $("#sendOut-form .amount").attr("placeholder", "发送数量，本次最多可发送" + base.formatMoneySubtract(item.amountString, item.frozenAmountString, currency) + currency)
-            //             sendOutWrapperRules["amount"] = {
-            //                 max: base.formatMoneySubtract(item.amountString, item.frozenAmountString, currency)
-            //             }
-            //         }
-
-
-            //     })
-            // }
-            base.showLoadingSpin();
             config.accountNumber = userAccountNum;
             let ulElement = '';
             let erWm = [];
@@ -308,7 +287,6 @@ define([
                 $('.toCbETH').addClass('sel-sp');
                 $('.toCbETH').parents('.tr-mx').siblings('.con-box').show();
             }
-            base.hideLoadingSpin();
 
             // 手续费
             // GeneralCtr.getSysConfigType('simu_order_rule').then(data => {
@@ -346,7 +324,8 @@ define([
                     }
                 });
                 $('#zf_select1').html(zfTypeHtml);
-            });
+                base.hideLoadingSpin();
+            }, base.hideLoadingSpin);
             if (ismx != 'wallet-mx') {
                 setTimeout(() => {
                     erWm.forEach((item, i) => {
@@ -360,7 +339,6 @@ define([
             }
             $('.zhanghao').text(zfNumber[zfOne]);
             addListener();
-            base.hideLoadingSpin();
         }, base.hideLoadingSpin)
     }
     let tuBuyHtml = `

@@ -255,7 +255,7 @@ define([
                     base.showMsg("操作成功");
                     $("#doDownBtn").addClass("hidden");
                     setTimeout(function() {
-                        base.gohref("./buy-list.html")
+                        base.gohref("./buy-list.html?mod=gm");
                     }, 1000)
                 }, base.hideLoadingSpin)
             }, base.emptyFun)
