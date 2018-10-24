@@ -268,7 +268,7 @@ define([
                     $("#doDownBtn").addClass("hidden");
 
                     setTimeout(function() {
-                        base.gohref("./sell-list.html")
+                        base.gohref("./sell-list.html?mod=cs");
                     }, 1000)
                 }, base.hideLoadingSpin)
             }, base.emptyFun)

@@ -18,7 +18,7 @@ define([
     
     function init() {
 		base.showLoadingSpin();
-        if(base.getUserMobile()) {
+        if(base.getUserMobile() == undefined) {
             $("#mobile").val(base.getUserMobile());
             $("#mobile").siblings('.item-icon').addClass('icon-phone');
         } else {
