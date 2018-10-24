@@ -21,10 +21,11 @@ define([
     }
 
     //修改/綁定邮箱
-    function setEmail(tradePwd, smsCaptcha) {
-        return UserCtr.setEmail(tradePwd, smsCaptcha).then(() => {
+    function setEmail(email, smsCaptcha) {
+        return UserCtr.setEmail(email, smsCaptcha).then(() => {
             base.hideLoadingSpin()
             base.showMsg("设置成功")
+            sessionStorage.setItem("email", email);
             setTimeout(function() {
                 base.gohrefReplace("../user/security.html")
             }, 800)

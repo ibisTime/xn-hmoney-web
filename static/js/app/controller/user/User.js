@@ -41,7 +41,6 @@ define([
 
             $("#nickname").text(data.nickname)
             $("#createDatetime").html(base.formateDatetime(data.createDatetime))
-            $("#mobile").html(base.hideMobile(data.mobile))
             if (data.userStatistics) {
                 $("#beiXinRenCount").text(data.userStatistics.beiXinRenCount)
                 $("#jiaoYiCount").text(data.userStatistics.jiaoYiCount)
@@ -51,8 +50,15 @@ define([
             if (data.email) {
                 $("#email").text(data.email)
             } else {
-                $("#email").text("未验证").addClass("no").click(function() {
+                $("#email").text("未绑定").addClass("no").click(function() {
                     base.gohref("./setEmail.html");
+                });
+            }
+            if (data.mobile) {
+                $("#mobile").text(data.mobile)
+            } else {
+                $("#mobile").text("未绑定").addClass("no").click(function() {
+                    base.gohref("./setPhone.html");
                 });
             }
             if (data.idNo) {

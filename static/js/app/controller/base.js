@@ -365,6 +365,7 @@ define([
             sessionStorage.removeItem("token"); //token
             sessionStorage.removeItem("googleAuthFlag"); //token
             sessionStorage.removeItem("mobile"); //token
+            sessionStorage.removeItem("email"); //token
             sessionStorage.removeItem("nickname"); //token
         },
         //登出

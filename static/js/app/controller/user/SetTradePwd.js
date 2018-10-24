@@ -18,26 +18,16 @@ define([
     
     function init() {
 		base.showLoadingSpin();
-		let valText = base.getUserMobile() != 'undefined' ? base.getUserMobile() : '';
-    	$("#mobile").val(valText);
-    	getUser();
+        if(base.getUserMobile()) {
+            $("#mobile").val(base.getUserMobile());
+            $("#mobile").siblings('.item-icon').addClass('icon-phone');
+        } else {
+            $("#mobile").val(base.getUserEmail());
+            $("#mobile").siblings('.item-icon').addClass('icon-email');
+        }
         addListener();
 	}
 	
-	//获取用户详情
-    function getUser() {
-        return UserCtr.getUser().then((data) => {
-            if (data.mobile) {
-				$("#mobile").val(data.mobile);
-				return;
-			}
-			if (data.email){
-				$("#mobile").val(data.email);
-				return;
-			}
-        })
-    }
-    
     //设置资金密码
     function setTradePwd(tradePwd, smsCaptcha){
     	return UserCtr.setTradePwd(tradePwd, smsCaptcha).then(()=>{
@@ -71,8 +61,7 @@ define([
 		_formWrapper.validate({
 			'rules': {
 				"mobile": {
-					required: true,
-					mobile: true
+					required: true
 				},
 				"smsCaptcha": {
 					required: true,

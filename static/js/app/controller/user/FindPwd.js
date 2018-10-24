@@ -42,7 +42,7 @@ define([
 	    	'rules': {
 	        	"mobile": {
 	        		required: true,
-	        		mobile: true
+	        		mm: true
 	        	},
 	        	"smsCaptcha": {
 	        		required: true,
