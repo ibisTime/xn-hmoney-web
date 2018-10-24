@@ -319,8 +319,12 @@ define([
                 data.forEach(item => {
                     zfTypeHtml += `<option value="${item.bankName}">${item.bankName}</option>`;
                     if(item.bankName == '支付宝'){
-                        let rwmcode = new QRCode('rwmcode', picList['支付宝']);
-                        rwmcode.makeCode(picList['支付宝']);
+                        // let rwmcode = new QRCode('rwmcode', picList['支付宝']);
+                        // rwmcode.makeCode(picList['支付宝']);
+                        $('#rwmcode').css({
+                            'backgroundImage': `url(${base.getPic(picList[item.bankName]) })`,
+                            'background-size': '100% 100%'
+                        });
                     }
                 });
                 $('#zf_select1').html(zfTypeHtml);

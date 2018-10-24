@@ -199,13 +199,15 @@ define([
                     color: '#ccc',
                     'background-color': '#fff'
                 });
-                // $('#getVerification1').text("正在发送中...").prop("disabled", false);
+                base.showLoadingSpin();
                 emailYzm({
                     bizType: '805043',
                     email: $('#email').val()
                 }).then(data => {
+                    base.hideLoadingSpin();
                     gcGetYzm(i);
                 }, () => {
+                    base.hideLoadingSpin();
                     $('#getVerification1').text("获取验证码").prop("disabled", false);
                     $('#getVerification1').css({
                         color: '#d53d3d'
