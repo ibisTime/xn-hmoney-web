@@ -4947,9 +4947,21 @@ table {
   .am-modal-body {
     .form-group {
       width: 100%;
+      max-height: 500px;
       margin-bottom: 15px;
       img {
         max-width: 100%;
+      }
+      #bigPicDiv{
+        text-align: center;
+        img{
+          max-height: 450px;
+        }
+      }
+      #previewPicDiv{
+        img{
+          max-height: 300px;
+        }
       }
       .control-label {
         font-size: 14px;
@@ -5057,9 +5069,9 @@ table {
                 height: 65px;
             }
             .msgImg {
-                width: 22px;
+                width: 28px;
                 right: 123px;
-                background-size: 22px;
+                background-size: 28px;
             }
             .openPic {
                 width: 28px;

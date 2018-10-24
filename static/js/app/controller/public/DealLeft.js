@@ -6,13 +6,13 @@ define([
         base.goLogin();
         return false;
     }
-    $('.trade').addClass('active');
-    $('.left-wrap .left-item .fb').click(function(){
+    $(".trade").addClass('active');
+    $('#left-wrap').on('click', '.left-item .fb',function(){
         if (!base.isLogin()) {
             base.goLogin();
             return false;
         }
-    })
-   
-    $('.'+mod).addClass('sel-nav_item');
+    });
+
+    mod && $('#left-wrap .' + mod).addClass('sel-nav_item');
 })

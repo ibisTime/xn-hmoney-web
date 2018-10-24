@@ -1,7 +1,8 @@
 define([
     'app/controller/base',
     'app/interface/GeneralCtr',
-], function(base, GeneralCtr, ) {
+    'app/interface/TradeCtr',
+], function(base, GeneralCtr, TradeCtr) {
     var tmpl = __inline("index.html");
     var loginInfo = {};
     var userId = base.getUserId();
@@ -19,7 +20,7 @@ define([
         myName = '';
     var defaultOpt = {};
     var firstChat = true; //页面第一次点击聊天
-    var newMsgHtml = '<div id="newMsgWrap" class="newMsg-wrap goHref" data-href="../order/order-list.html?mod=dd">您有其他未读消息</div>';
+    var newMsgHtml = '<div id="newMsgWrap" class="newMsg-wrap cur-pointer userSelect_none">您有其他未读消息</div>';
     var unreadMsgFlag = false;
 
     function init() {
@@ -107,16 +108,21 @@ define([
                 if (!resp.GroupIdList || resp.GroupIdList.length == 0) {
                     return;
                 }
+                var unreadMsgNewId = '';
                 for (var i = 0; i < resp.GroupIdList.length; i++) {
                     var unreadMsgNum = resp.GroupIdList[i].SelfInfo.UnreadMsgNum;
 
-                    if (unreadMsgNum > 1) {
+                    if (unreadMsgNum >= 1) {
+                        unreadMsgNewId = resp.GroupIdList[0].GroupId;
                         unreadMsgFlag = true
                     }
                 }
                 if (unreadMsgFlag) {
                     if (!$("#newMsgWrap").length) {
-                        $("body").append(newMsgHtml)
+                        $("body").append(newMsgHtml);
+                        $("#newMsgWrap").off('click').click(function () {
+                            goOrderList(unreadMsgNewId);
+                        });
                     }
                     if (!$("#newMsgWrap").hasClass("on")) {
                         $("#newMsgWrap").addClass('on')
@@ -127,6 +133,24 @@ define([
                 alert(err.ErrorInfo);
             }
         );
+    }
+    // 跳转订单列表页面
+    function goOrderList(code){
+        base.showLoadingSpin();
+        let statusList = {
+            "progress": ["-1", "0", "1", "5"],
+            "end": ["2", "3", "4"]
+        };
+        TradeCtr.getOrderDetail(code).then((data) => {
+            base.hideLoadingSpin();
+            if (statusList["progress"].indexOf(data.status) >= 0) {
+                base.gohref(`../order/order-list.html?coin=PROGRESS&mod=dd`);
+            } else {
+                base.gohref(`../order/order-list.html?coin=END&mod=dd`);
+            }
+        }, () => {
+            base.hideLoadingSpin();
+        });
     }
 
     //表情初始化 

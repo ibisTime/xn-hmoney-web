@@ -1,7 +1,8 @@
 define([
     'app/controller/base',
     'app/interface/GeneralCtr',
-], function(base, GeneralCtr, ) {
+    'app/interface/TradeCtr',
+], function(base, GeneralCtr, TradeCtr) {
     var loginInfo = {};
     var userId = base.getUserId();
     var selType = webim.SESSION_TYPE.GROUP;
@@ -18,7 +19,7 @@ define([
         myName = '';
     var defaultOpt = {};
     var firstChat = true; //页面第一次点击聊天
-    var newMsgHtml = '<div id="newMsgWrap" class="newMsg-wrap goHref" data-href="../order/order-list.html?mod=dd">您有未读消息</div>';
+    var newMsgHtml = '<div id="newMsgWrap" class="newMsg-wrap cur-pointer userSelect_none">您有未读消息</div>';
     var unreadMsgList = {}; //未读消息数
 
     if (base.isLogin()) {
@@ -166,22 +167,46 @@ define([
                 }
             }
             var otherNew = false;
+            var otherNewId = '';
             for (var i in sessMap) {
                 sess = sessMap[i];
                 if (sess.unread() >= 1) {
+                    otherNewId = sess.id();
                     otherNew = true;
                     //		            updateSessDiv(sess.type(), sess.id(), sess.unread());
                 }
             }
             if (otherNew) {
                 if (!$("#newMsgWrap").length) {
-                    $("body").append(newMsgHtml)
+                    $("body").append(newMsgHtml);
+                    // 订单页面判断进行中/已结束 跳转
+                    $("#newMsgWrap").off('click').click(function () {
+                        goOrderList(otherNewId);
+                    });
                 }
                 if (!$("#newMsgWrap").hasClass("on")) {
                     $("#newMsgWrap").addClass('on')
                 }
             }
         }
+    }
+    // 跳转订单列表页面
+    function goOrderList(code){
+        base.showLoadingSpin();
+        let statusList = {
+            "progress": ["-1", "0", "1", "5"],
+            "end": ["2", "3", "4"]
+        };
+        TradeCtr.getOrderDetail(code).then((data) => {
+            base.hideLoadingSpin();
+            if (statusList["progress"].indexOf(data.status) >= 0) {
+                base.gohref(`../order/order-list.html?coin=PROGRESS&mod=dd`);
+            } else {
+                base.gohref(`../order/order-list.html?coin=END&mod=dd`);
+            }
+        }, () => {
+            base.hideLoadingSpin();
+        });
     }
 
     //读取群组基本资料-高级接口
