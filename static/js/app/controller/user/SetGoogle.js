@@ -20,7 +20,13 @@ define([
         if (type == 1) {
             $('#form-wrapper div').eq(0).addClass('none');
         }
-        $("#mobile").val(base.getUserMobile())
+        if(base.getUserMobile()) {
+            $("#mobile").val(base.getUserMobile());
+            $("#mobile").siblings('.item-icon').addClass('icon-phone');
+        } else {
+            $("#mobile").val(base.getUserEmail());
+            $("#mobile").siblings('.item-icon').addClass('icon-email');
+        }
         getGooglePwd();
         addListener();
     }

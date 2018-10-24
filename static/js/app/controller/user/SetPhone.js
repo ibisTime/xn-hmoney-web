@@ -21,20 +21,22 @@ define([
     }
 
     //綁定手机
-    function setPhone(tradePwd, smsCaptcha) {
-        return UserCtr.setPhone(tradePwd, smsCaptcha).then(() => {
+    function setPhone(mobile, smsCaptcha) {
+        return UserCtr.setPhone(mobile, smsCaptcha).then(() => {
             base.hideLoadingSpin()
             base.showMsg("设置成功")
+            sessionStorage.setItem("mobile", mobile);
             setTimeout(function() {
                 base.gohrefReplace("../user/security.html")
             }, 800)
         }, base.hideLoadingSpin)
     }
     //修改手机
-    function detPhone(tradePwd, smsCaptcha) {
-        return UserCtr.detPhone(tradePwd, smsCaptcha).then(() => {
+    function detPhone(mobile, smsCaptcha) {
+        return UserCtr.detPhone(mobile, smsCaptcha).then(() => {
             base.hideLoadingSpin()
             base.showMsg("设置成功")
+            sessionStorage.setItem("mobile", mobile);
             setTimeout(function() {
                 base.gohrefReplace("../user/security.html")
             }, 800)
