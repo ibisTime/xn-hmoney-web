@@ -912,7 +912,7 @@ define([
             }
             UserCtr.getUser(true).then((data) => {
                 if ($(target).text() == '提币') {
-                    if (data.tradepwdFlag && data.realName) {
+                    if (data.tradepwdFlag) {
                         $('.bb-box').hide(200);
                         if ($(target).attr('class') == 'sel-sp') {
                             $(target).parents('.tr-mx').siblings('.con-tb').hide(200);

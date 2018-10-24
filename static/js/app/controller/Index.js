@@ -64,7 +64,7 @@ define([
                         break;
                 }
                 let mButHtml = '';
-                mButHtml = `<button class="goHref" data-href="${item.tradeType == 0 ? '../trade/sell-list.html?coin=' + item.tradeCoin : '../trade/buy-list.html?coin=' + item.tradeCoin}">${typeList[item.tradeType]}</button>`
+                mButHtml = `<button class="goHref" data-href="${item.tradeType == 0 ? '../trade/sell-list.html?coin=' + item.tradeCoin + '&mod=cs' : '../trade/buy-list.html?coin=' + item.tradeCoin + '&mod=gm'}">${typeList[item.tradeType]}</button>`
                 adverHtml += `<li>
                     <div class="bb-img">
                         <img src="${item.tradeType == 1 ? '/static/images/buy.png' : '/static/images/sell.png'}" alt="">

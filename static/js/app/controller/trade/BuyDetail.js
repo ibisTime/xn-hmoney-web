@@ -164,7 +164,7 @@ define([
                 base.showMsg("购买成功")
 
                 setTimeout(function() {
-                    base.gohref("../order/order-list.html")
+                    base.gohref("../order/order-list.html?mod=dd")
                 }, 2000);
                 base.hideLoadingSpin();
             }, base.hideLoadingSpin) //
@@ -190,7 +190,7 @@ define([
             $("#submitDialog .tradeAmount").html($("#buyAmount").val() + tradeCurrency)
             $("#submitDialog .count").html($("#buyEth").val() + tradeCoin);
             UserCtr.getUser().then((data) => {
-                if (data.tradepwdFlag && data.realName) {
+                if (data.tradepwdFlag) {
                     if (_formWrapper.valid()) {
                         if ($("#buyAmount").val() != '' && $("#buyAmount").val()) {
                             $("#submitDialog").removeClass("hidden")

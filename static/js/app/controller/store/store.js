@@ -25,8 +25,8 @@ define([
             gramUrl()
         ).then(data => {
             base.hideLoadingSpin();
-            $('.yxye').text(base.formatMoney(data.balance, '', data.currency) + ' ' + data.currency);
-        }, base.hideLoadingSpin)
+            $('.yxye').text((Math.floor(parseFloat(data.balance) * 100000000) / 100000000).toFixed(8) + data.currency);
+        }, base.hideLoadingSpin);
         $('.head-nav-wrap .store').addClass('active');
         addLister();
         base.hideLoadingSpin();

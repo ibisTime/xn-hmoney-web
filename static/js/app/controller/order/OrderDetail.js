@@ -24,7 +24,7 @@ define([
         myName = '';
     var payType = {};
     var firstLoad = false;
-    var newMsgHtml = '<div id="newMsgWrap" class="newMsg-wrap goHref" data-href="../order/order-list.html">您有未读消息</div>';
+    var newMsgHtml = '<div id="newMsgWrap" class="newMsg-wrap goHref" data-href="../order/order-list.html?mod=dd">您有未读消息</div>';
     var tradeType;
     var adsCode;
     var tradeCoin = ''; //交易币种

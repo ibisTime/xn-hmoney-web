@@ -56,18 +56,19 @@ define([
                 sessionStorage.setItem("mobile", item.mobile);
                 sessionStorage.setItem("inviteCode", item.userId);
                 base.hideLoadingSpin();
-                if (!item.mobile){
-                    setTimeout(() => {
-                        base.showMsg('请绑定手机号');
-                        setTimeout(() => {
-                            base.gohrefReplace("../user/setPhone.html");
-                        }, 2500)
-                    }, 1500);
-                }else{
-                    setTimeout(function() {
-                        base.goReturn()
-                    }, 800)
-                }
+                // if (!item.mobile){
+                //     setTimeout(() => {
+                //         base.showMsg('请绑定手机号');
+                //         setTimeout(() => {
+                //             base.gohrefReplace("../user/setPhone.html");
+                //         }, 2500)
+                //     }, 1500);
+                // }else{
+                    
+                // }
+                setTimeout(function() {
+                    base.goReturn()
+                }, 800)
             })
         }, base.hideLoadingSpin)
     }

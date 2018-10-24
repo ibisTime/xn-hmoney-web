@@ -168,7 +168,7 @@ define([
         return TradeCtr.sellETH(config).then((data) => {
             base.showMsg("出售成功");
             setTimeout(function() {
-                base.gohref("../order/order-list.html")
+                base.gohref("../order/order-list.html?mod=dd");
             }, 2000)
             base.hideLoadingSpin();
         }, base.hideLoadingSpin)
@@ -204,7 +204,7 @@ define([
                 // }
             }
             UserCtr.getUser().then((data) => {
-                if (data.tradepwdFlag && data.realName) {
+                if (data.tradepwdFlag) {
                     if (_formWrapper.valid()) {
                         if ($("#buyAmount").val() != '' && $("#buyAmount").val()) {
                             $("#submitDialog").removeClass("hidden")
@@ -215,7 +215,7 @@ define([
                 } else if (!data.tradepwdFlag) {
                     base.showMsg("请先设置资金密码")
                     setTimeout(function() {
-                        base.gohref("../user/setTradePwd.html?type=1")
+                        base.gohref("../user/setTradePwd.html?type=1&mod=dd");
                     }, 1800)
                 } 
                 // else if (!data.realName) {

@@ -60,8 +60,8 @@ define([
 
         for (var i = 0; i < coinListKey.length; i++) {
             var tmpl = coinList[coinListKey[i]]
-            buyListHtml += `<li class="goHref" data-href="../trade/buy-list.html?coin=${tmpl.coin.toLowerCase()}">${tmpl.coin}</li>`;
-            sellListHtml += `<li class="goHref" data-href="../trade/sell-list.html?coin=${tmpl.coin.toLowerCase()}">${tmpl.coin}</li>`;
+            buyListHtml += `<li class="goHref" data-href="../trade/buy-list.html?coin=${tmpl.coin.toLowerCase()}&mod=gm">${tmpl.coin}</li>`;
+            sellListHtml += `<li class="goHref" data-href="../trade/sell-list.html?coin=${tmpl.coin.toLowerCase()}&mod=cs">${tmpl.coin}</li>`;
             advListHtml += `<li class="goHref" data-href="../trade/advertise.html?coin=${tmpl.coin.toLowerCase()}">${tmpl.coin}</li>`;
         }
 
@@ -208,7 +208,7 @@ define([
             var _this = $(this);
 
             UserCtr.getUser().then((data) => {
-                if (data.tradepwdFlag && data.realName) {
+                if (data.tradepwdFlag) {
                     base.gohref(_this.attr("data-href"))
                 } else if (!data.tradepwdFlag) {
                     base.showMsg("请先设置资金密码")
