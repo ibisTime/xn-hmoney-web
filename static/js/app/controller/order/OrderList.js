@@ -130,7 +130,7 @@ define([
             type = 'buy';
             //待支付
             if (item.status == "1") {
-                operationHtml = `<div class="am-button am-button-red releaseBtn mr10" data-ocode="${item.code}">解凍货币</div>`;
+                operationHtml = `<div class="am-button am-button-red releaseBtn mr10" data-ocode="${item.code}">解冻货币</div>`;
             } else if (item.status == "2") {
                 if (item.sbComment != "0" && item.sbComment != "2") {
                     operationHtml = `<div class="am-button am-button-red commentBtn"  data-ocode="${item.code}">交易评价</div>`
@@ -139,7 +139,7 @@ define([
         }
 
         //操作按鈕
-        //已支付，待解凍
+        //已支付，待解冻
         if (item.status == "1") {
             operationHtml += `<div class="am-button arbitrationBtn"  data-ocode="${item.code}">申请仲裁</div>`
         }
@@ -156,7 +156,7 @@ define([
         }
         return `<tr data-code="${item.code}">
 					<td class="nickname" style="border-left:1px solid #eee;">
-                        <div class="photoWrap fl goHref" data-href="../user/user-detail.html?coin=${item.tradeCoin}&userId=${item.type == 'buy' ? item.sellUser : item.buyUser}&adsCode=${item.code}">
+                        <div class="photoWrap fl goHref" data-href="../user/user-detail.html?coin=${item.tradeCoin}&userId=${item.type == 'sell' ? item.sellUser : item.buyUser}&adsCode=${item.code}">
 							${photoHtml}
 						</div>
 						<samp class="name k-name">${user.nickname ? user.nickname : '-'}</samp>
@@ -290,10 +290,10 @@ define([
             $("#commentDialog").removeClass("hidden")
         })
 
-        //解凍货币按钮 点击
+        //解冻货币按钮 点击
         $("#content").on("click", ".operation .releaseBtn", function() {
             var orderCode = $(this).attr("data-ocode");
-            base.confirm("确认解凍货币？").then(() => {
+            base.confirm("确认解冻货币？").then(() => {
                 base.showLoadingSpin()
                 TradeCtr.releaseOrder(orderCode).then(() => {
                     base.hideLoadingSpin();

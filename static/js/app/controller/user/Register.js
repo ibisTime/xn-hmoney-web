@@ -198,7 +198,7 @@ define([
                     color: '#ccc',
                     'background-color': '#fff'
                 });
-                $('#getVerification1').text("正在发送中...").prop("disabled", false);
+                // $('#getVerification1').text("正在发送中...").prop("disabled", false);
                 emailYzm({
                     bizType: '805043',
                     email: $('#email').val()

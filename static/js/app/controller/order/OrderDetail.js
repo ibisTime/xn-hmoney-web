@@ -117,7 +117,7 @@ define([
             }
 
             //操作按鈕
-            //已支付，待解凍
+            //已支付，待解冻
             if (data.status == "1") {
                 $(".arbitrationBtn").removeClass("hidden");
 
@@ -1084,9 +1084,9 @@ define([
             $("#commentDialog").removeClass("hidden")
         })
 
-        //解凍货币按钮 点击
+        //解冻货币按钮 点击
         $(".releaseBtn").on("click", function() {
-            base.confirm("确认解凍货币？").then(() => {
+            base.confirm("确认解冻货币？").then(() => {
                 base.showLoadingSpin()
                 TradeCtr.releaseOrder(code).then(() => {
                     base.hideLoadingSpin();

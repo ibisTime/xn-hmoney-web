@@ -206,9 +206,9 @@ define([
             jdLeft = (parWidth * data.premiumRate) / 100;
             let goLeft = (parseInt($('.num-go').css('left')) / parWidth).toFixed(2) * 100;
             $('.num-go').css({
-                    left: (goLeft + jdLeft) + '%'
-                })
-                //广告类型
+                left: (goLeft + jdLeft) + '%'
+            })
+            //广告类型
             if (data.tradeType == '1') {
                 $(".trade-type .item").eq(0).addClass("on").siblings('.item').removeClass("on").addClass("hidden")
             } else {
@@ -419,8 +419,25 @@ define([
             onkeyup: false
         })
 
-        $('.yj-num').keyup(function(){
-            $("#price").val((mid + mid * ($(".yj-num").val() / 100)).toFixed(2));
+        $('.yj-num').keyup(function(){//(parWidth * data.premiumRate) / 100;
+            let leftValue = parseFloat($(".yj-num").val()) / 2;
+            if(isNaN(leftValue)){
+                base.showMsg('请输入数字');
+                return;
+            }
+            if(leftValue > 50){
+                leftValue = 50;
+            }
+            if(leftValue < -50){
+                leftValue = -50;
+            }
+            jdLeft = leftValue;
+            let jdValue = (mid + mid * leftValue / 100).toFixed(2);
+            let ccWidth = 50 / $('.num-huadtiao').width();
+            $("#price").val(jdValue);
+            $('.num-go').css({
+                left: (50 + leftValue - ccWidth) + '%'
+            });
         })
 
         //发布

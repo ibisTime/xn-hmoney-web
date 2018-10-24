@@ -11,7 +11,8 @@ define([
 
     function init() {
         base.showLoadingSpin();
-        let wLi = $('.article-left li').eq(key);
+        let setKey = key % 4 == 0 ? key - 4 : key % 4;
+       let wLi = $('.article-left li').eq(setKey);
         wLi.addClass('sel-li');
         $('.hmoney-tit').text(wLi.text());
         selContent(key);
@@ -79,7 +80,8 @@ define([
 
     function addListener() {
         $('.article-left li.article-item').click(function(e){
-            base.gohref(base.changeURLArg(location.href, "key", $(this).index()));
+            let toKey = $(this).attr('data-key');
+            base.gohref(base.changeURLArg(location.href, "key", toKey));
         })
     }
 });

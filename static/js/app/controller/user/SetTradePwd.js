@@ -27,14 +27,13 @@ define([
 	//获取用户详情
     function getUser() {
         return UserCtr.getUser().then((data) => {
-            if (!data.mobile) {
-				sessionStorage.setItem('l-return', '../user/setTradePwd.html');
-				base.showMsg('请绑定手机号');
-				setTimeout(() => {
-					base.gohrefReplace("../user/setPhone.html");
-				}, 2000);
-            }else{
+            if (data.mobile) {
 				$("#mobile").val(data.mobile);
+				return;
+			}
+			if (data.email){
+				$("#mobile").val(data.email);
+				return;
 			}
         })
     }
