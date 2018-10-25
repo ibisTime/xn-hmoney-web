@@ -330,14 +330,14 @@ define([
                 $('#zf_select1').html(zfTypeHtml);
                 base.hideLoadingSpin();
             }, base.hideLoadingSpin);
-            if (ismx != 'wallet-mx') {
-                setTimeout(() => {
-                    erWm.forEach((item, i) => {
-                        var qrcode = new QRCode(`qrcode${i}`, item);
-                        qrcode.makeCode(item);
-                    })
-                }, 10)
-            }
+            // if (ismx != 'wallet-mx') {
+            //     setTimeout(() => {
+            //         erWm.forEach((item, i) => {
+            //             var qrcode = new QRCode(`qrcode${i}`, item);
+            //             qrcode.makeCode(item);
+            //         })
+            //     }, 10)
+            // }
             if (userAccountNum) {
                 getPageFlow(config);
             }
