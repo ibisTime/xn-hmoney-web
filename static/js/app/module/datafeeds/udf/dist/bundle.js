@@ -674,9 +674,9 @@
                 'type': "coin",
                 'ticker': setBazDeal.symbol,
                 'toSymbol': setBazDeal.toSymbol,
-                'pricescale': 100000000,
-                'volumescale': 100000000,
-                'intraday-multipliers': PERIODLIST
+                'pricescale': 100000000, // 经度
+                'volumescale': 100000000, // 经度
+                'intraday-multipliers': [] //不自动生成，https://github.com/tradingview/charting_library/wiki/Symbology#intraday_multipliers
             };
             onResultReady(symbolInfo);
             //      if (!this._configuration.supports_group_request) {
@@ -803,9 +803,12 @@
             if (this._headers !== undefined) {
                 options.headers = this._headers;
             }
-            return fetch(datafeedUrl + "/" + urlPath, options)
-                .then(function(response) { return response.text(); })
-                .then(function(responseTest) { return JSON.parse(responseTest); });
+            return new Promise(function(resolve, reject) {
+                return [];
+            })
+            // return fetch(datafeedUrl + "/" + urlPath, options)
+            //     .then(function(response) { return response.text(); })
+            //     .then(function(responseTest) { return JSON.parse(responseTest); });
         };
         return Requester;
     }());

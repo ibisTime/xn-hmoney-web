@@ -1241,7 +1241,7 @@ define([
             height: '500px',
             fullscreen: false,
             symbol: 'FMVP',
-            interval: '5', // 时间
+            interval: '1', // 时间
             container_id: "tv_chart_container",
             //	BEWARE: no trailing slash is expected in feed URL
             datafeed: new Datafeeds.UDFCompatibleDatafeed("https://demo_feed.tradingview.com"),
@@ -1374,6 +1374,7 @@ define([
                 widget.selectedIntervalButton && widget.selectedIntervalButton.removeClass("selected");
                 button.addClass("selected");
                 widget.selectedIntervalButton = button;
+
             }
         })
     }
