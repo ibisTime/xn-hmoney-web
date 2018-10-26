@@ -70,13 +70,12 @@ define([
                     loginName: params.email,
                     loginPwd :params.loginPwd
                 };
-                sessionStorage.setItem("email", params.email);
                 UserCtr.login(loginParams).then((data) => {
                     base.setSessionUser(data);
                     UserCtr.getUser(true).then((item) => {
                         sessionStorage.setItem("nickname", item.nickname);
                         sessionStorage.setItem("googleAuthFlag", item.googleAuthFlag);
-                        sessionStorage.setItem("mobile", item.mobile);
+                        sessionStorage.setItem("email", item.email ? item.email: '');
                         sessionStorage.setItem("inviteCode", item.userId);
                         base.hideLoadingSpin();
                         setTimeout(() => {
