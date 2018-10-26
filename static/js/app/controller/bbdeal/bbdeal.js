@@ -334,13 +334,14 @@ define([
         }
         let userHistoryHtml = '';
         userHistoryData.forEach(item => {
+            let showTotalCount = item.direction == 0 && item.type == 0;
             userHistoryHtml += `<tr>
             <td colspan="2">${base.formateDatetime(item.createDatetime)}</td>
             <td>${item.symbol}/${item.toSymbol}</td>
             <td>${item.direction == 0 ? '买入' : '卖出'}</td>
             <td>${item.type == 0 ? '市价' : base.formatMoney(`${item.price}`, '', item.toSymbol)}</td>
             <td>${base.formatMoney(`${item.totalCount}`, '', item.symbol)}</td>
-            <td>${base.formatMoney(`${item.tradedCount}`, '', item.symbol)}</td>
+            <td>${showTotalCount ? base.formatMoney(`${item.tradedAmount}`, '', item.symbol) : base.formatMoney(`${item.tradedCount}`, '', item.symbol)}</td>
             <td>${item.avgPrice ? base.formatMoney(`${item.avgPrice}`, '', item.toSymbol) : '-'}</td>
             <td>${statusValueList[item.status]}</td>
         </tr>`
@@ -359,7 +360,6 @@ define([
             return false;
         }
         let userOrderHtml = '';
-        console.log(userOrderData)
         userOrderData.forEach((item, i) => {
             //base.formatMoney(`${item.totalCount - item.tradedCount}`, '', item.symbol) (item.totalCount - item.tradedCount).toFixed(2)
             //base.formatMoney(`${item.tradedCount}`, '', item.symbol)

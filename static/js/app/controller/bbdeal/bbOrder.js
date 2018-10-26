@@ -48,6 +48,7 @@ define([
             let hisToryHtml = '';
             //(item.totalCount - item.tradedCount).toFixed(2)
             userHistoryData.forEach(item => {
+                let showTotalCount = item.direction == 0 && item.type == 0;
                 hisToryHtml += `<li>
                             <div class="list-l">
                             <span>${base.formatDate(item.createDatetime)}</span>
@@ -57,8 +58,8 @@ define([
                             <span>${base.formatMoney(`${item.price}`, '', item.toSymbol)}</span>
                             <span>${base.formatMoney(`${item.totalCount}`, '', item.symbol)}</span>
                             <span>${base.formatMoney(`${item.totalAmount}`, '', item.toSymbol)}</span>
-                            <span>${base.formatMoney(`${item.tradedCount}`, '', item.symbol)}</span>
-                            <span>${base.formatMoney(`${item.totalCount - item.tradedCount}`, '', item.symbol)}</span>
+                            <span>${showTotalCount ? base.formatMoney(`${item.tradedAmount}`, '', item.symbol) : base.formatMoney(`${item.tradedCount}`, '', item.symbol)}</span>
+                            <span>${showTotalCount ? base.formatMoney(`${item.totalCount - item.tradedAmount}`, '', item.symbol) : base.formatMoney(`${item.totalCount - item.tradedCount}`, '', item.symbol)}</span>
                             <span>${base.formatMoney(`${item.tradedAmount}`, '', item.toSymbol)}</span>
                             <span>${statusValueList[item.status]}</span>
                             <span>
