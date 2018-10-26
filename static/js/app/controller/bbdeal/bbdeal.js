@@ -50,7 +50,7 @@ define([
 
     let zfData = 0;
 
-    let jyType = '';
+    let jyType = sessionStorage.getItem('jyType') || 'xj';
 
     init();
 
@@ -126,8 +126,6 @@ define([
                     hisOrder(userHistoryData);
                 })
             }
-
-            jyType = sessionStorage.getItem('jyType');
             if (jyType == 'xj') {
                 $('.xj_type').addClass('sel-jy').siblings().removeClass('sel-jy');
                 jyFn($('.xj_type').text());
@@ -246,18 +244,18 @@ define([
                 if (pkObjData.buy) {
                     let toPrice = base.formatMoney(`${pkObjData.buy.price}`, '', setBazDeal.toSymbol);
                     if (jyType == 'xj'){
-                        $('#ym-price').val(toPrice);
+                        $('#yr-price').val(toPrice);
                     }
-                    $('.mr-exc').text((Math.floor(toPrice * bb_exchange * 100) / 100).toFixed(2));
-                    $('.all-bb').text((Math.floor((toSyUserMoney / toPrice) * 100) / 100).toFixed(2));
+                    $('.mc-exc').text(((Math.floor(toPrice * bb_exchange) * 100) / 100).toFixed(2));
+                    $('.all-bb_c').text((Math.floor((syUserMoney / toPrice) * 100) / 100).toFixed(2));
                 }
                 if (pkObjData.sell) {
                     let toPrice = base.formatMoney(`${pkObjData.sell.price}`, '', setBazDeal.toSymbol);
                     if (jyType == 'xj'){
-                        $('#yr-price').val(toPrice);
+                        $('#ym-price').val(toPrice);
                     }
-                    $('.mc-exc').text(((Math.floor(toPrice * bb_exchange) * 100) / 100).toFixed(2));
-                    $('.all-bb_c').text((Math.floor((syUserMoney) * 100) / 100).toFixed(2)); //syUserMoney
+                    $('.mr-exc').text((Math.floor(toPrice * bb_exchange * 100) / 100).toFixed(2));
+                    $('.all-bb').text((Math.floor((toSyUserMoney / toPrice) * 100) / 100).toFixed(2));
                 }
             }
             oneIndex++;
@@ -779,11 +777,13 @@ define([
             // let ym =  (ym_price > 0 && /^\d+(?:\.\d{1,8})?$/.test(ym_price));
             let yRight = ym_price.split('.')[1];
             let yLeft = ym_price.split('.')[0];
-            if (yRight.length > 8) {
-                yRight = yRight.substring(0, 8);
-                base.showMsg('小数点后最大不得大于八位');
-                $(this).val(yLeft + '.' + yRight);
-                return;
+            if(yRight){
+                if (yRight.length > 8) {
+                    yRight = yRight.substring(0, 8);
+                    base.showMsg('小数点后最大不得大于八位');
+                    $(this).val(yLeft + '.' + yRight);
+                    return;
+                }
             }
             $('.mr-exc').text(((Math.floor(ym_price * bb_exchange) * 100) / 100).toFixed(2));
             if (ym_price > 0) {
@@ -884,25 +884,29 @@ define([
         // 选中盘口事件
         //卖
         $('.s-new_ul').off('click').click(function (e) {
-            
-            setNewLiData(e, '#ym-price', '.mr-exc', '#buyNum', '.jy-me');
+            if (jyType == 'xj') {
+                setNewLiData(e, '#ym-price', '.mr-exc', '#buyNum', '.jy-me', '.all-bb');
+            }
         })
         // 买
         $('.b-new_ul').off('click').click(function (e) {
-            setNewLiData(e, '#yr-price', '.mc-exc', '#yr-price', '.jy-ce');
+            if (jyType == 'xj') {
+                setNewLiData(e, '#yr-price', '.mc-exc', '#sellNum', '.jy-ce', '.all-bb_c');
+            }
         })
 
-        function setNewLiData(ev, inpPrise, hsPrice, jyNum, jyPrice) {
+        function setNewLiData(ev, inpPrise, hsPrice, jyNum, jyPrice, allBB) {
             let target = ev.target;
             let toPrice = $(target).parent().children().eq(1).text();
             if (!isNaN(parseFloat(toPrice))) {
                 $(inpPrise).val(toPrice);
-                $(hsPrice).text(parseFloat(toPrice) * bb_exchange);
-                $(jyPrice).text($(inpPrise).val() * $(jyNum).val() + ' ')
+                $(hsPrice).text((Math.floor(parseFloat(toPrice) * bb_exchange * 100) / 100).toFixed(2));
+                $(jyPrice).text((Math.floor($(inpPrise).val() * $(jyNum).val() * 100000000) / 100000000).toFixed(8) + ' ');
+                $(allBB).text((Math.floor(syUserMoney / toPrice * 100) / 100).toFixed(2));
             } else {
                 $(inpPrise).val('0');
                 $(hsPrice).text('0');
-                $(jyPrice).text('0');
+                $(jyPrice).text('0.00000000');
                 return false;
             }
         }
@@ -998,6 +1002,7 @@ define([
             case '限价交易':
                 isType = 0;
                 sessionStorage.setItem('jyType', 'xj');
+                jyType = 'xj';
                 $('.yj-m>input').eq(0).val('').prop('disabled', false).removeClass('dis-inp');
                 $('.jy-r>input').val('').prop('disabled', false).removeClass('dis-inp');
                 $('.yj-btc').css('opacity', '1').eq(0).next().text('买入量');
@@ -1012,6 +1017,7 @@ define([
             case '市价交易':
                 isType = 1;
                 sessionStorage.setItem('jyType', 'sj');
+                jyType = 'sj';
                 $('.bb-jiaoyi input').css('border-color', '#e5e5e5').val('');
                 $('.yj-m>input').eq(0).val('以市场上最优价格买入').prop('disabled', true).addClass('dis-inp');
                 $('.jy-r>input').val('以市场最优价格卖出').prop('disabled', true).addClass('dis-inp');
