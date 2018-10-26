@@ -39,7 +39,7 @@ define([
             INVITATION_HREF = data.cvalue;
             // h5 二维码推荐
             var qrcode = new QRCode('qrcode', INVITATION_HREF + "/user/register.html?inviteCode=" + inviteCode);
-            qrcode.makeCode(INVITATION_HREF + "?inviteCode=" + inviteCode);
+            qrcode.makeCode(INVITATION_HREF + "/user/register.html?inviteCode=" + inviteCode);
         })
     }
 

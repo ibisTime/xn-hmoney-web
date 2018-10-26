@@ -882,11 +882,11 @@ define([
         // 选中盘口事件
         //卖
         $('.s-new_ul').off('click').click(function (e) {
-            setNewLiData(e, '#yr-price', '.mc-exc', '#yr-price', '.jy-ce');
+            setNewLiData(e, '#ym-price', '.mr-exc', '#buyNum', '.jy-me');
         })
         // 买
         $('.b-new_ul').off('click').click(function (e) {
-            setNewLiData(e, '#ym-price', '.mr-exc', '#buyNum', '.jy-me');
+            setNewLiData(e, '#yr-price', '.mc-exc', '#yr-price', '.jy-ce');
         })
 
         function setNewLiData(ev, inpPrise, hsPrice, jyNum, jyPrice) {

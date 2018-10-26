@@ -94,7 +94,7 @@ define([
     function emailYzm(config) {
         return UserCtr.emailYzm(config).then((data) => {
             // console.log(data);
-        });
+        }, base.hideLoadingSpin);
     }
 
     function addListener() {
