@@ -340,8 +340,8 @@ define([
             <td>${item.symbol}/${item.toSymbol}</td>
             <td>${item.direction == 0 ? '买入' : '卖出'}</td>
             <td>${item.type == 0 ? '市价' : base.formatMoney(`${item.price}`, '', item.toSymbol)}</td>
-            <td>${showTotalCount ? base.formatMoney(`${item.tradedAmount}`, '', item.symbol) : base.formatMoney(`${item.totalCount}`, '', item.symbol)}</td>
-            <td>${showTotalCount ? base.formatMoney(`${item.totalAmount - item.tradedAmount}`, '', item.symbol) : base.formatMoney(`${item.totalCount - item.tradedCount}`, '', item.symbol)}</td>
+            <td>${showTotalCount ? base.formatMoney(`${item.totalAmount}`, '', item.symbol) : base.formatMoney(`${item.totalCount}`, '', item.symbol)}</td>
+            <td>${showTotalCount ? base.formatMoney(`${item.tradedAmount}`, '', item.symbol) : base.formatMoney(`${item.tradedCount}`, '', item.symbol)}</td>
             <td>${item.avgPrice ? base.formatMoney(`${item.avgPrice}`, '', item.toSymbol) : '-'}</td>
             <td>${statusValueList[item.status]}</td>
         </tr>`
