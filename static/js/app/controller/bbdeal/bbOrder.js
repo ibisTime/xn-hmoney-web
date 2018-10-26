@@ -59,7 +59,7 @@ define([
                             <span>${base.formatMoney(`${item.totalCount}`, '', item.symbol)}</span>
                             <span>${base.formatMoney(`${item.totalAmount}`, '', item.toSymbol)}</span>
                             <span>${showTotalCount ? base.formatMoney(`${item.tradedAmount}`, '', item.symbol) : base.formatMoney(`${item.tradedCount}`, '', item.symbol)}</span>
-                            <span>${showTotalCount ? base.formatMoney(`${item.totalCount - item.tradedAmount}`, '', item.symbol) : base.formatMoney(`${item.totalCount - item.tradedCount}`, '', item.symbol)}</span>
+                            <span>${showTotalCount ? base.formatMoney(`${item.totalAmount - item.tradedAmount}`, '', item.symbol) : base.formatMoney(`${item.totalCount - item.tradedCount}`, '', item.symbol)}</span>
                             <span>${base.formatMoney(`${item.tradedAmount}`, '', item.toSymbol)}</span>
                             <span>${statusValueList[item.status]}</span>
                             <span>
