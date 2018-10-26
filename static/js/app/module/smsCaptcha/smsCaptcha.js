@@ -45,6 +45,7 @@ define([
                     }
                 }, 1000);
             }, function() {
+                base.hideLoadingSpin();
                 _this.options.errorFn && _this.options.errorFn();
                 verification.text("获取验证码").prop("disabled",false);
             });
