@@ -48,22 +48,23 @@ define([
             let hisToryHtml = '';
             //(item.totalCount - item.tradedCount).toFixed(2)
             userHistoryData.forEach(item => {
-                let showTotalCount = item.direction == 0 && item.type == 0;
+                let isMarketBuy = item.direction == 0 && item.type == 0;
+                let isMarketSell = item.direction == 1 && item.type == 0;
                 hisToryHtml += `<li>
                             <div class="list-l">
                             <span>${base.formatDate(item.createDatetime)}</span>
                             <span>${item.symbol}/${item.toSymbol}</span>
                             <span class="${item.direction == 0 ? 'or-mr' : 'or-mc'}">${item.direction == 0 ? '买入' : '卖出'}</span>
-                            <span>${item.type == 0 ? '市价' : '限价'}</span>
-                            <span>${base.formatMoney(`${item.price}`, '', item.toSymbol)}</span>
-                            <span>${base.formatMoney(`${item.totalCount}`, '', item.symbol)}</span>
-                            <span>${base.formatMoney(`${item.totalAmount}`, '', item.toSymbol)}</span>
-                            <span>${showTotalCount ? base.formatMoney(`${item.totalAmount}`, '', item.toSymbol) : base.formatMoney(`${item.totalCount}`, '', item.symbol)}</span>
-                            <span>${showTotalCount ? base.formatMoney(`${item.tradedAmount}`, '', item.toSymbol) : base.formatMoney(`${item.tradedCount}`, '', item.symbol)}</span>
+                            <span>${item.type == 0 ? '市价' : base.formatMoney(`${item.price}`, '', item.toSymbol)}</span>
+                            <span>${isMarketBuy ? '-' : base.formatMoney(`${item.totalCount}`, '', item.symbol)}</span>
+                            <span>${isMarketSell ? '-' : base.formatMoney(`${item.totalAmount}`, '', item.toSymbol)}</span>
+                            <span>${base.formatMoney(`${item.tradedCount}`, '', item.symbol)}</span>
+                            <span>${isMarketBuy ? '-' : base.formatMoney(`${item.totalCount - item.tradedCount}`, '', item.symbol)}</span>
                             <span>${base.formatMoney(`${item.tradedAmount}`, '', item.toSymbol)}</span>
+                           <span>${item.avgPrice ? base.formatMoney(`${item.avgPrice}`, '', item.toSymbol) : '-'}</span>
                             <span>${statusValueList[item.status]}</span>
                             <span>
-                            <button data-code="${item.code}" data-status="${item.status}" class="his-detail ${item.status == 4 ? 'dis-btn' : ''}">详情</button>
+                                <button data-code="${item.code}" data-status="${item.status}" class="his-detail ${item.status == 4 ? 'dis-btn' : ''}">详情</button>
                             </span>
                             </div>
                             <ul class="det-l">

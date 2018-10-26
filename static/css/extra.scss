@@ -6023,10 +6023,13 @@ table {
         height: 48px;
         line-height: 48px;
         display: flex;
+        overflow: hidden;
         span {
             display: inline-block;
             width: 8.5%;
             text-align: center;
+            word-spacing: normal;
+            float: left;
         }
         span:last-child {
             width: 4%;
@@ -6042,9 +6045,12 @@ table {
             .list-l {
                 height: 60px;
                 line-height: 60px;
+                overflow: hidden;
                 span {
                     display: inline-block;
-                    width: 8%;
+                    width: 8.5%;
+                    word-spacing: normal;
+                    float: left;
                 }
                 span:last-child {
                     width: 5%;
@@ -6070,6 +6076,7 @@ table {
             }
         }
     }
+
     table {
         width: 100%;
         text-align: center;
@@ -6102,6 +6109,45 @@ table {
             }
         }
     }
+}
+.bbOrder-wrap .bborder-p span:nth-of-type(1),
+.bbOrder-wrap .bborder-ul li .list-l span:nth-of-type(1){
+  width: 80px;
+}
+.bbOrder-wrap .bborder-p span:nth-of-type(2),
+.bbOrder-wrap .bborder-ul li .list-l span:nth-of-type(2){
+  width: 80px;
+}
+.bbOrder-wrap .bborder-p span:nth-of-type(3),
+.bbOrder-wrap .bborder-ul li .list-l span:nth-of-type(3){
+  width: 70px;
+}
+.bbOrder-wrap .bborder-p span:nth-of-type(4),
+.bbOrder-wrap .bborder-ul li .list-l span:nth-of-type(4),
+.bbOrder-wrap .bborder-p span:nth-of-type(5),
+.bbOrder-wrap .bborder-ul li .list-l span:nth-of-type(5),
+.bbOrder-wrap .bborder-p span:nth-of-type(6),
+.bbOrder-wrap .bborder-ul li .list-l span:nth-of-type(6),
+.bbOrder-wrap .bborder-p span:nth-of-type(7),
+.bbOrder-wrap .bborder-ul li .list-l span:nth-of-type(7),
+.bbOrder-wrap .bborder-p span:nth-of-type(8),
+.bbOrder-wrap .bborder-ul li .list-l span:nth-of-type(8),
+.bbOrder-wrap .bborder-p span:nth-of-type(9),
+.bbOrder-wrap .bborder-ul li .list-l span:nth-of-type(9),
+.bbOrder-wrap .bborder-p span:nth-of-type(10),
+.bbOrder-wrap .bborder-ul li .list-l span:nth-of-type(10),
+.bbOrder-wrap .bborder-p span:nth-of-type(11),
+.bbOrder-wrap .bborder-ul li .list-l span:nth-of-type(11){
+  width: 112px;
+}
+.bbOrder-wrap .bborder-p span:nth-of-type(11),
+.bbOrder-wrap .bborder-ul li .list-l span:nth-of-type(11){
+  width: 80px;
+}
+
+.bbOrder-wrap .bborder-p span:nth-of-type(12),
+.bbOrder-wrap .bborder-ul li .list-l span:nth-of-type(12){
+  width: 60px;
 }
 
 // 历史委托
