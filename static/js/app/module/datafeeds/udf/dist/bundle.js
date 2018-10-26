@@ -4,6 +4,7 @@
         (factory((global.Datafeeds = {})));
 }(this, (function(exports) {
     'use strict';
+    const PERIODLIST = ['1', '5', '15', '30', '60', '240', '1D', '1W', '1M'];
 
     /*! *****************************************************************************
     Copyright (c) Microsoft Corporation. All rights reserved.
@@ -112,8 +113,8 @@
                     var meta = {
                         noData: false,
                     };
-                    if (response.length <= 0 || 
-                        ($("#tv_chart_container").attr("firstLoad") == '1' && 
+                    if (response.length <= 0 ||
+                        ($("#tv_chart_container").attr("firstLoad") == '1' &&
                         Date.parse(new Date()) <= Date.parse(new Date(loadTime)))) {
 
                         //              if (response.length <= 0) {
@@ -661,21 +662,21 @@
                 toSymbol: 'BTC'
             }
             var symbolInfo = {
-                name: "FMVP",
-                timezone: "Asia/Shanghai",
-                minmov: 1,
-                pointvalue: 1,
-                session: "24x7",
-                has_intraday: !0,
-                has_daily: !0,
-                has_weekly_and_monthly: !0,
-                description: "BTC",
-                type: "coin",
-                ticker: setBazDeal.symbol,
-                toSymbol: setBazDeal.toSymbol,
-                period: '30min',
-                pricescale: 100000000,
-                volumescale: 100000000,
+                'name': 'FMVP',
+                'timezone': 'Asia/Shanghai',
+                'minmov': 1,
+                'pointvalue': 1,
+                'session': "24x7",
+                'has_intraday': !0,
+                'has_daily': !0,
+                'has_weekly_and_monthly': !0,
+                'description': 'BTC',
+                'type': "coin",
+                'ticker': setBazDeal.symbol,
+                'toSymbol': setBazDeal.toSymbol,
+                'pricescale': 100000000,
+                'volumescale': 100000000,
+                'intraday-multipliers': PERIODLIST
             };
             onResultReady(symbolInfo);
             //      if (!this._configuration.supports_group_request) {
@@ -748,7 +749,7 @@
         return {
             supports_search: true,
             supports_group_request: false,
-            supported_resolutions: ["1", "5", "D", "W", "3W", "M"],
+            supported_resolutions: PERIODLIST,
             supports_marks: false,
             supports_timescale_marks: false,
         };

@@ -74,10 +74,10 @@ define([
 
         k(); // k线
 
-        clearInterval(timeReal);
-        var timeReal = setInterval(() => {
-            autoRealData();
-        }, 3900);
+        // clearInterval(timeReal);
+        // var timeReal = setInterval(() => {
+        //     autoRealData();
+        // }, 3900);
 
         // 判断是否登录
         if (!base.isLogin()) {
@@ -100,10 +100,10 @@ define([
             getUserMoney();
             userAllMoneyX();
             autoGetMyDatata();
-            clearInterval(timeMy);
-            var timeMy = setInterval(() => {
-                autoGetMyDatata();
-            }, 2800);
+            // clearInterval(timeMy);
+            // var timeMy = setInterval(() => {
+            //     autoGetMyDatata();
+            // }, 2800);
 
             function autoGetMyDatata() {
                 getMyorderTicket(userConfig).then(data => {
@@ -113,10 +113,10 @@ define([
             }
 
             autoGetHisData();
-            clearInterval(timeHis);
-            var timeHis = setInterval(() => {
-                autoGetHisData();
-            }, 3400);
+            // clearInterval(timeHis);
+            // var timeHis = setInterval(() => {
+            //     autoGetHisData();
+            // }, 3400);
 
             function autoGetHisData() {
                 getMyHistoryData(hisConfig).then(data => {
@@ -170,14 +170,14 @@ define([
             });
             showBazaar(bazaarData[0]);
             autoGetData();
-            clearInterval(timeGet);
-            var timeGet = setInterval(() => {
-                autoGetData();
-            }, 2000);
-
-            setInterval(() => {
-                sdFn()
-            }, 4000);
+            // clearInterval(timeGet);
+            // var timeGet = setInterval(() => {
+            //     autoGetData();
+            // }, 2000);
+            //
+            // setInterval(() => {
+            //     sdFn()
+            // }, 4000);
             sdFn();
 
             function sdFn() {
@@ -1241,7 +1241,7 @@ define([
             height: '500px',
             fullscreen: false,
             symbol: 'FMVP',
-            interval: '1', // 时间
+            interval: '5', // 时间
             container_id: "tv_chart_container",
             //	BEWARE: no trailing slash is expected in feed URL
             datafeed: new Datafeeds.UDFCompatibleDatafeed("https://demo_feed.tradingview.com"),
@@ -1258,17 +1258,31 @@ define([
                 'header_undo_redo', // 撤销/返回
                 'header_saveload', // 隐藏保存/加载按钮
                 'header_screenshot', //保存图片
+                'header_resolutions', // 分时
                 // 底部
                 'go_to_date',
                 'timeframes_toolbar',
                 'display_market_status', // 状态
-                'volume_force_overlay'
+                'volume_force_overlay',
+                'compare_symbol',
+                'header_interval_dialog_button',
+                'header_undo_redo',
+                'show_hide_button_in_legend',
+                'show_interval_dialog_on_key_press',
+                'snapshot_trading_drawings',
+                'symbol_info',
             ],
             // 启用
             enabled_features: [
                 'study_templates',
                 'hide_left_toolbar_by_default', // 当用户第一次打开图表时，隐藏左侧工具栏
-                'legend_context_menu'
+                'legend_context_menu',
+                'dont_show_boolean_study_arguments',
+                'hide_last_na_study_output',
+                'move_logo_to_main_pane',
+                'same_data_requery',
+                'side_toolbar_in_fullscreen_mode',
+                'disable_resolution_rebuild'
             ],
             overrides: {
                 'paneProperties.legendProperties.showLegend': false,
@@ -1286,7 +1300,7 @@ define([
                     resolution: "1",
                     chartType: 3
                 }, {
-                    class: 'selected',
+                    class: '',
                     label: '1min',
                     resolution: "1",
                 },

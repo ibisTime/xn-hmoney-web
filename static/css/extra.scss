@@ -2866,14 +2866,15 @@ table {
 }
 
 .fs-yanz {
-    position: absolute;
     color: #D53D3D;
-    top: 0;
-    right: -100px;
-    height: 100%;
     cursor: pointer;
     outline: none;
     background-color: #fff;
+}
+.fs-yanz:disabled{
+  color: #999;
+  background-color: #fff;
+  border-color: #fff;
 }
 
 .addWAddress-dialog {
