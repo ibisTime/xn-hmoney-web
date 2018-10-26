@@ -817,6 +817,16 @@ define([
                 }
                 let buyNumValue = parseFloat($(this).val());
                 let buyAllValue = parseFloat($('.all-bb').text());
+                let yRight = $(this).val().split('.')[1];
+                let yLeft = $(this).val().split('.')[0];
+                if(yRight){
+                    if (yRight.length > 8) {
+                        yRight = yRight.substring(0, 8);
+                        base.showMsg('小数点后最大不得大于八位');
+                        $(this).val(yLeft + '.' + yRight);
+                        return;
+                    }
+                }
                 if (buyAllValue > 0) {
                     if (buyNumValue < buyAllValue) {
                         buyPassage = (buyNumValue / buyAllValue) * 100;
@@ -840,12 +850,22 @@ define([
         })
         $('#sellNum').keyup(function () {
             let sellPassage = 0;
+            let sellNumValue = parseFloat($(this).val());
+            let sellAllValue = parseFloat($('.all-bb_c').text());
+            let yRight = $(this).val().split('.')[1];
+            let yLeft = $(this).val().split('.')[0];
+            if(yRight){
+                if (yRight.length > 8) {
+                    yRight = yRight.substring(0, 8);
+                    base.showMsg('小数点后最大不得大于八位');
+                    $(this).val(yLeft + '.' + yRight);
+                    return;
+                }
+            }
             if (outBlur(this)) {
                 if (parseFloat($('.baz-all').text()) != 0) {
                     $('.jy-ce').text((Math.floor($('#yr-price').val() * $('#sellNum').val() * 100000000) / 100000000).toFixed(8) + ' ');
                 }
-                let sellNumValue = parseFloat($(this).val());
-                let sellAllValue = parseFloat($('.all-bb_c').text());
                 if (sellAllValue > 0) {
                     if (sellNumValue < sellAllValue) {
                         sellPassage = (sellNumValue / sellAllValue) * 100;
