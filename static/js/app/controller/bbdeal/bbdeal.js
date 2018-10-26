@@ -76,10 +76,10 @@ define([
 
         k(); // k线
 
-        // clearInterval(timeReal);
-        // var timeReal = setInterval(() => {
-        //     autoRealData();
-        // }, 3900);
+        clearInterval(timeReal);
+        var timeReal = setInterval(() => {
+            autoRealData();
+        }, 3900);
 
         // 判断是否登录
         if (!base.isLogin()) {
@@ -102,10 +102,10 @@ define([
             getUserMoney();
             userAllMoneyX();
             autoGetMyDatata();
-            // clearInterval(timeMy);
-            // var timeMy = setInterval(() => {
-            //     autoGetMyDatata();
-            // }, 2800);
+            clearInterval(timeMy);
+            var timeMy = setInterval(() => {
+                autoGetMyDatata();
+            }, 2800);
 
             function autoGetMyDatata() {
                 getMyorderTicket(userConfig).then(data => {
@@ -115,10 +115,10 @@ define([
             }
 
             autoGetHisData();
-            // clearInterval(timeHis);
-            // var timeHis = setInterval(() => {
-            //     autoGetHisData();
-            // }, 3400);
+            clearInterval(timeHis);
+            var timeHis = setInterval(() => {
+                autoGetHisData();
+            }, 3400);
 
             function autoGetHisData() {
                 getMyHistoryData(hisConfig).then(data => {
@@ -172,14 +172,14 @@ define([
             });
             showBazaar(bazaarData[0]);
             autoGetData();
-            // clearInterval(timeGet);
-            // var timeGet = setInterval(() => {
-            //     autoGetData();
-            // }, 2000);
-            //
-            // setInterval(() => {
-            //     sdFn()
-            // }, 4000);
+            clearInterval(timeGet);
+            var timeGet = setInterval(() => {
+                autoGetData();
+            }, 2000);
+
+            setInterval(() => {
+                sdFn()
+            }, 4000);
             sdFn();
 
             function sdFn() {
@@ -340,8 +340,8 @@ define([
             <td>${item.symbol}/${item.toSymbol}</td>
             <td>${item.direction == 0 ? '买入' : '卖出'}</td>
             <td>${item.type == 0 ? '市价' : base.formatMoney(`${item.price}`, '', item.toSymbol)}</td>
-            <td>${base.formatMoney(`${item.totalCount}`, '', item.symbol)}</td>
-            <td>${showTotalCount ? base.formatMoney(`${item.tradedAmount}`, '', item.symbol) : base.formatMoney(`${item.tradedCount}`, '', item.symbol)}</td>
+            <td>${showTotalCount ? base.formatMoney(`${item.tradedAmount}`, '', item.symbol) : base.formatMoney(`${item.totalCount}`, '', item.symbol)}</td>
+            <td>${showTotalCount ? base.formatMoney(`${item.totalCount - item.tradedAmount}`, '', item.symbol) : base.formatMoney(`${item.totalCount - item.tradedCount}`, '', item.symbol)}</td>
             <td>${item.avgPrice ? base.formatMoney(`${item.avgPrice}`, '', item.toSymbol) : '-'}</td>
             <td>${statusValueList[item.status]}</td>
         </tr>`
@@ -537,7 +537,7 @@ define([
 
             $('.yj-m span').text(setBazDeal.toSymbol);
             $('.jy-b').text(setBazDeal.toSymbol);
-            $('.btc-put span').text(setBazDeal.symbol);
+            $('.btc-sy span').text(setBazDeal.symbol);
             $('.am-btn span').text(setBazDeal.symbol);
             $('.t-jyd').text(`${setBazDeal.symbol}/${setBazDeal.toSymbol}`)
         }
@@ -984,6 +984,7 @@ define([
     }
 
     function jyFn(jyText) {
+        console.log(jyText);
         $('.jy-btc1 .c-b').text(setBazDeal.symbol);
         $('.y-sp .br-p').css('width', '0%');
         $('.y-sp span:not(.sel-span)').css('background-color', '#f1f1f1');
@@ -1370,7 +1371,7 @@ define([
                         chart.setResolution(item.resolution);
                     }
                     if (chart.chartType() !== chartType) {
-                        chart.setChartType(chartType);
+                        // chart.setChartType(chartType);
                     }
                     updateSelectedIntervalButton(button);
                     // }

@@ -674,9 +674,9 @@
                 'type': "coin",
                 'ticker': setBazDeal.symbol,
                 'toSymbol': setBazDeal.toSymbol,
-                'pricescale': 100000000, // 经度
-                'volumescale': 100000000, // 经度
-                'intraday-multipliers': [] //不自动生成，https://github.com/tradingview/charting_library/wiki/Symbology#intraday_multipliers
+                'pricescale': 100000000,
+                'volumescale': 100000000,
+                'intraday-multipliers': []
             };
             onResultReady(symbolInfo);
             //      if (!this._configuration.supports_group_request) {
