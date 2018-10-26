@@ -38,7 +38,7 @@ define([
         return GeneralCtr.getSysConfig('invite_url').then(data => {
             INVITATION_HREF = data.cvalue;
             // h5 二维码推荐
-            var qrcode = new QRCode('qrcode', INVITATION_HREF + "?inviteCode=" + inviteCode);
+            var qrcode = new QRCode('qrcode', INVITATION_HREF + "/user/register.html?inviteCode=" + inviteCode);
             qrcode.makeCode(INVITATION_HREF + "?inviteCode=" + inviteCode);
         })
     }
@@ -118,8 +118,9 @@ define([
             if (data.list.length) {
                 var html = "";
                 lists.forEach((item, i) => {
-                    let tradeAwardCount = base.formatMoney(`${item.tradeAwardCount}`, '', 'FMVP')
-                    let awardCount = (parseFloat(tradeAwardCount) + item.regAwardCount) + ' FMVP ';
+                    let tradeAwardCount = base.formatMoney(`${item.tradeAwardCount}`, '', 'FMVP');
+                    let regAwardCount = base.formatMoney(`${item.regAwardCount}`, '', 'FMVP');
+                    let awardCount = (parseFloat(tradeAwardCount) + parseFloat(regAwardCount)) + ' FMVP ';
                     let tradeAwardTxt = `(交易佣金：${tradeAwardCount})`;
                     if(item.tradeAwardCount != 0){
                         awardCount += tradeAwardTxt;
