@@ -76,10 +76,10 @@ define([
 
         k(); // k线
 
-        // clearInterval(timeReal);
-        // var timeReal = setInterval(() => {
-        //     autoRealData();
-        // }, 3900);
+        clearInterval(timeReal);
+        var timeReal = setInterval(() => {
+            autoRealData();
+        }, 3900);
 
         // 判断是否登录
         if (!base.isLogin()) {
@@ -102,10 +102,10 @@ define([
             getUserMoney();
             userAllMoneyX();
             autoGetMyDatata();
-            // clearInterval(timeMy);
-            // var timeMy = setInterval(() => {
-            //     autoGetMyDatata();
-            // }, 2800);
+            clearInterval(timeMy);
+            var timeMy = setInterval(() => {
+                autoGetMyDatata();
+            }, 2800);
 
             function autoGetMyDatata() {
                 getMyorderTicket(userConfig).then(data => {
@@ -115,10 +115,10 @@ define([
             }
 
             autoGetHisData();
-            // clearInterval(timeHis);
-            // var timeHis = setInterval(() => {
-            //     autoGetHisData();
-            // }, 3400);
+            clearInterval(timeHis);
+            var timeHis = setInterval(() => {
+                autoGetHisData();
+            }, 3400);
 
             function autoGetHisData() {
                 getMyHistoryData(hisConfig).then(data => {
@@ -172,14 +172,14 @@ define([
             });
             showBazaar(bazaarData[0]);
             autoGetData();
-            // clearInterval(timeGet);
-            // var timeGet = setInterval(() => {
-            //     autoGetData();
-            // }, 2000);
-            //
-            // setInterval(() => {
-            //     sdFn()
-            // }, 4000);
+            clearInterval(timeGet);
+            var timeGet = setInterval(() => {
+                autoGetData();
+            }, 2000);
+
+            setInterval(() => {
+                sdFn()
+            }, 4000);
             sdFn();
 
             function sdFn() {
@@ -1370,7 +1370,7 @@ define([
                         chart.setResolution(item.resolution);
                     }
                     if (chart.chartType() !== chartType) {
-                        chart.setChartType(chartType);
+                        // chart.setChartType(chartType);
                     }
                     updateSelectedIntervalButton(button);
                     // }
