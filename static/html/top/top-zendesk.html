@@ -1,5 +1,5 @@
 <!-- Start of beicoin Zendesk Widget script -->
-<script>
+<!-- <script>
 	window.zEmbed || function(e, t) {
 		var n, o, d, i, s, a = [],
 			r = document.createElement("iframe");
@@ -14,9 +14,15 @@
 		o.open()._l = function() {
 			var e = this.createElement("script");
 			n && (this.domain = n), e.id = "js-iframe-async", e.src = "https://assets.zendesk.com/embeddable_framework/main.js", this.t = +new Date, this.zendeskHost = "funmvp.zendesk.com", this.zEQueue = a, this.body.appendChild(e)
-		}, o.write('<body onload="document._l();">'), o.close()
+        }, o.write('<body onload="document._l();">'), o.close();
+        var time = setInterval(() => {
+            if(window.frames['launcher']){
+                window.frames['launcher'].style.display = 'none';
+                clearInterval(time);
+            }
+        }, 500);
 	}(); 
-</script>
+</script> -->
 <!-- <script id="ze-snippet" src="https://static.zdassets.com/ekr/snippet.js?key=7d9fab1b-1c8a-43b2-8ded-d046477533f7"></script> -->
 <!-- End of beicoin Zendesk Widget script -->
 <!-- <script id="ze-snippet" src="https://static.zdassets.com/ekr/snippet.js?key=d0ca9f45-54e2-4e0e-a7ac-fca254486217"> </script> -->

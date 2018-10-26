@@ -50,6 +50,8 @@ define([
 
     let zfData = 0;
 
+    let jyType = '';
+
     init();
 
     function init() {
@@ -125,7 +127,7 @@ define([
                 })
             }
 
-            let jyType = sessionStorage.getItem('jyType');
+            jyType = sessionStorage.getItem('jyType');
             if (jyType == 'xj') {
                 $('.xj_type').addClass('sel-jy').siblings().removeClass('sel-jy');
                 jyFn($('.xj_type').text());
@@ -243,13 +245,17 @@ define([
                 pkObjData.sell = sellHandicapData[0];
                 if (pkObjData.buy) {
                     let toPrice = base.formatMoney(`${pkObjData.buy.price}`, '', setBazDeal.toSymbol);
-                    $('#ym-price').val(toPrice);
+                    if (jyType == 'xj'){
+                        $('#ym-price').val(toPrice);
+                    }
                     $('.mr-exc').text((Math.floor(toPrice * bb_exchange * 100) / 100).toFixed(2));
                     $('.all-bb').text((Math.floor((toSyUserMoney / toPrice) * 100) / 100).toFixed(2));
                 }
                 if (pkObjData.sell) {
-                    let toPrice = base.formatMoney(`${pkObjData.sell.price}`, '', setBazDeal.toSymbol)
-                    $('#yr-price').val(toPrice);
+                    let toPrice = base.formatMoney(`${pkObjData.sell.price}`, '', setBazDeal.toSymbol);
+                    if (jyType == 'xj'){
+                        $('#yr-price').val(toPrice);
+                    }
                     $('.mc-exc').text(((Math.floor(toPrice * bb_exchange) * 100) / 100).toFixed(2));
                     $('.all-bb_c').text((Math.floor((syUserMoney) * 100) / 100).toFixed(2)); //syUserMoney
                 }
@@ -353,13 +359,14 @@ define([
             return false;
         }
         let userOrderHtml = '';
-
+        console.log(userOrderData)
         userOrderData.forEach((item, i) => {
             //base.formatMoney(`${item.totalCount - item.tradedCount}`, '', item.symbol) (item.totalCount - item.tradedCount).toFixed(2)
             //base.formatMoney(`${item.tradedCount}`, '', item.symbol)
             //base.formatMoney(`${item.totalCount}`, '', item.symbol)
             let showTotalCount = item.direction == 0 && item.type == 0;
             let showTotalAmount = item.direction == 1 && item.type == 0;
+            
             userOrderHtml += `<tr>
                     <td colspan="2">${base.formateDatetime(item.createDatetime)}</td>
                     <td>${item.symbol}/${item.toSymbol}</td>
@@ -367,8 +374,8 @@ define([
                     <td>${item.type == 0 ? '市价' : base.formatMoney(`${item.price}`, '', item.toSymbol)}</td>
                     <td>${showTotalCount ? '-' : (base.formatMoney(`${item.totalCount}`, '', item.symbol))}</td>
                     <td>${showTotalAmount ? '-' : (base.formatMoney(`${item.totalAmount}`, '', item.toSymbol))}</td>
-                    <td>${base.formatMoney(`${item.tradedCount}`, '', item.symbol)}</td>
-                    <td>${base.formatMoney(`${item.totalCount - item.tradedCount}`, '', item.symbol)}</td>
+                    <td>${showTotalCount ? base.formatMoney(`${item.tradedAmount}`, '', item.symbol) : base.formatMoney(`${item.tradedCount}`, '', item.symbol)}</td>
+                    <td>${showTotalCount ? base.formatMoney(`${item.totalCount - item.tradedAmount}`, '', item.symbol) : base.formatMoney(`${item.totalCount - item.tradedCount}`, '', item.symbol)}</td>
                     <td>
                         <button data-code="${item.code}" class="${item.tradedCount > 0 ? 'no-cz' : 'y-cz'}">取消</button>
                     </td>

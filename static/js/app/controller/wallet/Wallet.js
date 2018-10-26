@@ -330,14 +330,14 @@ define([
                 $('#zf_select1').html(zfTypeHtml);
                 base.hideLoadingSpin();
             }, base.hideLoadingSpin);
-            // if (ismx != 'wallet-mx') {
-            //     setTimeout(() => {
-            //         erWm.forEach((item, i) => {
-            //             var qrcode = new QRCode(`qrcode${i}`, item);
-            //             qrcode.makeCode(item);
-            //         })
-            //     }, 10)
-            // }
+            if (ismx != 'wallet-mx') {
+                setTimeout(() => {
+                    erWm.forEach((item, i) => {
+                        var qrcode = new QRCode(`qrcode${i}`, item);
+                        qrcode.makeCode(item);
+                    })
+                }, 10)
+            }
             if (userAccountNum) {
                 getPageFlow(config);
             }
@@ -954,6 +954,7 @@ define([
             $('.b-c_h p').eq(0).addClass('sel-p').siblings().removeClass('sel-p');
             $('.b-c_put input').val('');
             $('.x_num').text('0.00');
+            $('.b-c_put p').text('请输入购买金额');
             isSell = false;
             if ($(this).hasClass('sel-sp')) {
                 $('.con-toBuy').hide();
@@ -983,7 +984,7 @@ define([
         })
 
         //切换方式
-        $('.b-c_h p').off('click').click(function () {
+        $('.b-c_h p').off('click').click(function () {debugger
             event.stopPropagation();
             $(this).addClass('sel-p').siblings('p').removeClass('sel-p');
             $('.b-c_put input').val('');
