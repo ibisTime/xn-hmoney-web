@@ -794,11 +794,13 @@ define([
             let yr_price = $(this).val();
             let yRight = yr_price.split('.')[1];
             let yLeft = yr_price.split('.')[0];
-            if (yRight.length > 8) {
-                yRight = yRight.substring(0, 8);
-                base.showMsg('小数点后最大不得大于八位');
-                $(this).val(yLeft + '.' + yRight);
-                return;
+            if(yRight){
+                if (yRight.length > 8) {
+                    yRight = yRight.substring(0, 8);
+                    base.showMsg('小数点后最大不得大于八位');
+                    $(this).val(yLeft + '.' + yRight);
+                    return;
+                }
             }
             $('.mc-exc').text(((Math.floor(yr_price * bb_exchange) * 100) / 100).toFixed(2));
             if (yr_price > 0) {
@@ -840,7 +842,7 @@ define([
             let sellPassage = 0;
             if (outBlur(this)) {
                 if (parseFloat($('.baz-all').text()) != 0) {
-                    $('.jy-ce').text($('#yr-price').val() * $('#sellNum').val() + ' ');
+                    $('.jy-ce').text((Math.floor($('#yr-price').val() * $('#sellNum').val() * 100000000) / 100000000).toFixed(8) + ' ');
                 }
                 let sellNumValue = parseFloat($(this).val());
                 let sellAllValue = parseFloat($('.all-bb_c').text());
@@ -849,7 +851,7 @@ define([
                         sellPassage = (sellNumValue / sellAllValue) * 100;
                     } else {
                         sellPassage = 100;
-                        $('.jy-ce').text(buyAllValue);
+                        $('.jy-ce').text(sellAllValue);
                     }
                 }
                 let index = sellPassage / 26 + 1;
@@ -882,17 +884,12 @@ define([
         // 选中盘口事件
         //卖
         $('.s-new_ul').off('click').click(function (e) {
-            jyType = sessionStorage.getItem('jyType');
-            if (jyType == 'xj') {
-                setNewLiData(e, '#ym-price', '.mr-exc', '#buyNum', '.jy-me');
-            }
+            
+            setNewLiData(e, '#ym-price', '.mr-exc', '#buyNum', '.jy-me');
         })
         // 买
         $('.b-new_ul').off('click').click(function (e) {
-            jyType = sessionStorage.getItem('jyType');
-            if (jyType == 'xj') {
-                setNewLiData(e, '#yr-price', '.mc-exc', '#yr-price', '.jy-ce');
-            }
+            setNewLiData(e, '#yr-price', '.mc-exc', '#yr-price', '.jy-ce');
         })
 
         function setNewLiData(ev, inpPrise, hsPrice, jyNum, jyPrice) {
