@@ -52,13 +52,17 @@ define([
 
     let jyType = sessionStorage.getItem('jyType') || 'xj';
 
+    let togoI = 0;
+
     init();
 
     function init() {
-        addLister();
         base.showLoadingSpin(); // 显示加载
 
         getBBDataFn();
+
+        k(); // k线
+
         //公告
         notice().then(data => {
             ggDataList = data.list;
@@ -73,13 +77,10 @@ define([
             $('.affic-list').html(ggHtml);
         });
 
-
-        k(); // k线
-
-        clearInterval(timeReal);
-        var timeReal = setInterval(() => {
-            autoRealData();
-        }, 3900);
+        // clearInterval(timeReal);
+        // var timeReal = setInterval(() => {
+        //     autoRealData();
+        // }, 3900);
 
         // 判断是否登录
         if (!base.isLogin()) {
@@ -99,33 +100,21 @@ define([
                     statusValueList[item.dkey] = item.dvalue
                 })
             }, base.hideLoadingSpin);
+
             getUserMoney();
             userAllMoneyX();
             autoGetMyDatata();
-            clearInterval(timeMy);
-            var timeMy = setInterval(() => {
-                autoGetMyDatata();
-            }, 2800);
-
-            function autoGetMyDatata() {
-                getMyorderTicket(userConfig).then(data => {
-                    userOrderData = data.list;
-                    curOrder(userOrderData);
-                })
-            }
+            // clearInterval(timeMy);
+            // var timeMy = setInterval(() => {
+            //     autoGetMyDatata();
+            // }, 2800);
 
             autoGetHisData();
-            clearInterval(timeHis);
-            var timeHis = setInterval(() => {
-                autoGetHisData();
-            }, 3400);
+            // clearInterval(timeHis);
+            // var timeHis = setInterval(() => {
+            //     autoGetHisData();
+            // }, 3400);
 
-            function autoGetHisData() {
-                getMyHistoryData(hisConfig).then(data => {
-                    userHistoryData = data.list;
-                    hisOrder(userHistoryData);
-                })
-            }
             if (jyType == 'xj') {
                 $('.xj_type').addClass('sel-jy').siblings().removeClass('sel-jy');
                 jyFn($('.xj_type').text());
@@ -134,14 +123,29 @@ define([
                 $('.sj_type').addClass('sel-jy').siblings().removeClass('sel-jy');
                 jyFn($('.sj_type').text());
             }
-
         }
+
+        addLister();
 
         $('a').off('click').click(function () {
             sessionStorage.setItem('l-return', '../bbdeal/bbdeal.html');
         })
+    }
 
+    // 分页查询我的委托单
+    function autoGetMyDatata() {
+        getMyorderTicket(userConfig).then(data => {
+            userOrderData = data.list;
+            curOrder(userOrderData);
+        })
+    }
 
+    // 分页查询我的历史委托单
+    function autoGetHisData() {
+        getMyHistoryData(hisConfig).then(data => {
+            userHistoryData = data.list;
+            hisOrder(userHistoryData);
+        })
     }
 
     function getBBDataFn() {
@@ -170,14 +174,14 @@ define([
             });
             showBazaar(bazaarData[0]);
             autoGetData();
-            clearInterval(timeGet);
-            var timeGet = setInterval(() => {
-                autoGetData();
-            }, 2000);
-
-            setInterval(() => {
-                sdFn()
-            }, 4000);
+            // clearInterval(timeGet);
+            // var timeGet = setInterval(() => {
+            //     autoGetData();
+            // }, 2000);
+            //
+            // setInterval(() => {
+            //     sdFn()
+            // }, 4000);
             sdFn();
 
             function sdFn() {
@@ -320,7 +324,6 @@ define([
         })
     }
 
-
     // 查看历史委托函数
     function hisOrder(userHistoryData) {
         //base.formatMoney(`${item.tradedCount}`, '', item.symbol)
@@ -383,9 +386,7 @@ define([
                     <td colspan="9" class="no-cur dq-cur none">暂无记录</td>
                 </tr>`;
         $('.cur-table tbody').removeClass('none').html(userOrderHtml);
-        addLister();
     }
-
 
     //更新bazaarData的值
     function upBazaarData(data) {
@@ -436,9 +437,7 @@ define([
         }, true);
     }
 
-
     // 盘口查询
-
     function getHandicapData() {
         return Ajax.post("650065", {
             ...setBazDeal
@@ -477,14 +476,6 @@ define([
             symbol: setBazDeal.toSymbol,
             referCurrency: ex_type
         });
-    }
-
-    // 获取k线数据
-    function getKLineData(kType) {
-        return Ajax.post('650066', {
-            ...setBazDeal,
-            period: kType
-        })
     }
 
     // 根据symbol查资料
@@ -562,10 +553,164 @@ define([
         });
     }
 
+    // input验证事件
+    function outBlur(that) {
+        let reg = /^[1-9]\d*.?\d*$|0.\d*[1-9]\d*$/;
+        if ($(that).val().match(reg)) {
+            $(that).css('border-color', '#e5e5e5');
+            return true;
+        } else {
+            $(that).css('border-color', '#d53d3d');
+            return false;
+        }
+    }
+
+    // 限价交易 下订单
+    function placeAnOrder(direction, inpPrice, inpNum) {
+        let totalCount = $(inpNum).val().trim();
+        if (isType == 0) {
+            let price = $(inpPrice).val().trim();
+            if (price == 0) {
+                base.showMsg('价格不能小于等于0');
+            }
+            if (outBlur(inpPrice) && outBlur(inpNum) && price != '0') {
+                getLimitedPriceData('1', direction, price, totalCount).then(data => {
+                    base.hideLoadingSpin();
+                    $(inpNum).val('');
+                    $(inpPrice).val('');
+                    $('.mr-exc').text('0.00');
+                    $('.mc-exc').text('0.00');
+                    $('.y-sp .br-p').css('width', '0%');
+                    $('.y-sp span:not(.sel-span)').css('background-color', '#f1f1f1');
+                    $('.j-sp .br-p').css('width', '0%');
+                    $('.j-sp span:not(.sel-span)').css('background-color', '#f1f1f1');
+                    $('.br-sp .sel-span').css('left', '0%');
+                    if (data.code) {
+                        base.showMsg('订单提交成功');
+                        getUserMoney();
+                    } else {
+                        base.showMsg('订单提交失败');
+                        return false;
+                    }
+                    setTimeout(() => {
+                        getMyorderTicket(userConfig).then(data => {
+                            userOrderData = data.list;
+                            curOrder(userOrderData);
+                        })
+                    }, 200);
+                }, base.hideLoadingSpin); // 委托类型，买卖方向，价格，委托数量
+            } else {
+                return false;
+            }
+            $('.y-sp .br-p').css('width', '0%');
+            $('.y-sp span:not(.sel-span)').css('background-color', '#f1f1f1');
+            $('.j-sp .br-p').css('width', '0%');
+            $('.j-sp span:not(.sel-span)').css('background-color', '#f1f1f1');
+            $('.br-sp .sel-span').css('left', '0%');
+        }
+        if (isType == 1) {
+            if (outBlur(inpNum)) {
+                getLimitedPriceData('0', direction, '', totalCount).then(data => {
+                    base.hideLoadingSpin();
+                    $(inpNum).val('');
+                    if (data.code) {
+                        base.showMsg('订单提交成功');
+                    } else {
+                        base.showMsg('订单提交失败');
+                        return false;
+                    }
+                    setTimeout(() => {
+                        getMyorderTicket(userConfig).then(data => {
+                            userOrderData = data.list;
+                            curOrder(userOrderData);
+                        })
+                    }, 200);
+                }, () => {
+                    base.hideLoadingSpin();
+                }); // 委托类型，买卖方向，价格，委托数量
+            } else {
+                return false;
+            }
+        }
+        $('.jy-ce').text('0.00000000');
+        $('.jy-me').text('0.00000000');
+        $('#buyNum').val('');
+        $('#sellNum').val('');
+    }
+
+    // 买入卖出文字设置
+    function setStu(that, config) {
+        $(that).addClass('sel-sp').siblings().removeClass('sel-sp');
+        if ($(that).text() == '买入') {
+            config.direction = '0';
+        }
+        if ($(that).text() == '卖出') {
+            config.direction = '1';
+        }
+        if ($(that).text() == '全部') {
+            delete config.direction;
+        }
+    }
+
+    // 选中盘口相关切换
+    function setNewLiData(ev, inpPrise, hsPrice, jyNum, jyPrice, allBB) {
+        let target = ev.target;
+        let toPrice = $(target).parent().children().eq(1).text();
+        if (!isNaN(parseFloat(toPrice))) {
+            $(inpPrise).val(toPrice);
+            $(hsPrice).text((Math.floor(parseFloat(toPrice) * bb_exchange * 100) / 100).toFixed(2));
+            $(jyPrice).text((Math.floor($(inpPrise).val() * $(jyNum).val() * 100000000) / 100000000).toFixed(8) + ' ');
+            $(allBB).text((Math.floor(syUserMoney / toPrice * 100) / 100).toFixed(2));
+        } else {
+            $(inpPrise).val('0');
+            $(hsPrice).text('0');
+            $(jyPrice).text('0.00000000');
+            return false;
+        }
+    }
+
+    function clickGo(target, goLeft, index) {
+        let parseWidth = $(target).parents('.dr-box').width();
+        if ($(target).parent().hasClass('j-sp')) {
+            // 限价交易-买入
+            $('.j-sp .sel-span').css('left', goLeft);
+            $('.j-sp .br-p').css('width', goLeft);
+
+            let gleft = (Math.floor(parseFloat(goLeft) / parseFloat(parseWidth) * 1000) / 1000).toFixed(3);
+            let mcBB = parseFloat($('.all-bb').text());
+            let r_bb = (Math.floor((gleft * mcBB) * 10000) / 10000).toFixed(4);
+            $(target).parents('.dr-box').prev().children('input').val(r_bb);
+            $('.jy-me').text(((Math.floor((r_bb * $('#ym-price').val()) * 100000000)) / 100000000).toFixed(8));
+
+            for (let i = 1; i < index; i++) {
+                $(`.j-sp .br-${i}`).css('background-color', '#d53d3d');
+            }
+            for (let i = index; i < 6; i++) {
+                $(`.j-sp .br-${i}`).css('background-color', '#f1f1f1');
+            }
+        } else if ($(target).parent().hasClass('y-sp')) {
+            // 限价交易-卖出
+            $('.y-sp .sel-span').css('left', goLeft);
+            $('.y-sp .br-p').css('width', goLeft);
+
+            let gleft = (Math.floor(parseFloat(goLeft) / parseFloat(parseWidth) * 1000) / 1000).toFixed(3);
+            let mcBB = parseFloat($('.all-bb_c').text());
+            let r_bb = (Math.floor((gleft * mcBB) * 10000) / 10000).toFixed(4);
+            $(target).parents('.dr-box').prev().children('input').val(r_bb);
+            $('.jy-ce').text(((Math.floor((r_bb * $('#yr-price').val()) * 100000000)) / 100000000).toFixed(8));
+
+            for (let i = 1; i < index; i++) {
+                $(`.y-sp .br-${i}`).css('background-color', '#d53d3d');
+            }
+            for (let i = index; i < 6; i++) {
+                $(`.y-sp .br-${i}`).css('background-color', '#f1f1f1');
+            }
+        }
+    }
 
     function addLister() {
         // 显示与隐藏
-        $('.bb-container .bb-conRight .con-h').off('click').click(function (e) {
+        $('.bb-container .bb-conRight .con-h').click(function (e) {
             let target = e.target;
             if (target.tagName == 'SPAN') {
                 let dom = $(Array.from($(target).siblings())[0]);
@@ -617,21 +762,10 @@ define([
             jyFn($(this).text());
         })
 
-        // input验证事件
-        function outBlur(that) {
-            let reg = /^[1-9]\d*.?\d*$|0.\d*[1-9]\d*$/;
-            if ($(that).val().match(reg)) {
-                $(that).css('border-color', '#e5e5e5');
-                return true;
-            } else {
-                $(that).css('border-color', '#d53d3d');
-                return false;
-            }
-        }
-
         $('.bb-jiaoyi input').blur(function () {
             outBlur(this);
         })
+
         $('.bb-jiaoyi input').focus(function () {
             let isBuy = $(this).parent('div').prev().text();
             if (isBuy == '买入价' || isBuy == '买入量') {
@@ -645,79 +779,6 @@ define([
             return;
         })
 
-        // 限价交易 下订单
-        function placeAnOrder(direction, inpPrice, inpNum) {
-            let totalCount = $(inpNum).val().trim();
-            if (isType == 0) {
-                let price = $(inpPrice).val().trim();
-                if (price == 0) {
-                    base.showMsg('价格不能小于等于0');
-                }
-                if (outBlur(inpPrice) && outBlur(inpNum) && price != '0') {
-                    getLimitedPriceData('1', direction, price, totalCount).then(data => {
-                        base.hideLoadingSpin();
-                        $(inpNum).val('');
-                        $(inpPrice).val('');
-                        $('.mr-exc').text('0.00');
-                        $('.mc-exc').text('0.00');
-                        $('.y-sp .br-p').css('width', '0%');
-                        $('.y-sp span:not(.sel-span)').css('background-color', '#f1f1f1');
-                        $('.j-sp .br-p').css('width', '0%');
-                        $('.j-sp span:not(.sel-span)').css('background-color', '#f1f1f1');
-                        $('.br-sp .sel-span').css('left', '0%');
-                        if (data.code) {
-                            base.showMsg('订单提交成功');
-                            getUserMoney();
-                        } else {
-                            base.showMsg('订单提交失败');
-                            return false;
-                        }
-                        setTimeout(() => {
-                            getMyorderTicket(userConfig).then(data => {
-                                userOrderData = data.list;
-                                curOrder(userOrderData);
-                            })
-                        }, 200);
-                    }, base.hideLoadingSpin); // 委托类型，买卖方向，价格，委托数量
-                } else {
-                    return false;
-                }
-                $('.y-sp .br-p').css('width', '0%');
-                $('.y-sp span:not(.sel-span)').css('background-color', '#f1f1f1');
-                $('.j-sp .br-p').css('width', '0%');
-                $('.j-sp span:not(.sel-span)').css('background-color', '#f1f1f1');
-                $('.br-sp .sel-span').css('left', '0%');
-            }
-            if (isType == 1) {
-                if (outBlur(inpNum)) {
-                    getLimitedPriceData('0', direction, '', totalCount).then(data => {
-                        base.hideLoadingSpin();
-                        $(inpNum).val('');
-                        if (data.code) {
-                            base.showMsg('订单提交成功');
-                        } else {
-                            base.showMsg('订单提交失败');
-                            return false;
-                        }
-                        setTimeout(() => {
-                            getMyorderTicket(userConfig).then(data => {
-                                userOrderData = data.list;
-                                curOrder(userOrderData);
-                            })
-                        }, 200);
-                    }, () => {
-                        base.hideLoadingSpin();
-                    }); // 委托类型，买卖方向，价格，委托数量
-                } else {
-                    return false;
-                }
-            }
-            $('.jy-ce').text('0.00000000');
-            $('.jy-me').text('0.00000000');
-            $('#buyNum').val('');
-            $('#sellNum').val('');
-        }
-
         //买入
         $('.jy-con-left .am-button-g').off('click').click(function () {
             if (!base.isLogin()) {
@@ -725,6 +786,7 @@ define([
             }
             placeAnOrder('0', '#ym-price', '#buyNum');
         })
+
         //卖出
         $('.jy-con-right .am-button-red').off('click').click(function () {
             if (!base.isLogin()) {
@@ -790,6 +852,7 @@ define([
                 $('.all-bb').text((Math.floor((toSyUserMoney / ym_price) * 100) / 100).toFixed(2));
             }
         })
+
         $('#yr-price').keyup(function () {
             let yr_price = $(this).val();
             let yRight = yr_price.split('.')[1];
@@ -848,6 +911,7 @@ define([
                 $('.jy-me').text('0.00000000')
             }
         })
+
         $('#sellNum').keyup(function () {
             let sellPassage = 0;
             let sellNumValue = parseFloat($(this).val());
@@ -888,19 +952,6 @@ define([
             }
         })
 
-        function setStu(that, config) {
-            $(that).addClass('sel-sp').siblings().removeClass('sel-sp');
-            if ($(that).text() == '买入') {
-                config.direction = '0';
-            }
-            if ($(that).text() == '卖出') {
-                config.direction = '1';
-            }
-            if ($(that).text() == '全部') {
-                delete config.direction;
-            }
-        }
-
         // 选中盘口事件
         //卖
         $('.s-new_ul').off('click').click(function (e) {
@@ -914,22 +965,6 @@ define([
                 setNewLiData(e, '#yr-price', '.mc-exc', '#sellNum', '.jy-ce', '.all-bb_c');
             }
         })
-
-        function setNewLiData(ev, inpPrise, hsPrice, jyNum, jyPrice, allBB) {
-            let target = ev.target;
-            let toPrice = $(target).parent().children().eq(1).text();
-            if (!isNaN(parseFloat(toPrice))) {
-                $(inpPrise).val(toPrice);
-                $(hsPrice).text((Math.floor(parseFloat(toPrice) * bb_exchange * 100) / 100).toFixed(2));
-                $(jyPrice).text((Math.floor($(inpPrise).val() * $(jyNum).val() * 100000000) / 100000000).toFixed(8) + ' ');
-                $(allBB).text((Math.floor(syUserMoney / toPrice * 100) / 100).toFixed(2));
-            } else {
-                $(inpPrise).val('0');
-                $(hsPrice).text('0');
-                $(jyPrice).text('0.00000000');
-                return false;
-            }
-        }
 
         // 选中span事件
         let isClick = true;
@@ -956,6 +991,7 @@ define([
             isClick = false;
             togo(this, e, '卖');
         })
+
         //取消mousemove事件
         $('.dr-box').mouseleave(function () {
             $(this).unbind('mousemove');
@@ -966,52 +1002,14 @@ define([
                 outBlur('#sellNum');
             }
         })
+
         $('.dr-box').mouseenter(function () {
             $(this).unbind('mousemove');
         })
 
-        function clickGo(target, goLeft, index) {
-            let parseWidth = $(target).parents('.dr-box').width();
-            if ($(target).parent().hasClass('j-sp')) {
-                // 限价交易-买入
-                $('.j-sp .sel-span').css('left', goLeft);
-                $('.j-sp .br-p').css('width', goLeft);
-
-                let gleft = (Math.floor(parseFloat(goLeft) / parseFloat(parseWidth) * 1000) / 1000).toFixed(3);
-                let mcBB = parseFloat($('.all-bb').text());
-                let r_bb = (Math.floor((gleft * mcBB) * 10000) / 10000).toFixed(4);
-                $(target).parents('.dr-box').prev().children('input').val(r_bb);
-                $('.jy-me').text(((Math.floor((r_bb * $('#ym-price').val()) * 100000000)) / 100000000).toFixed(8));
-
-                for (let i = 1; i < index; i++) {
-                    $(`.j-sp .br-${i}`).css('background-color', '#d53d3d');
-                }
-                for (let i = index; i < 6; i++) {
-                    $(`.j-sp .br-${i}`).css('background-color', '#f1f1f1');
-                }
-            } else if ($(target).parent().hasClass('y-sp')) {
-                // 限价交易-卖出
-                $('.y-sp .sel-span').css('left', goLeft);
-                $('.y-sp .br-p').css('width', goLeft);
-
-                let gleft = (Math.floor(parseFloat(goLeft) / parseFloat(parseWidth) * 1000) / 1000).toFixed(3);
-                let mcBB = parseFloat($('.all-bb_c').text());
-                let r_bb = (Math.floor((gleft * mcBB) * 10000) / 10000).toFixed(4);
-                $(target).parents('.dr-box').prev().children('input').val(r_bb);
-                $('.jy-ce').text(((Math.floor((r_bb * $('#yr-price').val()) * 100000000)) / 100000000).toFixed(8));
-
-                for (let i = 1; i < index; i++) {
-                    $(`.y-sp .br-${i}`).css('background-color', '#d53d3d');
-                }
-                for (let i = index; i < 6; i++) {
-                    $(`.y-sp .br-${i}`).css('background-color', '#f1f1f1');
-                }
-            }
-        }
     }
 
     function jyFn(jyText) {
-        console.log(jyText);
         $('.jy-btc1 .c-b').text(setBazDeal.symbol);
         $('.y-sp .br-p').css('width', '0%');
         $('.y-sp span:not(.sel-span)').css('background-color', '#f1f1f1');
@@ -1071,8 +1069,6 @@ define([
         }
     }
 
-    let i = 0;
-
     function togo(that, e, type) {
         if (!base.isLogin()) {
             return false;
@@ -1111,10 +1107,10 @@ define([
                 $(that).parents('.dr-box').prev().children('input').val(r_bb);
                 $('.jy-ce').text(((Math.floor((r_bb * $('#yr-price').val()) * 100000000)) / 100000000).toFixed(8));
             }
-            i++;
+            togoI++;
         }).one('mouseup', function () {
             $(this).unbind('mousemove');
-            if (i == 1) {
+            if (togoI == 1) {
                 setTimeout(() => {
                     isClick = true;
                 }, 200);
@@ -1243,47 +1239,20 @@ define([
 
     }
 
+    // k线图
     function k() {
-
-        function getParameterByName(name) {
-            name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
-            var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
-                results = regex.exec(location.search);
-            return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
-        }
-
-        //				var widget = window.tvWidget = new TradingView.widget({
-        //					// debug: true, // uncomment this line to see Library errors and warnings in the console
-        //					fullscreen: true,
-        //					symbol: 'AAPL',
-        //					interval: 'D',
-        //					container_id: "tv_chart_container",
-        //
-        //					//	BEWARE: no trailing slash is expected in feed URL
-        //					datafeed: new Datafeeds.UDFCompatibleDatafeed("https://demo_feed.tradingview.com"),
-        //					library_path: "charting_library/",
-        //					locale: getParameterByName('lang') || "en",
-        //
-        //					disabled_features: ["use_localstorage_for_settings"],
-        //					enabled_features: ["study_templates"],
-        //					charts_storage_url: 'http://saveload.tradingview.com',
-        //					charts_storage_api_version: "1.1",
-        //					client_id: 'tradingview.com',
-        //					user_id: 'public_user_id',
-        //					theme: getParameterByName('theme'),
-        //				});
-
         var widget = new TradingView.widget({
+            debug: true,
             width: '100%',
             height: '500px',
             fullscreen: false,
             symbol: 'FMVP',
             interval: '1', // 时间
             container_id: "tv_chart_container",
-            //	BEWARE: no trailing slash is expected in feed URL
+            //	BEWARE: no traiƒling slash is expected in feed URL
             datafeed: new Datafeeds.UDFCompatibleDatafeed("https://demo_feed.tradingview.com"),
             library_path: "/static/js/app/module/charting_library/",
-            locale: getParameterByName('lang') || "zh",
+            locale: base.getUrlParam('lang') || "zh",
             disabled_features: [
                 'use_localstorage_for_settings',
                 // 头部
@@ -1319,10 +1288,11 @@ define([
                 'move_logo_to_main_pane',
                 'same_data_requery',
                 'side_toolbar_in_fullscreen_mode',
-                'disable_resolution_rebuild'
+                'disable_resolution_rebuild',
+                'cl_feed_return_all_data'
             ],
             overrides: {
-                'paneProperties.legendProperties.showLegend': false,
+                'paneProperties.legendProperties.showLegend': false, // 隐藏左上角标题
             },
         });
         widget.onChartReady(() => {
@@ -1397,6 +1367,8 @@ define([
                     // let resolution = button.attr("data-resolution");
                     if (chart.resolution() !== item.resolution) {
                         // _self.widget.changingInterval = true;
+                        $("#tv_chart_container").attr("firstLoad", "0");
+                        $("#tv_chart_container").attr("startDatetime", '');
                         chart.setResolution(item.resolution);
                     }
                     if (chart.chartType() !== chartType) {

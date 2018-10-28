@@ -53,6 +53,11 @@
         }
         return error.message;
     }
+    //日期格式化 format|| 'yyyy-MM-dd';
+    function formatDate(date, format) {
+        var format = format || 'yyyy-MM-dd';
+        return date ? new Date(date).format(format) : "--";
+    }
 
     var HistoryProvider = /** @class */ (function() {
         function HistoryProvider(datafeedUrl, requester) {
@@ -76,23 +81,27 @@
                 '1M': '1mon'
             }
             period = foramtList[resolution];
-            if(!resolution.match(reg)){
-                loadTime = new Date(loadTime + resolution * 60 * 1000);
-            }else{
-                loadTime = new Date(loadTime + 60 * 1000 * 60);
-            }
-            setTimeout(() => {
-                $("#tv_chart_container").attr("firstLoad", "0");
-            }, 500);
+            // if(!resolution.match(reg)){
+            //     loadTime = new Date(loadTime + resolution * 60 * 1000);
+            // }else{
+            //     loadTime = new Date(loadTime + 60 * 1000 * 60);
+            // }
+            // setTimeout(() => {
+            //     $("#tv_chart_container").attr("firstLoad", "0");
+            // }, 500);
             var requestParams = {
                 symbol: 'FMVP',
                 toSymbol: symbolInfo.toSymbol || 'BTC',
                 period: period,
                 resolution: resolution,
-                from: rangeStartDate,
-                to: rangeEndDate,
-                size: 500
+                startDatetime: formatDate(new Date(rangeStartDate * 1000), 'yyyy-MM-dd hh:mm'),
+                endDatetime: formatDate(new Date(rangeEndDate * 1000), 'yyyy-MM-dd hh:mm')
             };
+
+            if ($("#tv_chart_container").attr("firstLoad") === "1") {
+                $("#tv_chart_container").attr("startDatetime", requestParams.startDatetime);
+                requestParams.endDatetime = $("#tv_chart_container").attr("startDatetime");
+            }
             var sendParam = {
                 code: '650066',
                 json: JSON.stringify(requestParams)
@@ -113,18 +122,15 @@
                     var meta = {
                         noData: false,
                     };
-                    if (response.length <= 0 ||
-                        ($("#tv_chart_container").attr("firstLoad") == '1' &&
-                        Date.parse(new Date()) <= Date.parse(new Date(loadTime)))) {
-
+                    if ($("#tv_chart_container").attr("firstLoad") === "0") {
+                        $("#tv_chart_container").attr("firstLoad", "1");
+                        $("#tv_chart_container").attr("startDatetime", requestParams.startDatetime);
+                    }
+                    if (response.length <= 0) {
                         //              if (response.length <= 0) {
                         meta.noData = true;
-                        //                  meta.nextTime = Date.parse(new Date().getTime() + 1000 * 20);
+                        // meta.nextTime = parseInt((new Date().getTime() + 1000 * 60 * 5) / 1000);
                     } else {
-                        $("#tv_chart_container").attr("firstLoad", "1");
-                        $("#tv_chart_container").attr("firstLoadTime", Date.parse(new Date()));
-                        sessionStorage.setItem("firstLoad", "1");
-                        sessionStorage.setItem("firstLoadTime", Date.parse(new Date()));
                         let setBazDeal = JSON.parse(sessionStorage.getItem('setBazDeal')) || {
                             symbol: 'FMVP',
                             toSymbol: 'BTC'
