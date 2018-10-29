@@ -247,7 +247,7 @@ define([
                 pkObjData.sell = sellHandicapData[0];
                 if (pkObjData.buy) {
                     let toPrice = base.formatMoney(`${pkObjData.buy.price}`, '', setBazDeal.toSymbol);
-                    if (jyType == 'xj'){
+                    if (jyType == 'xj') {
                         $('#yr-price').val(toPrice);
                     }
                     $('.mc-exc').text(((Math.floor(toPrice * bb_exchange) * 100) / 100).toFixed(2));
@@ -255,7 +255,7 @@ define([
                 }
                 if (pkObjData.sell) {
                     let toPrice = base.formatMoney(`${pkObjData.sell.price}`, '', setBazDeal.toSymbol);
-                    if (jyType == 'xj'){
+                    if (jyType == 'xj') {
                         $('#ym-price').val(toPrice);
                     }
                     $('.mr-exc').text((Math.floor(toPrice * bb_exchange * 100) / 100).toFixed(2));
@@ -367,7 +367,7 @@ define([
             //base.formatMoney(`${item.totalCount}`, '', item.symbol)
             let showTotalCount = item.direction == 0 && item.type == 0;
             let showTotalAmount = item.direction == 1 && item.type == 0;
-            
+
             userOrderHtml += `<tr>
                     <td colspan="2">${base.formateDatetime(item.createDatetime)}</td>
                     <td>${item.symbol}/${item.toSymbol}</td>
@@ -839,7 +839,7 @@ define([
             // let ym =  (ym_price > 0 && /^\d+(?:\.\d{1,8})?$/.test(ym_price));
             let yRight = ym_price.split('.')[1];
             let yLeft = ym_price.split('.')[0];
-            if(yRight){
+            if (yRight) {
                 if (yRight.length > 8) {
                     yRight = yRight.substring(0, 8);
                     base.showMsg('小数点后最大不得大于八位');
@@ -857,7 +857,7 @@ define([
             let yr_price = $(this).val();
             let yRight = yr_price.split('.')[1];
             let yLeft = yr_price.split('.')[0];
-            if(yRight){
+            if (yRight) {
                 if (yRight.length > 8) {
                     yRight = yRight.substring(0, 8);
                     base.showMsg('小数点后最大不得大于八位');
@@ -878,7 +878,7 @@ define([
             let buyAllValue = parseFloat($('.all-bb').text());
             let yRight = $(this).val().split('.')[1];
             let yLeft = $(this).val().split('.')[0];
-            if(yRight){
+            if (yRight) {
                 if (yRight.length > 8) {
                     yRight = yRight.substring(0, 8);
                     base.showMsg('小数点后最大不得大于八位');
@@ -918,7 +918,7 @@ define([
             let sellAllValue = parseFloat($('.all-bb_c').text());
             let yRight = $(this).val().split('.')[1];
             let yLeft = $(this).val().split('.')[0];
-            if(yRight){
+            if (yRight) {
                 if (yRight.length > 8) {
                     yRight = yRight.substring(0, 8);
                     base.showMsg('小数点后最大不得大于八位');
@@ -1253,47 +1253,101 @@ define([
             datafeed: new Datafeeds.UDFCompatibleDatafeed("https://demo_feed.tradingview.com"),
             library_path: "/static/js/app/module/charting_library/",
             locale: base.getUrlParam('lang') || "zh",
-            disabled_features: [
-                'use_localstorage_for_settings',
-                // 头部
-                'header_symbol_search', // 符号搜索
-                'symbol_search_hot_key', // 按任意键进行符号搜索
-                'header_chart_type', // 类型
-                'header_compare', // 指标
-                'header_indicators',
-                'header_undo_redo', // 撤销/返回
-                'header_saveload', // 隐藏保存/加载按钮
-                'header_screenshot', //保存图片
-                'header_resolutions', // 分时
-                // 底部
-                'go_to_date',
-                'timeframes_toolbar',
-                'display_market_status', // 状态
-                'volume_force_overlay',
-                'compare_symbol',
-                'header_interval_dialog_button',
-                'header_undo_redo',
-                'show_hide_button_in_legend',
-                'show_interval_dialog_on_key_press',
-                'snapshot_trading_drawings',
-                'symbol_info',
-            ],
-            // 启用
-            enabled_features: [
-                'study_templates',
-                'hide_left_toolbar_by_default', // 当用户第一次打开图表时，隐藏左侧工具栏
-                'legend_context_menu',
-                'dont_show_boolean_study_arguments',
-                'hide_last_na_study_output',
-                'move_logo_to_main_pane',
-                'same_data_requery',
-                'side_toolbar_in_fullscreen_mode',
-                'disable_resolution_rebuild',
-                'cl_feed_return_all_data'
-            ],
+            // disabled_features: [
+            //     'use_localstorage_for_settings',
+            //     // 头部
+            //     'header_symbol_search', // 符号搜索
+            //     'symbol_search_hot_key', // 按任意键进行符号搜索
+            //     'header_chart_type', // 类型
+            //     'header_compare', // 指标
+            //     'header_indicators',
+            //     'header_undo_redo', // 撤销/返回
+            //     'header_saveload', // 隐藏保存/加载按钮
+            //     'header_screenshot', //保存图片
+            //     'header_resolutions', // 分时
+            //     // 底部
+            //     'go_to_date',
+            //     'timeframes_toolbar',
+            //     'display_market_status', // 状态
+            //     'volume_force_overlay',
+            //     'compare_symbol',
+            //     'header_interval_dialog_button',
+            //     'header_undo_redo',
+            //     'show_hide_button_in_legend',
+            //     'show_interval_dialog_on_key_press',
+            //     'snapshot_trading_drawings',
+            //     'symbol_info',
+            // ],
+            // // 启用
+            // enabled_features: [
+            //     'study_templates',
+            //     'hide_left_toolbar_by_default', // 当用户第一次打开图表时，隐藏左侧工具栏
+            //     'legend_context_menu',
+            //     'dont_show_boolean_study_arguments',
+            //     'hide_last_na_study_output',
+            //     'move_logo_to_main_pane',
+            //     'same_data_requery',
+            //     'side_toolbar_in_fullscreen_mode',
+            //     'disable_resolution_rebuild',
+            //     'cl_feed_return_all_data'
+            // ],
+            disabled_features: ["compare_symbol", "display_market_status", "go_to_date", "header_chart_type", "header_compare", "header_interval_dialog_button", "header_resolutions", "header_screenshot", "header_symbol_search", "header_undo_redo", "legend_context_menu", "show_hide_button_in_legend", "show_interval_dialog_on_key_press", "snapshot_trading_drawings", "symbol_info", "timeframes_toolbar", "use_localstorage_for_settings", "volume_force_overlay"],
+            enabled_features: ['hide_left_toolbar_by_default', "dont_show_boolean_study_arguments", "hide_last_na_study_output", "move_logo_to_main_pane", "same_data_requery", "side_toolbar_in_fullscreen_mode", "disable_resolution_rebuild"],
             overrides: {
-                'paneProperties.legendProperties.showLegend': false, // 隐藏左上角标题
+                "volumePaneSize": "medium",
+                "scalesProperties.lineColor": "#9194a4",
+                "scalesProperties.textColor": "#9194a4",
+                "paneProperties.background": "#ffffff",
+                "paneProperties.vertGridProperties.color": "#f7f8fa",
+                "paneProperties.horzGridProperties.color": "#f7f8fa",
+                "paneProperties.crossHairProperties.color": "#23283D",
+                "paneProperties.legendProperties.showLegend": false, // 隐藏左上角标题
+                "paneProperties.legendProperties.showStudyArguments": true,
+                "paneProperties.legendProperties.showStudyTitles": true,
+                "paneProperties.legendProperties.showStudyValues": true,
+                "paneProperties.legendProperties.showSeriesTitle": true,
+                "paneProperties.legendProperties.showSeriesOHLC": true,
+                "mainSeriesProperties.candleStyle.upColor": "#03c087",
+                "mainSeriesProperties.candleStyle.downColor": "#ef5555",
+                "mainSeriesProperties.candleStyle.drawWick": true,
+                "mainSeriesProperties.candleStyle.drawBorder": true,
+                "mainSeriesProperties.candleStyle.borderColor": "#9194a4",
+                "mainSeriesProperties.candleStyle.borderUpColor": "#03c087",
+                "mainSeriesProperties.candleStyle.borderDownColor": "#ef5555",
+                "mainSeriesProperties.candleStyle.wickUpColor": "#03c087",
+                "mainSeriesProperties.candleStyle.wickDownColor": "#ef5555",
+                "mainSeriesProperties.candleStyle.barColorsOnPrevClose": false,
+                "mainSeriesProperties.hollowCandleStyle.upColor": "#03c087",
+                "mainSeriesProperties.hollowCandleStyle.downColor": "#ef5555",
+                "mainSeriesProperties.hollowCandleStyle.drawWick": true,
+                "mainSeriesProperties.hollowCandleStyle.drawBorder": true,
+                "mainSeriesProperties.hollowCandleStyle.borderColor": "#9194a4",
+                "mainSeriesProperties.hollowCandleStyle.borderUpColor": "#03c087",
+                "mainSeriesProperties.hollowCandleStyle.borderDownColor": "#ef5555",
+                "mainSeriesProperties.haStyle.upColor": "#03c087",
+                "mainSeriesProperties.haStyle.downColor": "#ef5555",
+                "mainSeriesProperties.haStyle.drawWick": true,
+                "mainSeriesProperties.haStyle.drawBorder": true,
+                "mainSeriesProperties.haStyle.borderColor": "#9194a4",
+                "mainSeriesProperties.haStyle.borderUpColor": "#03c087",
+                "mainSeriesProperties.haStyle.borderDownColor": "#ef5555",
+                "mainSeriesProperties.haStyle.wickColor": "#9194a4",
+                "mainSeriesProperties.haStyle.barColorsOnPrevClose": false,
+                "mainSeriesProperties.barStyle.upColor": "#03c087",
+                "mainSeriesProperties.barStyle.downColor": "#ef5555",
+                "mainSeriesProperties.barStyle.barColorsOnPrevClose": false,
+                "mainSeriesProperties.barStyle.dontDrawOpen": false,
+                "mainSeriesProperties.lineStyle.color": "#9194a4",
+                "mainSeriesProperties.lineStyle.linewidth": 1,
+                "mainSeriesProperties.lineStyle.priceSource": "close",
+                "mainSeriesProperties.areaStyle.color1": "rgba(71, 78, 112, 0.1)",
+                "mainSeriesProperties.areaStyle.color2": "rgba(71, 78, 112, 0.02)",
+                "mainSeriesProperties.areaStyle.linecolor": "#9194a4",
+                "mainSeriesProperties.areaStyle.linewidth": 1,
+                "mainSeriesProperties.areaStyle.priceSource": "close",
+                "mainSeriesProperties.style": 1
             },
+            toolbar_bg: '#ffffff'
         });
         widget.onChartReady(() => {
 
@@ -1328,29 +1382,39 @@ define([
                 },
                 {
                     class: '',
-                    label: '1 h',
+                    label: '1hour',
                     resolution: "60",
                 },
                 {
                     class: '',
-                    label: '4 h',
+                    label: '4hour',
                     resolution: "240",
                 },
                 {
                     class: '',
-                    label: '1 day',
+                    label: '1day',
                     resolution: "1D"
                 }, {
                     class: '',
-                    label: '1 week',
+                    label: '1week',
                     resolution: "1W"
                 }, {
                     class: '',
-                    label: '1 month',
+                    label: '1month',
                     resolution: "1M"
                 }
             ];
             activeChart.setTimezone('Asia/Shanghai');
+            let MAColor = ["#965fc4", "#84aad5", "#55b263", "#b7248a"];
+            let MAInputs = [5, 10, 30, 60];
+            MAInputs.forEach(function (t, n) {
+                chart.createStudy("Moving Average", !1, !1, [t], function (t) {
+                }, {
+                    "plot.color.0": MAColor[n],
+                    precision: 8
+                })
+            });
+
             chart.onIntervalChanged().subscribe(null, function (interval, obj) {
                 widget.changingInterval = false;
             });
@@ -1362,6 +1426,9 @@ define([
                 button.parent().addClass('chart-buttons-wrap');
                 button.addClass("button " + item.class).attr("data-chart-type", item.chartType === undefined ? 8 : item.chartType);
                 button.on('click', function (e) {
+                    if ($(this).hasClass('chart-buttons')) {
+                        return;
+                    }
                     // if (!_self.widget.changingInterval && !button.hasClass("selected")) {
                     let chartType = +button.attr("data-chart-type");
                     // let resolution = button.attr("data-resolution");

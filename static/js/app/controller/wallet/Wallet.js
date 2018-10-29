@@ -111,7 +111,7 @@ define([
             if(data.length > 0){
                 data.forEach((item) => {
                     zfType[item.bankName] = item.bankCode;
-                    zfNumber[item.bankName] = item.bankcardNumber;
+                    zfNumber[item.bankCode] = item.bankcardNumber;
                     picList[item.bankName] = item.pic;
                 });
                 zfOne = data[0].bankName;
@@ -321,6 +321,7 @@ define([
                     if(item.bankName == '支付宝'){
                         // let rwmcode = new QRCode('rwmcode', picList['支付宝']);
                         // rwmcode.makeCode(picList['支付宝']);
+                        $("#rwmcodeAccount").text(zfNumber[item.bankCode]);
                         $('#rwmcode').css({
                             'backgroundImage': `url(${base.getPic(picList[item.bankName]) })`,
                             'background-size': '100% 100%'
@@ -372,8 +373,8 @@ define([
                         <div class="b-c_fs">
                             <p>付款方式</p>
                             <div>
-                                <span><img src="" alt=""></span>
-                                <span>支付宝</span>
+                                <!--<span><img src="" alt=""></span>-->
+                                <span>支付宝-<i id="rwmcodeAccount"></i></span>
                             </div>
                         </div>
                         <div class="zhang-rwm">

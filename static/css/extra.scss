@@ -2761,6 +2761,11 @@ table {
                     .b-c_fs {
                         display: flex;
                         justify-content: space-between;
+                      span{
+                        i{
+                          font-style: normal;
+                        }
+                      }
                     }
                     .back-type {
                         margin-top: 10px;
