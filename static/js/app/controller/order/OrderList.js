@@ -119,7 +119,7 @@ define([
                 operationHtml = `<div class="am-button am-button-red payBtn" data-ocode="${item.code}">标记付款</div>
 								<div class="am-button am-button-out ml5 cancelBtn" data-ocode="${item.code}">取消交易</div>`;
             } else if (item.status == "2") {
-                if (item.bsComment != "0" && item.bsComment != "2") {
+                if (item.bsComment != "0" && item.bsComment != "1") {
                     operationHtml = `<div class="am-button am-button-red commentBtn"  data-ocode="${item.code}">交易评价</div>`
                 }
             }
@@ -132,7 +132,7 @@ define([
             if (item.status == "1") {
                 operationHtml = `<div class="am-button am-button-red releaseBtn mr10" data-ocode="${item.code}">解冻货币</div>`;
             } else if (item.status == "2") {
-                if (item.sbComment != "0" && item.sbComment != "2") {
+                if (item.sbComment != "0" && item.sbComment != "1") {
                     operationHtml = `<div class="am-button am-button-red commentBtn"  data-ocode="${item.code}">交易评价</div>`
                 }
             }
@@ -292,8 +292,9 @@ define([
         //交易评价按钮 点击
         $("#content").on("click", ".operation .commentBtn", function() {
             var orderCode = $(this).attr("data-ocode");
-            $("#commentDialog .subBtn").attr("data-ocode", orderCode)
-            $("#commentDialog").removeClass("hidden")
+            $('#pjText').val('');
+            $("#commentDialog .subBtn").attr("data-ocode", orderCode);
+            $("#commentDialog").removeClass("hidden");
         })
 
         //解冻货币按钮 点击
@@ -321,11 +322,16 @@ define([
         $("#commentDialog .subBtn").click(function() {
             var orderCode = $(this).attr("data-ocode");
             var comment = $("#commentDialog .comment-Wrap .item.on").attr("data-value");
+            var content = $('#pjText').val();
 
             base.showLoadingSpin();
-            TradeCtr.commentOrder(orderCode, comment).then(() => {
+            TradeCtr.commentOrder(orderCode, comment, content).then((data) => {
                 base.hideLoadingSpin();
-                base.showMsg("操作成功");
+                if(data.filterFlag == '2'){
+                    base.showMsg("操作成功, 其中含有关键字，需平台进行审核");
+                }else{
+                    base.showMsg("操作成功");
+                }
                 $("#commentDialog").addClass("hidden");
                 setTimeout(function() {
                     base.showLoadingSpin();

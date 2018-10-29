@@ -11,6 +11,8 @@ define([
 ], function(base, Validate, GeneralCtr, UserCtr, TradeCtr, AccountCtr, TencentChat, Top, Foo) {
     var code = base.getUrlParam("code");
     var isDetail = !!base.getUrlParam("isD"); //是否我的广告查看详情
+    var userId = '';
+    var nickname = '';
     var bizTypeList = {
         "0": "支付宝",
         "1": "微信",
@@ -57,6 +59,8 @@ define([
     //获取详情
     function getAdvertiseDetail() {
         return TradeCtr.getAdvertiseDetail(code).then((data) => {
+            userId = data.user.userId;
+            nickname = data.user.nickname;
             var user = data.user;
             userName = user.nickname;
             tradeCoin = data.tradeCoin ? data.tradeCoin : 'ETH';
@@ -285,6 +289,11 @@ define([
             }, base.hideLoadingSpin)
 
         });
+
+        // 查看评价
+        $('.detail-container-wrap').on('click', '.topj', function(){
+            base.gohref(`../user/user-pj.html?userId=${userId}&nickname=${nickname}`);
+        })
         
     }
 });

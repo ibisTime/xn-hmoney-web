@@ -93,7 +93,7 @@ define([
                     $(".cancelBtn").removeClass("hidden");
 
                 } else if (data.status == "2") {
-                    if (data.bsComment != "0" && data.bsComment != "2") {
+                    if (data.bsComment != "0" && data.bsComment != "1") {
 
                         $(".commentBtn").removeClass("hidden");
                     }
@@ -110,7 +110,7 @@ define([
                 if (data.status == "1") {
                     $(".releaseBtn").removeClass("hidden");
                 } else if (data.status == "2") {
-                    if (data.sbComment != "0" && data.sbComment != "2") {
+                    if (data.sbComment != "0" && data.sbComment != "1") {
                         $(".commentBtn").removeClass("hidden");
                     }
                 }
@@ -1087,6 +1087,7 @@ define([
         //交易评价按钮 点击
         $(".commentBtn").on("click", function() {
             var orderCode = $(this).attr("data-ocode");
+            $('#pjText').val('');
             $("#commentDialog .subBtn").attr("data-ocode", orderCode)
             $("#commentDialog").removeClass("hidden")
         })
@@ -1100,7 +1101,7 @@ define([
 
                     base.showMsg("操作成功");
                     auSx();
-                }, base.hideLoadingSpin)
+                }, base.hideLoadingSpin);
             }, base.emptyFun)
         })
 
@@ -1109,16 +1110,20 @@ define([
         })
 
         $("#commentDialog .subBtn").click(function() {
-            var orderCode = $(this).attr("data-ocode");
             var comment = $("#commentDialog .comment-Wrap .item.on").attr("data-value");
+            var content = $('#pjText').val();
 
             base.showLoadingSpin();
-            TradeCtr.commentOrder(code, comment).then(() => {
+            TradeCtr.commentOrder(code, comment, content).then((data) => {
                 base.hideLoadingSpin();
-                base.showMsg("操作成功");
+                if(data.filterFlag == '2'){
+                    base.showMsg("操作成功, 其中含有关键字，需平台进行审核");
+                }else{
+                    base.showMsg("操作成功");
+                }
                 auSx();
                 $("#commentDialog").addClass("hidden");
-                $("#commentDialog .comment-Wrap .item").eq(0).addClass("on").siblings(".item").removeClass("on")
+                $("#commentDialog .comment-Wrap .item").eq(0).addClass("on").siblings(".item").removeClass("on");
             }, base.hideLoadingSpin)
         })
 

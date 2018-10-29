@@ -243,5 +243,10 @@ define([
                 }, base.hideLoadingSpin)
             }
         })
+
+        // 查看评价
+        $('.userDetail-container').on('click', '.topj', function(){
+            base.gohref(`../user/user-pj.html?userId=${userId}&nickname=${nickname}`);
+        })
     }
 });

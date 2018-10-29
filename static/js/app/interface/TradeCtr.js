@@ -143,12 +143,17 @@ define([
             });
         },
         //訂單-评价
-        commentOrder(code, comment) {
+        commentOrder(code, comment, content) {
             return Ajax.get("625245", {
                 updater: base.getUserId(),
                 code,
-                comment
+                starLevel: comment,
+                content
             });
+        },
+        //个人-评价
+        userEvaluate(config) {
+            return Ajax.get("628279", config);
         },
         /**
          * 申請仲裁
