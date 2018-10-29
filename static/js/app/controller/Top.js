@@ -99,29 +99,6 @@ define([
         return AccountCtr.getAccount().then((data) => {
             var htmlAccount = '';
             var html = '';
-            /* if (data.accountList) {
-                data.accountList.forEach(function(item, i) {
-
-                    if (i < 3) {
-                        //判断币种是否发布
-                        if (base.getCoinCoin(item.currency)) {
-                            htmlAccount += `<p>${item.currency}：<samp>${base.formatMoney(item.amountString,'',item.currency)}</samp></p>`;
-
-                            html += `<div class="list ${item.currency.toLocaleLowerCase()}">
-								<p>${item.currency}</p>
-								<p class="amount">${base.formatMoneySubtract(item.amountString,item.frozenAmountString,item.currency)}</p>
-								<p class="frozenAmountString">${base.formatMoney(item.frozenAmountString,'',item.currency)}</p>
-							</div>`;
-                        }
-                    }
-                })
-                if (data.accountList.length >= 3) {
-                    htmlAccount += `<p class="more">查看更多</p>`;
-                    html += `<div class="list more">查看更多</div>`;
-                }
-                $("#head-user-wrap .wallet .wallet-account-wrap").html(htmlAccount);
-                $("#head-user-wrap .wallet .wallet-account-mx .listWrap").html(html)
-            } */
             data.forEach(function (item, i) {
 
                 if (i < 3) {
@@ -247,55 +224,57 @@ define([
         if (nodeObj.children().length > 0){
             nodeObj.children().each(function(){
                 changeLanguageFn($(this));
-                FindChsAndReplaceIt($(this));
+                FindChsAndReplaceIt($(this), nodeObj.children());
             });
         } else {
             FindChsAndReplaceIt(nodeObj);
             base.hideLoadingSpin();
         }
 
-        function FindChsAndReplaceIt(nodeObj){
+        function FindChsAndReplaceIt(nodeObj, key){
             var pat = new RegExp("[\u4e00-\u9fa5]+","g");
             if ((nodeObj.text() || nodeObj.val() || nodeObj.attr("title")) 
                 && (pat.exec(nodeObj.text()) || pat.exec(nodeObj.val()) || pat.exec(nodeObj.attr("title")))){
-                var str = ""
+                var str = "";
                 if (nodeObj.text()){
                     str = nodeObj.text();
-                    ReplaceValue(str, nodeObj, "text");
+                    ReplaceValue(str, nodeObj, "text", key);
                 }
                 if (nodeObj.val()){
                     str = nodeObj.val();
-                    ReplaceValue(str, nodeObj, "val");
+                    ReplaceValue(str, nodeObj, "val", key);
                 }
                 if (nodeObj.attr("title")){
                     str = nodeObj.attr("title");
-                    ReplaceValue(str, nodeObj, "title");
+                    ReplaceValue(str, nodeObj, "title", key);
                 }
             }else{
                 base.hideLoadingSpin();
             }
         } 
 
-        function ReplaceValue(str, nodeObj, attrType){
+        function ReplaceValue(str, nodeObj, attrType, key){
             var arr;
             var pat = new RegExp("[\u4e00-\u9fa5]+","g");
             while((arr = pat.exec(str)) != null){
               if (langPackage[arr[0]]){
+                  if(arr[0] == '多重保障资产安全' || arr[0] == '双向交易' || arr[0] == '快速方便'){
+                      console.log(arr[0], nodeObj, key);
+                  }
                   str = str.replace(arr[0], langPackage[arr[0]]['EN']);
-                  
                   if (attrType == "text"){
-                      nodeObj.text(str);
+                    nodeObj.text(str);
                   }
                   else if (attrType == "val"){
-                      nodeObj.val(str);
+                    nodeObj.val(str);
                   }
                   else if (attrType == "title"){
-                      nodeObj.attr("title", str);
+                    nodeObj.attr("title", str);
                   }
               }
             }
             base.hideLoadingSpin();
-          }
+        }
     }
 
 });
