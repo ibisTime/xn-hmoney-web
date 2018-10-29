@@ -224,43 +224,40 @@ define([
         if (nodeObj.children().length > 0){
             nodeObj.children().each(function(){
                 changeLanguageFn($(this));
-                FindChsAndReplaceIt($(this), nodeObj.children());
+                FindChsAndReplaceIt($(this));
             });
         } else {
             FindChsAndReplaceIt(nodeObj);
             base.hideLoadingSpin();
         }
 
-        function FindChsAndReplaceIt(nodeObj, key){
+        function FindChsAndReplaceIt(nodeObj){
             var pat = new RegExp("[\u4e00-\u9fa5]+","g");
             if ((nodeObj.text() || nodeObj.val() || nodeObj.attr("title")) 
                 && (pat.exec(nodeObj.text()) || pat.exec(nodeObj.val()) || pat.exec(nodeObj.attr("title")))){
                 var str = "";
                 if (nodeObj.text()){
                     str = nodeObj.text();
-                    ReplaceValue(str, nodeObj, "text", key);
+                    ReplaceValue(str, nodeObj, "text");
                 }
                 if (nodeObj.val()){
                     str = nodeObj.val();
-                    ReplaceValue(str, nodeObj, "val", key);
+                    ReplaceValue(str, nodeObj, "val");
                 }
                 if (nodeObj.attr("title")){
                     str = nodeObj.attr("title");
-                    ReplaceValue(str, nodeObj, "title", key);
+                    ReplaceValue(str, nodeObj, "title");
                 }
             }else{
                 base.hideLoadingSpin();
             }
         } 
 
-        function ReplaceValue(str, nodeObj, attrType, key){
+        function ReplaceValue(str, nodeObj, attrType){
             var arr;
             var pat = new RegExp("[\u4e00-\u9fa5]+","g");
             while((arr = pat.exec(str)) != null){
               if (langPackage[arr[0]]){
-                  if(arr[0] == '多重保障资产安全' || arr[0] == '双向交易' || arr[0] == '快速方便'){
-                      console.log(arr[0], nodeObj, key);
-                  }
                   str = str.replace(arr[0], langPackage[arr[0]]['EN']);
                   if (attrType == "text"){
                     nodeObj.text(str);
