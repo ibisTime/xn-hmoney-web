@@ -42,7 +42,7 @@ define([
                     type: 'post',
                     url: '/api',
                     // headers: {
-                    //     language: "en_US"
+                    //     language: "en"
                     // },
                     data: param
                 });

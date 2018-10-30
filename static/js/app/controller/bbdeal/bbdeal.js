@@ -77,10 +77,10 @@ define([
             $('.affic-list').html(ggHtml);
         });
 
-        // clearInterval(timeReal);
-        // var timeReal = setInterval(() => {
-        //     autoRealData();
-        // }, 3900);
+        clearInterval(timeReal);
+        var timeReal = setInterval(() => {
+            autoRealData();
+        }, 3900);
 
         // 判断是否登录
         if (!base.isLogin()) {
@@ -104,16 +104,16 @@ define([
             getUserMoney();
             userAllMoneyX();
             autoGetMyDatata();
-            // clearInterval(timeMy);
-            // var timeMy = setInterval(() => {
-            //     autoGetMyDatata();
-            // }, 2800);
+            clearInterval(timeMy);
+            var timeMy = setInterval(() => {
+                autoGetMyDatata();
+            }, 2800);
 
             autoGetHisData();
-            // clearInterval(timeHis);
-            // var timeHis = setInterval(() => {
-            //     autoGetHisData();
-            // }, 3400);
+            clearInterval(timeHis);
+            var timeHis = setInterval(() => {
+                autoGetHisData();
+            }, 3400);
 
             if (jyType == 'xj') {
                 $('.xj_type').addClass('sel-jy').siblings().removeClass('sel-jy');
@@ -174,14 +174,14 @@ define([
             });
             showBazaar(bazaarData[0]);
             autoGetData();
-            // clearInterval(timeGet);
-            // var timeGet = setInterval(() => {
-            //     autoGetData();
-            // }, 2000);
-            //
-            // setInterval(() => {
-            //     sdFn()
-            // }, 4000);
+            clearInterval(timeGet);
+            var timeGet = setInterval(() => {
+                autoGetData();
+            }, 2000);
+            
+            setInterval(() => {
+                sdFn()
+            }, 4000);
             sdFn();
 
             function sdFn() {
@@ -826,6 +826,7 @@ define([
         $('.cur-table .y-cz').off('click').click(function () {
             let code = $(this).attr('data-code');
             rmOrder(code).then(data => {
+                dabugger
                 getMyorderTicket(userConfig).then(data => {
                     userOrderData = data.list;
                     curOrder(userOrderData);

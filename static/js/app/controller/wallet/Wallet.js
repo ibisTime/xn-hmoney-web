@@ -798,7 +798,7 @@ define([
         //选择地址-删除点击
         $("#wAddressDialog .am-modal-body ul").on("click", "li .deleteBtn", function () {
             var addressCode = $(this).attr("data-code");
-            base.confirm("確定刪除此地址？").then(() => {
+            base.confirm("确定刪除此地址？", '取消', '确定').then(() => {
                 base.showLoadingSpin();
                 deleteCoinAddress(addressCode)
             }, base.emptyFun)

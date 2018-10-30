@@ -30,6 +30,24 @@ define([
     // 初始化页面
     function init() {
         base.showLoadingSpin();
+        //中英文切换
+
+        let langType = localStorage.getItem('langType') || 'zh';
+        if(langType == 'en'){
+            $('.lang_select option.l-en').attr('selected', true);
+            changeLanguageFn($(document));
+        }
+
+        $('.lang_select').change(function(){
+            switch($(this).val()){
+                case 'zh': localStorage.clear('langType');break;
+                case 'en': localStorage.setItem('langType', 'en');break;
+            }
+            location.reload();
+        });
+
+
+
         getCoinList();
         $("#footTeTui").html(FOOT_TETUI)
         $("#footEmail").html(FOOT_EMAIL)
@@ -48,6 +66,67 @@ define([
         }
 
         addListener();
+    }
+
+    // langPackage 配置文件
+
+    let langPackage = LANGUAGE;
+
+    function changeLanguageFn(nodeObj){
+        if (nodeObj.children().length > 0){
+            nodeObj.children().each(function(){
+                changeLanguageFn($(this));
+                FindChsAndReplaceIt($(this));
+            });
+        } else {
+            FindChsAndReplaceIt(nodeObj);
+        }
+
+        function FindChsAndReplaceIt(nodeObj){
+            var pat = new RegExp("[\u4e00-\u9fa5]+","g");
+            if ((nodeObj.text() || nodeObj.val() || nodeObj.attr("title") || nodeObj.attr("placeholder")) 
+                && (pat.exec(nodeObj.text()) || pat.exec(nodeObj.val()) || pat.exec(nodeObj.attr("title")) || pat.exec(nodeObj.attr("placeholder")))){
+                var str = "";
+                if (nodeObj.text()){
+                    str = nodeObj.text();
+                    ReplaceValue(str, nodeObj, "text");
+                }
+                if (nodeObj.val()){
+                    str = nodeObj.val();
+                    ReplaceValue(str, nodeObj, "val");
+                }
+                if (nodeObj.attr("title")){
+                    str = nodeObj.attr("title");
+                    ReplaceValue(str, nodeObj, "title");
+                }
+                if (nodeObj.attr("placeholder")){
+                    str = nodeObj.attr("placeholder");
+                    ReplaceValue(str, nodeObj, "placeholder");
+                }
+            }
+        } 
+
+        function ReplaceValue(str, nodeObj, attrType){
+            var arr;
+            var pat = new RegExp("[\u4e00-\u9fa5]+","g");
+            while((arr = pat.exec(str)) != null){
+              if (langPackage[arr[0]]){
+                  str = str.replace(arr[0], langPackage[arr[0]]['EN']);
+                  if (attrType == "text"){
+                    nodeObj.text(str);
+                  }
+                  else if (attrType == "val"){
+                    nodeObj.val(str);
+                  }
+                  else if (attrType == "title"){
+                    nodeObj.attr("title", str);
+                  }
+                  else if (attrType == "placeholder"){
+                    nodeObj.prop("placeholder", str);
+                  }
+              }
+            }
+        }
     }
 
     //根据config配置设置 头部币种下拉
@@ -195,83 +274,6 @@ define([
                 } 
             }, base.hideLoadingSpin)
         })
-
-        //中英文切换
-
-        let langType = localStorage.getItem('langType') || 'zh';
-        if(langType == 'en'){
-            base.showLoadingSpin();
-            $('.lang_select option.l-en').attr('selected', true);
-            changeLanguageFn($(document));
-        }else{
-            base.hideLoadingSpin();
-        }
-
-        $('.lang_select').change(function(){
-            switch($(this).val()){
-                case 'zh': localStorage.clear('langType');break;
-                case 'en': localStorage.setItem('langType', 'en');break;
-            }
-            location.reload();
-        })
-    }
-
-    // langPackage 配置文件
-
-    let langPackage = LANGUAGE;
-
-    function changeLanguageFn(nodeObj){
-        if (nodeObj.children().length > 0){
-            nodeObj.children().each(function(){
-                changeLanguageFn($(this));
-                FindChsAndReplaceIt($(this));
-            });
-        } else {
-            FindChsAndReplaceIt(nodeObj);
-            base.hideLoadingSpin();
-        }
-
-        function FindChsAndReplaceIt(nodeObj){
-            var pat = new RegExp("[\u4e00-\u9fa5]+","g");
-            if ((nodeObj.text() || nodeObj.val() || nodeObj.attr("title")) 
-                && (pat.exec(nodeObj.text()) || pat.exec(nodeObj.val()) || pat.exec(nodeObj.attr("title")))){
-                var str = "";
-                if (nodeObj.text()){
-                    str = nodeObj.text();
-                    ReplaceValue(str, nodeObj, "text");
-                }
-                if (nodeObj.val()){
-                    str = nodeObj.val();
-                    ReplaceValue(str, nodeObj, "val");
-                }
-                if (nodeObj.attr("title")){
-                    str = nodeObj.attr("title");
-                    ReplaceValue(str, nodeObj, "title");
-                }
-            }else{
-                base.hideLoadingSpin();
-            }
-        } 
-
-        function ReplaceValue(str, nodeObj, attrType){
-            var arr;
-            var pat = new RegExp("[\u4e00-\u9fa5]+","g");
-            while((arr = pat.exec(str)) != null){
-              if (langPackage[arr[0]]){
-                  str = str.replace(arr[0], langPackage[arr[0]]['EN']);
-                  if (attrType == "text"){
-                    nodeObj.text(str);
-                  }
-                  else if (attrType == "val"){
-                    nodeObj.val(str);
-                  }
-                  else if (attrType == "title"){
-                    nodeObj.attr("title", str);
-                  }
-              }
-            }
-            base.hideLoadingSpin();
-        }
     }
 
 });

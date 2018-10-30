@@ -382,7 +382,7 @@ define([
          * 弹窗
          * base.confirm.then()
          * */
-        confirm: function(msg) {
+        confirm: function(msg, cancelValue, okValue) {
             return (new Promise(function(resolve, reject) {
                 var d = dialog({
                     content: msg,
@@ -398,8 +398,8 @@ define([
                         reject();
                         return true;
                     },
-                    cancelValue: '取消',
-                    okValue: '确定'
+                    cancelValue,
+                    okValue
                 });
                 d.showModal();
             }));

@@ -44,10 +44,10 @@ define([
             $(".buy-wrap").removeClass("hidden");
         }
         $.when(
-            GeneralCtr.getSysConfig("trade_remind")  // 测试
+            GeneralCtr.getSysConfig("trade_remind")  
         ).then((data) => {
             $("#tradeWarn").html(data.cvalue.replace(/\n/g, '<br>'))
-            getAdvertiseDetail() // 正式
+            getAdvertiseDetail() 
         })
         addListener();
 
@@ -251,7 +251,7 @@ define([
 
         //下架-点击
         $("#doDownBtn").click(function() {
-            base.confirm("确认下架此广告？").then(() => {
+            base.confirm("确认下架此广告？", '取消', '确定').then(() => {
                 base.showLoadingSpin()
                 TradeCtr.downAdvertise(code).then(() => {
                     base.hideLoadingSpin();
