@@ -1,7 +1,6 @@
 define([
     'app/controller/base',
     'app/util/ajax',
-    'app/module/echarts',
     'app/interface/GeneralCtr',
     'pagination',
     'app/interface/AccountCtr',
@@ -9,8 +8,9 @@ define([
     'app/module/datafeeds/udf/dist/bundle',
     'app/interface/UserCtr',
     'app/controller/Top',
-    'app/controller/foo'
-], function (base, Ajax, echarts, GeneralCtr, pagination, AccountCtr, TradingView, Datafeeds, UserCtr, Top, Foo) {
+    'app/controller/foo',
+    'app/module/echarts'
+], function (base, Ajax, GeneralCtr, pagination, AccountCtr, TradingView, Datafeeds, UserCtr, Top, Foo, echarts) {
     $('.trade').addClass('active');
     let userConfig = {
         userId: base.getUserId(),
@@ -615,6 +615,7 @@ define([
                     $(inpNum).val('');
                     if (data.code) {
                         base.showMsg('订单提交成功');
+                        getUserMoney();
                     } else {
                         base.showMsg('订单提交失败');
                         return false;
@@ -809,7 +810,7 @@ define([
         $('.bb-jiaoyi').off('click').click(function (e) {
             let target = e.target;
             if ($(target).hasClass('bb-cb')) {
-                base.gohref(base.changeURLArg('../wallet/wallet.html', "key", setBazDeal.toSymbol));
+                base.gohref('../wallet/wallet.html?key=' + setBazDeal.toSymbol);
             }
         })
 
@@ -969,7 +970,7 @@ define([
         // 选中span事件
         let isClick = true;
         $('.bb-jy-con span').off('click').click(function (e) {
-            i = 0;
+            togoI = 0;
             let target = e.target;
             let goLeft = $(target).css('left');
             let index = $(target).index() - 1;
@@ -1242,55 +1243,15 @@ define([
     // k线图
     function k() {
         var widget = new TradingView.widget({
-            debug: true,
             width: '100%',
             height: '500px',
             fullscreen: false,
             symbol: 'FMVP',
             interval: '1', // 时间
             container_id: "tv_chart_container",
-            //	BEWARE: no traiƒling slash is expected in feed URL
             datafeed: new Datafeeds.UDFCompatibleDatafeed("https://demo_feed.tradingview.com"),
             library_path: "/static/js/app/module/charting_library/",
             locale: base.getUrlParam('lang') || "zh",
-            // disabled_features: [
-            //     'use_localstorage_for_settings',
-            //     // 头部
-            //     'header_symbol_search', // 符号搜索
-            //     'symbol_search_hot_key', // 按任意键进行符号搜索
-            //     'header_chart_type', // 类型
-            //     'header_compare', // 指标
-            //     'header_indicators',
-            //     'header_undo_redo', // 撤销/返回
-            //     'header_saveload', // 隐藏保存/加载按钮
-            //     'header_screenshot', //保存图片
-            //     'header_resolutions', // 分时
-            //     // 底部
-            //     'go_to_date',
-            //     'timeframes_toolbar',
-            //     'display_market_status', // 状态
-            //     'volume_force_overlay',
-            //     'compare_symbol',
-            //     'header_interval_dialog_button',
-            //     'header_undo_redo',
-            //     'show_hide_button_in_legend',
-            //     'show_interval_dialog_on_key_press',
-            //     'snapshot_trading_drawings',
-            //     'symbol_info',
-            // ],
-            // // 启用
-            // enabled_features: [
-            //     'study_templates',
-            //     'hide_left_toolbar_by_default', // 当用户第一次打开图表时，隐藏左侧工具栏
-            //     'legend_context_menu',
-            //     'dont_show_boolean_study_arguments',
-            //     'hide_last_na_study_output',
-            //     'move_logo_to_main_pane',
-            //     'same_data_requery',
-            //     'side_toolbar_in_fullscreen_mode',
-            //     'disable_resolution_rebuild',
-            //     'cl_feed_return_all_data'
-            // ],
             disabled_features: ["compare_symbol", "display_market_status", "go_to_date", "header_chart_type", "header_compare", "header_interval_dialog_button", "header_resolutions", "header_screenshot", "header_symbol_search", "header_undo_redo", "legend_context_menu", "show_hide_button_in_legend", "show_interval_dialog_on_key_press", "snapshot_trading_drawings", "symbol_info", "timeframes_toolbar", "use_localstorage_for_settings", "volume_force_overlay"],
             enabled_features: ['hide_left_toolbar_by_default', "dont_show_boolean_study_arguments", "hide_last_na_study_output", "move_logo_to_main_pane", "same_data_requery", "side_toolbar_in_fullscreen_mode", "disable_resolution_rebuild"],
             overrides: {

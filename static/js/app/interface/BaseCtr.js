@@ -4,7 +4,7 @@ define([
     return {
         //更新登录时间
         updateLoginTime() {
-            return Ajax.get("805083", {
+            return Ajax.get("805092", {
                 userId: sessionStorage.getItem("userId")
             }, true)
         },

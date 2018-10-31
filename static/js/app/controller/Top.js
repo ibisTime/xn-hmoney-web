@@ -190,7 +190,7 @@ define([
             base.gohref(thishref)
         })
 
-        $("#head .trade .goHref").off("click").click(function () {
+        // $("#head .trade .goHref").off("click").click(function () {
             // var thishref = $(this).attr("data-href");
             // if ($(this).text() == '币币交易') {
             //     base.gohref(thishref);
@@ -202,7 +202,7 @@ define([
             // } else {
             //     base.gohref(thishref)
             // }
-        })
+        // })
 
         $("body").on('click','.isTradePwdFlag', function () {
             var _this = $(this);
@@ -237,65 +237,6 @@ define([
             }
             location.reload();
         })
-    }
-
-    // langPackage 配置文件
-
-    let langPackage = LANGUAGE;
-
-    function changeLanguageFn(nodeObj){
-        if (nodeObj.children().length > 0){
-            nodeObj.children().each(function(){
-                changeLanguageFn($(this));
-                FindChsAndReplaceIt($(this));
-            });
-        } else {
-            FindChsAndReplaceIt(nodeObj);
-            base.hideLoadingSpin();
-        }
-
-        function FindChsAndReplaceIt(nodeObj){
-            var pat = new RegExp("[\u4e00-\u9fa5]+","g");
-            if ((nodeObj.text() || nodeObj.val() || nodeObj.attr("title")) 
-                && (pat.exec(nodeObj.text()) || pat.exec(nodeObj.val()) || pat.exec(nodeObj.attr("title")))){
-                var str = ""
-                if (nodeObj.text()){
-                    str = nodeObj.text();
-                    ReplaceValue(str, nodeObj, "text");
-                }
-                if (nodeObj.val()){
-                    str = nodeObj.val();
-                    ReplaceValue(str, nodeObj, "val");
-                }
-                if (nodeObj.attr("title")){
-                    str = nodeObj.attr("title");
-                    ReplaceValue(str, nodeObj, "title");
-                }
-            }else{
-                base.hideLoadingSpin();
-            }
-        } 
-
-        function ReplaceValue(str, nodeObj, attrType){
-            var arr;
-            var pat = new RegExp("[\u4e00-\u9fa5]+","g");
-            while((arr = pat.exec(str)) != null){
-              if (langPackage[arr[0]]){
-                  str = str.replace(arr[0], langPackage[arr[0]]['EN']);
-                  
-                  if (attrType == "text"){
-                      nodeObj.text(str);
-                  }
-                  else if (attrType == "val"){
-                      nodeObj.val(str);
-                  }
-                  else if (attrType == "title"){
-                      nodeObj.attr("title", str);
-                  }
-              }
-            }
-            base.hideLoadingSpin();
-          }
     }
 
 });

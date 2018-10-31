@@ -6,22 +6,14 @@ define([
     'app/interface/AccountCtr',
     'app/interface/GeneralCtr',
     'app/interface/UserCtr',
-    'app/interface/TradeCtr',
-    'app/util/ajax',
     'app/controller/Top',
     'app/controller/foo'
-], function (base, pagination, Validate, smsCaptcha, AccountCtr, GeneralCtr, UserCtr, TradeCtr, Ajax, Top, Foo) {
-    var userAccountNum = base.getUrlParam('account'); // 用户编号
+], function (base, pagination, Validate, smsCaptcha, AccountCtr, GeneralCtr, UserCtr, Top, Foo) {
     var isbuy = base.getUrlParam('isbuy');  // 1 去购买   0 去出售
     var bbKey = base.getUrlParam('key');
     var withdrawFee = 0; // 取现手续费
-    let fvData = 0;
     var currency = base.getUrlParam("c") || 'BTC'; //币种
     currency = currency.toUpperCase() // 转换大写
-
-    let href = location.href;
-    let arrHref = href.split('.')[0].split('/');
-    let ismx = arrHref[arrHref.length - 1];
 
     let moneyHS = 0;
     let zfType = {}; // 去购买支付方式
@@ -33,31 +25,11 @@ define([
 
     let picList = {};
 
-    var config = {
-            start: 1,
-            limit: 10,
-        },
-        configAddress = {
+    var configAddress = {
             start: 1,
             limit: 10,
             currency: currency
-        },
-        accountNumber;
-
-    var bizTypeList = {
-            "0": "",
-            "1": "charge",
-            "2": "withdraw",
-            "3": "ccorder_buy",
-            "4": "ccorder_sell",
-            '5': "accept_buy",
-            '6': "accept_sell",
-            "7": "ccorder_fee",
-            "8": "withdraw_fee",
-            "9": "award_reg",
-            "10": "",
-        },
-        bizTypeValueList = {};
+        };
 
     var addAddressWrapperRules = {
             "label": {
@@ -100,15 +72,17 @@ define([
     function init() {
         base.showLoadingSpin();
         $("#addWAddressMobile").val(base.getUserMobile());
-        //$(".currency").text(currency);  测试
         getCoinList();
-        // FMVP币转换
-        // 数字货币转换
-        if(!userAccountNum){
-            getAcceptRule();
-        }
-        getBankData().then(data => {
-            if(data.length > 0){
+        //总资产
+        UserCtr.userAllMoneyX('CNY').then(data => {
+            $('.u-bb').text(data.symbol);
+            $('.u-money').text((Math.floor(data.currency * 100) / 100).toFixed(2));
+        });
+        // 获取承兑商FMVP价格
+        getAcceptRule();
+        // 获取银行卡
+        AccountCtr.getBankData().then(data => {
+            if (data.length > 0) {
                 data.forEach((item) => {
                     zfType[item.bankName] = item.bankCode;
                     zfNumber[item.bankCode] = item.bankcardNumber;
@@ -117,16 +91,12 @@ define([
                 zfOne = data[0].bankName;
             }
         });
-        getGmBankData().then(data => {
+        // 获取银行渠道
+        AccountCtr.getGmBankData().then(data => {
             data.forEach(item => {
                 gmType[item.bankName] = item.bankCode
             })
         });
-        //总资产
-        UserCtr.userAllMoneyX('CNY').then(data => {
-            $('.u-bb').text(data.symbol);
-            $('.u-money').text((Math.floor(data.currency * 100) / 100).toFixed(2));
-        })
 
         if (base.getGoogleAuthFlag() == "true" && base.getGoogleAuthFlag()) {
             $(".googleAuthFlag").removeClass("hidden");
@@ -140,20 +110,6 @@ define([
             }
         }
 
-        $.when(
-            GeneralCtr.getDictList({
-                "parentKey": "jour_biz_type_user"
-            }),
-        ).then((data1, data2) => {
-            data1.forEach(function (item) {
-                bizTypeValueList[item.dkey] = item.dvalue
-            })
-            withdrawFee = base.formatMoney(base.getCoinWithdrawFee(currency), '', currency);
-
-            $("#withdrawFee").val(withdrawFee + currency);
-            getAccount();
-
-        }, getAccount)
         addListener();
     }
 
@@ -184,6 +140,10 @@ define([
         return GeneralCtr.getSysConfigType('accept_rule', true).then(data => {
             base.hideLoadingSpin();
             acceptRule = data;
+            withdrawFee = base.formatMoney(base.getCoinWithdrawFee(currency), '', currency);
+            $("#withdrawFee").val(withdrawFee + currency);
+
+            getAccount();
         }, base.hideLoadingSpin);
     }
 
@@ -193,52 +153,54 @@ define([
         acceptRule.max_cny = parseFloat(acceptRule.accept_order_max_cny_amount);
         acceptRule.min_usd = parseFloat(acceptRule.accept_order_min_usd_amount);
         acceptRule.max_usd = parseFloat(acceptRule.accept_order_max_usd_amount);
+        // 购买
         if (isw == '0') {
             if (m_type == 'CNY') {
                 $('.con-toBuy .x-p_money').text('USD');
-                if($('.con-toBuy .sel-p').text() === '数量'){
+                if ($('.con-toBuy .sel-p').text() === '数量') {
                     $('.con-toBuy .m_bb').text('FMVP');
                 }
                 $('.con-toBuy .m_cyn').text('USD');
             } else {
                 $('.con-toBuy .x-p_money').text('CNY');
-                if($('.con-toBuy .sel-p').text() === '数量'){
+                if ($('.con-toBuy .sel-p').text() === '数量') {
                     $('.con-toBuy .m_bb').text('FMVP');
                 }
                 $('.con-toBuy .m_cyn').text('CNY');
             }
         }
+        // 出售
         if (isw == '1') {
             if (m_type == 'CNY') {
                 $('.con-toSell .x-p_money').text('USD');
-                if($('.con-toSell .sel-p').text() === '数量'){
+                if ($('.con-toSell .sel-p').text() === '数量') {
                     $('.con-toSell .m_bb').text('FMVP');
                 }
                 $('.con-toSell .m_cyn').text('USD');
             } else {
                 $('.con-toSell .x-p_money').text('CNY');
-                if($('.con-toSell .sel-p').text() === '数量'){
+                if ($('.con-toSell .sel-p').text() === '数量') {
                     $('.con-toSell .m_bb').text('FMVP');
                 }
                 $('.con-toSell .m_cyn').text('CNY');
             }
         }
         toType = $(pType + ' .x-p_money').eq(0).text();
-        if(toType == 'CNY'){
+        if (toType == 'CNY') {
             moneyHS = parseFloat(acceptRule.accept_cny_price);
-        }else{
+        } else {
             moneyHS = parseFloat(acceptRule.accept_usd_price);
         }
-        if(!isw){
+        if (!isw) {
             $('.x-mon').text((Math.floor(moneyHS * 100) / 100).toFixed(2));
-        }else{
+        } else {
             $(pType + ' .x-mon').text((Math.floor(moneyHS * 100) / 100).toFixed(2));
         }
 
         if (toType == 'CNY') {
             $('.b-m_type').text('￥');
             $(pType + ' .x-p_money').text('CNY');
-            if($(pType + ' .sel-p').text() === '数量'){
+            if ($(pType + ' .sel-p').text() === '数量') {
                 $(pType + ' .m_bb').text('FMVP');
             }
             $(pType + ' .min-money').text(acceptRule.accept_order_min_cny_amount);
@@ -248,7 +210,7 @@ define([
             $(pType + ' .min-money').text(acceptRule.accept_order_min_usd_amount);
             $(pType + ' .max-money').text(acceptRule.accept_order_max_usd_amount);
             $(pType + ' .x-p_money').text('USD');
-            if($(pType + ' .sel-p').text() === '数量'){
+            if ($(pType + ' .sel-p').text() === '数量') {
                 $(pType + ' .m_bb').text('FMVP');
             }
         }
@@ -258,7 +220,6 @@ define([
     function getAccount() {
         base.showLoadingSpin();
         return AccountCtr.getAccount().then((data) => {
-            config.accountNumber = userAccountNum;
             let ulElement = '';
             let erWm = [];
             data.forEach((item, i) => {
@@ -268,57 +229,45 @@ define([
             $('.tr-ul').html(ulElement);
             $('.con-toBuy .sxf').text(parseFloat(acceptRule.accept_order_buy_fee_rate) * 100);
             $('.con-toSell .sxf').text(parseFloat(acceptRule.accept_order_sell_fee_rate) * 100);
-            if(isbuy){
+            if (isbuy) {
                 $('.b-c_h p').eq(0).addClass('sel-p').siblings().removeClass('sel-p');
             }
-            if(isbuy == '1'){
+            if (isbuy == '1') {
                 $('.to-buy').addClass('sel-sp');
                 $('.con-toBuy').show();
             }
-            if(isbuy == '0'){
+            if (isbuy == '0') {
                 $('.to-sell').addClass('sel-sp');
                 $('.con-toSell').show();
             }
-            if(bbKey == 'BTC'){
+            if (bbKey == 'BTC') {
                 $('.toCbBTC').addClass('sel-sp');
                 $('.toCbBTC').parents('.tr-mx').siblings('.con-box').show();
             }
-            if(bbKey == 'ETH'){
+            if (bbKey == 'ETH') {
                 $('.toCbETH').addClass('sel-sp');
                 $('.toCbETH').parents('.tr-mx').siblings('.con-box').show();
             }
-
-            // 手续费
-            // GeneralCtr.getSysConfigType('simu_order_rule').then(data => {
-            //     fvData = parseFloat(data.simu_order_fee_rate) * 100;
-                
-            // })
             // 提现手续费
             GeneralCtr.getSysConfig('withdraw_fee').then(data => {
                 let txFee = parseFloat(data.cvalue);
                 $('.tx-fee').val(txFee);
             })
-            //涨幅
-            getZfData().then(data => {
-                $('.x-bf_r').text(data.list[0].exchangeRate + '%');
-            })
-            if(!userAccountNum){
-                qhMoneyType('.con-toBuy', 'CNY');
-                qhMoneyType('.con-toSell', 'CNY');
-            }
+            qhMoneyType('.con-toBuy', 'CNY');
+            qhMoneyType('.con-toSell', 'CNY');
             // zfType[item.zfType[item.bankName] = item.bankCode] = item.bankCode
-            getBankData().then(data => {
+            AccountCtr.getBankData().then(data => {
                 let zfTypeHtml = '';
                 data.forEach(item => {
                     zfTypeHtml += `<option value="${item.bankName}">${item.bankName}</option>`
                 });
                 $('#zf_select').html(zfTypeHtml);
             });
-            getGmBankData().then(data => {
+            AccountCtr.getGmBankData().then(data => {
                 let zfTypeHtml = '';
                 data.forEach(item => {
                     zfTypeHtml += `<option value="${item.bankName}">${item.bankName}</option>`;
-                    if(item.bankName == '支付宝'){
+                    if (item.bankName == '支付宝') {
                         // let rwmcode = new QRCode('rwmcode', picList['支付宝']);
                         // rwmcode.makeCode(picList['支付宝']);
                         $("#rwmcodeAccount").text(zfNumber[item.bankCode]);
@@ -331,21 +280,17 @@ define([
                 $('#zf_select1').html(zfTypeHtml);
                 base.hideLoadingSpin();
             }, base.hideLoadingSpin);
-            if (ismx != 'wallet-mx') {
-                setTimeout(() => {
-                    erWm.forEach((item, i) => {
-                        var qrcode = new QRCode(`qrcode${i}`, item);
-                        qrcode.makeCode(item);
-                    })
-                }, 10)
-            }
-            if (userAccountNum) {
-                getPageFlow(config);
-            }
+            setTimeout(() => {
+                erWm.forEach((item, i) => {
+                    var qrcode = new QRCode(`qrcode${i}`, item);
+                    qrcode.makeCode(item);
+                })
+            }, 10)
             $('.zhanghao').text(zfNumber[zfOne]);
             addListener();
         }, base.hideLoadingSpin)
     }
+
     let tuBuyHtml = `
             <div class="con-toBuy bb-box" style="display: none;">
                 <h5 class="x-tit">去购买</h5>
@@ -353,7 +298,10 @@ define([
                     <div class="buy-head">
                         <p class="x-h_p1">FMVP / <span class="x-p_money">CNY</span></p>
                         <p class="x-h_p2"><img src="/static/images/qhX.png" class="fr"/></p>
-                        <p class="x-h_p3">单价：<span class="b-m_type"></span> <span class="x-mon"></span> <span class="x-bf_r"><i>-</i> 3.5%</span></p>
+                        <p class="x-h_p3">单价：
+                            <span class="b-m_type"></span>
+                            <span class="x-mon"></span>
+                        </p>
                     </div>
                     <div class="buy-con">
                         <div class="b-c_h buy-c">
@@ -398,7 +346,10 @@ define([
                     <div class="buy-head">
                         <p class="x-h_p1">FMVP / <span class="x-p_money">CNY</span></p>
                         <p class="x-h_p2"><img src="/static/images/qhX.png" class="fr"/></p>
-                        <p class="x-h_p3">单价：<span class="s-m_type"></span> <span class="x-mon"></span> <span class="x-bf_r"><i>-</i> 3.5%</span></p>
+                        <p class="x-h_p3">单价：
+                            <span class="s-m_type"></span>
+                            <span class="x-mon"></span>
+                        </p>
                     </div>
                     <div class="buy-con">
                         <div class="b-c_h sell-c">
@@ -542,61 +493,6 @@ define([
         return DHtml;
     }
 
-    // 初始化交易记录分页器
-    function initPaginationFlow(data) {
-        $("#pagination .pagination").pagination({
-            pageCount: data.totalPage,
-            showData: config.limit,
-            jump: true,
-            coping: true,
-            prevContent: '<img src="/static/images/arrow---left.png" />',
-            nextContent: '<img src="/static/images/arrow---right.png" />',
-            keepShowPN: true,
-            totalData: data.totalCount,
-            jumpIptCls: 'pagination-ipt',
-            jumpBtnCls: 'pagination-btn',
-            jumpBtn: '确定',
-            isHide: true,
-            callback: function (_this) {
-                if (_this.getCurrent() != config.start) {
-                    base.showLoadingSpin();
-                    config.start = _this.getCurrent();
-                    getPageFlow(config);
-                }
-            }
-        });
-    }
-
-    //分页查询我的账户流水
-    function getPageFlow(params) {
-        return AccountCtr.getPageFlow(params, true).then((data) => {
-            var lists = data.list;
-            if (data.list.length) {
-                var html = "";
-                lists.forEach((item, i) => {
-                    html += buildHtmlFlow(item);
-                });
-                $(".tradeRecord-list-wrap .list-wrap").html(html)
-                $(".tradeRecord-list-wrap .no-data").addClass("hidden");
-            } else {
-                config.start == 1 && $(".tradeRecord-list-wrap .list-wrap").empty()
-                config.start == 1 && $(".tradeRecord-list-wrap .no-data").removeClass("hidden");
-            }
-
-            config.start == 1 && initPaginationFlow(data);
-            base.hideLoadingSpin();
-        }, base.hideLoadingSpin)
-    }
-
-    function buildHtmlFlow(item) {
-        return `<div class="list-item">
-					<div>${base.formateDatetime(item.createDatetime)}</div>
-					<div>${bizTypeValueList[item.bizType]}</div>
-					<div title="${base.formatMoney(item.transAmountString,'',item.currency)}">${base.formatMoney(item.transAmountString,'',item.currency)}</div>
-					<div>${item.bizNote}</div>
-				</div>`
-    }
-
     //分页查询地址
     function getPageCoinAddress() {
         return AccountCtr.getPageCoinAddress(configAddress, true).then((data) => {
@@ -622,7 +518,7 @@ define([
         } else if (item.status == '1') {
             statusHtml = '已认证'
         }
-        return `<li data-address="${item.address}" data-status="${item.status}" class="${i=='0'?'on':''} b_e_t">
+        return `<li data-address="${item.address}" data-status="${item.status}" class="${i == '0' ? 'on' : ''} b_e_t">
     				<div class="txt wp100">
 						<p>标签: ${item.label}</p>
 						<p>${item.address}(${statusHtml})</p>
@@ -679,7 +575,6 @@ define([
             base.showMsg("操作成功");
             $("#addWAddressDialog").addClass("hidden")
             base.showLoadingSpin();
-            config.start = 1;
             getAccount();
             $("#withdrawFee").val(withdrawFee + currency)
         }, function () {
@@ -698,46 +593,6 @@ define([
                 getPageCoinAddress()
             }, 800)
         }, base.hideLoadingSpin)
-    }
-
-    // 获取银行卡
-    function getBankData() {
-        return Ajax.post('802026', {
-            status: '1'
-        })
-    }
-
-    // 获取银行渠道
-    function getGmBankData() {
-        return Ajax.post('802116', {
-            status: '1'
-        })
-    }
-
-    //获取支付二维码
-
-    function getErCode() {
-        return Ajax.get("802020");
-    }
-
-    // 获取涨幅
-    function getZfData(){
-        return Ajax.post("650100", {
-            start: '1',
-            limit: '10',
-            symbol: 'FMVP',
-            toSymbol: 'BTC'
-        }, true);
-    }
-
-    // 购买FMVP币
-    function buyX(config) {
-        return Ajax.post('625270', config);
-    }
-
-    // 出售FMVP币
-    function sellX(config) {
-        return Ajax.post('625271', config);
     }
 
     function addListener() {
@@ -768,24 +623,6 @@ define([
             withDraw(params).then(data => {
                 $(this).parents('form').reset();
             })
-        })
-
-        //交易记录 类型点击
-        $(".tradeRecord-top ul li").click(function () {
-            // if(!$(this).hasClass("on")){
-            var index = $(this).index();
-            $(this).addClass("on").siblings("li").removeClass("on");
-
-            base.showLoadingSpin();
-            config.bizType = bizTypeList[index];
-            config.start = 1;
-            if (index == '8') {
-                config.type = '1';
-            } else {
-                delete config.type;
-            }
-            getPageFlow(config);
-            // }
         })
 
         //选择地址弹窗
@@ -850,7 +687,8 @@ define([
                 bizType: "625203",
                 id: "getVerification",
                 mobile: "addWAddressMobile",
-                errorFn: function () {}
+                errorFn: function () {
+                }
             });
             $("#addWAddressDialog").removeClass("hidden")
         })
@@ -916,10 +754,10 @@ define([
                         }
                     } else if (!data.tradepwdFlag) {
                         base.showMsg("请先设置资金密码");
-                        setTimeout(function() {
+                        setTimeout(function () {
                             base.gohref("../user/setTradePwd.html?type=0")
                         }, 1800)
-                    } 
+                    }
                     // else if (!data.realName) {
                     //     base.showMsg("请先进行身份验证");
                     //     setTimeout(function() {
@@ -930,7 +768,7 @@ define([
             }, base.hideLoadingSpin);
         })
 
-        // 切换交易货币类型
+        // 切换交易货币类型-购买
         $('.con-toBuy .x-h_p2 img').click(function () {
             event.stopPropagation();
             let m_type = $(this).parent().prev().children('.x-p_money').text();
@@ -938,7 +776,7 @@ define([
             $('.x_num').text('0.00');
             qhMoneyType('.con-toBuy', m_type, '0');
         })
-
+        // 切换交易货币类型-出售
         $('.con-toSell .x-h_p2 img').click(function () {
             event.stopPropagation();
             let m_type = $(this).parent().prev().children('.x-p_money').text();
@@ -985,7 +823,8 @@ define([
         })
 
         //切换方式
-        $('.b-c_h p').off('click').click(function () {debugger
+        $('.b-c_h p').off('click').click(function () {
+            debugger
             event.stopPropagation();
             $(this).addClass('sel-p').siblings('p').removeClass('sel-p');
             $('.b-c_put input').val('');
@@ -1078,7 +917,7 @@ define([
                             tradeAmount: allMoney,
                             remark: buyNote
                         }
-                        buyX(buyConfig).then(() => {
+                        AccountCtr.buyX(buyConfig).then(() => {
                             showMsg();
                             setTimeout(() => {
                                 base.gohref('./wallet-jilu.html');
@@ -1100,7 +939,7 @@ define([
                             tradeAmount: allMoney,
                             remark: buyNote
                         }
-                        buyX(buyConfig).then(() => {
+                        AccountCtr.buyX(buyConfig).then(() => {
                             showMsg();
                             setTimeout(() => {
                                 base.gohref('./wallet-jilu.html');
@@ -1145,7 +984,7 @@ define([
                                 tradeAmount: allMoney,
                                 tradePwd: moneyPow
                             }
-                            sellX(sellConfig).then(() => {
+                            AccountCtr.sellX(sellConfig).then(() => {
                                 showMsg();
                                 setTimeout(() => {
                                     base.gohref('./wallet-jilu.html');
@@ -1168,7 +1007,7 @@ define([
                                 tradeAmount: allMoney,
                                 tradePwd: moneyPow
                             }
-                            sellX(sellConfig).then(() => {
+                            AccountCtr.sellX(sellConfig).then(() => {
                                 showMsg();
                                 setTimeout(() => {
                                     base.gohref('./wallet-jilu.html');

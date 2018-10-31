@@ -1,12 +1,10 @@
 define([
-    'jquery',
     'app/util/cookie',
     'app/util/dialog',
     'app/module/loading',
-    'app/util/ajax',
     'BigDecimal',
     'app/interface/BaseCtr'
-], function($, CookieUtil, dialog, loading, Ajax, BigDecimal, BaseCtr) {
+], function(CookieUtil, dialog, loading, BigDecimal, BaseCtr) {
 
     // if (/AppleWebKit.*Mobile/i.test(navigator.userAgent)  ||  (/MIDP|SymbianOS|NOKIA|SAMSUNG|LG|NEC|TCL|Alcatel|BIRD|DBTEL|Dopod|PHILIPS|HAIER|LENOVO|MOT-|Nokia|SonyEricsson|SIE-|Amoi|ZTE/.test(navigator.userAgent))) {
     //     if (window.location.href.indexOf("?mobile") < 0) {
@@ -39,7 +37,7 @@ define([
             var thishref = $(this).attr("data-href");
             if (thishref != "" && thishref) {
                 if (Base.isLogin()) {
-                    //Base.updateLoginTime();
+                    Base.updateLoginTime();
                 }
                 Base.gohref(thishref)
             }
@@ -419,13 +417,7 @@ define([
             $("#loadingSpin").addClass("hidden");
             $('html').css('overflow', 'auto');
         },
-        // 获取数据字典 
-        getDictList: function(code, type) {
-            return Ajax.get(code, {
-                parentKey: type
-            });
-        },
-        // 获取数据字典 
+        // 获取数据字典
         getDictListValue: function(dkey, arrayData) { //类型
             for (var i = 0; i < arrayData.length; i++) {
                 if (dkey == arrayData[i].dkey) {

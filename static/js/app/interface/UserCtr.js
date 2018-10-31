@@ -201,7 +201,7 @@ define([
         //更新用户登录时间
         updateLoginTime() {
             return Ajax.get("805092", {
-                userid: base.getUserId(),
+                userId: base.getUserId(),
             }, true);
         },
         //列表查询用户收益

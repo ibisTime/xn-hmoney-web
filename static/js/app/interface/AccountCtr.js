@@ -67,5 +67,25 @@ define([
                 code
             }, true);
         },
+        // 获取银行卡
+        getBankData() {
+            return Ajax.post('802026', {
+                status: '1'
+            })
+        },
+        // 获取银行渠道
+        getGmBankData() {
+            return Ajax.post('802116', {
+                status: '1'
+            })
+        },
+        // 购买FMVP币
+        buyX(config) {
+            return Ajax.post('625270', config);
+        },
+        // 出售FMVP币
+        sellX(config) {
+            return Ajax.post('625271', config);
+        }
     };
 })

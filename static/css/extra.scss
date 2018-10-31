@@ -6433,21 +6433,13 @@ html {
     width: 128px;
     height: 50px;
     text-align: center;
-    padding: 10px 0;
-    padding-top: 13px;
-    box-sizing: border-box;
-    margin: 10px 20px;
-    right: 0px;
-    bottom: 0px;
+    right: 10px;
+    bottom: 20px;
     background-color: #D53D3D;
-    border: .07143rem solid transparent;
     border-radius: 22px;
     color: #fff;
-    svg{
-        vertical-align: bottom;
-        color: #fff;
-        fill: #fff;
-    }
+    font-size: 15px;
+    line-height: 50px;
 }
 .topj{
     cursor: pointer;
