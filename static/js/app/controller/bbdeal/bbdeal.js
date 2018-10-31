@@ -378,14 +378,26 @@ define([
                     <td>${showTotalCount ? base.formatMoney(`${item.tradedAmount}`, '', item.toSymbol) : base.formatMoney(`${item.tradedCount}`, '', item.symbol)}</td>
                     <td>${showTotalCount ? base.formatMoney(`${item.totalAmount - item.tradedAmount}`, '', item.toSymbol) : base.formatMoney(`${item.totalCount - item.tradedCount}`, '', item.symbol)}</td>
                     <td>
-                        <button data-code="${item.code}" class="${item.tradedCount > 0 ? 'no-cz' : 'y-cz'}">取消</button>
+                        <button data-code="${item.code}" class="${item.type != 0 && (item.status === '0' || item.status === '1') ? 'y-cz' : 'no-cz'}">取消</button>
                     </td>
                 </tr>`
         })
         userOrderHtml += `<tr>
                     <td colspan="9" class="no-cur dq-cur none">暂无记录</td>
                 </tr>`;
-        $('.cur-table tbody').removeClass('none').html(userOrderHtml);
+        $('.cur-table tbody').removeClass('none').html(userOrderHtml);// 取消委托操作
+        $('.cur-table .y-cz').off('click').click(function () {
+            let code = $(this).attr('data-code');
+            base.showLoadingSpin();
+            rmOrder(code).then(data => {
+                base.hideLoadingSpin();
+                base.showMsg('操作成功');
+                getMyorderTicket(userConfig).then(data => {
+                    userOrderData = data.list;
+                    curOrder(userOrderData);
+                })
+            });
+        })
     }
 
     //更新bazaarData的值
@@ -821,17 +833,6 @@ define([
                 userHistoryData = data.list;
                 hisOrder(userHistoryData);
             })
-        })
-
-        // 取消委托操作
-        $('.cur-table .y-cz').off('click').click(function () {
-            let code = $(this).attr('data-code');
-            rmOrder(code).then(data => {
-                getMyorderTicket(userConfig).then(data => {
-                    userOrderData = data.list;
-                    curOrder(userOrderData);
-                })
-            });
         })
 
         //订单输入 汇率换算
