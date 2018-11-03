@@ -1412,7 +1412,6 @@ define([
                 widget.selectedIntervalButton && widget.selectedIntervalButton.removeClass("selected");
                 button.addClass("selected");
                 widget.selectedIntervalButton = button;
-
             }
         })
     }

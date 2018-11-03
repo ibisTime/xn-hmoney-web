@@ -199,6 +199,8 @@ define([
                 getHistoryMsgCallback(msgList);
 
                 var msgflow = document.getElementById("msgflow");
+
+                //向上翻页，获取更早的群历史消息
                 var bindScrollHistoryEvent = {
                     init: function() {
                         msgflow.onscroll = function() {
@@ -319,6 +321,8 @@ define([
         }
     }
 
+    // 监听新消息事件
+    // newMsgList 为新消息数组，结构为[Msg]
     function onMsgNotify(newMsgList) {
         var sess, newMsg;
         //获取所有聊天会话
@@ -420,7 +424,9 @@ define([
                 return;
             }
             selSess = null;
+            //清空会话
             webim.MsgStore.delSessByTypeId(selType, groupId);
+            // 获取消息
             webim.syncGroupMsgs(
                 options,
                 function(msgList) {
@@ -508,6 +514,7 @@ define([
         webim.setAutoRead(selSess, true, true);
     }
 
+    // 发送-校验
     function onSendMsg(msgContent, suc) {
         let msgLen = webim.Tool.getStrBytes(msgContent);
         let maxLen = webim.MSG_MAX_LENGTH.GROUP;
@@ -518,6 +525,7 @@ define([
         handleMsgSend(msgContent, suc);
     }
 
+    // 发送-解析发送
     function handleMsgSend(msgContent, suc) {
         var sess = webim.MsgStore.sessByTypeId(webim.SESSION_TYPE.GROUP, groupId);
         if (!sess) {
@@ -557,6 +565,7 @@ define([
                 msg.addText(textObj);
             }
         }
+        // 发送
         webim.sendMsg(msg, () => {
             webim.Tool.setCookie("tmpmsg_" + groupId, '', 0);
             $('#msgedit').val('')
@@ -933,7 +942,7 @@ define([
             //--聊天 star--
             $('#send').on('click', function() {
                 if($('#msgedit').val()!=""&&$('#msgedit').val()){
-                    onSendMsg($('#msgedit').val());
+                    ($('#msgedit').val());
                 }
             });
             // $('#msgedit').on('click', function() {

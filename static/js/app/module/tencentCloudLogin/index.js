@@ -70,7 +70,6 @@ define([
 
     //获取我的群组
     function getMyGroup() {
-
         //		    initGetMyGroupTable([]);
         var options = {
             'Member_Account': loginInfo.identifier,
@@ -112,6 +111,7 @@ define([
             }
         );
     }
+
     // 跳转订单列表页面
     function goOrderList(code){
         base.showLoadingSpin();
