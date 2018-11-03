@@ -8,6 +8,7 @@ define([
     'app/controller/Top',
     'app/controller/foo'
 ], function(base, Handlebars, Swiper, GeneralCtr, UserCtr, Ajax, Top, Foo) {
+    let langType = localStorage.getItem('langType') || 'zh';
     let adverData = []; // 广告数据
     let aarketData = []; // 行情数据
     let typeList = {
@@ -31,19 +32,6 @@ define([
             base.hideLoadingSpin()
         }, base.hideLoadingSpin)
         $(".head-nav-wrap .index").addClass("active");
-        // if(base.isLogin()){ 
-        //     UserCtr.getUser(true).then((item) => {
-        //         base.hideLoadingSpin();
-        //         if (!item.mobile){
-        //             setTimeout(() => {
-        //                 base.showMsg('请绑定手机号');
-        //                 setTimeout(() => {
-        //                     base.gohrefReplace("../user/setPhone.html");
-        //                 }, 2000)
-        //             }, 500);
-        //         }
-        //     })
-        // }
 
         addListener();
         getAdvertising().then(data => {
@@ -85,7 +73,7 @@ define([
             aarketData = data.list;
             aarketData.forEach(item => {
                 let exchangeRate = item.exchangeRate;
-                bzfList.push(`${exchangeRate < 0 ? '-' : '+'}` + exchangeRate * 100);
+                bzfList.push(`${exchangeRate < 0 ? '' : '+'}` + exchangeRate * 100);
             })
             aarketData.length = 2;
             let aarketHtml = '';
@@ -111,7 +99,17 @@ define([
                 sessionStorage.setItem('setBazDeal', JSON.stringify(setBazDeal));
                 base.gohref(href);
             })
-        })
+        });
+
+        // 英文隐藏
+        if(langType == 'en'){
+            $('.i-zh').addClass('none');
+            $('.i-en').removeClass('none').css({
+                'font-size': '36px',
+                'line-height': '1.2'
+            });
+            $('.contact-txt').css('width', '39%');
+        }
     }
 
     // 初始化swiper

@@ -2,12 +2,15 @@ define([
   'app/controller/base',
   'app/interface/GeneralCtr'
 ], function (base, GeneralCtr) {
+  let langType = localStorage.getItem('langType') || 'zh';
   let srcList = {};
 
   getFooData();
 
   function init() {
-    // getAboutUs();
+    if(langType == 'en'){
+      $('.contact-txt').css('width', '39%');
+    }
     addListener();
   }
 

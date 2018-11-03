@@ -6,1367 +6,1320 @@
 var LANGUAGE = {
 	////////////////////////////////////////////////////// 头部
 	'登录': {
-		'EN': 'The game'
+		'EN': 'Login'
 	},
 	'注册': {
-		'EN': 'The game'
+		'EN': 'Register'
 	},
 	'首页': {
-		'EN': 'The game'
-	},
-	'商城': {
-		'EN': 'The game'
+		'EN': 'Home page'
 	},
 	'交易': {
-		'EN': 'The game'
+		'EN': 'deal'
 	},
 	'场外交易': {
-		'EN': 'The game'
+		'EN': 'Fiat'
 	},
 	'币币交易': {
-		'EN': 'The game'
+		'EN': 'Exchange'
 	},
 	'邀请好友': {
-		'EN': 'The game'
+		'EN': 'Invitiation'
 	},
 	'资产': {
-		'EN': 'The game'
+		'EN': 'Balances'
 	},
 	'总资产': {
-		'EN': 'The game'
+		'EN': 'Total value'
 	},
 	'可用资产': {
-		'EN': 'The game'
+		'EN': 'Available'
 	},
 	'冻结资产': {
-		'EN': 'The game'
+		'EN': 'Frozen'
 	},
 	'去购买': {
-		'EN': 'The game'
+		'EN': 'buy FMVP'
 	},
 	'去出售': {
-		'EN': 'The game'
+		'EN': 'sell FMVP'
 	},
 	'订单': {
-		'EN': 'The game'
+		'EN': 'order'
 	},
 	'查看更多': {
-		'EN': 'The game'
+		'EN': 'more'
 	},
 	'场外交易订单': {
-		'EN': 'The game'
+		'EN': 'Fiat orders'
 	},
 	'币币交易订单': {
-		'EN': 'The game'
+		'EN': 'Exchange orders'
 	},
 	'用户中心': {
-		'EN': 'The game'
+		'EN': 'user center'
 	},
 	'退出登录': {
-		'EN': 'The game'
+		'EN': 'log out '
 	},
 	///////////////////////////////////////////////////// 尾部
 	'工具': {
-		'EN': 'The game'
+		'EN': 'Tools'
 	},
 	'帮助中心': {
-		'EN': 'The game'
+		'EN': 'Support'
 	},
 	'关于我们': {
-		'EN': 'The game'
+		'EN': 'About us'
 	},
 	'平台介绍': {
-		'EN': 'The game'
+		'EN': 'FUNMVP'
 	},
 	'联系我们': {
-		'EN': 'The game'
+		'EN': 'Contact us'
 	},
 	'公告': {
-		'EN': 'The game'
+		'EN': 'announcement'
 	},
 	'条款说明': {
-		'EN': 'The game'
+		'EN': 'Terms of Service'
 	},
 	'用户协议': {
-		'EN': 'The game'
+		'EN': 'User Agreement'
 	},
 	'隐私条款': {
-		'EN': 'The game'
+		'EN': 'Privacy Policy'
 	},
 	'法律申明': {
-		'EN': 'The game'
+		'EN': 'Legal Statement'
 	},
 	'费率说明': {
-		'EN': 'The game'
+		'EN': 'Fee rate'
 	},
 
 	///////////////////////////////////////////////////////// 首页
 	'尽情游戏': {
-		'EN': 'The game'
+		'EN': 'The game '
 	},
 	'无尽精彩': {
 		'EN': ' is endless'
 	},
 	'驯兽师': {
-		'EN': 'xss'
+		'EN': 'Crowned Up'
 	},
 	'精彩画面': {
-		'EN': 'ok'
+		'EN': 'Wonderful view '
 	},
 	'任你游': {
-		'EN': ' is endless'
+		'EN': 'full of passion'
 	},
 	'进入游戏': {
-		'EN': 'ok'
+		'EN': 'enter the game'
 	},
 	'二手车兑换': {
-		'EN': 'ok'
+		'EN': 'Used-car exchange'
 	},
 	'即将推出': {
-		'EN': 'ok'
+		'EN': 'Coming soon'
 	},
 	'敬请期待': {
-		'EN': 'ok'
+		'EN': 'Coming soon'
 	},
 	'全球实时行情': {
-		'EN': 'ok'
+		'EN': 'Global real-time market'
 	},
-	'商场': {
-		'EN': 'ok'
-	},
-	'交易': {
-		'EN': 'ok'
-	},
-	'结合的新体验': {
-		'EN': 'ok'
-	},
+	// '商场': {
+	// 	'EN': 'SHOPPING MALL'
+	// },
+	// '交易': {
+	// 	'EN': 'TRADING'
+	// },
+	// '结合的新体验': {
+	// 	'EN': ''
+	// },
 	'双向交易': {
-		'EN': 'ok'
+		'EN': 'two-way trading'
 	},
 	'买卖自由': {
-		'EN': 'ok'
+		'EN': 'safesafe'
 	},
 	'安全可靠': {
-		'EN': 'ok'
+		'EN': 'reliable'
 	},
 	'为什么要选择': {
-		'EN': 'ok'
+		'EN': 'WHY CHOOSE'
 	},
 	'支持多种数字货币的币币交易与场外交易': {
-		'EN': 'ok'
+		'EN': 'transactions of fiat and exchange which support multiple digital currency'
 	},
 	'快速方便': {
-		'EN': 'ok'
+		'EN': 'quick and easy'
 	},
 	'冷存储': {
-		'EN': 'ok'
+		'EN': ''
 	},
 	'多重加密等银行级别安全技术': {
-		'EN': 'ok'
+		'EN': 'Multiple encryption and other bank-level security technologies'
 	},
-	'十年金融安全团队': {
-		'EN': 'ok'
+	'十年技术安全团队': {
+		'EN': "10 years' technical security team"
 	},
 	'多重保障资产安全': {
-		'EN': 'ok'
+		'EN': 'Multiple safeguards of fund security'
 	},
 	'交易便捷': {
-		'EN': 'ok'
+		'EN': 'convenient'
 	},
 	'支持多终端交易': {
-		'EN': 'ok'
+		'EN': 'Support multi-terminal transactions'
 	},
 	'行情及时掌握': {
-		'EN': 'ok'
+		'EN': 'grasp market timely'
 	},
 	'快速交易': {
-		'EN': 'ok'
+		'EN': 'transact fast'
 	},
 	'贴心服务': {
-		'EN': 'ok'
+		'EN': 'caring service'
 	},
 	'全球市场': {
-		'EN': 'ok'
+		'EN': 'global market'
 	},
 	'交易随时随地': {
-		'EN': 'ok'
+		'EN': 'Trading anywhere, anytime'
 	},
 
 	/////////////////////////////////////////////////// 商城
 	'商城': {
-		'EN': 'ok'
+		'EN': 'store'
 	},
 	'区块链游戏': {
-		'EN': 'ok'
+		'EN': 'Blockchain game'
 	},
 	'游戏余额': {
-		'EN': 'ok'
+		'EN': 'game balances'
 	},
 
 	/////////////////////////////////////////////////// 币币交易
-	'币币交易': {
-		'EN': 'ok'
-	},
 	'邀请好友注册': {
-		'EN': 'ok'
+		'EN': 'invite friends to register'
 	},
 	'轻松获得交易返佣': {
-		'EN': 'ok'
+		'EN': 'easily get cashback'
 	},
 	'立即邀请': {
-		'EN': 'ok'
+		'EN': 'invite immediately'
 	},
 	'净资产折合': {
-		'EN': 'ok'
+		'EN': 'Estimated value'
 	},
 	'或': {
-		'EN': 'ok'
+		'EN': 'or'
 	},
 	'开始交易': {
-		'EN': 'ok'
+		'EN': 'Start trading'
 	},
 	'币种': {
-		'EN': 'ok'
+		'EN': 'currency'
 	},
 	'最新价': {
-		'EN': 'ok'
+		'EN': 'The latest price'
 	},
 	'涨幅': {
-		'EN': 'ok'
+		'EN': 'Change'
 	},
 	'主区': {
-		'EN': 'ok'
+		'EN': 'FMVP main '
 	},
 	'高': {
-		'EN': 'ok'
+		'EN': 'high'
 	},
 	'低': {
-		'EN': 'ok'
+		'EN': 'low'
 	},
 	'量': {
-		'EN': 'ok'
+		'EN': 'volume'
 	},
 	'限价交易': {
-		'EN': 'ok'
+		'EN': 'limit transaction'
 	},
 	'市价交易': {
-		'EN': 'ok'
+		'EN': 'market transaction'
 	},
 	'费率': {
-		'EN': 'ok'
+		'EN': 'fee rate'
 	},
 	'可用': {
-		'EN': 'ok'
+		'EN': 'available'
 	},
 	'充币': {
-		'EN': 'ok'
+		'EN': 'Deposit'
 	},
 	'买入价': {
-		'EN': 'ok'
+		'EN': 'price'
 	},
 	'买入量': {
-		'EN': 'ok'
+		'EN': 'amount'
 	},
 	'买入': {
-		'EN': 'ok'
+		'EN': 'buy'
 	},
 	'卖出价': {
-		'EN': 'ok'
+		'EN': 'price'
 	},
 	'卖出量': {
-		'EN': 'ok'
+		'EN': 'amount'
 	},
 	'卖出': {
-		'EN': 'ok'
+		'EN': 'sell'
 	},
 	'最低价': {
-		'EN': 'ok'
+		'EN': 'The lowest price'
 	},
 	'数量': {
-		'EN': 'ok'
+		'EN': 'amount'
 	},
 	'当前委托': {
-		'EN': 'ok'
+		'EN': 'open orders'
 	},
 	'交易额': {
-		'EN': 'ok'
+		'EN': 'amount'
 	},
 	'历史委托': {
-		'EN': 'ok'
+		'EN': 'Order history'
 	},
 	'全部': {
-		'EN': 'ok'
+		'EN': 'all'
 	},
 	'时间': {
-		'EN': 'ok'
+		'EN': 'time'
 	},
 	'交易对': {
-		'EN': 'ok'
+		'EN': 'direction'
 	},
 	'方向': {
-		'EN': 'ok'
+		'EN': 'type'
 	},
 	'委托总额': {
-		'EN': 'ok'
+		'EN': 'total amount'
 	},
 	'已成交': {
-		'EN': 'ok'
+		'EN': 'executed'
 	},
 	'未成交': {
-		'EN': 'ok'
+		'EN': 'unexecuted'
 	},
 	'操作': {
-		'EN': 'ok'
+		'EN': 'Action'
 	},
 	'暂无记录': {
-		'EN': 'ok'
+		'EN': `no open orders yet 
+		Go to the Trade tab and make your order!`
 	},
 	'委托量': {
-		'EN': 'ok'
+		'EN': 'Amount'
 	},
 	'成交均价': {
-		'EN': 'ok'
+		'EN': 'Average price'
 	},
 	'状态': {
-		'EN': 'ok'
+		'EN': 'Status'
 	},
 	'所有记录': {
-		'EN': 'ok'
+		'EN': 'all orders'
 	},
 	'深度图': {
-		'EN': 'ok'
+		'EN': 'depth chart'
 	},
 	'实时成交': {
-		'EN': 'ok'
+		'EN': 'Market trades'
 	},
 	'币种资料': {
-		'EN': 'ok'
+		'EN': 'Basic Information'
 	},
 	'简介': {
-		'EN': 'ok'
+		'EN': 'Introduction'
 	},
 	'发行时间': {
-		'EN': 'ok'
+		'EN': 'Issue Date'
 	},
 	'发行总量': {
-		'EN': 'ok'
+		'EN': 'Total Amount'
 	},
 	'流通总量': {
-		'EN': 'ok'
-	},
-	'众筹价格': {
-		'EN': 'ok'
+		'EN': 'Circulation'
 	},
 	'白皮书': {
-		'EN': 'ok'
+		'EN': 'white paper'
 	},
 	'官网': {
-		'EN': 'ok'
+		'EN': 'official website'
 	},
 	'区块查询': {
-		'EN': 'ok'
+		'EN': 'block explorer'
 	},
 
 	//////////////////////////////////////////////////// 场外交易-购买
-	'场外交易': {
-		'EN': 'ok'
-	},
 	'全部货币': {
-		'EN': 'ok'
+		'EN': 'All currencies'
 	},
 	'全部付款方式': {
-		'EN': 'ok'
+		'EN': 'All payment methods'
 	},
 	'搜广告': {
-		'EN': 'ok'
+		'EN': 'search advertisement'
 	},
 	'搜用户': {
-		'EN': 'ok'
+		'EN': 'search user'
 	},
 	'货币': {
-		'EN': 'ok'
+		'EN': 'currency'
 	},
 	'请选择': {
-		'EN': 'ok'
+		'EN': 'Please choose'
 	},
 	'人民币': {
-		'EN': 'ok'
+		'EN': 'CNY'
 	},
 	'美元': {
-		'EN': 'ok'
+		'EN': 'USD'
 	},
 	'支付宝': {
-		'EN': 'ok'
+		'EN': 'Alipay'
 	},
 	'微信': {
-		'EN': 'ok'
+		'EN': 'Wechat'
 	},
 	'银行卡转账': {
-		'EN': 'ok'
+		'EN': 'bankcard transfer'
 	},
 	'请输入完整用户名': {
-		'EN': 'ok'
+		'EN': 'Please enter a full username'
 	},
 	'搜索': {
-		'EN': 'ok'
+		'EN': 'search'
 	},
 	'昵称': {
-		'EN': 'ok'
+		'EN': 'nickname'
 	},
 	'付款方式': {
-		'EN': 'ok'
+		'EN': 'Terms of payment'
 	},
 	'限额': {
-		'EN': 'ok'
+		'EN': 'Quota'
 	},
 
 	/////////////////////////////////////////////////// 场外交易-订单详情
 	'订单详情': {
-		'EN': 'ok'
+		'EN': 'Order details'
 	},
 	'订单信息': {
-		'EN': 'ok'
+		'EN': 'Order information'
 	},
 	'交易价格': {
-		'EN': 'ok'
+		'EN': 'trade price'
 	},
 	'交易数量': {
-		'EN': 'ok'
+		'EN': 'trade volume'
 	},
 	'交易金额': {
-		'EN': 'ok'
+		'EN': 'trade amount'
 	},
 	'报价': {
-		'EN': 'ok'
+		'EN': 'quotation'
 	},
 	'交易限额': {
-		'EN': 'ok'
+		'EN': 'trade limit'
 	},
 	'聊天': {
-		'EN': 'ok'
+		'EN': 'chat'
 	},
 	'按回车发送消息': {
-		'EN': 'ok'
+		'EN': 'Press enter to send the message'
 	},
 	'电子邮箱': {
-		'EN': 'ok'
+		'EN': 'email address'
 	},
 	'手机号码': {
-		'EN': 'ok'
+		'EN': 'cellphone number'
 	},
 	'实名认证': {
-		'EN': 'ok'
+		'EN': 'certification'
 	},
 	'用户创建时间': {
-		'EN': 'ok'
+		'EN': 'User creation date'
 	},
 	'交易操作': {
-		'EN': 'ok'
+		'EN': 'Trading operations'
 	},
 	'订单编号': {
-		'EN': 'ok'
+		'EN': 'The order number'
 	},
 	'广告留言': {
-		'EN': 'ok'
+		'EN': 'The advertising message'
 	},
 	'标记付款': {
-		'EN': 'ok'
+		'EN': 'Mark payment'
 	},
 	'取消交易': {
-		'EN': 'ok'
+		'EN': 'cancel the transaciotn'
 	},
 	'交易评价': {
-		'EN': 'ok'
+		'EN': 'Comment'
 	},
 	'解冻货币': {
-		'EN': 'ok'
+		'EN': 'unfrozen'
 	},
 	'申请仲裁': {
-		'EN': 'ok'
+		'EN': 'Apply for arbitration'
 	},
 	'发送图片': {
-		'EN': 'ok'
+		'EN': 'send picture'
 	},
 	'选择': {
-		'EN': 'ok'
+		'EN': 'select'
 	},
 	'选择图片': {
-		'EN': 'ok'
+		'EN': 'select image'
 	},
 	'关闭': {
-		'EN': 'ok'
+		'EN': 'close'
 	},
 	'发送': {
-		'EN': 'ok'
+		'EN': 'send'
 	},
 	'预览': {
-		'EN': 'ok'
+		'EN': 'preview'
 	},
 	'进度': {
-		'EN': 'ok'
+		'EN': 'progress'
 	},
 	'查看图片': {
-		'EN': 'ok'
+		'EN': 'Review image'
 	},
 	'请填写您申请仲裁的理由': {
-		'EN': 'ok'
+		'EN': 'Please fill in your reasons for applying for arbitration'
 	},
 	'放弃': {
-		'EN': 'ok'
+		'EN': 'Give up'
 	},
 	'确认申请': {
-		'EN': 'ok'
+		'EN': 'confirm'
 	},
 	'交易有何印象': {
-		'EN': 'ok'
+		'EN': 'What is your comment on this transaction?'
 	},
 	'快來评价吧': {
-		'EN': 'ok'
+		'EN': 'come and make a comment'
 	},
 	'好评': {
-		'EN': 'ok'
+		'EN': 'praises'
 	},
 	'差评': {
-		'EN': 'ok'
+		'EN': 'complaints'
 	},
 	'提交': {
-		'EN': 'ok'
+		'EN': 'submit'
 	},
 
 	///////////////////////////////////////////////////// 场外交易-广告管理
 	'广告管理': {
-		'EN': 'ok'
+		'EN': 'advertisement management'
 	},
 	'购买广告': {
-		'EN': 'ok'
+		'EN': 'Buy advertisement'
 	},
 	'出售广告': {
-		'EN': 'ok'
+		'EN': 'Sell advertisement'
 	},
 	'编号': {
-		'EN': 'ok'
+		'EN': 'Serial number'
 	},
 	'广告类型': {
-		'EN': 'ok'
+		'EN': 'advertisement type'
 	},
 	'溢价比例': {
-		'EN': 'ok'
+		'EN': 'Premium rate'
 	},
 	'创建时间': {
-		'EN': 'ok'
+		'EN': 'Creation date'
 	},
 	'交易状态': {
-		'EN': 'ok'
+		'EN': 'Status'
 	},
 	'暂无广告': {
-		'EN': 'ok'
+		'EN': 'No advertisement'
 	},
 
 	///////////////////////////////////////////////// 场外交易-信任管理
 	'信任管理': {
-		'EN': 'ok'
+		'EN': 'Trust management'
 	},
 	'我信任的': {
-		'EN': 'ok'
+		'EN': 'trusted by me'
 	},
 	'信任我的': {
-		'EN': 'ok'
+		'EN': 'trust me'
 	},
 	'我屏蔽的': {
-		'EN': 'ok'
+		'EN': 'blocked by me'
 	},
 
 	///////////////////////////////////////////////////// 发布广告
 	'发布广告': {
-		'EN': 'ok'
+		'EN': 'Release advertisement'
 	},
 	'发布': {
-		'EN': 'ok'
+		'EN': 'Release'
 	},
 	'交易广告': {
-		'EN': 'ok'
+		'EN': 'Trading advertisement'
 	},
 	'您想要创建什么样的交易广告': {
-		'EN': 'ok'
+		'EN': 'What kind of trading advertisement do you want to create?'
 	},
 	'如果您希望出售': {
-		'EN': 'ok'
+		'EN': 'If you wish to sell'
 	},
 	'请确保您在本网站的钱包中可用余额充足': {
-		'EN': 'ok'
+		'EN': 'Please ensure enough available balances'
 	},
 	'交易类型': {
-		'EN': 'ok'
+		'EN': 'Transaction type'
 	},
 	'选择广告类型': {
-		'EN': 'ok'
-	},
-	'您想要创建什么样的交易广告': {
-		'EN': 'ok'
-	},
-	'如果您希望出售': {
-		'EN': 'ok'
-	},
-	'请确保您在本网站的钱包中可用余额充足': {
-		'EN': 'ok'
+		'EN': 'Select advertisement type'
 	},
 	'在线出售': {
-		'EN': 'ok'
+		'EN': 'on-line sell'
 	},
 	'在线购买': {
-		'EN': 'ok'
+		'EN': 'on-line buy'
 	},
 	'更多信息': {
-		'EN': 'ok'
+		'EN': 'more information'
 	},
 	'您希望交易付款的货币类型': {
-		'EN': 'ok'
+		'EN': 'The currency type you would like to make trade payment'
 	},
 	'溢价': {
-		'EN': 'ok'
+		'EN': 'premium'
 	},
 	'价格': {
-		'EN': 'ok'
+		'EN': 'price'
 	},
 	'选填': {
-		'EN': 'ok'
+		'EN': 'optional'
 	},
 	'广告最高可成交的价格': {
-		'EN': 'ok'
+		'EN': 'The highest advertised price'
 	},
 	'最小限额': {
-		'EN': 'ok'
+		'EN': 'The minimum limit'
 	},
 	'请输入最小限额': {
-		'EN': 'ok'
+		'EN': 'Please enter the minimum limit'
 	},
 	'最大限额': {
-		'EN': 'ok'
+		'EN': 'The maximum limit'
 	},
 	'请输入最大限额': {
-		'EN': 'ok'
+		'EN': 'Please enter the maximum limit'
 	},
 	'购买总量': {
-		'EN': 'ok'
+		'EN': 'total amount'
 	},
 	'账户可用余额': {
-		'EN': 'ok'
+		'EN': 'available amount'
 	},
 	'请输入购买币的总量': {
-		'EN': 'ok'
+		'EN': 'Please enter the total amount'
 	},
 	'收款方式': {
-		'EN': 'ok'
+		'EN': 'Payment methods'
 	},
 	'请输入有关您交易的相关条款或备注您的支付方式': {
-		'EN': 'ok'
+		'EN': 'Please enter the terms of your transaction or remarks about your payment method'
 	},
 	'谢谢': {
-		'EN': 'ok'
+		'EN': 'thank you'
 	},
 	'显示高级设置': {
-		'EN': 'ok'
+		'EN': 'Display advanced Settings'
 	},
 	'仅限受信任的交易者': {
-		'EN': 'ok'
+		'EN': 'Only trusted traders'
 	},
 	'启用': {
-		'EN': 'ok'
+		'EN': 'enable'
 	},
 	'开放时间': {
-		'EN': 'ok'
+		'EN': 'opening hours'
 	},
 	'任何时候': {
-		'EN': 'ok'
+		'EN': 'anytime'
 	},
 	'自定义': {
-		'EN': 'ok'
+		'EN': 'user-defined'
 	},
 	'星期一': {
-		'EN': 'ok'
+		'EN': 'monday'
 	},
 	'星期二': {
-		'EN': 'ok'
+		'EN': 'tuesday'
 	},
 	'星期三': {
-		'EN': 'ok'
+		'EN': 'wednesday'
 	},
 	'星期四': {
-		'EN': 'ok'
+		'EN': 'thursday'
 	},
 	'星期五': {
-		'EN': 'ok'
+		'EN': 'friday'
 	},
 	'星期六': {
-		'EN': 'ok'
+		'EN': 'saturday'
 	},
 	'星期日': {
-		'EN': 'ok'
-	},
-	'显示高级设置': {
-		'EN': 'ok'
+		'EN': 'sunday'
 	},
 	'立即发布': {
-		'EN': 'ok'
+		'EN': 'release immediately'
 	},
 	'下架': {
-		'EN': 'ok'
+		'EN': 'unrelease'
 	},
 
 	//////////////////////////////////////////////////// 购买详情
 	'已认证': {
-		'EN': 'ok'
+		'EN': 'certified'
 	},
 	'交易次数': {
-		'EN': 'ok'
+		'EN': 'transactions no.s'
 	},
 	'信任人数': {
-		'EN': 'ok'
+		'EN': 'trusted by'
 	},
 	'好评率': {
-		'EN': 'ok'
+		'EN': 'feedback'
 	},
 	'历史成交': {
-		'EN': 'ok'
+		'EN': 'Transaction history'
 	},
 	'联系对方': {
-		'EN': 'ok'
+		'EN': 'Message'
 	},
 	'分钟': {
-		'EN': 'ok'
+		'EN': 'minute'
 	},
 	'付款期限': {
-		'EN': 'ok'
+		'EN': 'The payment term'
 	},
 	'卖家留言': {
-		'EN': 'ok'
+		'EN': 'message from seller'
 	},
 	'你想买卖多少': {
-		'EN': 'ok'
+		'EN': 'How much do you want to buy/sell'
 	},
 	'广告剩余可交易量': {
-		'EN': 'ok'
+		'EN': 'advertisement left to be traded'
 	},
 	'请输入您购买的金额': {
-		'EN': 'ok'
+		'EN': 'Please enter the purchase amount'
 	},
 	'请输入您购买的数量': {
-		'EN': 'ok'
+		'EN': 'Please enter the quantity you purchased'
 	},
 	'立即购买': {
-		'EN': 'ok'
+		'EN': 'Buy now'
 	},
 	'交易提醒': {
-		'EN': 'ok'
+		'EN': 'Trading reminder'
 	},
 	'资金密码': {
-		'EN': 'ok'
+		'EN': 'capital password'
 	},
 	'确认': {
-		'EN': 'ok'
+		'EN': 'confirm'
 	},
 	'取消': {
-		'EN': 'ok'
+		'EN': 'cancel'
 	},
 	'下单确认': {
-		'EN': 'ok'
+		'EN': 'Order confirmation'
 	},
 	'购买价格': {
-		'EN': 'ok'
+		'EN': 'purchase price'
 	},
 	'购买金额': {
-		'EN': 'ok'
+		'EN': 'Purchase amount'
 	},
 	'购买数量': {
-		'EN': 'ok'
+		'EN': 'Purchase quantity'
 	},
 	'提醒': {
-		'EN': 'ok'
+		'EN': 'remind'
 	},
 	'请确认价格再下单': {
-		'EN': 'ok'
+		'EN': 'Please confirm the price and place the order'
 	},
 	'下单彼此交易的': {
-		'EN': 'ok'
+		'EN': 'Orders traded will be managed and locked'
 	},
-	'将被托管锁定': {
-		'EN': 'ok'
-	},
+	// '将被托管锁定': {
+	// 	'EN': ''
+	// },
 	'请放心购买': {
-		'EN': 'ok'
+		'EN': 'Please feel free to buy.'
 	},
 	'确认购买': {
-		'EN': 'ok'
+		'EN': 'Confirm'
 	},
 	'放弃购买': {
-		'EN': 'ok'
+		'EN': 'Give up'
 	},
 	'未认证': {
-		'EN': 'ok'
+		'EN': 'uncertified'
 	},
 	'你想出售多少': {
-		'EN': 'ok'
+		'EN': 'How much do you want to sell'
 	},
 	'立即出售': {
-		'EN': 'ok'
+		'EN': 'Sell immediately'
 	},
 
 	///////////////////////////////////////// 用户详情
 	'好评度': {
-		'EN': 'ok'
+		'EN': 'rating'
 	},
 	'历史交易': {
-		'EN': 'ok'
+		'EN': 'Transaction history'
 	},
 	'发布的广告': {
-		'EN': 'ok'
+		'EN': 'releasing advertisement'
 	},
 	'交易币种': {
-		'EN': 'ok'
+		'EN': 'Trading currencies'
 	},
 
 	/////////////////////////////////////////// 邀请好友
 	'交易总额': {
-		'EN': 'ok'
+		'EN': 'Total amount'
 	},
 	'成功邀请': {
-		'EN': 'ok'
+		'EN': 'Successfully invited'
 	},
 	'人': {
-		'EN': 'ok'
+		'EN': 'people'
 	},
 	'已得收益': {
-		'EN': 'ok'
+		'EN': 'Proceeds'
 	},
 	'二维码推荐': {
-		'EN': 'ok'
+		'EN': 'Exclusive QR code'
 	},
 	'文字推荐': {
-		'EN': 'ok'
+		'EN': 'Exclusive registration link'
 	},
 	'邀请记录': {
-		'EN': 'ok'
+		'EN': 'Invitation History'
 	},
 	'用户名': {
-		'EN': 'ok'
+		'EN': 'Username'
 	},
 	'注册时间': {
-		'EN': 'ok'
+		'EN': 'Registration Date'
 	},
 	'佣金计算': {
-		'EN': 'ok'
+		'EN': 'Cashback calculation'
 	},
 	'注册佣金': {
-		'EN': 'ok'
+		'EN': 'Registration cashback'
 	},
 	'交易佣金': {
-		'EN': 'ok'
+		'EN': 'Trading Cashback'
 	},
 	'活动规则': {
-		'EN': 'ok'
+		'EN': 'Program Rules'
 	},
 	'扫描二维码邀请注册': {
-		'EN': 'ok'
+		'EN': 'Scan QR code to invite'
 	},
 	'复制下面这段文字给好友': {
-		'EN': 'ok'
+		'EN': 'copy and link to share'
 	},
 	'好友通过你的专属链接注册成功': {
-		'EN': 'ok'
+		'EN': 'Friends registered through your exclusive link successfully'
 	},
 	'你就可以享受好友的交易提成了': {
-		'EN': 'ok'
+		'EN': 'You can then get cashback from your friends.'
 	},
 
 	/////////////////////////////////////////////////// 订单管理
 	'进行中': {
-		'EN': 'ok'
+		'EN': 'in progress'
 	},
 	'已结束': {
-		'EN': 'ok'
+		'EN': 'completed'
 	},
 	'交易伙伴': {
-		'EN': 'ok'
+		'EN': 'Trading partners'
 	},
 	'类型': {
-		'EN': 'ok'
+		'EN': 'type'
 	},
 	'暂无订单': {
-		'EN': 'ok'
+		'EN': 'No orders'
 	},
 
 	//////////////////////////////////////////////////// 钱包
 	'钱包': {
-		'EN': 'ok'
+		'EN': 'wallet'
 	},
 	'总资产折合': {
-		'EN': 'ok'
+		'EN': 'total estimated value'
 	},
 	'币币账户与场外账户均可支持充币提币': {
-		'EN': 'ok'
+		'EN': 'Both fiat and exchange support deposit and withdrawal'
 	},
 	'冻结': {
-		'EN': 'ok'
+		'EN': 'freeze'
 	},
 	'暂无明细': {
-		'EN': 'ok'
+		'EN': 'No details'
 	},
 	'地址': {
-		'EN': 'ok'
+		'EN': 'address'
 	},
 	'添加新地址': {
-		'EN': 'ok'
+		'EN': 'add the address'
 	},
 	'确认地址': {
-		'EN': 'ok'
+		'EN': 'Confirm the address'
 	},
 
 	'订单记录': {
-		'EN': 'ok'
+		'EN': 'Orders records'
 	},
 	'币数量': {
-		'EN': 'ok'
+		'EN': 'the number of coins'
 	},
 	'订单号': {
-		'EN': 'ok'
+		'EN': 'order number'
 	},
 	'订单总额': {
-		'EN': 'ok'
+		'EN': 'order amount'
 	},
 	'手续费': {
-		'EN': 'ok'
+		'EN': 'charges'
 	},
 	'下单时间': {
-		'EN': 'ok'
+		'EN': 'order time'
 	},
 	'收款信息': {
-		'EN': 'ok'
+		'EN': 'collection information'
 	},
 	'收款人': {
-		'EN': 'ok'
-	},
-	'收款方式': {
-		'EN': 'ok'
+		'EN': 'payee'
 	},
 	'账号': {
-		'EN': 'ok'
+		'EN': 'account'
 	},
 	'开户行': {
-		'EN': 'ok'
+		'EN': 'bank of deposit'
 	},
 	'我已完成付款': {
-		'EN': 'ok'
+		'EN': 'I have finished paying'
 	},
 	'总金额': {
-		'EN': 'ok'
+		'EN': 'The total amount'
 	},
 	'下单日期': {
-		'EN': 'ok'
+		'EN': 'date of order'
 	},
 	'场外交易明细': {
-		'EN': 'ok'
+		'EN': 'Fiat transaction details'
 	},
 	'提现': {
-		'EN': 'ok'
+		'EN': 'withdraw'
 	},
 	'交易买入': {
-		'EN': 'ok'
+		'EN': 'buy'
 	},
 	'交易卖出': {
-		'EN': 'ok'
+		'EN': 'sell'
 	},
 	'场外承兑商购买': {
-		'EN': 'ok'
+		'EN': 'assurer to buy'
 	},
 	'场外承兑商出售': {
-		'EN': 'ok'
+		'EN': 'assurer to sell'
 	},
 	'交易手续费': {
-		'EN': 'ok'
+		'EN': 'transaction charges'
 	},
 	'提现手续费': {
-		'EN': 'ok'
+		'EN': 'withdrawal charges'
 	},
 	'邀请好友收入': {
-		'EN': 'ok'
+		'EN': 'cashback from invitiation'
 	},
 	'冻结记录': {
-		'EN': 'ok'
+		'EN': 'freezing records'
 	},
 	'说明': {
-		'EN': 'ok'
+		'EN': 'instruction'
 	},
 	//////////////////////////////////////////////// public
 	'订单管理': {
-		'EN': 'ok'
+		'EN': 'order management'
 	},
 	'我要买入': {
-		'EN': 'ok'
+		'EN': 'buy'
 	},
 	'我要出售': {
-		'EN': 'ok'
+		'EN': 'sell'
 	},
 	////////////////////////////////////////////////币币交易订单
-	'币币交易订单': {
-		'EN': 'ok'
-	},
 	'委托价': {
-		'EN': 'ok'
-	},
-	'委托量': {
-		'EN': 'ok'
+		'EN': 'order price'
 	},
 	'总额': {
-		'EN': 'ok'
+		'EN': 'total amount'
 	},
 	'已成交量': {
-		'EN': 'ok'
+		'EN': 'executed quantity'
 	},
 	'未成交量': {
-		'EN': 'ok'
+		'EN': 'unexecuted quantity'
 	},
 	'已成交额': {
-		'EN': 'ok'
-	},
-	'成交均价': {
-		'EN': 'ok'
+		'EN': 'executed amount'
 	},
 
 	///////////////////////////////////////////// 用户中心
-	'用户中心': {
-		'EN': 'ok'
-	},
 	'用户资料': {
-		'EN': 'ok'
+		'EN': 'Profile'
 	},
 	'基本信息': {
-		'EN': 'ok'
+		'EN': 'Basic Information'
 	},
 	'安全设置': {
-		'EN': 'ok'
+		'EN': 'Security Setting'
 	},
 	'更换头像': {
-		'EN': 'ok'
+		'EN': 'change profile'
 	},
 	'身份验证': {
-		'EN': 'ok'
+		'EN': 'ID Verification'
 	},
 	'电子邮件': {
-		'EN': 'ok'
-	},
-	'手机号码': {
-		'EN': 'ok'
-	},
-	'注册时间': {
-		'EN': 'ok'
-	},
-	'信任人数': {
-		'EN': 'ok'
+		'EN': 'email address'
 	},
 	'被': {
-		'EN': 'ok'
+		'EN': 'Trusted by 1 person'
 	},
 	'人信任': {
-		'EN': 'ok'
+		'EN': ''
 	},
 	'好评数': {
-		'EN': 'ok'
+		'EN': 'The number of praise'
 	},
 	'次好评': {
-		'EN': 'ok'
+		'EN': ''
 	},
 	'累计交易次数': {
-		'EN': 'ok'
+		'EN': ''
 	},
 	'中国大陆身份证': {
-		'EN': 'ok'
+		'EN': ''
 	},
 	'适用于大多数中国大陆用户': {
-		'EN': 'ok'
+		'EN': ''
 	},
 	'展开': {
-		'EN': 'ok'
+		'EN': ''
 	},
 	'正面图片': {
-		'EN': 'ok'
+		'EN': ''
 	},
 	'反面图片': {
-		'EN': 'ok'
+		'EN': ''
 	},
 	'姓名': {
-		'EN': 'ok'
+		'EN': ''
 	},
 	'请输入姓名': {
-		'EN': 'ok'
+		'EN': ''
 	},
 	'身份证号': {
-		'EN': 'ok'
+		'EN': ''
 	},
 	'请输入身份证号': {
-		'EN': 'ok'
+		'EN': ''
 	},
 	'确定': {
-		'EN': 'ok'
+		'EN': ''
 	},
 	'上传图片注意事项': {
-		'EN': 'ok'
+		'EN': ''
 	},
 	'您上传的身份证图片是': {
-		'EN': 'ok'
+		'EN': ''
 	},
 	'真实': {
-		'EN': 'ok'
+		'EN': ''
 	},
 	'有效的': {
-		'EN': 'ok'
+		'EN': ''
 	},
 	'您的身份证图片的信息': {
-		'EN': 'ok'
+		'EN': ''
 	},
 	'清晰': {
-		'EN': 'ok'
+		'EN': ''
 	},
 	'可见': {
-		'EN': 'ok'
+		'EN': ''
 	},
 	'您上传的照片没有反光或是折痕情况': {
-		'EN': 'ok'
+		'EN': ''
 	},
 	'您上传的图片为': {
-		'EN': 'ok'
+		'EN': ''
 	},
 	'彩色': {
-		'EN': 'ok'
+		'EN': ''
 	},
 	'图像': {
-		'EN': 'ok'
+		'EN': ''
 	},
 	'护照': {
-		'EN': 'ok'
+		'EN': ''
 	},
 	'适用于中国港澳台及其他外国用户': {
-		'EN': 'ok'
+		'EN': ''
 	},
 	'证件号': {
-		'EN': 'ok'
+		'EN': ''
 	},
 	'请输入证件号': {
-		'EN': 'ok'
+		'EN': ''
 	},
 	'驾照': {
-		'EN': 'ok'
+		'EN': ''
 	},
 	'适用于非中国大陆用户': {
-		'EN': 'ok'
+		'EN': ''
 	},
 	'您上传的护照图片是': {
-		'EN': 'ok'
+		'EN': ''
 	},
 	'您的护照图片的信息': {
-		'EN': 'ok'
+		'EN': ''
 	},
 	'您上传的驾照图片是': {
-		'EN': 'ok'
+		'EN': ''
 	},
 	'您的驾照图片的信息': {
-		'EN': 'ok'
+		'EN': ''
 	},
 	'为确保交易安全': {
-		'EN': 'ok'
+		'EN': ''
 	},
 	'保障您的合法权益': {
-		'EN': 'ok'
+		'EN': ''
 	},
 	'请您完成身份验证': {
-		'EN': 'ok'
+		'EN': ''
 	},
 	'我们提供安全高效实时联网的官方身份认证服务': {
-		'EN': 'ok'
+		'EN': ''
 	},
 	'具有更高级别的安全保证': {
-		'EN': 'ok'
+		'EN': ''
 	},
 	'身份验证一旦成功': {
-		'EN': 'ok'
+		'EN': ''
 	},
 	'不予修改和解除认证': {
-		'EN': 'ok'
+		'EN': ''
 	},
 	'建议您慎重选择': {
-		'EN': 'ok'
+		'EN': ''
 	},
 	'真实填写': {
-		'EN': 'ok'
+		'EN': ''
 	},
 	//////////////////////////////////////////////////// 安全设置
 	'修改安全设置时输入': {
-		'EN': 'ok'
+		'EN': ''
 	},
 	'修改': {
-		'EN': 'ok'
+		'EN': ''
 	},
 	'立即设置': {
-		'EN': 'ok'
+		'EN': ''
 	},
 	'绑定邮箱': {
-		'EN': 'ok'
+		'EN': ''
 	},
 	'已绑定': {
-		'EN': 'ok'
+		'EN': ''
 	},
 	'绑定手机号': {
-		'EN': 'ok'
+		'EN': ''
 	},
 	'登录密码': {
-		'EN': 'ok'
+		'EN': ''
 	},
 	'用户登录账户时输入': {
-		'EN': 'ok'
+		'EN': ''
 	},
 	'谷歌验证': {
-		'EN': 'ok'
+		'EN': ''
 	},
 	'谷歌验证码': {
-		'EN': 'ok'
+		'EN': ''
 	},
 	'绑定后': {
-		'EN': 'ok'
+		'EN': ''
 	},
 	'提现时需要谷歌二次验证': {
-		'EN': 'ok'
+		'EN': ''
 	},
 	'当前位置': {
-		'EN': 'ok'
+		'EN': ''
 	},
 	'请输入手机号': {
-		'EN': 'ok'
+		'EN': ''
 	},
 	'请输入资金密码': {
-		'EN': 'ok'
+		'EN': ''
 	},
 	'验证码': {
-		'EN': 'ok'
+		'EN': ''
 	},
 	'获取验证码': {
-		'EN': 'ok'
+		'EN': ''
 	},
 	'邮箱': {
-		'EN': 'ok'
+		'EN': ''
 	},
 	'设置邮箱': {
-		'EN': 'ok'
+		'EN': ''
 	},
 	'请输入邮箱': {
-		'EN': 'ok'
+		'EN': ''
 	},
 	'邮箱验证码': {
-		'EN': 'ok'
+		'EN': ''
 	},
 	'获取邮箱验证码': {
-		'EN': 'ok'
+		'EN': ''
 	},
 	'手机号': {
-		'EN': 'ok'
+		'EN': ''
 	},
 	'手机验证码': {
-		'EN': 'ok'
+		'EN': ''
 	},
 	'获取手机验证码': {
-		'EN': 'ok'
+		'EN': ''
 	},
 	'请输入原密码': {
-		'EN': 'ok'
+		'EN': ''
 	},
 	'请输入6-16位的新密码': {
-		'EN': 'ok'
+		'EN': ''
 	},
 	'请再次输入新密码': {
-		'EN': 'ok'
+		'EN': ''
 	},
 	'评价': {
-		'EN': 'ok'
+		'EN': ''
 	},
 	'对': {
-		'EN': 'ok'
+		'EN': ''
 	},
 	'的评价': {
-		'EN': 'ok'
+		'EN': ''
 	},
 	'对abs的评价': {
-		'EN': 'ok'
+		'EN': ''
 	},
 	'评价人': {
-		'EN': 'ok'
+		'EN': ''
 	},
 	'是否好评': {
-		'EN': 'ok'
+		'EN': ''
 	},
 	'评价内容': {
-		'EN': 'ok'
+		'EN': ''
 	},
 	'评价时间': {
-		'EN': 'ok'
+		'EN': ''
 	},
 	'暂无评论': {
-		'EN': 'ok'
+		'EN': ''
 	},
 	////////////////////////////////// 登录
 	'请输入账号': {
-		'EN': 'ok'
+		'EN': ''
 	},
 	'请输入6-16位的登录密码': {
-		'EN': 'ok'
+		'EN': ''
 	},
 	'请输入': {
-		'EN': 'ok'
+		'EN': ''
 	},
 	'位的登录密码': {
-		'EN': 'ok'
+		'EN': ''
 	},
 	'忘记密码': {
-		'EN': 'ok'
+		'EN': ''
 	},
 	//////////////////////////////// 注册
 	'手机注册': {
-		'EN': 'ok'
+		'EN': ''
 	},
 	'邮箱注册': {
-		'EN': 'ok'
+		'EN': ''
 	},
 	'请输入用户名': {
-		'EN': 'ok'
+		'EN': ''
 	},
 	'请输入验证码': {
-		'EN': 'ok'
+		'EN': ''
 	},
 	'我已阅读并接受': {
-		'EN': 'ok'
+		'EN': ''
 	},
 	'产品服务条款': {
-		'EN': 'ok'
+		'EN': ''
 	},
 	'注册协议': {
-		'EN': 'ok'
+		'EN': ''
 	},
 	///////////////////////////////////// 找回密码
 	'请输入手机号或邮箱': {
-		'EN': 'ok'
+		'EN': ''
 	},
 	'请确认密码': {
-		'EN': 'ok'
+		'EN': ''
 	},
 	//////////////////////////////////// 
 	'位的新密码': {
-		'EN': 'ok'
+		'EN': ''
 	},
 	'挂单': {
-		'EN': 'ok'
+		'EN': ''
 	},
 	'吃单': {
-		'EN': 'ok'
+		'EN': ''
 	},
 	'注册协议': {
-		'EN': 'ok'
+		'EN': ''
 	},
 }
 

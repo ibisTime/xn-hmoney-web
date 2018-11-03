@@ -3561,7 +3561,7 @@ table {
                 }
             }
             .nickname {
-                width: 340px;
+                width: 300px;
                 overflow: hidden;
                 .name {
                     margin-left: 15px;
@@ -3582,7 +3582,7 @@ table {
                 width: 300px;
             }
             .payType {
-                width: 130px;
+                width: 180px;
             }
             .limit {
                 width: 200px;
@@ -6447,6 +6447,7 @@ html {
 .topj{
     cursor: pointer;
 }
+
 
 // 媒体查询
 @media screen and (max-width: 1600px) {

@@ -29,13 +29,14 @@ define([
 
     // 初始化页面
     function init() {
-        base.showLoadingSpin();
         //中英文切换
 
         let langType = localStorage.getItem('langType') || 'zh';
         if(langType == 'en'){
             $('.lang_select option.l-en').attr('selected', true);
             changeLanguageFn($(document));
+        }else{
+            base.hideLoadingSpin();
         }
 
         $('.lang_select').change(function(){
@@ -179,7 +180,6 @@ define([
             var htmlAccount = '';
             var html = '';
             data.forEach(function (item, i) {
-
                 if (i < 3) {
                     //判断币种是否发布
                     if (base.getCoinCoin(item.currency)) {
@@ -198,8 +198,9 @@ define([
                 html += `<div class="list more">查看更多</div>`;
             }
             $("#head-user-wrap .wallet .wallet-account-wrap").html(htmlAccount);
-            $("#head-user-wrap .wallet .wallet-account-mx .listWrap").html(html)
-        })
+            $("#head-user-wrap .wallet .wallet-account-mx .listWrap").html(html);
+            base.hideLoadingSpin();
+        }, base.hideLoadingSpin);
     }
 
     function addListener() {
