@@ -9,6 +9,8 @@ define([
     'app/controller/Top',
     'app/controller/foo'
 ], function (base, pagination, Validate, smsCaptcha, AccountCtr, GeneralCtr, UserCtr, Top, Foo) {
+    let langType = localStorage.getItem('langType') || 'ZH';
+    var userAccountNum = base.getUrlParam('account'); // 用户编号
     var isbuy = base.getUrlParam('isbuy');  // 1 去购买   0 去出售
     var bbKey = base.getUrlParam('key');
     var withdrawFee = 0; // 取现手续费
@@ -110,7 +112,20 @@ define([
             }
         }
 
-        addListener();
+        $.when(
+            GeneralCtr.getDictList({
+                "parentKey": "jour_biz_type_user"
+            }),
+        ).then((data1, data2) => {
+            data1.forEach(function (item) {
+                bizTypeValueList[item.dkey] = item.dvalue
+            })
+            withdrawFee = base.formatMoney(base.getCoinWithdrawFee(currency), '', currency);
+
+            $("#withdrawFee").val(withdrawFee + currency);
+            getAccount();
+
+        }, getAccount);
     }
 
     //根据config配置设置 币种列表
@@ -157,13 +172,13 @@ define([
         if (isw == '0') {
             if (m_type == 'CNY') {
                 $('.con-toBuy .x-p_money').text('USD');
-                if ($('.con-toBuy .sel-p').text() === '数量') {
+                if($('.con-toBuy .sel-p').text() === base.getText('数量', langType)){
                     $('.con-toBuy .m_bb').text('FMVP');
                 }
                 $('.con-toBuy .m_cyn').text('USD');
             } else {
                 $('.con-toBuy .x-p_money').text('CNY');
-                if ($('.con-toBuy .sel-p').text() === '数量') {
+                if($('.con-toBuy .sel-p').text() === base.getText('数量', langType)){
                     $('.con-toBuy .m_bb').text('FMVP');
                 }
                 $('.con-toBuy .m_cyn').text('CNY');
@@ -173,13 +188,13 @@ define([
         if (isw == '1') {
             if (m_type == 'CNY') {
                 $('.con-toSell .x-p_money').text('USD');
-                if ($('.con-toSell .sel-p').text() === '数量') {
+                if($('.con-toSell .sel-p').text() === base.getText('数量', langType)){
                     $('.con-toSell .m_bb').text('FMVP');
                 }
                 $('.con-toSell .m_cyn').text('USD');
             } else {
                 $('.con-toSell .x-p_money').text('CNY');
-                if ($('.con-toSell .sel-p').text() === '数量') {
+                if($('.con-toSell .sel-p').text() === base.getText('数量', langType)){
                     $('.con-toSell .m_bb').text('FMVP');
                 }
                 $('.con-toSell .m_cyn').text('CNY');
@@ -200,7 +215,7 @@ define([
         if (toType == 'CNY') {
             $('.b-m_type').text('￥');
             $(pType + ' .x-p_money').text('CNY');
-            if ($(pType + ' .sel-p').text() === '数量') {
+            if($(pType + ' .sel-p').text() === base.getText('数量', langType)){
                 $(pType + ' .m_bb').text('FMVP');
             }
             $(pType + ' .min-money').text(acceptRule.accept_order_min_cny_amount);
@@ -210,7 +225,7 @@ define([
             $(pType + ' .min-money').text(acceptRule.accept_order_min_usd_amount);
             $(pType + ' .max-money').text(acceptRule.accept_order_max_usd_amount);
             $(pType + ' .x-p_money').text('USD');
-            if ($(pType + ' .sel-p').text() === '数量') {
+            if($(pType + ' .sel-p').text() === base.getText('数量', langType)){
                 $(pType + ' .m_bb').text('FMVP');
             }
         }
@@ -267,7 +282,7 @@ define([
                 let zfTypeHtml = '';
                 data.forEach(item => {
                     zfTypeHtml += `<option value="${item.bankName}">${item.bankName}</option>`;
-                    if (item.bankName == '支付宝') {
+                    if(item.bankName == base.getText('支付宝', langType)){
                         // let rwmcode = new QRCode('rwmcode', picList['支付宝']);
                         // rwmcode.makeCode(picList['支付宝']);
                         $("#rwmcodeAccount").text(zfNumber[item.bankCode]);
@@ -287,53 +302,54 @@ define([
                 })
             }, 10)
             $('.zhanghao').text(zfNumber[zfOne]);
+            if(langType == 'EN'){
+                $('.w-zh').addClass('none');
+                $('.w-en').removeClass('none');
+            }
             addListener();
         }, base.hideLoadingSpin)
     }
 
     let tuBuyHtml = `
             <div class="con-toBuy bb-box" style="display: none;">
-                <h5 class="x-tit">去购买</h5>
+                <h5 class="x-tit">${base.getText('去购买', langType)}</h5>
                 <div class="buy-box">
                     <div class="buy-head">
                         <p class="x-h_p1">FMVP / <span class="x-p_money">CNY</span></p>
                         <p class="x-h_p2"><img src="/static/images/qhX.png" class="fr"/></p>
-                        <p class="x-h_p3">单价：
-                            <span class="b-m_type"></span>
-                            <span class="x-mon"></span>
-                        </p>
+                        <p class="x-h_p3">${base.getText('单价', langType)}：<span class="b-m_type"></span> <span class="x-mon"></span> <span class="x-bf_r"><i>-</i> 3.5%</span></p>
                     </div>
                     <div class="buy-con">
                         <div class="b-c_h buy-c">
-                            <p class="sel-p">金额</p>
-                            <p>数量</p>
-                            <div class="b-c_d">单笔限制：<span class="min-money"></span> - <span class="max-money"></span> <span class="x-p_money"></span></div>
+                            <p class="sel-p">${base.getText('金额', langType)}</p>
+                            <p>${base.getText('数量', langType)}</p>
+                            <div class="b-c_d">${base.getText('单笔限制', langType)}：<span class="min-money"></span> - <span class="max-money"></span> <span class="x-p_money"></span></div>
                         </div>
                         <div class="b-c_put">
                             <input type="text">
-                            <p>请输入购买金额</p>
+                            <p>${base.getText('请输入购买金额', langType)}</p>
                             <span class="m_bb x-p_money">CNY</span>
                         </div>
                         <div class="b-c_yue">
-                            <p>≈ <span class="x_num">0.0000</span> <span class="m_cyn">FMVP</span><span class="fr">手续费：<span class="sxf">2</span> %</span>
+                            <p>≈ <span class="x_num">0.0000</span> <span class="m_cyn">FMVP</span><span class="fr">${base.getText('手续费', langType)}：<span class="sxf">2</span> %</span>
                             </p>
                         </div>
                         <div class="b-c_fs">
-                            <p>付款方式</p>
+                            <p>${base.getText('付款方式', langType)}</p>
                             <div>
-                                <!--<span><img src="" alt=""></span>-->
-                                <span>支付宝-<i id="rwmcodeAccount"></i></span>
+                                <span><img src="" alt=""></span>
+                                <span>${base.getText('支付宝', langType)}</span>
                             </div>
                         </div>
                         <div class="zhang-rwm">
                             <div class="rwm-box" id="rwmcode"></div>
                         </div>
                         <div class="bz_put">
-                            <div><textarea placeholder="请输入自己的支付宝账号（以便确认）"></textarea></div>
-                            <p class="rwm-p">付款备注里不得出现 BTC/ETH/FMVP、数字货币、区块链等字眼。</p>
+                            <div><textarea placeholder="${base.getText('请输入自己的支付宝账号（以便确认）', langType)}"></textarea></div>
+                            <p class="rwm-p">${base.getText('付款备注里不得出现 BTC/ETH/FMVP、数字货币、区块链等字眼。', langType)}</p>
                         </div>
                         <div class="b-c_foo">
-                            <button>买入</button>
+                            <button>${base.getText('买入', langType)}</button>
                         </div>
                     </div>
                 </div>
@@ -341,33 +357,30 @@ define([
 
     let tuSellHtml = `
             <div class="con-toSell bb-box" style="display: none;">
-                <h5 class="x-tit">去出售</h5>
+                <h5 class="x-tit">${base.getText('去出售', langType)}</h5>
                 <div class="buy-box">
                     <div class="buy-head">
                         <p class="x-h_p1">FMVP / <span class="x-p_money">CNY</span></p>
                         <p class="x-h_p2"><img src="/static/images/qhX.png" class="fr"/></p>
-                        <p class="x-h_p3">单价：
-                            <span class="s-m_type"></span>
-                            <span class="x-mon"></span>
-                        </p>
+                        <p class="x-h_p3">${base.getText('单价', langType)}：<span class="s-m_type"></span> <span class="x-mon"></span> <span class="x-bf_r"><i>-</i> 3.5%</span></p>
                     </div>
                     <div class="buy-con">
                         <div class="b-c_h sell-c">
-                            <p class="sel-p">金额</p>
-                            <p>数量</p>
-                            <div class="b-c_d">单笔限制：<span class="min-money"></span> - <span class="max-money"></span> <span class="x-p_money">CNY</span></div>
+                            <p class="sel-p">${base.getText('金额', langType)}</p>
+                            <p>${base.getText('数量', langType)}</p>
+                            <div class="b-c_d">${base.getText('单笔限制', langType)}：<span class="min-money"></span> - <span class="max-money"></span> <span class="x-p_money">CNY</span></div>
                         </div>
                         <div class="b-c_put">
                             <input type="text">
-                            <p>请输入卖出金额</p>
+                            <p>${base.getText('请输入卖出金额', langType)}</p>
                             <span class="m_bb x-p_money">CNY</span>
                         </div>
                         <div class="b-c_yue">
-                            <p>≈ <span class="x_num">0.0000</span><span class="m_cyn">FMVP</span> <span class="fr">手续费：<span class="sxf">2</span> %</span>
+                            <p>≈ <span class="x_num">0.0000</span><span class="m_cyn">FMVP</span> <span class="fr">${base.getText('手续费', langType)}：<span class="sxf">2</span> %</span>
                             </p>
                         </div>
                         <div class="b-c_fs">
-                            <p>付款方式</p>
+                            <p>${base.getText('付款方式', langType)}</p>
                             <div>
                                 <span><img src="" alt=""></span>
                                 <select name="zf-type" id="zf_select1">
@@ -376,16 +389,16 @@ define([
                             </div>
                         </div>
                         <div class="back-type">
-                            <input type="text" placeholder="请输入账号或卡号" />
+                            <input type="text" placeholder="${base.getText('请输入账号或卡号', langType)}" />
                         </div>
                         <div class="form-item-wrap tradePwdWrap" style="margin-top: 20px;">
-                            <samp class="label">资金密码</samp>
+                            <samp class="label">${base.getText('资金密码', langType)}</samp>
                             <div class="form-item k_b b-p_m" style="margin-top: 5px;margin-bottom: 20px;">
-                                <input type="password" id="money_pow" class="input-item" name="tradePwd" placeholder="请输入资金密码" />
+                                <input type="password" id="money_pow" class="input-item" name="tradePwd" placeholder="${base.getText('请输入资金密码', langType)}" />
                             </div>
                         </div>
                         <div class="b-c_foo">
-                            <button>卖出</button>
+                            <button>${base.getText('卖出', langType)}</button>
                         </div>
                     </div>
                 </div>
@@ -402,14 +415,14 @@ define([
                     <li>${frozenAmount}</li>
                     <li>
                         <p class="cz-btns">
-                            <span class="toCb${item.currency}">充币</span>
-                            <span>提币</span>
-                            <span class="${item.currency == 'FMVP' ? 'to-buy' : 'none'}">去购买</span>
-                            <span class="${item.currency == 'FMVP' ? 'to-sell' : 'none'}">去出售</span>
+                            <span class="toCb${item.currency}">${base.getText('充币', langType)}</span>
+                            <span>${base.getText('提币', langType)}</span>
+                            <span class="${item.currency == 'FMVP' ? 'to-buy' : 'none'}">${base.getText('去购买', langType)}</span>
+                            <span class="${item.currency == 'FMVP' ? 'to-sell' : 'none'}">${base.getText('去出售', langType)}</span>
                         </p>
                         <p class="jy-btns">
-                            <span class="goHref"  data-href="./wallet-mx.html?account=${item.accountNumber}">交易明细</span>
-                            <span class="goHref" data-href="${item.currency == 'FMVP' ? '../wallet/wallet-jilu.html' : '../trade/buy-list.html?type=sell&mod=gm'}">${item.currency == 'FMVP' ? '订单记录' : '去交易'}</span>
+                            <span class="goHref"  data-href="./wallet-mx.html?account=${item.accountNumber}">${base.getText('交易明细', langType)}</span>
+                            <span class="goHref" data-href="${item.currency == 'FMVP' ? '../wallet/wallet-jilu.html' : '../trade/buy-list.html?type=sell&mod=gm'}">${item.currency == 'FMVP' ? base.getText('订单记录', langType) : base.getText('去交易', langType)}</span>
                         </p>
                     </li>
                 </ul>
@@ -417,9 +430,9 @@ define([
                 ${item.currency == 'FMVP' ? tuSellHtml : ''}
                 <div class="con-box bb-box" style="display: none;">
                     <div class="contant-mx">
-                        <h3>充币</h3>
+                        <h3>${base.getText('充币', langType)}</h3>
                         <div class="address-Wrap receive-wrap ">
-                            <div class="address">接收地址：<samp id="myCoinAddress">${item.address}</samp>
+                            <div class="address">${base.getText('接收地址', langType)}：<samp id="myCoinAddress">${item.address}</samp>
                                 <div class="icon icon-qrcode">
                                     <div id="qrcode${i}" class="qrcode"></div>
                                 </div>
@@ -427,70 +440,127 @@ define([
                         </div>
                     </div>
                     <div class="contant-ts">
-                        <h5>温馨提示</h5>
+                        <h5>${base.getText('温馨提示', langType)}</h5>
                         <ul class="ts-ul">
-                            <li> ${item.currency} 地址只能充值 ${item.currency} 资产，任何充入 ${item.currency} 地址的非 ${item.currency} 资产将不可找回。</li>
-                            <li> 在平台内相互转账是实时到账且免费的。</li>
+                            <li class="w-zh"> ${item.currency} 地址只能充值 ${item.currency} 资产，任何充入 ${item.currency} 地址的非 ${item.currency} 资产将不可找回。</li>
+                            <li class="w-en none"> ${item.currency} address can only recharge ${item.currency} assets, any non - ${item.currency} assets that fill the ${item.currency} address will not be recovered.</li>
+                            <li> ${base.getText('在平台内相互转账是实时到账且免费的。', langType)}</li>
                         </ul>
                     </div>
                 </div>
                 <div class="con-tb bb-box" style="display: none;">
                     <div class="sendOut-form-wrap">
-                        <h4>提币</h4>
+                        <h4>${base.getText('提币', langType)}</h4>
                         <form class="form-wrapper form-wrapper-38 wp100" id="sendOut-form${i}">
                             <div class="form-item-wrap">
-                                <p class="label">提现地址</p>
+                                <p class="label">${base.getText('提现地址', langType)}</p>
                                 <div class="form-item mr20 k_b">
-                                    <input type="text" class="input-item payCardNo" name="payCardNo" placeholder="请输入提现地址" />
+                                    <input type="text" class="input-item payCardNo" name="payCardNo" placeholder="${base.getText('请输入提现地址', langType)}" />
                                 </div>
                             </div>
                             <div class="form-item-wrap">
-                                <samp class="label">提现数量</samp>
+                                <samp class="label">${base.getText('提现数量', langType)}</samp>
                                 <div class="form-item k_b">
-                                    <input type="text" class="input-item amount" name="amount" placeholder="请输入提现数量" />
+                                    <input type="text" class="input-item amount" name="amount" placeholder="${base.getText('请输入提现数量', langType)}" />
                                 </div>
                             </div>
                             <div class="form-item-wrap" id="withdrawFee-wrap${i}">
-                                <samp class="label">手续费</samp>
+                                <samp class="label">${base.getText('手续费', langType)}</samp>
                                 <div class="form-item k_b">
                                     <input type="text" class="input-item withdrawFee tx-fee" id="withdrawFee${i}" value="" disabled="disabled" />
                                 </div>
                             </div>
                             <div class="form-item-wrap tradePwdWrap">
-                                <samp class="label">资金密码</samp>
+                                <samp class="label">${base.getText('资金密码', langType)}</samp>
                                 <div class="form-item k_b mr20">
-                                    <input type="password" class="input-item" name="tradePwd" placeholder="请输入资金密码" />
+                                    <input type="password" class="input-item" name="tradePwd" placeholder="${base.getText('请输入资金密码', langType)}" />
                                 </div>
-                                <div class="findPwd fl goHref" data-href="../user/setTradePwd.html?type=1&isWallet=1">忘记密码？</div>
+                                <div class="findPwd fl goHref" data-href="../user/setTradePwd.html?type=1&isWallet=1">${base.getText('忘记密码？', langType)}</div>
                             </div>
                             <div class="form-item-wrap hidden googleAuthFlag">
-                                <samp class="label">谷歌验证码</samp>
+                                <samp class="label">${base.getText('谷歌验证码', langType)}</samp>
                                 <div class="form-item k_b mr20">
-                                    <input type="password" class="input-item" name="googleCaptcha" placeholder="请输入谷歌验证码" />
+                                    <input type="password" class="input-item" name="googleCaptcha" placeholder="${base.getText('请输入谷歌验证码', langType)}" />
                                 </div>
                             </div>
                             <div class="form-item-wrap">
-                                <samp class="label">备注</samp>
+                                <samp class="label">${base.getText('备注', langType)}</samp>
                                 <div class="form-item k_b">
-                                    <input type="text" class="input-item" name="applyNote" placeholder="请输入提现备注" />
+                                    <input type="text" class="input-item" name="applyNote" placeholder="${base.getText('请输入提现备注', langType)}" />
                                 </div>
                             </div>
                             <div class="form-btn-item">
                                 <div data-accountNumber="${item.accountNumber}"></div>
-                                <div class="am-button am-button-red subBtn">确定提现</div>
+                                <div class="am-button am-button-red subBtn">${base.getText('确定提现', langType)}</div>
                             </div>
                         </form>
                     </div>
                     <div class="contant-ts" style="padding-top: 30px;">
-                        <h5>温馨提示</h5>
+                        <h5>${base.getText('温馨提示', langType)}</h5>
                         <ul class="ts-ul">
-                            <li> ${item.currency} 地址只能充值 ${item.currency} 资产，任何充入 ${item.currency} 地址的非 ${item.currency} 资产将不可找回。</li>
-                            <li> 在平台内相互转账是实时到账且免费的。</li>
+                            <li class="w-zh"> ${item.currency} 地址只能充值 ${item.currency} 资产，任何充入 ${item.currency} 地址的非 ${item.currency} 资产将不可找回。</li>
+                            <li class="w-en none"> ${item.currency} address can only recharge ${item.currency} assets, any non - ${item.currency} assets that fill the ${item.currency} address will not be recovered.</li>
+                            <li> ${base.getText('在平台内相互转账是实时到账且免费的。', langType)}</li>
                         </ul>
                     </div>
                 </div>
             </li>`
         return DHtml;
+    }
+
+    // 初始化交易记录分页器
+    function initPaginationFlow(data) {
+        $("#pagination .pagination").pagination({
+            pageCount: data.totalPage,
+            showData: config.limit,
+            jump: true,
+            coping: true,
+            prevContent: '<img src="/static/images/arrow---left.png" />',
+            nextContent: '<img src="/static/images/arrow---right.png" />',
+            keepShowPN: true,
+            totalData: data.totalCount,
+            jumpIptCls: 'pagination-ipt',
+            jumpBtnCls: 'pagination-btn',
+            jumpBtn: base.getText('确定', langType),
+            isHide: true,
+            callback: function (_this) {
+                if (_this.getCurrent() != config.start) {
+                    base.showLoadingSpin();
+                    config.start = _this.getCurrent();
+                    getPageFlow(config);
+                }
+            }
+        });
+    }
+
+    //分页查询我的账户流水
+    function getPageFlow(params) {
+        return AccountCtr.getPageFlow(params, true).then((data) => {
+            var lists = data.list;
+            if (data.list.length) {
+                var html = "";
+                lists.forEach((item, i) => {
+                    html += buildHtmlFlow(item);
+                });
+                $(".tradeRecord-list-wrap .list-wrap").html(html)
+                $(".tradeRecord-list-wrap .no-data").addClass("hidden");
+            } else {
+                config.start == 1 && $(".tradeRecord-list-wrap .list-wrap").empty()
+                config.start == 1 && $(".tradeRecord-list-wrap .no-data").removeClass("hidden");
+            }
+
+            config.start == 1 && initPaginationFlow(data);
+            base.hideLoadingSpin();
+        }, base.hideLoadingSpin)
+    }
+
+    function buildHtmlFlow(item) {
+        return `<div class="list-item">
+					<div>${base.formateDatetime(item.createDatetime)}</div>
+					<div>${bizTypeValueList[item.bizType]}</div>
+					<div title="${base.formatMoney(item.transAmountString,'',item.currency)}">${base.formatMoney(item.transAmountString,'',item.currency)}</div>
+					<div>${item.bizNote}</div>
+				</div>`
     }
 
     //分页查询地址
@@ -505,7 +575,7 @@ define([
                 $("#wAddressDialog .list").html(html)
             } else {
                 configAddress.start == 1 && $("#wAddressDialog .list").empty()
-                configAddress.start == 1 && $("#wAddressDialog .list").html("<div class='tc ptb30 fs13'>暂无地址</div>")
+                configAddress.start == 1 && $("#wAddressDialog .list").html("<div class='tc ptb30 fs13'> " + base.getText('暂无地址', langType) +"</div>")
             }
             configAddress.start == 1 && initPaginationAddress(data);
         }, base.hideLoadingSpin)
@@ -514,13 +584,13 @@ define([
     function buildHtmlAddress(item, i) {
         var statusHtml = ''
         if (item.status == '0') {
-            statusHtml = '未认证'
+            statusHtml = base.getText('未认证', langType)
         } else if (item.status == '1') {
-            statusHtml = '已认证'
+            statusHtml = base.getText('已认证', langType)
         }
         return `<li data-address="${item.address}" data-status="${item.status}" class="${i == '0' ? 'on' : ''} b_e_t">
     				<div class="txt wp100">
-						<p>标签: ${item.label}</p>
+						<p>${base.getText('标签', langType)}: ${item.label}</p>
 						<p>${item.address}(${statusHtml})</p>
 					</div>
     				<i class="icon deleteBtn" data-code="${item.code}"></i>
@@ -540,7 +610,7 @@ define([
             totalData: data.totalCount,
             jumpIptCls: 'pagination-ipt',
             jumpBtnCls: 'pagination-btn',
-            jumpBtn: '确定',
+            jumpBtn: base.getText('确定', langType),
             isHide: true,
             callback: function (_this) {
                 if (_this.getCurrent() != configAddress.start) {
@@ -556,7 +626,7 @@ define([
     function addCoinAddress(params) {
         return AccountCtr.addCoinAddress(params).then((data) => {
             base.hideLoadingSpin();
-            base.showMsg("操作成功");
+            base.showMsg(base.getText('操作成功', langType));
             setTimeout(function () {
                 $("#addWAddressDialog").addClass("hidden");
                 document.getElementById("addAddress-form").reset();
@@ -572,7 +642,7 @@ define([
     function withDraw(params) {
         return AccountCtr.withDraw(params).then((data) => {
             base.hideLoadingSpin();
-            base.showMsg("操作成功");
+            base.showMsg(base.getText('操作成功', langType));
             $("#addWAddressDialog").addClass("hidden")
             base.showLoadingSpin();
             getAccount();
@@ -586,7 +656,7 @@ define([
     function deleteCoinAddress(code) {
         return AccountCtr.deleteCoinAddress(code).then((data) => {
             base.hideLoadingSpin();
-            base.showMsg("操作成功");
+            base.showMsg(base.getText('操作成功', langType));
             setTimeout(function () {
                 base.showLoadingSpin();
                 configAddress.start = 1;
@@ -636,7 +706,7 @@ define([
         //选择地址-删除点击
         $("#wAddressDialog .am-modal-body ul").on("click", "li .deleteBtn", function () {
             var addressCode = $(this).attr("data-code");
-            base.confirm("確定刪除此地址？").then(() => {
+            base.confirm(base.getText('确定刪除此地址？', langType), base.getText('取消', langType), base.getText('确定', langType)).then(() => {
                 base.showLoadingSpin();
                 deleteCoinAddress(addressCode)
             }, base.emptyFun)
@@ -728,7 +798,7 @@ define([
         // 充币、提币操作
         $('.tr-ul').off('click').click(function (e) {
             let target = e.target;
-            if ($(target).text() == '充币') {
+            if ($(target).text() == base.getText('充币', langType)) {
                 $('.bb-box').hide(200);
                 if ($(target).hasClass('sel-sp')) {
                     $(target).parents('.tr-mx').siblings('.con-box').hide(200);
@@ -741,7 +811,7 @@ define([
                 return;
             }
             UserCtr.getUser(true).then((data) => {
-                if ($(target).text() == '提币') {
+                if ($(target).text() == base.getText('提币', langType)) {
                     if (data.tradepwdFlag) {
                         $('.bb-box').hide(200);
                         if ($(target).attr('class') == 'sel-sp') {
@@ -753,8 +823,8 @@ define([
                             $(target).parents('.tr-mx').siblings('.con-tb').show(200).siblings('.con-box').hide(200);
                         }
                     } else if (!data.tradepwdFlag) {
-                        base.showMsg("请先设置资金密码");
-                        setTimeout(function () {
+                        base.showMsg(base.getText('请先设置资金密码', langType));
+                        setTimeout(function() {
                             base.gohref("../user/setTradePwd.html?type=0")
                         }, 1800)
                     }
@@ -793,7 +863,7 @@ define([
             $('.b-c_h p').eq(0).addClass('sel-p').siblings().removeClass('sel-p');
             $('.b-c_put input').val('');
             $('.x_num').text('0.00');
-            $('.b-c_put p').text('请输入购买金额');
+            $('.b-c_put p').text(base.getText('请输入购买金额', langType));
             isSell = false;
             if ($(this).hasClass('sel-sp')) {
                 $('.con-toBuy').hide();
@@ -811,7 +881,7 @@ define([
             $('.b-c_put input').val('');
             $('.x_num').text('0.00');
             isSell = true;
-            $('.b-c_put p').text('请输入卖出金额');
+            $('.b-c_put p').text(base.getText('请输入卖出金额', langType));
             if ($(this).hasClass('sel-sp')) {
                 $('.con-toSell').hide();
                 $(this).removeClass('sel-sp');
@@ -824,7 +894,6 @@ define([
 
         //切换方式
         $('.b-c_h p').off('click').click(function () {
-            debugger
             event.stopPropagation();
             $(this).addClass('sel-p').siblings('p').removeClass('sel-p');
             $('.b-c_put input').val('');
@@ -833,23 +902,23 @@ define([
             $('#money_pow').val('');
             if (isSell) {
                 let m_type = $('.con-toSell .x-p_money').eq(0).text();
-                if ($(this).text() == '金额') {
-                    $('.b-c_put p').text('请输入卖出金额');
+                if ($(this).text() == base.getText('金额', langType)) {
+                    $('.b-c_put p').text(base.getText('请输入卖出金额', langType));
                     $('.m_cyn').text('CNY');
                     $('.m_bb').text(m_type);
                 } else {
-                    $('.b-c_put p').text('请输入卖出数量');
+                    $('.b-c_put p').text(base.getText('请输入卖出数量', langType));
                     $('.m_bb').text('FMVP');
                     $('.con-toSell .m_cyn').text(m_type);
                 }
             } else {
                 let m_type = $('.con-toBuy .x-p_money').eq(0).text();
-                if ($(this).text() == '金额') {
-                    $('.b-c_put p').text('请输入购买金额');
+                if ($(this).text() == base.getText('金额', langType)) {
+                    $('.b-c_put p').text(base.getText('请输入购买金额', langType));
                     $('.m_cyn').text('FMVP');
                     $('.m_bb').text(m_type);
                 } else {
-                    $('.b-c_put p').text('请输入购买数量');
+                    $('.b-c_put p').text(base.getText('请输入购买数量', langType));
                     $('.m_bb').text('FMVP');
                     $('.con-toBuy .m_cyn').text(m_type);
                 }
@@ -871,7 +940,7 @@ define([
         $('.b-c_put input').keyup(function () {
             let rmb = '';
             let setW = $(this).parent().prev().children('.sel-p').text();
-            if (setW == '金额') {
+            if (setW == base.getText('金额', langType)) {
                 rmb = parseFloat($(this).val()) / moneyHS;
             } else {
                 rmb = parseFloat($(this).val()) * moneyHS;
@@ -891,14 +960,14 @@ define([
             let p_money = $('.con-toBuy .x-p_money').eq(0).text(); //判断货币类型
             let buyNote = $('.con-toBuy .bz_put textarea').val();
             //买入
-            if ($(this).text() == '买入' && $('.buy-c .sel-p').text() == '金额') {
+            if ($(this).text() == base.getText('买入', langType) && $('.buy-c .sel-p').text() == base.getText('金额', langType)) {
                 let allMoney = parseFloat($('.con-toBuy .b-c_put input').val().trim());
                 let m_count = base.formatMoneyParse($('.con-toBuy .x_num').text(), '', 'FMVP');
                 changeBuyMoney(p_money, allMoney, m_count, buyNote);
             }
 
 
-            if ($(this).text() == '买入' && $('.con-toBuy .sel-p').text() == '数量') {
+            if ($(this).text() == base.getText('买入', langType) && $('.con-toBuy .sel-p').text() == base.getText('数量', langType)) {
                 let allMoney = $('.con-toBuy .x_num').text().trim();
                 let m_count = base.formatMoneyParse($('.con-toBuy .b-c_put input').val().trim(), '', 'FMVP');
                 changeBuyMoney(p_money, allMoney, m_count, buyNote);
@@ -924,7 +993,7 @@ define([
                             }, 1500);
                         });
                     } else {
-                        showMsg('输入金额不在限额之内，请重新输入！');
+                        showMsg(base.getText('输入金额不在限额之内，请重新输入！', langType));
                     }
                 }
                 if (p_money == 'USD') {
@@ -946,23 +1015,23 @@ define([
                             }, 1500);
                         });
                     } else {
-                        showMsg('输入金额不在限额之内，请重新输入！');
+                        showMsg(base.getText('输入金额不在限额之内，请重新输入！', langType));
                     }
                 }
             }
 
             //卖出
-            if ($(this).text() == '卖出') { //back-type
+            if ($(this).text() == base.getText('卖出', langType)) { //back-type
                 let p_money = $('.con-toSell .x-p_money').eq(0).text(); //判断货币类型
                 let moneyPow = $('#money_pow').val().trim();
-                if ($('.sell-c .sel-p').text() == '金额') {
+                if ($('.sell-c .sel-p').text() == base.getText('金额', langType)) {
                     let allMoney = $('.con-toSell .b-c_put input').val().trim();
                     let m_count = base.formatMoneyParse($('.con-toSell .x_num').text().trim(), '', 'FMVP');
                     let m_receiveCardNo = $('.back-type input').val().trim();
                     changeSellMoney(p_money, allMoney, m_count, m_receiveCardNo);
                 }
 
-                if ($('.sell-c .sel-p').text() == '数量') {
+                if ($('.sell-c .sel-p').text() == base.getText('数量', langType)) {
                     let allMoney = $('.con-toSell .x_num').text().trim();
                     let m_count = base.formatMoneyParse($('.con-toSell .b-c_put input').val().trim(), '', 'FMVP');
                     let m_receiveCardNo = $('.back-type input').val().trim();
@@ -991,7 +1060,7 @@ define([
                                 }, 1500);
                             })
                         } else {
-                            showMsg('输入金额不在限额之内，请重新输入！');
+                            showMsg(base.getText('输入金额不在限额之内，请重新输入！', langType));
                         }
                     }
                     if (p_money == 'USD') {
@@ -1014,7 +1083,7 @@ define([
                                 }, 1500);
                             })
                         } else {
-                            showMsg('输入金额不在限额之内，请重新输入！');
+                            showMsg(base.getText('输入金额不在限额之内，请重新输入！', langType));
                         }
                     }
                 }
@@ -1022,7 +1091,7 @@ define([
         })
 
         function showMsg(txt) {
-            let text = txt || '订单提交成功'
+            let text = txt || base.getText('订单提交成功', langType)
             $('.b-c_put input').val('');
             $('.x_num').text('0.00');
             $('.back-type input').val('');

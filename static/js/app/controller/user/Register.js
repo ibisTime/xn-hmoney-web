@@ -8,6 +8,7 @@ define([
     'app/controller/Top',
     'app/controller/foo'
 ], function(base, Swiper, Validate, UserCtr, GeneralCtr, smsCaptcha, Top, Foo) {
+    let langType = localStorage.getItem('langType') || 'ZH';
     var inviteCode = base.getUrlParam("inviteCode") || "";
 
     if (inviteCode != "") {
@@ -20,6 +21,10 @@ define([
     }
 
     function init() {
+        if(langType == 'EN'){
+            $('.login-form').addClass('en-login-form');
+            $('.form-item').addClass('en-form-item');
+        }
         $(".head-button-wrap .button-login").removeClass("hidden");
         base.showLoadingSpin();
         getSysConfig();   // 测试

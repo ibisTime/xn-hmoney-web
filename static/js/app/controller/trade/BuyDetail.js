@@ -9,6 +9,7 @@ define([
     'app/controller/Top',
     'app/controller/foo'
 ], function(base, Validate, GeneralCtr, UserCtr, TradeCtr, AccountCtr, TencentChat, Top, Foo) {
+    let langType = localStorage.getItem('langType') || 'ZH';
     var code = base.getUrlParam("code");
     var isDetail = !!base.getUrlParam("isD"); //是否我的广告查看详情
     var userId = '';
@@ -38,16 +39,21 @@ define([
     init();
 
     function init() {
+        // 英文修改
+        if(langType == 'EN'){
+            $('.b-en').addClass('none');
+            $('.b-zh').removeClass('none');
+        }
         base.showLoadingSpin();
         $(".head-nav-wrap .sell").addClass("active");
         if (!isDetail) {
             $(".buy-wrap").removeClass("hidden");
         }
         $.when(
-            GeneralCtr.getSysConfig("trade_remind")  // 测试
+            GeneralCtr.getSysConfig("trade_remind")  
         ).then((data) => {
             $("#tradeWarn").html(data.cvalue.replace(/\n/g, '<br>'))
-            getAdvertiseDetail() // 正式
+            getAdvertiseDetail() 
         })
         addListener();
 
@@ -251,7 +257,7 @@ define([
 
         //下架-点击
         $("#doDownBtn").click(function() {
-            base.confirm("确认下架此广告？").then(() => {
+            base.confirm("确认下架此广告？", '取消', '确定').then(() => {
                 base.showLoadingSpin()
                 TradeCtr.downAdvertise(code).then(() => {
                     base.hideLoadingSpin();

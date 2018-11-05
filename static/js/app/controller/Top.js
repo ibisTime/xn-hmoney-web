@@ -29,7 +29,26 @@ define([
 
     // 初始化页面
     function init() {
-        base.showLoadingSpin();
+        //中英文切换
+
+        let langType = localStorage.getItem('langType') || 'ZH';
+        if(langType == 'EN'){
+            $('.lang_select option.l-en').attr('selected', true);
+            changeLanguageFn($(document));
+        }else{
+            base.hideLoadingSpin();
+        }
+
+        $('.lang_select').change(function(){
+            switch($(this).val()){
+                case 'zh': localStorage.clear('langType');break;
+                case 'en': localStorage.setItem('langType', 'EN');break;
+            }
+            location.reload();
+        });
+
+
+
         getCoinList();
         $("#footTeTui").html(FOOT_TETUI)
         $("#footEmail").html(FOOT_EMAIL)
@@ -48,6 +67,67 @@ define([
         }
 
         addListener();
+    }
+
+    // langPackage 配置文件
+
+    let langPackage = LANGUAGE;
+
+    function changeLanguageFn(nodeObj){
+        if (nodeObj.children().length > 0){
+            nodeObj.children().each(function(){
+                changeLanguageFn($(this));
+                FindChsAndReplaceIt($(this));
+            });
+        } else {
+            FindChsAndReplaceIt(nodeObj);
+        }
+
+        function FindChsAndReplaceIt(nodeObj){
+            var pat = new RegExp("[\u4e00-\u9fa5]+","g");
+            if ((nodeObj.text() || nodeObj.val() || nodeObj.attr("title") || nodeObj.attr("placeholder")) 
+                && (pat.exec(nodeObj.text()) || pat.exec(nodeObj.val()) || pat.exec(nodeObj.attr("title")) || pat.exec(nodeObj.attr("placeholder")))){
+                var str = "";
+                if (nodeObj.text()){
+                    str = nodeObj.text();
+                    ReplaceValue(str, nodeObj, "text");
+                }
+                if (nodeObj.val()){
+                    str = nodeObj.val();
+                    ReplaceValue(str, nodeObj, "val");
+                }
+                if (nodeObj.attr("title")){
+                    str = nodeObj.attr("title");
+                    ReplaceValue(str, nodeObj, "title");
+                }
+                if (nodeObj.attr("placeholder")){
+                    str = nodeObj.attr("placeholder");
+                    ReplaceValue(str, nodeObj, "placeholder");
+                }
+            }
+        } 
+
+        function ReplaceValue(str, nodeObj, attrType){
+            var arr;
+            var pat = new RegExp("[\u4e00-\u9fa5]+","g");
+            while((arr = pat.exec(str)) != null){
+              if (langPackage[arr[0]]){
+                  str = str.replace(arr[0], langPackage[arr[0]]['EN']);
+                  if (attrType == "text"){
+                    nodeObj.text(str);
+                  }
+                  else if (attrType == "val"){
+                    nodeObj.val(str);
+                  }
+                  else if (attrType == "title"){
+                    nodeObj.attr("title", str);
+                  }
+                  else if (attrType == "placeholder"){
+                    nodeObj.prop("placeholder", str);
+                  }
+              }
+            }
+        }
     }
 
     //根据config配置设置 头部币种下拉
@@ -99,31 +179,7 @@ define([
         return AccountCtr.getAccount().then((data) => {
             var htmlAccount = '';
             var html = '';
-            /* if (data.accountList) {
-                data.accountList.forEach(function(item, i) {
-
-                    if (i < 3) {
-                        //判断币种是否发布
-                        if (base.getCoinCoin(item.currency)) {
-                            htmlAccount += `<p>${item.currency}：<samp>${base.formatMoney(item.amountString,'',item.currency)}</samp></p>`;
-
-                            html += `<div class="list ${item.currency.toLocaleLowerCase()}">
-								<p>${item.currency}</p>
-								<p class="amount">${base.formatMoneySubtract(item.amountString,item.frozenAmountString,item.currency)}</p>
-								<p class="frozenAmountString">${base.formatMoney(item.frozenAmountString,'',item.currency)}</p>
-							</div>`;
-                        }
-                    }
-                })
-                if (data.accountList.length >= 3) {
-                    htmlAccount += `<p class="more">查看更多</p>`;
-                    html += `<div class="list more">查看更多</div>`;
-                }
-                $("#head-user-wrap .wallet .wallet-account-wrap").html(htmlAccount);
-                $("#head-user-wrap .wallet .wallet-account-mx .listWrap").html(html)
-            } */
             data.forEach(function (item, i) {
-
                 if (i < 3) {
                     //判断币种是否发布
                     if (base.getCoinCoin(item.currency)) {
@@ -142,8 +198,9 @@ define([
                 html += `<div class="list more">查看更多</div>`;
             }
             $("#head-user-wrap .wallet .wallet-account-wrap").html(htmlAccount);
-            $("#head-user-wrap .wallet .wallet-account-mx .listWrap").html(html)
-        })
+            $("#head-user-wrap .wallet .wallet-account-mx .listWrap").html(html);
+            base.hideLoadingSpin();
+        }, base.hideLoadingSpin);
     }
 
     function addListener() {
@@ -217,25 +274,6 @@ define([
                     }, 1800)
                 } 
             }, base.hideLoadingSpin)
-        })
-
-        //中英文切换
-
-        let langType = localStorage.getItem('langType') || 'zh';
-        if(langType == 'en'){
-            base.showLoadingSpin();
-            $('.lang_select option.l-en').attr('selected', true);
-            changeLanguageFn($(document));
-        }else{
-            base.hideLoadingSpin();
-        }
-
-        $('.lang_select').change(function(){
-            switch($(this).val()){
-                case 'zh': localStorage.clear('langType');break;
-                case 'en': localStorage.setItem('langType', 'en');break;
-            }
-            location.reload();
         })
     }
 

@@ -166,7 +166,7 @@ define([
 
         $("#content").on("click", ".doDownBtn", function() {
             var adsCode = $(this).attr("data-code");
-            base.confirm("确认下架此广告？").then(() => {
+            base.confirm("确认下架此广告？", '取消', '确定').then(() => {
                 base.showLoadingSpin()
                 TradeCtr.downAdvertise(adsCode).then(() => {
                     base.hideLoadingSpin();

@@ -6,7 +6,7 @@ define([
     'app/controller/Top',
     'app/controller/foo'
 ], function(base, UserCtr, GeneralCtr, QiniuUpdata, Top, Foo) {
-
+    let langType = localStorage.getItem('langType') || 'ZH';
     if (!base.isLogin()) {
         base.goLogin();
         return;
@@ -15,6 +15,10 @@ define([
     init();
 
     function init() {
+        if(langType == 'EN'){
+            $('.u-zh').addClass('none');
+            $('.u-en').removeClass('none');
+        }
         $("#left-wrap .user").addClass("on")
         if ($("#head-user-wrap").hasClass("hidden")) {
             $("#head-user-wrap").removeClass("hidden")
@@ -42,9 +46,11 @@ define([
             $("#nickname").text(data.nickname)
             $("#createDatetime").html(base.formateDatetime(data.createDatetime))
             if (data.userStatistics) {
-                $("#beiXinRenCount").text(data.userStatistics.beiXinRenCount)
-                $("#jiaoYiCount").text(data.userStatistics.jiaoYiCount)
-                $("#beiHaoPingCount").text(data.userStatistics.beiHaoPingCount)
+                $("#beiXinRenCount").text(data.userStatistics.beiXinRenCount);
+                $("#beiXinRenCount1").text(data.userStatistics.beiXinRenCount);
+                $("#jiaoYiCount").text(data.userStatistics.jiaoYiCount);
+                $("#beiHaoPingCount").text(data.userStatistics.beiHaoPingCount);
+                $("#beiHaoPingCount1").text(data.userStatistics.beiHaoPingCount);
             }
 
             if (data.email) {

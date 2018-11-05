@@ -354,7 +354,7 @@ define([
          * 弹窗
          * base.confirm.then()
          * */
-        confirm: function(msg) {
+        confirm: function(msg, cancelValue, okValue) {
             return (new Promise(function(resolve, reject) {
                 var d = dialog({
                     content: msg,
@@ -370,8 +370,8 @@ define([
                         reject();
                         return true;
                     },
-                    cancelValue: '取消',
-                    okValue: '确定'
+                    cancelValue,
+                    okValue
                 });
                 d.showModal();
             }));
@@ -540,9 +540,6 @@ define([
         },
         // 根据语言获取文本
         getText: function(text, lang) {
-            if (lang == '' || !lang) {
-                lang = NOWLANG
-            }
             var t = LANGUAGE[text] && LANGUAGE[text][lang] ? LANGUAGE[text][lang] : '';
             if (!LANGUAGE[text] || t == '') {
                 if (!LANGUAGE[text]) {

@@ -178,7 +178,6 @@ define([
             var timeGet = setInterval(() => {
                 autoGetData();
             }, 2000);
-
             setInterval(() => {
                 sdFn()
             }, 4000);

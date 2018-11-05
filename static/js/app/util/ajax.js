@@ -41,9 +41,9 @@ define([
                 cache[code][cache_url] = $.ajax({
                     type: 'post',
                     url: '/api',
-                    // headers: {
-                    //     language: "en_US"
-                    // },
+                    headers: {
+                        "Accept-Language": "en_US"
+                    },
                     data: param
                 });
             }

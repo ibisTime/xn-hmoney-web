@@ -214,7 +214,7 @@ define([
         //取消订单按钮 点击
         $("#content").on("click", ".operation .cancelBtn", function() {
             var orderCode = $(this).attr("data-ocode");
-            base.confirm("确认取消交易？").then(() => {
+            base.confirm("确认取消交易？", '取消', '确定').then(() => {
                 base.showLoadingSpin()
                 TradeCtr.cancelOrder(orderCode).then(() => {
                     base.hideLoadingSpin();
@@ -230,7 +230,7 @@ define([
         //標記打款按钮 点击
         $("#content").on("click", ".operation .payBtn", function() {
             var orderCode = $(this).attr("data-ocode");
-            base.confirm("确认标记打款？").then(() => {
+            base.confirm("确认标记打款？", '取消', '确定').then(() => {
                 base.showLoadingSpin()
                 TradeCtr.payOrder(orderCode).then(() => {
                     base.hideLoadingSpin();
@@ -300,7 +300,7 @@ define([
         //解冻货币按钮 点击
         $("#content").on("click", ".operation .releaseBtn", function() {
             var orderCode = $(this).attr("data-ocode");
-            base.confirm("确认解冻货币？").then(() => {
+            base.confirm("确认解冻货币？", '取消', '确定').then(() => {
                 base.showLoadingSpin()
                 TradeCtr.releaseOrder(orderCode).then(() => {
                     base.hideLoadingSpin();

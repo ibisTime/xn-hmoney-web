@@ -1451,6 +1451,9 @@ table {
         padding: 60px 0 100px;
         margin: 0 auto;
     }
+    .en-login-form{
+        width: 500px;
+    }
     .form-item {
         margin-bottom: 20px;
     }
@@ -1738,7 +1741,7 @@ table {
         p {
             margin-bottom: 10px;
             color: #999;
-            span {
+            .sp {
                 color: #d53d3d;
             }
         }
@@ -1889,7 +1892,7 @@ table {
             right: 0;
             margin-top: -15px;
             .am-button {
-                width: 80px;
+                width: 90px;
                 height: 30px;
                 line-height: 30px;
                 border-radius: 5px;
@@ -3566,7 +3569,7 @@ table {
                 }
             }
             .nickname {
-                width: 340px;
+                width: 300px;
                 overflow: hidden;
                 .name {
                     margin-left: 15px;
@@ -3587,7 +3590,7 @@ table {
                 width: 300px;
             }
             .payType {
-                width: 130px;
+                width: 180px;
             }
             .limit {
                 width: 200px;
@@ -6444,6 +6447,7 @@ html {
 .topj{
     cursor: pointer;
 }
+
 
 // 媒体查询
 @media screen and (max-width: 1600px) {

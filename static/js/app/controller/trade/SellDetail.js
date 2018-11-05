@@ -213,7 +213,7 @@ define([
                         if ($("#buyAmount").val() != '' && $("#buyAmount").val()) {
                             $("#submitDialog").removeClass("hidden")
                         } else {
-                            base.showMsg("请输入您购买的金额");
+                            base.showMsg("请输入您出售的金额");
                         }
                     }
                 } else if (!data.tradepwdFlag) {
@@ -263,7 +263,7 @@ define([
             })
             //下架-点击
         $("#doDownBtn").click(function() {
-            base.confirm("确认下架此广告？").then(() => {
+            base.confirm("确认下架此广告？", '取消', '确定').then(() => {
                 base.showLoadingSpin()
                 TradeCtr.downAdvertise(code).then(() => {
                     base.hideLoadingSpin();

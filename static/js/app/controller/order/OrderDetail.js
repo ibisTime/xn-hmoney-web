@@ -1030,7 +1030,7 @@ define([
 
         //取消订单按钮 点击
         $(".cancelBtn").on("click", function() {
-            base.confirm("确认取消交易？").then(() => {
+            base.confirm("确认取消交易？", '取消', '确定').then(() => {
                 base.showLoadingSpin()
                 TradeCtr.cancelOrder(code).then(() => {
                     base.hideLoadingSpin();
@@ -1042,7 +1042,7 @@ define([
 
         //标记打款按钮 点击
         $(".payBtn").on("click", function() {
-            base.confirm("确认标记打款？").then(() => {
+            base.confirm("确认标记打款？", '取消', '确定').then(() => {
                 base.showLoadingSpin()
                 TradeCtr.payOrder(code).then(() => {
                     base.hideLoadingSpin();
@@ -1103,7 +1103,7 @@ define([
 
         //解冻货币按钮 点击
         $(".releaseBtn").on("click", function() {
-            base.confirm("确认解冻货币？").then(() => {
+            base.confirm("确认解冻货币？", '取消', '确定').then(() => {
                 base.showLoadingSpin()
                 TradeCtr.releaseOrder(code).then(() => {
                     base.hideLoadingSpin();
