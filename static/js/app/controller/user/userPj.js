@@ -5,6 +5,7 @@ define([
     'app/controller/Top',
     'app/controller/foo'
 ], function(base, pagination, TradeCtr, Top, Foo) {
+    let langType = localStorage.getItem('langType') || 'ZH';
     var userId = base.getUrlParam('userId');
     var nickname = base.getUrlParam('nickname');
     var isGood = {
@@ -19,6 +20,10 @@ define([
     init();
 
     function init() {
+        if(langType == 'EN'){
+            $('.p-zh').addClass('none');
+            $('.p-en').removeClass('none');
+        }
         base.showLoadingSpin();
         $('.userName').text(nickname);
         $.when(

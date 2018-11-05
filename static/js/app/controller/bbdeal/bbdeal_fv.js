@@ -6,7 +6,7 @@ define([
     'app/controller/Top',
     'app/controller/foo'
 ], function(base, Ajax, GeneralCtr, pagination, Top, Foo) {
-
+    let langType = localStorage.getItem('langType') || 'ZH';
     let fvData = 0;
     let jyDataList = [];
 
@@ -53,7 +53,7 @@ define([
             totalData: data.totalCount,
             jumpIptCls: 'pagination-ipt',
             jumpBtnCls: 'pagination-btn',
-            jumpBtn: '确定',
+            jumpBtn: base.getText('确定', langType),
             isHide: true,
             callback: function(_this) {
                 if (_this.getCurrent() != hisConfig.start) {

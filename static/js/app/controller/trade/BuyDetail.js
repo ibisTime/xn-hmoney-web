@@ -9,7 +9,7 @@ define([
     'app/controller/Top',
     'app/controller/foo'
 ], function(base, Validate, GeneralCtr, UserCtr, TradeCtr, AccountCtr, TencentChat, Top, Foo) {
-    let langType = localStorage.getItem('langType') || 'zh';
+    let langType = localStorage.getItem('langType') || 'ZH';
     var code = base.getUrlParam("code");
     var isDetail = !!base.getUrlParam("isD"); //是否我的广告查看详情
     var userId = '';
@@ -40,7 +40,7 @@ define([
 
     function init() {
         // 英文修改
-        if(langType == 'en'){
+        if(langType == 'EN'){
             $('.b-en').addClass('none');
             $('.b-zh').removeClass('none');
         }

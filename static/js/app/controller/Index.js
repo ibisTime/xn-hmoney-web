@@ -8,7 +8,7 @@ define([
     'app/controller/Top',
     'app/controller/foo'
 ], function(base, Handlebars, Swiper, GeneralCtr, UserCtr, Ajax, Top, Foo) {
-    let langType = localStorage.getItem('langType') || 'zh';
+    let langType = localStorage.getItem('langType') || 'ZH';
     let adverData = []; // 广告数据
     let aarketData = []; // 行情数据
     let typeList = {
@@ -102,7 +102,7 @@ define([
         });
 
         // 英文隐藏
-        if(langType == 'en'){
+        if(langType == 'EN'){
             $('.i-zh').addClass('none');
             $('.i-en').removeClass('none').css({
                 'font-size': '36px',

@@ -31,8 +31,8 @@ define([
     function init() {
         //中英文切换
 
-        let langType = localStorage.getItem('langType') || 'zh';
-        if(langType == 'en'){
+        let langType = localStorage.getItem('langType') || 'ZH';
+        if(langType == 'EN'){
             $('.lang_select option.l-en').attr('selected', true);
             changeLanguageFn($(document));
         }else{
@@ -42,7 +42,7 @@ define([
         $('.lang_select').change(function(){
             switch($(this).val()){
                 case 'zh': localStorage.clear('langType');break;
-                case 'en': localStorage.setItem('langType', 'en');break;
+                case 'en': localStorage.setItem('langType', 'EN');break;
             }
             location.reload();
         });
