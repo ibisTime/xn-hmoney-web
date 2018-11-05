@@ -27,6 +27,8 @@ define([
 
     let picList = {};
 
+    var bizTypeValueList = {};
+
     var configAddress = {
             start: 1,
             limit: 10,

@@ -8,6 +8,7 @@ define([
     'app/controller/Top',
     'app/controller/foo'
 ], function(base, Validate, GeneralCtr, UserCtr, TradeCtr, AccountCtr, Top, Foo) {
+    let langType = localStorage.getItem('langType') || 'ZH';
     var code = base.getUrlParam("code") || '';
     var coin = base.getUrlParam("coin"); // 币种
     var status = '1';
@@ -114,8 +115,8 @@ define([
         }, base.hideLoadingSpin)
 
         // 高级设置-开放时间
-        var htmlStart = '<option value="24">关闭</option>';
-        var htmlEnd = '<option value="24">关闭</option>';
+        var htmlStart = '<option value="24">'+base.getText('关闭', langType)+'</option>';
+        var htmlEnd = '<option value="24">'+base.getText('关闭', langType)+'</option>';
 
         for (var i = 0; i <= 23; i++) {
             if (i < 10) {
@@ -292,15 +293,15 @@ define([
             $("#priceExp").html(data.price);
 
             if (type == 'buy') {
-                $("#protectPriceExp").siblings('.txt').text('最高价格：');
-                $("#protectPrice").attr('placeholder', '广告最高可成交的价格');
-                $("#totalCountExp").siblings('.txt').text('购买总量：');
-                $("#totalCount").attr('placeholder', '请输请入购买币的总量');
+                $("#protectPriceExp").siblings('.txt').text(base.getText('最高价格', langType) + '：');
+                $("#protectPrice").attr('placeholder', base.getText('广告最高可成交的价格', langType));
+                $("#totalCountExp").siblings('.txt').text(base.getText('购买总量', langType) + '：');
+                $("#totalCount").attr('placeholder', base.getText('请输请入购买币的总量', langType));
             } else if (type == 'sell') {
-                $("#protectPriceExp").siblings('.txt').text('最低价格：')
-                $("#protectPrice").attr('placeholder', '广告最低可成交的价格');
-                $("#totalCountExp").siblings('.txt').text('出售总量：');
-                $("#totalCount").attr('placeholder', '请输入售卖币的总量');
+                $("#protectPriceExp").siblings('.txt').text(base.getText('最低价格', langType) + '：')
+                $("#protectPrice").attr('placeholder', base.getText('广告最低可成交的价格', langType));
+                $("#totalCountExp").siblings('.txt').text(base.getText('出售总量', langType) + '：');
+                $("#totalCount").attr('placeholder', base.getText('请输入售卖币的总量', langType));
             }
 
             $("#protectPriceExp").html(data.protectPrice);
@@ -356,10 +357,10 @@ define([
             if (_this.hasClass("hide")) {
                 $(".advertise-set .set-wrap").removeClass("hidden")
                 _this.removeClass("hide")
-                _this.text("隐藏高级设置...")
+                _this.text(base.getText('隐藏高级设置', langType) + "...")
             } else {
                 $(".advertise-set .set-wrap").addClass("hidden")
-                _this.text("显示高级设置...")
+                _this.text(base.getText('显示高级设置', langType) + "...")
                 _this.addClass("hide")
             }
         })
@@ -424,7 +425,7 @@ define([
             let leftValue = parseFloat($(".yj-num").val());
             if($(".yj-num").val() != '-' && $(".yj-num").val().length == 1){
                 if(isNaN(leftValue)){
-                    base.showMsg('请输入数字');
+                    base.showMsg(base.getText('请输入数字', langType));
                 }
                 return;
             }
@@ -549,7 +550,7 @@ define([
             }
             base.showLoadingSpin()
             return TradeCtr.submitAdvertise(params).then(() => {
-                base.showMsg('操作成功！');
+                base.showMsg(base.getText('操作成功', langType));
                 base.showLoadingSpin();
                 setTimeout(() => {
                     if (params.tradeType == '0') {
@@ -569,11 +570,11 @@ define([
                 base.goLogin();
                 return;
             }
-            base.confirm("确认下架此广告？", '取消', '确定').then(() => {
+            base.confirm(base.getText('确认下架此广告？', langType), base.getText('取消', langType), base.getText('确认', langType)).then(() => {
                 base.showLoadingSpin()
                 TradeCtr.downAdvertise(code).then(() => {
                     base.hideLoadingSpin();
-                    base.showMsg("操作成功");
+                    base.showMsg(base.getText('操作成功', langType));
                     setTimeout(function() {
                         history.go(-1)
                     }, 1500)

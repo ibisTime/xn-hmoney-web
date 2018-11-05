@@ -6,6 +6,7 @@ define([
     'app/controller/Top',
     'app/controller/foo'
 ], function(base, Validate, smsCaptcha, UserCtr, Top, Foo) {
+    let langType = localStorage.getItem('langType') || 'ZH';
     var type = base.getUrlParam("type"); //设置类型： 0,開啟  1，關閉
 
     if (!base.isLogin()) {
@@ -36,7 +37,7 @@ define([
         return UserCtr.openGoogle(params).then(() => {
             base.hideLoadingSpin()
             sessionStorage.getItem("googleAuthFlag", 'true');
-            base.showMsg("开启成功");
+            base.showMsg(base.getText('开启成功', langType));
             setTimeout(function() {
                 base.gohrefReplace("../user/security.html")
             }, 800)
@@ -48,7 +49,7 @@ define([
         return UserCtr.closeGoogle(googleCaptcha, smsCaptcha).then(() => {
             base.hideLoadingSpin()
             sessionStorage.getItem("googleAuthFlag", 'false');
-            base.showMsg("关闭成功")
+            base.showMsg(base.getText('关闭成功', langType))
             setTimeout(function() {
                 base.gohrefReplace("../user/security.html")
             }, 800)

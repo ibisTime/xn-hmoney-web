@@ -9,8 +9,8 @@ define([
     var userId = base.getUrlParam('userId');
     var nickname = base.getUrlParam('nickname');
     var isGood = {
-        '0': '否',
-        '2': '是'
+        '0': base.getText('否', langType),
+        '2': base.getText('是', langType)
     }
     var config = {
         start: 1,
@@ -77,7 +77,7 @@ define([
             totalData: data.totalCount,
             jumpIptCls: 'pagination-ipt',
             jumpBtnCls: 'pagination-btn',
-            jumpBtn: '确定',
+            jumpBtn: base.getText('确定', langType),
             isHide: true,
             callback: function(_this) {
                 if (_this.getCurrent() != config.start) {

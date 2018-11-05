@@ -12,8 +12,8 @@ define([
     let adverData = []; // 广告数据
     let aarketData = []; // 行情数据
     let typeList = {
-        '0': '出售',
-        '1': '购买'
+        '0': base.getText('出售', langType),
+        '1': base.getText('购买', langType)
     }
     let payType = {};
 
@@ -58,9 +58,9 @@ define([
                         <img src="${item.tradeType == 1 ? '/static/images/buy.png' : '/static/images/sell.png'}" alt="">
                     </div>
                     <h5>${typeList[item.tradeType]} ${item.tradeCoin}</h5>
-                    <p>价格：<span>${(Math.floor(item.truePrice * 1000)/1000).toFixed(3)}</span>  ${item.tradeCurrency}</p>
-                    <p>交易限额：<span>${item.minTrade}</span> ～ <span>${item.maxTrade}</span>  ${item.tradeCurrency}</p>
-                    <p>付款方式：<span><img src="${payImage}" alt=""></span></p>
+                    <p>${base.getText('价格', langType)}：<span>${(Math.floor(item.truePrice * 1000)/1000).toFixed(3)}</span>  ${item.tradeCurrency}</p>
+                    <p>${base.getText('交易限额', langType)}：<span>${item.minTrade}</span> ～ <span>${item.maxTrade}</span>  ${item.tradeCurrency}</p>
+                    <p>${base.getText('付款方式', langType)}：<span><img src="${payImage}" alt=""></span></p>
                     <div class="btn-box">
                         ${mButHtml}
                     </div>
@@ -158,7 +158,7 @@ define([
             $("#swiper .swiper-wrapper").html(bannerHtml);
             initSwiperBanner();
         }, (msg) => {
-            base.showMsg(msg || "加载失败");
+            base.showMsg(msg || base.getText('加载失败', langType));
         });
     }
 

@@ -39,7 +39,7 @@ define([
       $('.contact-info-wrap').html(qHtml);
       init();
     }, (msg) => {
-      base.showMsg(msg || "加载失败");
+      base.showMsg(msg || base.getText('加载失败', langType));
     });
   }
   // function getAboutUs() {

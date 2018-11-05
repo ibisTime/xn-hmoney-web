@@ -9,14 +9,15 @@ define([
     'app/controller/Top',
     'app/controller/foo'
 ], function(base, Validate, GeneralCtr, UserCtr, TradeCtr, AccountCtr, TencentChat, Top, Foo) {
+    let langType = localStorage.getItem('langType') || 'ZH';
     var code = base.getUrlParam("code");
     var isDetail = !!base.getUrlParam("isD"); //是否我的广告查看详情
     var userId = '';
     var nickname = '';
     var bizTypeList = {
-        "0": "支付宝",
-        "1": "微信",
-        "2": "银行卡转账"
+        "0": base.getText('支付宝', langType),
+        "1": base.getText('微信', langType),
+        "2": base.getText('银行卡转账', langType)
     };
 
     var config = {
@@ -84,9 +85,9 @@ define([
             limit = data.minTrade + '-' + data.maxTrade
             $("#nickname").html(data.user.nickname);
             if(data.user.idNo){
-                $('.rz').text('已认证').addClass('sp-yrz');
+                $('.rz').text(base.getText('已认证', langType)).addClass('sp-yrz');
             }else{
-                $('.rz').text('未认证').addClass('sp-wrz');
+                $('.rz').text(base.getText('未认证', langType)).addClass('sp-wrz');
             }
             if (data.status == "1" && isDetail) {
                 $("#doDownBtn").removeClass("hidden");
@@ -170,7 +171,7 @@ define([
         config.count = base.formatMoneyParse($("#buyEth").val(), '', tradeCoin);
         config.tradePwd = $('#moneyPow').val();
         return TradeCtr.sellETH(config).then((data) => {
-            base.showMsg("出售成功");
+            base.showMsg(base.getText('出售成功', langType));
             setTimeout(function() {
                 base.gohref("../order/order-list.html?mod=dd");
             }, 2000)
@@ -213,11 +214,11 @@ define([
                         if ($("#buyAmount").val() != '' && $("#buyAmount").val()) {
                             $("#submitDialog").removeClass("hidden")
                         } else {
-                            base.showMsg("请输入您出售的金额");
+                            base.showMsg(base.getText('请输入您出售的金额', langType));
                         }
                     }
                 } else if (!data.tradepwdFlag) {
-                    base.showMsg("请先设置资金密码")
+                    base.showMsg(base.getText('请先设置资金密码', langType))
                     setTimeout(function() {
                         base.gohref("../user/setTradePwd.html?type=1&mod=dd");
                     }, 1800)
@@ -263,12 +264,12 @@ define([
             })
             //下架-点击
         $("#doDownBtn").click(function() {
-            base.confirm("确认下架此广告？", '取消', '确定').then(() => {
+            base.confirm(base.getText('确认下架此广告？', langType), base.getText('取消', langType), base.getText('确定', langType)).then(() => {
                 base.showLoadingSpin()
                 TradeCtr.downAdvertise(code).then(() => {
                     base.hideLoadingSpin();
 
-                    base.showMsg("操作成功");
+                    base.showMsg(base.getText('操作成功', langType));
                     $("#doDownBtn").addClass("hidden");
 
                     setTimeout(function() {

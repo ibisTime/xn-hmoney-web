@@ -6,6 +6,7 @@ define([
     'app/controller/foo',
     'app/controller/public/DealLeft'
 ], function(base, pagination, TradeCtr, Top, Foo, DealLeft) {
+    let langType = localStorage.getItem('langType') || 'ZH';
     var coin = base.getUrlParam("coin"); // 币种
     //币种
     var config = {
@@ -15,9 +16,9 @@ define([
         coin: coin.toUpperCase()
     };
     var bizTypeList = {
-        "0": "支付宝",
-        "1": "微信",
-        "2": "银行卡转账"
+        "0": base.getText('支付宝', langType),
+        "1": base.getText('微信', langType),
+        "2": base.getText('银行卡转账', langType)
     };
 
     init();
@@ -84,7 +85,7 @@ define([
             totalData: data.totalCount,
             jumpIptCls: 'pagination-ipt',
             jumpBtnCls: 'pagination-btn',
-            jumpBtn: '确定',
+            jumpBtn: base.getText('确定', langType),
             isHide: true,
             callback: function(_this) {
                 if (_this.getCurrent() != config.start) {
@@ -172,9 +173,9 @@ define([
 							<div class="dot ${loginStatus}"></div>
 						</div>
                         <samp class="name">${item.user.nickname ? item.user.nickname : '-'}</samp>
-                        <p class="n-dist"><samp>交易<i>${item.userStatistics.jiaoYiCount}</i></samp> ·
-                            <samp>好评度<i>${hpCount}</i></samp> ·
-                            <samp>信任<i>${item.userStatistics.beiXinRenCount}</i></samp>
+    <p class="n-dist"><samp>${base.getText('交易', langType)}<i>${item.userStatistics.jiaoYiCount}</i></samp> ·
+                            <samp>${base.getText('好评度', langType)}<i>${hpCount}</i></samp> ·
+                            <samp>${base.getText('信任', langType)}<i>${item.userStatistics.beiXinRenCount}</i></samp>
                         </p>
 					</td>
 					<td class="payType">${bizTypeList[item.payType]}</td>

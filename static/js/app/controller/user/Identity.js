@@ -8,7 +8,7 @@ define([
     'app/controller/Top',
     'app/controller/foo'
 ], function(base, Ajax, GeneralCtr, QiniuUpdata, validate, UserCtr, Top, Foo) {
-
+    let langType = localStorage.getItem('langType') || 'ZH';
     let CerStatusList = {}
 
     let imageSrcZ = '',
@@ -88,7 +88,7 @@ define([
                 if(userIdAuthInfo){
                     idAuthStatus = parseInt(userIdAuthInfo.status);
                     if(idAuthStatus == 2 && !userIdAuthInfo.idKind){
-                        base.showMsg('认证审核不通过，请重新认证！');
+                        base.showMsg(base.getText('认证审核不通过，请重新认证！', langType));
                         $('.identity-content').removeClass('none');
                         return;
                     }
@@ -172,16 +172,16 @@ define([
         });
         // 展开、收起
         $('.yz_p').off('click').click(function() {
-            if ($(this).children('span').text() == '收起') {
+            if ($(this).children('span').text() == base.getText('收起', langType)) {
                 $(this).parent().next().hide(200);
-                $(this).children('span').text('展开');
+                $(this).children('span').text(base.getText('展开', langType));
                 $(this).children('i').css('background-image', 'url(/static/images/zk.png)');
             } else {
                 $('.form-detail').hide(200);
-                $('.yz_p').children('span').text('展开');
+                $('.yz_p').children('span').text(base.getText('展开', langType));
                 $('.yz_p').children('i').css('background-image', 'url(/static/images/zk.png)');
                 $(this).parent().next().show(200);
-                $(this).children('span').text('收起');
+                $(this).children('span').text(base.getText('收起', langType));
                 $(this).children('i').css('background-image', 'url(/static/images/sq.png)');
             }
         })
@@ -232,7 +232,7 @@ define([
         })
 
         function loadFn(){
-            base.showMsg('认证请求发起成功');
+            base.showMsg(base.getText('认证请求发起成功', langType));
                 setTimeout(() => {
                     location.reload();
                 }, 600);

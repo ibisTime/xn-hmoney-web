@@ -6,6 +6,7 @@ define([
     'app/controller/foo'
 ], function(base, Ajax, GeneralCtr, Top, Foo) {
     var key = base.getUrlParam('key') || '1';
+    let langType = localStorage.getItem('langType') || 'ZH';
 
     init();
 

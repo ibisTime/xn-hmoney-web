@@ -6,13 +6,13 @@ define([
     'app/controller/Top',
     'app/controller/foo'
 ], function (base, pagination, Ajax, GeneralCtr, Top, Foo) {
-
+    let langType = localStorage.getItem('langType') || 'ZH';
     let userCTSList = [];
 
     let statusList = {}
     let typeList = {
-        '0': '买入',
-        '1': '卖出'
+        '0': base.getText('买入', langType),
+        '1': base.getText('卖出', langType)
     }
 
     let j_config = {
@@ -46,14 +46,14 @@ define([
                     switch (item.status) {
                         case '0':
                             pHtml = `<p>
-                                <span>标记付款</span>
-                                <span>取消订单</span>
-                                <span class="goHref" data-href="../wallet/wallet-det.html?code=${item.code}">详情</span>
+                                <span>${base.getText('标记付款', langType)}</span>
+                                <span>${base.getText('取消订单', langType)}</span>
+                                <span class="goHref" data-href="../wallet/wallet-det.html?code=${item.code}">${base.getText('详情', langType)}</span>
                                 </p>`;
                             break;
                         default:
                             pHtml = `<p>
-                                <span class="goHref" data-href="../wallet/wallet-det.html?code=${item.code}">详情</span>
+                                <span class="goHref" data-href="../wallet/wallet-det.html?code=${item.code}">${base.getText('详情', langType)}</span>
                             </p>`;
                     }
                 }
@@ -61,13 +61,13 @@ define([
                     switch (item.status) {
                         case '0':
                             pHtml = `<p>
-                                <span>取消订单</span>
-                                <span class="goHref" data-href="../wallet/wallet-det.html?code=${item.code}">详情</span>
+                                <span>${base.getText('取消订单', langType)}</span>
+                                <span class="goHref" data-href="../wallet/wallet-det.html?code=${item.code}">${base.getText('详情', langType)}</span>
                                 </p>`;
                             break;
                         default:
                             pHtml = `<p>
-                                <span class="goHref" data-href="../wallet/wallet-det.html?code=${item.code}">详情</span>
+                                <span class="goHref" data-href="../wallet/wallet-det.html?code=${item.code}">${base.getText('详情', langType)}</span>
                             </p>`;
                     }
                 }
@@ -106,7 +106,7 @@ define([
             totalData: data.totalCount,
             jumpIptCls: 'pagination-ipt',
             jumpBtnCls: 'pagination-btn',
-            jumpBtn: '确定',
+            jumpBtn: base.getText('确定', langType),
             isHide: true,
             callback: function (_this) {
                 if (_this.getCurrent() != j_config.start) {
@@ -143,12 +143,12 @@ define([
                 code
             };
             switch (selTxt) {
-                case '标记付款':
+                case base.getText('标记付款', langType):
                     bjPlayfo(config).then(() => {
                         location.reload();
                     });
                     break;
-                case '取消订单':
+                case base.getText('取消订单', langType):
                     qxOrder(config).then(() => {
                         location.reload();
                     });

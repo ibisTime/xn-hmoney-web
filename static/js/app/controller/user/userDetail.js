@@ -10,6 +10,7 @@ define([
     'app/controller/Top',
     'app/controller/foo'
 ], function(base, pagination, Validate, smsCaptcha, AccountCtr, GeneralCtr, UserCtr, TradeCtr, Top, Foo) {
+    let langType = localStorage.getItem('langType') || 'ZH';
     var userId = base.getUrlParam('userId');
     var adsCode = base.getUrlParam('adsCode');
     var currency = base.getUrlParam('coin') || 'BTC';
@@ -55,10 +56,10 @@ define([
     function getUserRelation() {
         return UserCtr.getUserRelation(currency, userId).then((data) => {
             $('.k-userbtn .trust').attr('data-isTrust', data.isTrust);
-            $('.k-userbtn .trust').html($('.k-userbtn .trust').attr('data-isTrust') != '0' ? '已信任' : '信任');
+            $('.k-userbtn .trust').html($('.k-userbtn .trust').attr('data-isTrust') != '0' ? base.getText('已信任', langType) : base.getText('信任', langType));
 
             $('.k-userbtn .black').attr('data-isAddBlackList', data.isAddBlackList);
-            $('.k-userbtn .black').html($('.k-userbtn .black').attr('data-isAddBlackList') != '0' ? '已拉黑' : '屏蔽');
+            $('.k-userbtn .black').html($('.k-userbtn .black').attr('data-isAddBlackList') != '0' ? base.getText('已拉黑', langType) : base.getText('屏蔽', langType));
 
             var totalTradeCount = data.totalTradeCount == '0' ? '0' : base.formatMoney(data.totalTradeCount, '0', currency) + '+';
             $('.totalTradeCount').html(totalTradeCount + currency);
@@ -80,9 +81,9 @@ define([
             $('.userDetail-top .photoWrap').html(photoHtml);
 
             // 邮箱验证，手机验证，身份验证
-            $('.bindWrap .email samp').html(data.email ? '邮箱已验证' : '邮箱未验证');
-            $('.bindWrap .mobile samp').html(data.mobile ? '手机已验证' : '手机未验证');
-            $('.bindWrap .identity samp').html(data.realName ? '身份已验证' : '身份未验证');
+            $('.bindWrap .email samp').html(data.email ? base.getText('邮箱已验证', langType) : base.getText('邮箱未验证', langType));
+            $('.bindWrap .mobile samp').html(data.mobile ? base.getText('手机已验证', langType) : base.getText('手机未验证', langType));
+            $('.bindWrap .identity samp').html(data.realName ? base.getText('身份已验证', langType) : base.getText('身份未验证', langType));
 
             let jiaoYiCount = data.userStatistics ? data.userStatistics.jiaoYiCount : '-';
             let beiXinRenCount = data.userStatistics ? data.userStatistics.beiXinRenCount : '-';
@@ -127,7 +128,7 @@ define([
         if (item.tradeType == '1') {
             operationHtml = `<div class="am-button goHref" data-href="../trade/buy-detail.html?code=${item.code}&coin=${item.tradeCoin}">购买</div>`
         } else {
-            operationHtml = `<div class="am-button goHref" data-href="../trade/sell-detail.html?code=${item.code}&coin=${item.tradeCoin}">出售</div>`
+            operationHtml = `<div class="am-button goHref" data-href="../trade/sell-detail.html?code=${item.code}&coin=${item.tradeCoin}">${base.getText('出售', langType)}</div>`
         }
 
         return `<tr>
@@ -155,7 +156,7 @@ define([
             totalData: data.totalCount,
             jumpIptCls: 'pagination-ipt',
             jumpBtnCls: 'pagination-btn',
-            jumpBtn: '确定',
+            jumpBtn: base.getText('确定', langType),
             isHide: true,
             callback: function(_this) {
                 if (_this.getCurrent() != config.start) {
@@ -191,24 +192,24 @@ define([
                 if (_this.attr("data-isTrust") == '1') {
 
                     UserCtr.removeUserRelation(relationConfig, true).then((data) => {
-                        _this.empty().append('信任');
+                        _this.empty().append(base.getText('信任', langType));
                         _this.attr("data-isTrust", _this.attr("data-isTrust") == '1' ? '0' : '1');
                         base.hideLoadingSpin()
-                        base.showMsg('已取消信任');
+                        base.showMsg(base.getText('已取消信任', langType));
                         getUserDetail();
                         location.reload();
                     }, base.hideLoadingSpin)
                 } else {
                     UserCtr.addUserRelation(relationConfig, true).then((data) => {
-                        _this.empty().append('已信任');
+                        _this.empty().append(base.getText('已信任', langType));
                         if ($('.k-userbtn .black').attr("data-isAddBlackList") == '1') {
-                            $('.k-userbtn .black').empty().append('屏蔽');
+                            $('.k-userbtn .black').empty().append(base.getText('屏蔽', langType));
                             $('.k-userbtn .black').attr("data-isAddBlackList", !_this.attr("data-isAddBlackList"))
                         }
 
                         _this.attr("data-isTrust", _this.attr("data-isTrust") == '1' ? '0' : '1');
                         base.hideLoadingSpin()
-                        base.showMsg('已信任');
+                        base.showMsg(base.getText('已信任', langType));
                         getUserDetail();
                         location.reload();
                     }, base.hideLoadingSpin)
@@ -221,23 +222,23 @@ define([
             base.showLoadingSpin();
             if (_this.attr("data-isAddBlackList") == '1') {
                 UserCtr.removeUserRelation(relationConfig, true).then((data) => {
-                    _this.empty().append('屏蔽');
+                    _this.empty().append(base.getText('屏蔽', langType));
                     _this.attr("data-isAddBlackList", _this.attr("data-isAddBlackList") == '1' ? '0' : '1');
                     base.hideLoadingSpin();
-                    base.showMsg('已取消拉黑');
+                    base.showMsg(base.getText('已取消拉黑', langType));
                     getUserDetail();
                     location.reload();
                 }, base.hideLoadingSpin)
             } else {
                 UserCtr.addUserRelation(relationConfig, true).then((data) => {
-                    _this.empty().append('已拉黑');
+                    _this.empty().append(base.getText('已拉黑', langType));
                     if ($('.k-userbtn .trust').attr("data-isTrust") == '1') {
-                        $('.k-userbtn .trust').empty().append('信任');
+                        $('.k-userbtn .trust').empty().append(base.getText('信任', langType));
                         $('.k-userbtn .trust').attr("data-isTrust", !_this.attr("data-isTrust"))
                     }
                     _this.attr("data-isAddBlackList", _this.attr("data-isAddBlackList") == '1' ? '0' : '1');
                     base.hideLoadingSpin();
-                    base.showMsg('已拉黑');
+                    base.showMsg(base.getText('已拉黑', langType));
                     getUserDetail();
                     location.reload();
                 }, base.hideLoadingSpin)

@@ -6,6 +6,7 @@ define([
     'app/controller/Top',
     'app/controller/foo'
 ], function(base, Validate,smsCaptcha, UserCtr, Top, Foo) {
+	let langType = localStorage.getItem('langType') || 'ZH';
 	var type = base.getUrlParam("type");//设置类型： 0,设置  1，修改 
 	var isWallet = !!base.getUrlParam("isWallet");//钱包点击跳转过来
 	
@@ -32,7 +33,7 @@ define([
     function setTradePwd(tradePwd, smsCaptcha){
     	return UserCtr.setTradePwd(tradePwd, smsCaptcha).then(()=>{
 			base.hideLoadingSpin()
-			base.showMsg("设置成功");
+			base.showMsg(base.getText('设置成功', langType));
 			setTimeout(function(){
 				base.gohrefReplace("../user/security.html")
 			},800)
@@ -43,7 +44,7 @@ define([
     function changeTradePwd(tradePwd, smsCaptcha){
     	return UserCtr.changeTradePwd(tradePwd, smsCaptcha).then(()=>{
 			base.hideLoadingSpin()
-			base.showMsg("修改成功");
+			base.showMsg(base.getText('修改成功', langType));
 			setTimeout(function(){
 				if(isWallet){
 					base.gohrefReplace("../wallet/wallet-eth.html?isWithdraw=1")

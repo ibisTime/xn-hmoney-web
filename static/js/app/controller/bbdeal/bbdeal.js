@@ -11,6 +11,11 @@ define([
     'app/controller/foo',
     'app/module/echarts'
 ], function (base, Ajax, GeneralCtr, pagination, AccountCtr, TradingView, Datafeeds, UserCtr, Top, Foo, echarts) {
+    let langType = localStorage.getItem('langType') || 'ZH';
+    let en_mr = base.getText('买入', langType);
+    let en_mc = base.getText('卖出', langType);
+    let buytype = base.getText('买', langType);
+    let selltype = base.getText('卖', langType);
     $('.trade').addClass('active');
     let userConfig = {
         userId: base.getUserId(),
@@ -198,7 +203,7 @@ define([
                     depthFn(buyData, sellData);
                 });
             }
-
+            console.log(setBazDeal);
             $('.c-b').text(setBazDeal.symbol);
             $('.r-b').text(setBazDeal.symbol);
             $('#tv_chart_container iframe').css('height', '500px');
@@ -223,7 +228,7 @@ define([
                 realTimeData.forEach(item => {
                     realTimeHtml += `<tr>
                                 <td>${base.todayDatetime(item.createDatetime)}</td>
-                                <td class="${item.direction == 0 ? 'd-mr' : 'd-mc'}">${item.direction == 0 ? '买入' : '卖出'}</td>
+                                <td class="${item.direction == 0 ? 'd-mr' : 'd-mc'}">${item.direction == 0 ? en_mr : en_mc}</td>
                                 <td>${base.formatMoney(`${item.tradedPrice}`, '', setBazDeal.toSymbol, false)}</td>
                                 <td>${base.formatMoney(`${item.tradedCount}`, '', setBazDeal.symbol, false)}</td>
                             </tr>`
@@ -278,7 +283,7 @@ define([
                 sellHtml = '';
             buyHandicapData.forEach((item, i) => {
                 buyHtml += `<li>
-                        <p class="b-p">买<span>${i + 1}</span></p>
+            <p class="b-p">${buytype}<span>${i + 1}</span></p>
                         <p>${item.price ? base.formatMoney(item.price, '', setBazDeal.toSymbol, false) : '--'}</p>
                         <p>${item.count ? base.formatMoney(item.count, '', setBazDeal.symbol, false) : '--'}</p>
                     </li>`
@@ -286,7 +291,7 @@ define([
             $('.b-new_ul').html(buyHtml);
             for (let i = 6; i >= 0; i--) {
                 sellHtml += `<li>
-                        <p class="s-p">卖<span>${i + 1}</span></p>
+            <p class="s-p">${selltype}<span>${i + 1}</span></p>
                         <p>${sellHandicapData[i].price ? base.formatMoney(sellHandicapData[i].price, '', setBazDeal.toSymbol, false) : '--'}</p>
                         <p>${sellHandicapData[i].count ? base.formatMoney(sellHandicapData[i].count, '', setBazDeal.symbol, false) : '--'}</p>
                     </li>`
@@ -338,8 +343,8 @@ define([
             userHistoryHtml += `<tr>
             <td colspan="2">${base.formateDatetime(item.createDatetime)}</td>
             <td>${item.symbol}/${item.toSymbol}</td>
-            <td>${item.direction == 0 ? '买入' : '卖出'}</td>
-            <td>${item.type == 0 ? '市价' : base.formatMoney(`${item.price}`, '', item.toSymbol)}</td>
+            <td>${item.direction == 0 ? en_mr : en_mc}</td>
+            <td>${item.type == 0 ? base.getText('市价', langType) : base.formatMoney(`${item.price}`, '', item.toSymbol)}</td>
             <td>${showTotalCount ? base.formatMoney(`${item.totalAmount}`, '', item.toSymbol) : base.formatMoney(`${item.totalCount}`, '', item.symbol)}</td>
             <td>${showTotalCount ? base.formatMoney(`${item.tradedAmount}`, '', item.toSymbol) : base.formatMoney(`${item.tradedCount}`, '', item.symbol)}</td>
             <td>${item.avgPrice ? base.formatMoney(`${item.avgPrice}`, '', item.toSymbol) : '-'}</td>
@@ -347,7 +352,7 @@ define([
         </tr>`
         })
         userHistoryHtml += `<tr>
-        <td colspan="9" class="no-cur his-cur none">暂无记录</td>
+        <td colspan="9" class="no-cur his-cur none">${base.getText('暂无记录', langType)}</td>
     </tr>`;
         $('.his-table tbody').html(userHistoryHtml);
     }
@@ -370,19 +375,19 @@ define([
             userOrderHtml += `<tr>
                     <td colspan="2">${base.formateDatetime(item.createDatetime)}</td>
                     <td>${item.symbol}/${item.toSymbol}</td>
-                    <td>${item.direction == 0 ? '买入' : '卖出'}</td>
-                    <td>${item.type == 0 ? '市价' : base.formatMoney(`${item.price}`, '', item.toSymbol)}</td>
+                    <td>${item.direction == 0 ? en_mr : en_mc}</td>
+                    <td>${item.type == 0 ? base.getText('市价', langType) : base.formatMoney(`${item.price}`, '', item.toSymbol)}</td>
                     <td>${showTotalCount ? '-' : (base.formatMoney(`${item.totalCount}`, '', item.symbol))}</td>
                     <td>${showTotalAmount ? '-' : (base.formatMoney(`${item.totalAmount}`, '', item.toSymbol))}</td>
                     <td>${showTotalCount ? base.formatMoney(`${item.tradedAmount}`, '', item.toSymbol) : base.formatMoney(`${item.tradedCount}`, '', item.symbol)}</td>
                     <td>${showTotalCount ? base.formatMoney(`${item.totalAmount - item.tradedAmount}`, '', item.toSymbol) : base.formatMoney(`${item.totalCount - item.tradedCount}`, '', item.symbol)}</td>
                     <td>
-                        <button data-code="${item.code}" class="${item.type != 0 && (item.status === '0' || item.status === '1') ? 'y-cz' : 'no-cz'}">取消</button>
+                        <button data-code="${item.code}" class="${item.type != 0 && (item.status === '0' || item.status === '1') ? 'y-cz' : 'no-cz'}">${base.getText('取消', langType)}</button>
                     </td>
                 </tr>`
         })
         userOrderHtml += `<tr>
-                    <td colspan="9" class="no-cur dq-cur none">暂无记录</td>
+                    <td colspan="9" class="no-cur dq-cur none">${base.getText('暂无记录', langType)}</td>
                 </tr>`;
         $('.cur-table tbody').removeClass('none').html(userOrderHtml);// 取消委托操作
         $('.cur-table .y-cz').off('click').click(function () {
@@ -390,7 +395,7 @@ define([
             base.showLoadingSpin();
             rmOrder(code).then(data => {
                 base.hideLoadingSpin();
-                base.showMsg('操作成功');
+                base.showMsg(base.getText('操作成功', langType));
                 getMyorderTicket(userConfig).then(data => {
                     userOrderData = data.list;
                     curOrder(userOrderData);
@@ -582,7 +587,7 @@ define([
         if (isType == 0) {
             let price = $(inpPrice).val().trim();
             if (price == 0) {
-                base.showMsg('价格不能小于等于0');
+                base.showMsg(base.getText('价格不能小于等于0', langType));
             }
             if (outBlur(inpPrice) && outBlur(inpNum) && price != '0') {
                 getLimitedPriceData('1', direction, price, totalCount).then(data => {
@@ -597,10 +602,10 @@ define([
                     $('.j-sp span:not(.sel-span)').css('background-color', '#f1f1f1');
                     $('.br-sp .sel-span').css('left', '0%');
                     if (data.code) {
-                        base.showMsg('订单提交成功');
+                        base.showMsg(base.getText('订单提交成功', langType));
                         getUserMoney();
                     } else {
-                        base.showMsg('订单提交失败');
+                        base.showMsg(base.getText('订单提交失败', langType));
                         return false;
                     }
                     setTimeout(() => {
@@ -625,10 +630,10 @@ define([
                     base.hideLoadingSpin();
                     $(inpNum).val('');
                     if (data.code) {
-                        base.showMsg('订单提交成功');
+                        base.showMsg(base.getText('订单提交成功', langType));
                         getUserMoney();
                     } else {
-                        base.showMsg('订单提交失败');
+                        base.showMsg(base.getText('订单提交失败', langType));
                         return false;
                     }
                     setTimeout(() => {
@@ -653,13 +658,13 @@ define([
     // 买入卖出文字设置
     function setStu(that, config) {
         $(that).addClass('sel-sp').siblings().removeClass('sel-sp');
-        if ($(that).text() == '买入') {
+        if ($(that).text() == en_mr) {
             config.direction = '0';
         }
-        if ($(that).text() == '卖出') {
+        if ($(that).text() == en_mc) {
             config.direction = '1';
         }
-        if ($(that).text() == '全部') {
+        if ($(that).text() == base.getText('全部', langType)) {
             delete config.direction;
         }
     }
@@ -780,11 +785,11 @@ define([
 
         $('.bb-jiaoyi input').focus(function () {
             let isBuy = $(this).parent('div').prev().text();
-            if (isBuy == '买入价' || isBuy == '买入量') {
+            if (isBuy == base.getText('买入价', langType) || isBuy == base.getText('买入量', langType)) {
                 $('#yr-price').css('border-color', '#e5e5e5');
                 $('#sellNum').css('border-color', '#e5e5e5');
             }
-            if (isBuy == '卖出价' || isBuy == '卖出量') {
+            if (isBuy == base.getText('卖出价', langType) || isBuy == base.getText('卖出量', langType)) {
                 $('#ym-price').css('border-color', '#e5e5e5');
                 $('#buyNum').css('border-color', '#e5e5e5');
             }
@@ -843,7 +848,7 @@ define([
             if (yRight) {
                 if (yRight.length > 8) {
                     yRight = yRight.substring(0, 8);
-                    base.showMsg('小数点后最大不得大于八位');
+                    base.showMsg(base.getText('小数点后最大不得大于八位', langType));
                     $(this).val(yLeft + '.' + yRight);
                     return;
                 }
@@ -861,7 +866,7 @@ define([
             if (yRight) {
                 if (yRight.length > 8) {
                     yRight = yRight.substring(0, 8);
-                    base.showMsg('小数点后最大不得大于八位');
+                    base.showMsg(base.getText('小数点后最大不得大于八位', langType));
                     $(this).val(yLeft + '.' + yRight);
                     return;
                 }
@@ -882,7 +887,7 @@ define([
             if (yRight) {
                 if (yRight.length > 8) {
                     yRight = yRight.substring(0, 8);
-                    base.showMsg('小数点后最大不得大于八位');
+                    base.showMsg(base.getText('小数点后最大不得大于八位', langType));
                     $(this).val(yLeft + '.' + yRight);
                     return;
                 }
@@ -922,7 +927,7 @@ define([
             if (yRight) {
                 if (yRight.length > 8) {
                     yRight = yRight.substring(0, 8);
-                    base.showMsg('小数点后最大不得大于八位');
+                    base.showMsg(base.getText('小数点后最大不得大于八位', langType));
                     $(this).val(yLeft + '.' + yRight);
                     return;
                 }
@@ -985,12 +990,12 @@ define([
         //买
         $('.j-sp .sel-span').mousedown(function (e) {
             isClick = false;
-            togo(this, e, '买');
+            togo(this, e, buytype);
         })
         // 卖
         $('.y-sp .sel-span').mousedown(function (e) {
             isClick = false;
-            togo(this, e, '卖');
+            togo(this, e, selltype);
         })
 
         //取消mousemove事件
@@ -1018,7 +1023,7 @@ define([
         $('.j-sp span:not(.sel-span)').css('background-color', '#f1f1f1');
         $('.br-sp .sel-span').css('left', '0%');
         switch (jyText) {
-            case '限价交易':
+            case base.getText('限价交易', langType):
                 isType = 0;
                 sessionStorage.setItem('jyType', 'xj');
                 jyType = 'xj';
@@ -1033,14 +1038,14 @@ define([
                 $('.jy-me').text('0.00000000');
                 $('.mr-exc').text('0.00');
                 break;
-            case '市价交易':
+            case base.getText('市价交易', langType):
                 isType = 1;
                 sessionStorage.setItem('jyType', 'sj');
                 jyType = 'sj';
                 $('.bb-jiaoyi input').css('border-color', '#e5e5e5').val('');
-                $('.yj-m>input').eq(0).val('以市场上最优价格买入').prop('disabled', true).addClass('dis-inp');
-                $('.jy-r>input').val('以市场最优价格卖出').prop('disabled', true).addClass('dis-inp');
-                $('.yj-btc').css('opacity', '0').eq(0).next().text('交易额');
+                $('.yj-m>input').eq(0).val(base.getText('以市场上最优价格买入', langType)).prop('disabled', true).addClass('dis-inp');
+                $('.jy-r>input').val(base.getText('以市场最优价格卖出', langType)).prop('disabled', true).addClass('dis-inp');
+                $('.yj-btc').css('opacity', '0').eq(0).next().text(base.getText('交易额', langType));
                 $('.btc-toSm span').text(setBazDeal.toSymbol); // 当前交易对 tosm
                 $('.jy-btc1 .r-b').text(setBazDeal.toSymbol);
                 $('.jy-money').css('opacity', '0');
@@ -1096,7 +1101,7 @@ define([
 
             //买入量
             let allBB = parseFloat($('.all-bb').text());
-            if (allBB != 0 && type == '买') {
+            if (allBB != 0 && type == buytype) {
                 let m_bb = (Math.floor(((gLeft * allBB) / 100) * 10000) / 10000).toFixed(4);
                 $(that).parents('.dr-box').prev().children('input').val(m_bb);
                 $('.jy-me').text(((Math.floor((m_bb * $('#ym-price').val()) * 100000000)) / 100000000).toFixed(8));
@@ -1104,7 +1109,7 @@ define([
             // 卖人量
             let mcBB = parseFloat($('.all-bb_c').text());
             let r_bb = (Math.floor(((gLeft * mcBB) / 100) * 10000) / 10000).toFixed(4);
-            if (mcBB != 0 && type == '卖') {
+            if (mcBB != 0 && type == selltype) {
                 $(that).parents('.dr-box').prev().children('input').val(r_bb);
                 $('.jy-ce').text(((Math.floor((r_bb * $('#yr-price').val()) * 100000000)) / 100000000).toFixed(8));
             }
@@ -1166,9 +1171,9 @@ define([
                 confine: true,
                 formatter: function (data) {
                     if (data[0].value == 0 && data[1]) {
-                        return `委托价：${data[1].name}</br>累计：${data[1].value}`;
+                        return `${base.getText('委托价', langType)}：${data[1].name}</br>${base.getText('累计', langType)}：${data[1].value}`;
                     }
-                    return `委托价：${data[0].name}</br>累计：${data[0].value}`;
+                    return `${base.getText('委托价', langType)}：${data[0].name}</br>${base.getText('累计', langType)}：${data[0].value}`;
                 }
             },
             grid: {
@@ -1208,7 +1213,7 @@ define([
                 scale: true
             }],
             series: [{
-                name: '买入',
+                name: en_mr,
                 type: 'line',
                 smooth: false,
                 step: 'end',
@@ -1221,7 +1226,7 @@ define([
                 data: buyLjListData
             },
                 {
-                    name: '卖出',
+                    name: en_mc,
                     type: 'line',
                     // barCategoryGap: 0,
                     smooth: false,
@@ -1318,7 +1323,7 @@ define([
             const btnList = [
                 {
                     class: 'chart-buttons',
-                    label: '分时',
+                    label: base.getText('分时', langType),
                     resolution: "1",
                     chartType: 3
                 }, {

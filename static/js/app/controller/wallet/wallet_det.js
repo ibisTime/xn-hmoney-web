@@ -5,23 +5,23 @@ define([
     'app/controller/Top',
     'app/controller/foo'
 ], function(base, pagination, Ajax,Top, Foo) {
-
+    let langType = localStorage.getItem('langType') || 'ZH';
     let code = base.getUrlParam('code');
     let userCTSList = {};
 
     let typeList = {
-        '0': '买入',
-        '1': '卖出'
+        '0': base.getText('买入', langType),
+        '1': base.getText('卖出', langType)
     }
 
     let zfType = {};
 
     let statusList = {
-        '0': '待支付',
-        '1': '待确认',
-        '2': '已完成',
-        '3': '已取消',
-        '4': '平台已取消'
+        '0': base.getText('待支付', langType),
+        '1': base.getText('待确认', langType),
+        '2': base.getText('已完成', langType),
+        '3': base.getText('已取消', langType),
+        '4': base.getText('平台已取消', langType)
     }
 
     getBankData().then(data => {
@@ -97,12 +97,12 @@ define([
                 code
             };
             switch (selTxt) {
-                case '我已完成付款':
+                case base.getText('我已完成付款', langType):
                     bjPlayfo(config).then(() => {
                         location.reload();
                     });
                     break;
-                case '取消交易':
+                case base.getText('取消交易', langType):
                     qxOrder(config).then(() => {
                         location.reload();
                     });

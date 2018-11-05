@@ -4,7 +4,7 @@ define([
     'app/controller/Top',
     'app/controller/foo'
 ], function(base, UserCtr, Top, Foo) {
-
+    let langType = localStorage.getItem('langType') || 'ZH';
     if (!base.isLogin()) {
         base.goLogin()
     } else {

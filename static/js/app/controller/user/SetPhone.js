@@ -6,6 +6,7 @@ define([
     'app/controller/Top',
     'app/controller/foo'
 ], function(base, Validate, smsCaptcha, UserCtr, Top, Foo) {
+    let langType = localStorage.getItem('langType') || 'ZH';
     var type = base.getUrlParam("type");//设置类型： 0,设置  1，修改 
     if (!base.isLogin()) {
         base.goLogin()
@@ -24,7 +25,7 @@ define([
     function setPhone(mobile, smsCaptcha) {
         return UserCtr.setPhone(mobile, smsCaptcha).then(() => {
             base.hideLoadingSpin()
-            base.showMsg("设置成功")
+            base.showMsg(base.getText('设置成功', langType))
             sessionStorage.setItem("mobile", mobile);
             setTimeout(function() {
                 base.gohrefReplace("../user/security.html")
@@ -35,7 +36,7 @@ define([
     function detPhone(mobile, smsCaptcha) {
         return UserCtr.detPhone(mobile, smsCaptcha).then(() => {
             base.hideLoadingSpin()
-            base.showMsg("设置成功")
+            base.showMsg(base.getText('设置成功', langType))
             sessionStorage.setItem("mobile", mobile);
             setTimeout(function() {
                 base.gohrefReplace("../user/security.html")

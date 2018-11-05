@@ -8,6 +8,7 @@ define([
     'app/controller/foo',
     'app/controller/public/DealLeft'
 ], function(base, AccountCtr, GeneralCtr, TradeCtr, pagination, Top, Foo, DealLeft) {
+    let langType = localStorage.getItem('langType') || 'ZH';
     var type = base.getUrlParam("type") || "sell"; // buy: 购买，sell:出售
     var coin = base.getUrlParam("coin") || 'BTC'; // wait
     var adsStatusValueList = {}; // 广告狀態
@@ -20,8 +21,8 @@ define([
         coin: coin.toUpperCase()
     }
     var typeList = {
-        "buy": "购买",
-        "sell": "出售",
+        "buy": base.getText('购买', langType),
+        "sell": base.getText('出售', langType),
     };
     init();
 
@@ -79,7 +80,7 @@ define([
             totalData: data.totalCount,
             jumpIptCls: 'pagination-ipt',
             jumpBtnCls: 'pagination-btn',
-            jumpBtn: '确定',
+            jumpBtn: base.getText('确定', langType),
             isHide: true,
             callback: function(_this) {
                 if (_this.getCurrent() != config.start) {
@@ -118,19 +119,19 @@ define([
 
         //待发布
         if (config.statusList == null || config.statusList.length == 1) {
-            operationHtml = `<div class="am-button am-button-red publish mr20 goHref" data-href="../trade/advertise.html?code=${item.code}&mod=gg&coin=${item.tradeCoin}">编辑</div>
-        					<div class="am-button publish goHref am-button-ghost am-button-out" data-href="../trade/advertise.html?code=${item.code}&mod=gg&coin=${item.tradeCoin}">查看</div>`
+            operationHtml = `<div class="am-button am-button-red publish mr20 goHref" data-href="../trade/advertise.html?code=${item.code}&mod=gg&coin=${item.tradeCoin}">${base.getText('编辑', langType)}</div>
+        					<div class="am-button publish goHref am-button-ghost am-button-out" data-href="../trade/advertise.html?code=${item.code}&mod=gg&coin=${item.tradeCoin}">${base.getText('查看', langType)}</div>`
 
             //已发布 
         } else {
             //已上架
             if (item.status == "1") {
-                operationHtml = `<div class="am-button am-button-red mr20 doDownBtn" data-code="${item.code}">下架</div>`
+                operationHtml = `<div class="am-button am-button-red mr20 doDownBtn" data-code="${item.code}">${base.getText('下架', langType)}</div>`
             }
             if (type == 'buy') {
-                operationHtml += `<div class="am-button goHref am-button-ghost" data-href="../trade/buy-detail.html?code=${item.code}&isD=1">查看详情</div>`
+                operationHtml += `<div class="am-button goHref am-button-ghost" data-href="../trade/buy-detail.html?code=${item.code}&isD=1">${base.getText('查看详情', langType)}</div>`
             } else if (type == 'sell') {
-                operationHtml += `<div class="am-button goHref am-button-ghost" data-href="../trade/sell-detail.html?code=${item.code}&isD=1">查看详情</div>`
+                operationHtml += `<div class="am-button goHref am-button-ghost" data-href="../trade/sell-detail.html?code=${item.code}&isD=1">${base.getText('查看详情', langType)}</div>`
             }
         }
         return `<tr>
@@ -140,7 +141,7 @@ define([
         <td class="quantity ">${base.formatMoney(item.totalCountString, '', item.tradeCoin)}</td>
         <td class="price">${(item.premiumRate * 100).toFixed(2) + '%'}</td>
         <td class="createDatetime">${base.formatDate(item.createDatetime)}</td>
-        <td class="status tc">${item.status=="-1"?'交谈中,'+adsStatusValueList[item.status]:adsStatusValueList[item.status]}</td>
+        <td class="status tc">${item.status=="-1"?base.getText('交谈中', langType) + ','+adsStatusValueList[item.status]:adsStatusValueList[item.status]}</td>
         <td class="operation" style="padding-right: 0;">
             ${operationHtml}
         </td>
@@ -166,12 +167,12 @@ define([
 
         $("#content").on("click", ".doDownBtn", function() {
             var adsCode = $(this).attr("data-code");
-            base.confirm("确认下架此广告？", '取消', '确定').then(() => {
+            base.confirm(base.getText('确认下架此广告？', langType), base.getText('取消', langType), base.getText('确定', langType)).then(() => {
                 base.showLoadingSpin()
                 TradeCtr.downAdvertise(adsCode).then(() => {
                     base.hideLoadingSpin();
 
-                    base.showMsg("操作成功");
+                    base.showMsg(base.getText('操作成功', langType));
                     setTimeout(function() {
                         base.showLoadingSpin();
                         config.start = 1;

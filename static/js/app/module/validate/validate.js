@@ -1,18 +1,20 @@
 define([
+    'app/controller/base',
     'jValidate'
-], function(V) {
+], function(base, V) {
+    let langType = localStorage.getItem('langType') || 'ZH';
     jQuery.extend(jQuery.validator.messages, {
-        required: "不能为空",
+        required: base.getText('不能为空', langType),
         remote: "请修正该字段",
-        email: "请输入正确格式的电子邮件",
-        url: "请输入合法的网址",
-        date: "请输入合法的日期",
+        email: base.getText('请输入正确格式的电子邮件', langType),
+        url: base.getText('请输入合法的网址', langType),
+        date: base.getText('请输入合法的日期', langType),
         dateISO: "请输入合法的日期 (ISO).",
-        number: "请输入合法的数字",
-        digits: "只能输入整数",
-        creditcard: "请输入合法的信用卡号",
-        equalTo: "两次密码不同",
-        accept: "请输入拥有合法后缀名的字符串",
+        number: base.getText('请输入合法的数字', langType),
+        digits: base.getText('只能输入整数', langType),
+        creditcard: base.getText('请输入合法的信用卡号', langType),
+        equalTo: base.getText('两次密码不同', langType),
+        accept: base.getText('请输入拥有合法后缀名的字符串', langType),
         maxlength: jQuery.validator.format("长度不能超过 {0} 位"),
         minlength: jQuery.validator.format("长度不能少于 {0} 位"),
         rangelength: jQuery.validator.format("请输入一个长度介于 {0} 和 {1} 之间的字符串"),
@@ -30,21 +32,21 @@ define([
     $.validator.addMethod("bankCard", function(value, element) {
         var reg = /^(\d{16}|\d{19})$/;
         return this.optional(element) || reg.test(value);
-    }, "格式错误");
+    }, base.getText('格式错误', langType));
 
     $.validator.addMethod("isIdCardNo", function(value, element) {
         return this.optional(element) || isIdCardNo(value);
-    }, "格式错误");
+    },  base.getText('格式错误', langType));
 
     $.validator.addMethod("isNotFace", function(value, element) {
         return this.optional(element) || /^[\s0-9a-zA-Z\u4e00-\u9fa5\u00d7\u300a\u2014\u2018\u2019\u201c\u201d\u2026\u3001\u3002\u300b\u300e\u300f\u3010\u3011\uff01\uff08\uff09\uff0c\uff1a\uff1b\uff1f\uff0d\uff03\uffe5\x21-\x7e]+$/.test(value);
-    }, "请输入合法字符");
+    }, base.getText('请输入合法字符', langType));
     $.validator.addMethod("chinese", function(value, element) {
         return this.optional(element) || /^[\u4e00-\u9fa5]+$/.test(value);
-    }, "只能输入中文");
+    }, base.getText('只能输入中文', langType));
     $.validator.addMethod("english", function(value, element) {
         return this.optional(element) || /^[a-zA-Z]+$/.test(value);
-    }, "请输入英文名称");
+    }, base.getText('请输入英文名称', langType));
     //验证当前值和目标val的值相等 相等返回为 false
     jQuery.validator.addMethod("equalTo2", function(value, element) {
         var returnVal = true;
@@ -54,7 +56,7 @@ define([
             returnVal = false;
         }
         return returnVal;
-    }, "不能和原始密码相同");
+    }, base.getText('不能和原始密码相同', langType));
 
     //大于指定数
     jQuery.validator.addMethod("gt", function(value, element) {
@@ -64,20 +66,20 @@ define([
             returnVal = true;
         }
         return returnVal;
-    }, "不能小于0 或空");
+    }, base.getText('不能小于0 或空', langType));
     $.validator.addMethod("isPositive", function(value, element) {
         var aint = parseFloat(value);
         return this.optional(element) || aint > 0;
-    }, '请输入大于0的数字');
+    }, base.getText('请输入大于0的数字', langType));
 
     $.validator.addMethod("Z+", function(value, element) {
         return this.optional(element) || /^[1-9]\d*$/.test(value);
-    }, '请输入正整数');
+    }, base.getText('请输入正整数', langType));
     //邮箱
     jQuery.validator.addMethod("mail", function(value, element) {
         var mail = /^[a-z0-9._%-]+@([a-z0-9-]+\.)+[a-z]{2,4}$/;
         return this.optional(element) || (mail.test(value));
-    }, "邮箱格式错误");
+    }, base.getText('邮箱格式错误', langType));
 
     //电话验证规则
     jQuery.validator.addMethod("phone", function(value, element) {
@@ -101,28 +103,28 @@ define([
     jQuery.validator.addMethod("mobile", function(value, element) {
         var mobile = /^1[3|4|5|6|7|8|9]\d{9}$/;
         return this.optional(element) || (mobile.test(value));
-    }, "手机格式错误");
+    }, base.getText('手机格式错误', langType));
 
     //邮箱或手机验证规则
     jQuery.validator.addMethod("mm", function(value, element) {
         var mm = /^[a-z0-9._%-]+@([a-z0-9-]+\.)+[a-z]{2,4}$|^1[3|4|5|6|7|8|9]\d{9}$/;
         return this.optional(element) || (mm.test(value));
-    }, "邮箱或手机格式错误");
+    }, base.getText('邮箱或手机格式错误', langType));
 
     //电话或手机验证规则
     jQuery.validator.addMethod("tm", function(value, element) {
         var tm = /(^1[3|4|5|7|8]\d{9}$)|(^\d{3,4}-\d{7,8}$)|(^\d{7,8}$)|(^\d{3,4}-\d{7,8}-\d{1,4}$)|(^\d{7,8}-\d{1,4}$)/;
         return this.optional(element) || (tm.test(value));
-    }, "电话或手机格式错误");
+    }, base.getText('电话或手机格式错误', langType));
     //短信验证码规则
     jQuery.validator.addMethod("sms", function(value, element) {
         var tm = /^\d{4}$/;
         return this.optional(element) || (tm.test(value));
-    }, "验证码格式错误");
+    }, base.getText('验证码格式错误', langType));
 
     $.validator.addMethod("tradePwdLength", function(value, element) {
         return this.optional(element) || /^\d{6}$/.test(value);
-    }, '资金密码长度为6位且为数字');
+    }, base.getText('资金密码长度为6位且为数字', langType));
 
     //小数最后8位
     $.validator.addMethod("amountEth", function(value, element) {
@@ -141,7 +143,7 @@ define([
     //小数最后2位
     $.validator.addMethod("pwd", function(value, element) {
         return this.optional(element) || /[A-Za-z].*[0-9]|[0-9].*[A-Za-z]/.test(value);
-    }, '必须由数字和大小写字母组成');
+    }, base.getText('必须由数字和大小写字母组成', langType));
 
 
 
@@ -177,5 +179,5 @@ define([
     //护照验证
     $.validator.addMethod("isHzCard", function(value) {
         return /^((1[45]\d{7})|(G\d{8})|(P\d{7})|(S\d{7,8}))?$/.test(value);
-    }, '格式错误');
+    }, base.getText('格式错误', langType));
 });

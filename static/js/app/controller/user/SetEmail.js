@@ -6,7 +6,7 @@ define([
     'app/controller/Top',
     'app/controller/foo'
 ], function(base, Validate, smsCaptcha, UserCtr, Top, Foo) {
-
+    let langType = localStorage.getItem('langType') || 'ZH';
     if (!base.isLogin()) {
         base.goLogin()
     } else {
@@ -24,7 +24,7 @@ define([
     function setEmail(email, smsCaptcha) {
         return UserCtr.setEmail(email, smsCaptcha).then(() => {
             base.hideLoadingSpin()
-            base.showMsg("设置成功")
+            base.showMsg(base.getText('设置成功', langType))
             sessionStorage.setItem("email", email);
             setTimeout(function() {
                 base.gohrefReplace("../user/security.html")

@@ -44,7 +44,7 @@ define([
     function register(params, type) {
         if (type == 'mobile') {
             return UserCtr.register(params).then((data) => {
-                base.showMsg("注册成功");
+                base.showMsg(base.getText('注册成功', langType));
                 let loginParams = {
                     loginName: params.mobile,
                     loginPwd :params.loginPwd
@@ -59,7 +59,7 @@ define([
                             sessionStorage.setItem("inviteCode", item.userId);
                             base.hideLoadingSpin();
                             setTimeout(() => {
-                                base.showMsg("登录成功")
+                                base.showMsg(base.getText('登录成功', langType))
                             }, 1000);
                             setTimeout(function() {
                                 base.goReturn()
@@ -70,7 +70,7 @@ define([
             }, base.hideLoadingSpin);
         } else {
             return UserCtr.emailRegister(params).then(() => {
-                base.showMsg("注册成功");
+                base.showMsg(base.getText('注册成功', langType));
                 let loginParams = {
                     loginName: params.email,
                     loginPwd :params.loginPwd
@@ -84,7 +84,7 @@ define([
                         sessionStorage.setItem("inviteCode", item.userId);
                         base.hideLoadingSpin();
                         setTimeout(() => {
-                            base.showMsg("登录成功")
+                            base.showMsg(base.getText('登录成功', langType))
                         }, 1000);
                         setTimeout(function() {
                             base.goReturn()
@@ -183,9 +183,9 @@ define([
             $('#getVerification1').prop("disabled", true)
             var timer = window.setInterval(() => {
                 if (i > 0 && $('#getVerification1').prop("disabled")) {
-                    $('#getVerification1').text("重新发送(" + i-- + "s)");
+                    $('#getVerification1').text(base.getText('重新发送', langType) + "(" + i-- + "s)");
                 } else {
-                    $('#getVerification1').text("获取验证码").prop("disabled", false);
+                    $('#getVerification1').text(base.getText('获取验证码', langType)).prop("disabled", false);
                     $('#getVerification1').css({
                         color: '#d53d3d'
                     });
@@ -212,7 +212,7 @@ define([
                     gcGetYzm(i);
                 }, () => {
                     base.hideLoadingSpin();
-                    $('#getVerification1').text("获取验证码").prop("disabled", false);
+                    $('#getVerification1').text(base.getText('获取验证码', langType)).prop("disabled", false);
                     $('#getVerification1').css({
                         color: '#d53d3d'
                     });

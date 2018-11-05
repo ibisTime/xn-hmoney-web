@@ -6,7 +6,9 @@ define([
     'app/controller/Top',
     'app/controller/foo'
 ], function(base, pagination, GeneralCtr, UserCtr, Top, Foo) {
-    var inviteCode = sessionStorage.getItem("inviteCode")
+    var inviteCode = sessionStorage.getItem("inviteCode");
+    let langType = localStorage.getItem('langType') || 'ZH';
+
     var config = {
         start: 1,
         limit: 5,
@@ -29,6 +31,10 @@ define([
             getInvitaFn()
             // getUserInviteProfit()
         )
+        if(langType == 'EN'){
+            $('#invitationBtn').css('width', 'auto');
+            $('.pt10').css('display', 'flex');
+        }
         addListener();
 
     }
@@ -55,7 +61,7 @@ define([
     function getUserInviteProfit() {
         return UserCtr.getUserInviteProfit().then((data) => {
             if (data.length > 0) {
-                $(".inviteProfit").html(inviteProfit + data[0].coin.symbol + "<i class='more'>查看更多</i>");
+                $(".inviteProfit").html(inviteProfit + data[0].coin.symbol + "<i class='more'>"+base.getText('查看更多', langType)+"</i>");
 
                 var html = '';
                 data.forEach((item) => {
@@ -97,7 +103,7 @@ define([
             totalData: data.totalCount,
             jumpIptCls: 'pagination-ipt',
             jumpBtnCls: 'pagination-btn',
-            jumpBtn: '确定',
+            jumpBtn: base.getText('确定', langType),
             isHide: true,
             callback: function(_this) {
                 if (_this.getCurrent() != config.start) {
@@ -121,7 +127,7 @@ define([
                     let tradeAwardCount = base.formatMoney(`${item.tradeAwardCount}`, '', 'FMVP');
                     let regAwardCount = base.formatMoney(`${item.regAwardCount}`, '', 'FMVP');
                     let awardCount = (parseFloat(tradeAwardCount) + parseFloat(regAwardCount)) + ' FMVP ';
-                    let tradeAwardTxt = `(交易佣金：${tradeAwardCount})`;
+                    let tradeAwardTxt = `(${base.getText('交易佣金', langType)}：${tradeAwardCount})`;
                     if(item.tradeAwardCount != 0){
                         awardCount += tradeAwardTxt;
                     }
@@ -137,31 +143,6 @@ define([
             config.start == 1 && initPagination(data);
             base.hideLoadingSpin();
         }, base.hideLoadingSpin)
-    }
-
-    function buildHtml(item) {
-        var photoHtml = ""
-        if (item.photo) {
-            photoHtml = `<div class="photo goHref" style="background-image:url('${base.getAvatar(item.photo)}')" data-href="../user/user-detail.html?userId=${item.userId}"></div>`
-        } else {
-            var tmpl = item.nickname.substring(0, 1).toUpperCase();
-            photoHtml = `<div class="photo"><div class="noPhoto goHref" data-href="../user/user-detail.html?userId=${item.userId}">${tmpl}</div></div>`
-        }
-
-        return `<tr>
-					<td>
-						<div class="photoWrap">${photoHtml}</div>
-					</td>
-					<td><div class="txt1">${item.nickname}</div></td>
-					<td class="credit">
-						<p>交易${item.userStatistics.jiaoYiCount}&nbsp;·&nbsp;
-						好评率${base.getPercentum(item.userStatistics.beiHaoPingCount,item.userStatistics.beiPingJiaCount)}&nbsp;·&nbsp;
-						信任${item.userStatistics.beiXinRenCount}</p>
-					</td>
-					<td>
-						<div class="datetime">${base.formatDate(item.createDatetime)}</div>
-					</td>
-				</tr>`;
     }
 
     function addListener() {

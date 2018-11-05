@@ -1,8 +1,10 @@
 define([
+    'app/controller/base',
     'jquery',
     'app/util/dialog',
     'app/module/loading'
-], function($, dialog, loading) {
+], function(base, $, dialog, loading) {
+    let langType = localStorage.getItem('langType') || 'ZH';
     var cache = {};
 
     function showMsg(msg, time) {
@@ -42,7 +44,7 @@ define([
                     type: 'post',
                     url: '/api',
                     headers: {
-                        "Accept-Language": "en_US"
+                        "Accept-Language": langType == 'EN' ? "en_US" : 'zh-CN,zh'
                     },
                     data: param
                 });
@@ -53,7 +55,7 @@ define([
                     sessionStorage.removeItem("token"); //token
                     sessionStorage.setItem("l-return", location.pathname + location.search);
                     // 登录
-                    return $.Deferred().reject("登录超时，请重新登录", res.errorCode);
+                    return $.Deferred().reject(base.getText('登录超时，请重新登录', langType), res.errorCode);
                 }
                 if (res.errorCode != "0") {
                     return $.Deferred().reject(res.errorInfo);

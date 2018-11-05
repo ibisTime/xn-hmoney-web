@@ -6,6 +6,7 @@ define([
     'app/controller/foo',
     'app/controller/public/DealLeft'
 ], function(base, pagination, UserCtr, Top, Foo, DealLeft) {
+    let langType = localStorage.getItem('langType') || 'ZH';
     var type = base.getUrlParam("type") || '1'; // 0: 你屏蔽的人，1:你信任的人，2:信任你的人
     let gohref = base.getUrlParam('go') || 'm_xr'; // m_xr: 你信任的人, xr_m: 信任你的人, m_pb:你屏蔽的人
     var config = {
@@ -68,7 +69,7 @@ define([
             totalData: data.totalCount,
             jumpIptCls: 'pagination-ipt',
             jumpBtnCls: 'pagination-btn',
-            jumpBtn: '确定',
+            jumpBtn: base.getText('确定', langType),
             isHide: true,
             callback: function(_this) {
                 if (_this.getCurrent() != config.start) {
@@ -114,13 +115,13 @@ define([
 					</td>
 					<td><div class="txt1">${item.toUserInfo.nickname}</div></td>
 					<td>
-						<div class="txt2"><p>${item.toUserInfo.userStatistics.jiaoYiCount}</p><samp>交易次数</samp></div>
+						<div class="txt2"><p>${item.toUserInfo.userStatistics.jiaoYiCount}</p><samp>${base.getText('交易次数', langType)}</samp></div>
 					</td>
 					<td>
-						<div class="txt2"><p>${item.toUserInfo.userStatistics.beiXinRenCount}</p><samp>信任人数</samp></div>
+						<div class="txt2"><p>${item.toUserInfo.userStatistics.beiXinRenCount}</p><samp>${base.getText('信任人数', langType)}</samp></div>
 					</td>
 					<td>
-						<div class="txt2"><p>${base.getPercentum(item.toUserInfo.userStatistics.beiHaoPingCount,item.toUserInfo.userStatistics.beiPingJiaCount)}</p><samp>好评率</samp></div>
+						<div class="txt2"><p>${base.getPercentum(item.toUserInfo.userStatistics.beiHaoPingCount,item.toUserInfo.userStatistics.beiPingJiaCount)}</p><samp>${base.getText('好评率', langType)}</samp></div>
 					</td>
 				</tr>`;
         }
@@ -138,13 +139,13 @@ define([
 					</td>
 					<td><div class="txt1">${item.fromUserInfo.nickname}</div></td>
 					<td>
-						<div class="txt2"><p>${item.fromUserInfo.userStatistics.jiaoYiCount}</p><samp>交易次数</samp></div>
+						<div class="txt2"><p>${item.fromUserInfo.userStatistics.jiaoYiCount}</p><samp>${base.getText('交易次数', langType)}</samp></div>
 					</td>
 					<td>
-						<div class="txt2"><p>${item.fromUserInfo.userStatistics.beiXinRenCount}</p><samp>信任人数</samp></div>
+						<div class="txt2"><p>${item.fromUserInfo.userStatistics.beiXinRenCount}</p><samp>${base.getText('信任人数', langType)}</samp></div>
 					</td>
 					<td>
-						<div class="txt2"><p>${base.getPercentum(item.fromUserInfo.userStatistics.beiHaoPingCount,item.fromUserInfo.userStatistics.beiPingJiaCount)}</p><samp>好评率</samp></div>
+						<div class="txt2"><p>${base.getPercentum(item.fromUserInfo.userStatistics.beiHaoPingCount,item.fromUserInfo.userStatistics.beiPingJiaCount)}</p><samp>${base.getText('好评率', langType)}</samp></div>
 					</td>
 				</tr>`;
         }

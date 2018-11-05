@@ -7,6 +7,7 @@ define([
     'app/controller/Top',
     'app/controller/foo'
 ], function(base, Validate, GeneralCtr, UserCtr, TradeCtr, Top, Foo) {
+    let langType = localStorage.getItem('langType') || 'ZH';
     var code = base.getUrlParam("code");
     var loginInfo = {};
     var userId = base.getUserId();
@@ -24,7 +25,7 @@ define([
         myName = '';
     var payType = {};
     var firstLoad = false;
-    var newMsgHtml = '<div id="newMsgWrap" class="newMsg-wrap goHref" data-href="../order/order-list.html?mod=dd">您有未读消息</div>';
+    var newMsgHtml = `<div id="newMsgWrap" class="newMsg-wrap goHref" data-href="../order/order-list.html?mod=dd">${base.getText('您有未读消息', langType)}</div>`;
     var tradeType;
     var adsCode;
     var tradeCoin = ''; //交易币种
@@ -33,6 +34,10 @@ define([
 
     function init() {
         base.showLoadingSpin();
+        if(!base.isLogin()){
+            base.goLogin();
+            return ;
+        }
         GeneralCtr.getDictList({ "parentKey": "pay_type" }).then((data) => {
             data.forEach(function(item) {
                 payType[item.dkey] = item.dvalue;
@@ -63,7 +68,7 @@ define([
             adsCode = data.adsCode
                 //待支付
             if (data.status == '0' || data.status == '1') {
-                $("#invalidDatetime samp").html("订单將在拖管中保持至<i>" + base.formatDate(data.invalidDatetime, "hh:mm:ss") + "</i>，逾期未支付交易將自动取消")
+                $("#invalidDatetime samp").html(base.getText('订单將在拖管中保持至', langType) + "<i>" + base.formatDate(data.invalidDatetime, "hh:mm:ss") + "</i>," + base.getText('逾期未支付交易將自动取消', langType));
                 $("#invalidDatetime").removeClass("hidden")
                 $("#statusInfo").addClass("hidden")
             }
@@ -80,12 +85,12 @@ define([
 
             //卖家/买家信息
             $(".btn-wrap .am-button").addClass("hidden");
-            //当前用户为买家，显示卖家信息
+            //当前用户为买家，显示买家信息
             if (data.buyUser == base.getUserId()) {
                 tradeType = '0';
                 var user = data.sellUserInfo;
                 var myInfo = data.buyUserInfo;
-                $("#user").html("卖家信息")
+                $("#user").html(base.getText('买家信息', langType));
 
                 //待支付
                 if (data.status == "0") {
@@ -104,7 +109,7 @@ define([
                 tradeType = '1';
                 var user = data.buyUserInfo;
                 var myInfo = data.sellUserInfo;
-                $("#user").html("卖家信息")
+                $("#user").html(base.getText('卖家信息', langType))
 
                 //待支付
                 if (data.status == "1") {
@@ -125,20 +130,20 @@ define([
             //待下单
             if (data.status == "-1") {
 
-                $("title").html("广告详情-HappyMoney");
+                $("title").html(base.getText('广告详情', langType) + "-HappyMoney");
                 $(".orderDetail-info .info-wrap").addClass("hidden");
                 if (tradeType == '0') {
 
-                    $(".orderDetail-info .title").html('<i class="icon icon-order"></i>购买订单')
+                    $(".orderDetail-info .title").html('<i class="icon icon-order"></i>' + base.getText('购买订单', langType))
                     $(".goBuyDetailBtn").removeClass("hidden");
                 } else if (tradeType == '1') {
-                    $(".orderDetail-info .title").html('<i class="icon icon-order"></i>出售订单')
+                    $(".orderDetail-info .title").html('<i class="icon icon-order"></i>' + base.getText('出售订单', langType))
                     $(".goSellDetailBtn").removeClass("hidden");
                 }
 
                 getAdvertiseDetail();
             } else {
-                $("title").html("订单详情-HappyMoney")
+                $("title").html(base.getText('订单详情', langType) + "-HappyMoney")
             }
 
             userName = user.nickname;
@@ -164,9 +169,9 @@ define([
                 firstLoad = true;
             }
 
-            $("#mobile").html(user.mobile != "" && user.mobile ? '已验证' : '未验证')
-            $("#email").html(user.email != "" && user.email ? '已验证' : '未验证')
-            $("#identity").html(user.realname != "" && user.realName ? '已验证' : '未验证')
+            $("#mobile").html(user.mobile != "" && user.mobile ? base.getText('已验证', langType) : base.getText('未验证', langType))
+            $("#email").html(user.email != "" && user.email ? base.getText('已验证', langType) : base.getText('未验证', langType))
+            $("#identity").html(user.realname != "" && user.realName ? base.getText('已验证', langType) : base.getText('未验证', langType))
             $("#createDatetime").html(base.formateDatetime(user.createDatetime))
 
             base.hideLoadingSpin();
@@ -305,18 +310,18 @@ define([
         var info;
         switch (resp.ErrorCode) {
             case webim.CONNECTION_STATUS.ON:
-                webim.Log.warn('建立连接成功: ' + resp.ErrorInfo);
+                webim.Log.warn(base.getText('建立连接成功', langType) + ': ' + resp.ErrorInfo);
                 break;
             case webim.CONNECTION_STATUS.OFF:
-                info = '连接已断开，无法收到新消息，请检查下你的网络是否正常: ' + resp.ErrorInfo;
+                info = base.getText('连接已断开，无法收到新消息，请检查下你的网络是否正常', langType) + ': ' + resp.ErrorInfo;
                 webim.Log.warn(info);
                 break;
             case webim.CONNECTION_STATUS.RECONNECT:
-                info = '连接状态恢复正常: ' + resp.ErrorInfo;
+                info = base.getText('连接状态恢复正常', langType) + ': ' + resp.ErrorInfo;
                 webim.Log.warn(info);
                 break;
             default:
-                webim.Log.error('未知连接状态: =' + resp.ErrorInfo);
+                webim.Log.error(base.getText('未知连接状态', langType) + ': =' + resp.ErrorInfo);
                 break;
         }
     }
@@ -399,7 +404,7 @@ define([
             options,
             function(resp) {
                 if (resp.GroupInfo[0].ShutUpAllMember == 'On') {
-                    alert('该群组已开启全局禁言');
+                    alert(base.getText('该群组已开启全局禁言', langType));
                 }
                 if (cbOK) {
                     cbOK(resp);
@@ -420,7 +425,7 @@ define([
                 'ReqMsgNumber': reqMsgCount
             };
             if (options.ReqMsgSeq == null || options.ReqMsgSeq == undefined || options.ReqMsgSeq <= 0) {
-                webim.Log.warn("该群还没有历史消息:options=" + JSON.stringify(options));
+                webim.Log.warn(base.getText('该群还没有历史消息', langType) + ":options=" + JSON.stringify(options));
                 return;
             }
             selSess = null;
@@ -431,7 +436,7 @@ define([
                 options,
                 function(msgList) {
                     if (msgList.length == 0) {
-                        webim.Log.warn("该群没有历史消息了:options=" + JSON.stringify(options));
+                        webim.Log.warn(base.getText('该群没有历史消息了', langType) + ":options=" + JSON.stringify(options));
                         return;
                     }
                     var msgSeq = msgList[0].seq - 1;
@@ -455,11 +460,11 @@ define([
         if (tempInfo) {
             reqMsgSeq = tempInfo.ReqMsgSeq;
             if (reqMsgSeq <= 0) {
-                webim.Log.warn('该群没有历史消息可拉取了');
+                webim.Log.warn(base.getText('该群没有历史消息可拉取了', langType));
                 return;
             }
         } else {
-            webim.Log.error('获取下一次拉取的群消息seq为空');
+            webim.Log.error(base.getText('获取下一次拉取的群消息seq为空', langType));
             return;
         }
         var options = {
@@ -472,7 +477,7 @@ define([
             options,
             function(msgList) {
                 if (msgList.length == 0) {
-                    webim.Log.warn("该群没有历史消息了:options=" + JSON.stringify(options));
+                    webim.Log.warn(base.getText('该群没有历史消息了', langType) + ":options=" + JSON.stringify(options));
                     return;
                 }
                 var msgSeq = msgList[0].seq - 1;
@@ -519,7 +524,11 @@ define([
         let msgLen = webim.Tool.getStrBytes(msgContent);
         let maxLen = webim.MSG_MAX_LENGTH.GROUP;
         if (msgLen > maxLen) {
-            base.showMsg('消息长度超出限制(最多' + Math.round(maxLen / 3) + '汉字)');
+            if(langType == 'EN'){
+                base.showMsg('Message length exceeded limit (up to' + Math.round(maxLen / 3) + 'characters)');
+            }else{
+                base.showMsg('消息长度超出限制(最多' + Math.round(maxLen / 3) + '汉字)');
+            }
             return;
         }
         handleMsgSend(msgContent, suc);
@@ -570,7 +579,7 @@ define([
             webim.Tool.setCookie("tmpmsg_" + groupId, '', 0);
             $('#msgedit').val('')
         }, () => {
-            base.showMsg('消息发送失败，请重新发送');
+            base.showMsg(base.getText('消息发送失败，请重新发送', langType));
         });
     }
 
@@ -590,7 +599,7 @@ define([
         fromAccountNick = msg.getFromAccountNick() || fromAccount;
         fromAccountImage = msg.fromAccountHeadurl || '';
         if (fromAccount == 'admin') {
-            fromAccountNick = '系统消息';
+            fromAccountNick = base.getText('系统消息', langType);
         }
         var onemsg = document.createElement("div");
 
@@ -707,7 +716,7 @@ define([
                     }
                     break;
                 default:
-                    webim.Log.error('未知消息元素类型: elemType=' + type);
+                    webim.Log.error(base.getText('未知消息元素类型', langType) + ': elemType=' + type);
                     break;
             }
         }
@@ -755,7 +764,7 @@ define([
     //选择图片触发事件
     function fileOnChange(uploadFile) {
         if (!window.File || !window.FileList || !window.FileReader) {
-            alert("您的浏览器不支持File Api");
+            alert(base.getText('您的浏览器不支持', langType) + "File Api");
             return;
         }
         var file = uploadFile.files[0];
@@ -816,7 +825,7 @@ define([
     //发送图片消息
     function sendPic(images, imgName) {
         if (!groupId) {
-            alert("您还没有好友，暂不能聊天");
+            alert(base.getText('您还没有好友，暂不能聊天', langType));
             return;
         }
         var sess = webim.MsgStore.sessByTypeId(webim.SESSION_TYPE.GROUP, groupId);
@@ -888,12 +897,12 @@ define([
         var photoExt = obj.value.substr(obj.value.lastIndexOf(".") + 1).toLowerCase(); //获得文件后缀名
         var pos = picExts.indexOf(photoExt);
         if (pos < 0) {
-            alert("您选中的文件不是图片，请重新选择");
+            alert(base.getText('您选中的文件不是图片，请重新选择', langType));
             return false;
         }
         fileSize = Math.round(fileSize / 1024 * 100) / 100; //单位为KB
         if (fileSize > 30 * 1024) {
-            alert("您选择的图片大小超过限制(最大为30M)，请重新选择");
+            alert(base.getText('您选择的图片大小超过限制(最大为30M)，请重新选择', langType));
             return false;
         }
         return true;
@@ -1030,11 +1039,11 @@ define([
 
         //取消订单按钮 点击
         $(".cancelBtn").on("click", function() {
-            base.confirm("确认取消交易？", '取消', '确定').then(() => {
+            base.confirm(base.getText('确认取消交易？', langType), base.getText('取消', langType), base.getText('确定', langType)).then(() => {
                 base.showLoadingSpin()
                 TradeCtr.cancelOrder(code).then(() => {
                     base.hideLoadingSpin();
-                    base.showMsg("操作成功");
+                    base.showMsg(base.getText('操作成功', langType));
                     auSx();
                 }, base.hideLoadingSpin)
             }, base.emptyFun)
@@ -1042,12 +1051,12 @@ define([
 
         //标记打款按钮 点击
         $(".payBtn").on("click", function() {
-            base.confirm("确认标记打款？", '取消', '确定').then(() => {
+            base.confirm(base.getText('确认标记打款？', langType), base.getText('取消', langType), base.getText('确定', langType)).then(() => {
                 base.showLoadingSpin()
                 TradeCtr.payOrder(code).then(() => {
                     base.hideLoadingSpin();
 
-                    base.showMsg("操作成功");
+                    base.showMsg(base.getText('操作成功', langType));
                     auSx();
                 }, base.hideLoadingSpin)
             }, base.emptyFun)
@@ -1086,7 +1095,7 @@ define([
             }).then(() => {
                 base.hideLoadingSpin();
 
-                base.showMsg("操作成功");
+                base.showMsg(base.getText('操作成功', langType));
                 auSx();
                 $("#arbitrationDialog").addClass("hidden");
                 $("#form-wrapper .textarea-item").val("")
@@ -1103,12 +1112,12 @@ define([
 
         //解冻货币按钮 点击
         $(".releaseBtn").on("click", function() {
-            base.confirm("确认解冻货币？", '取消', '确定').then(() => {
+            base.confirm(base.getText('确认解冻货币？', langType), base.getText('取消', langType), base.getText('确定', langType)).then(() => {
                 base.showLoadingSpin()
                 TradeCtr.releaseOrder(code).then(() => {
                     base.hideLoadingSpin();
 
-                    base.showMsg("操作成功");
+                    base.showMsg(base.getText('操作成功', langType));
                     auSx();
                 }, base.hideLoadingSpin);
             }, base.emptyFun)
@@ -1126,9 +1135,9 @@ define([
             TradeCtr.commentOrder(code, comment, content).then((data) => {
                 base.hideLoadingSpin();
                 if(data.filterFlag == '2'){
-                    base.showMsg("操作成功, 其中含有关键字，需平台进行审核");
+                    base.showMsg(base.getText('操作成功, 其中含有关键字，需平台进行审核', langType));
                 }else{
-                    base.showMsg("操作成功");
+                    base.showMsg(base.getText('操作成功', langType));
                 }
                 auSx();
                 $("#commentDialog").addClass("hidden");

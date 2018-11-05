@@ -40,7 +40,8 @@
         //Browser globals
         factory(jQuery);
     }
-}(function ($) {
+}(function ($) {//skip
+    let langType = localStorage.getItem('langType') || 'ZH';
 	var css = __inline('pagination.css');
     $('<style>' + css + '</style>').appendTo('head');
     //配置参数
@@ -63,7 +64,7 @@
         jump: false, //跳转到指定页数
         jumpIptCls: 'jump-ipt', //文本框内容
         jumpBtnCls: 'jump-btn', //跳转按钮
-        jumpBtn: '跳转', //跳转按钮文本
+        jumpBtn: langType == 'ZH' ? '跳转' : 'skip', //跳转按钮文本
         callback: function () {} //回调
     };
 
@@ -141,7 +142,11 @@
                     $obj.find('.' + opts.nextCls) && $obj.find('.' + opts.nextCls).remove();
                 }
             }
-            html += opts.jump ? '<samp>共'+opts.pageCount+'页</samp><samp>到第</samp><input type="text" class="'+opts.jumpIptCls+'"><samp>页</samp><a href="javascript:;" class="'+opts.jumpBtnCls+'">'+opts.jumpBtn+'</a>' : '';
+            let all = langType == 'ZH' ? '共' : 'total ';
+            let page = langType == 'ZH' ? '页' : ' page';
+            let topage = langType == 'EN' ? '</samp><samp>to page</samp><input type="text" class="'+opts.jumpIptCls+'"><a href="javascript:;" class="'+opts.jumpBtnCls+'">' : '</samp><samp>到第</samp><input type="text" class="'+opts.jumpIptCls+'"><samp>页</samp><a href="javascript:;" class="'+opts.jumpBtnCls+'">';
+            let allpage = '<samp>'+all+opts.pageCount+page+topage+opts.jumpBtn+'</a>';
+            html += opts.jump ? allpage : '';
             $obj.empty().html(html);
         };
 

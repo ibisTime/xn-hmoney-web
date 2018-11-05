@@ -56,21 +56,21 @@ define([
             if (data.email) {
                 $("#email").text(data.email)
             } else {
-                $("#email").text("未绑定").addClass("no").click(function() {
+                $("#email").text(base.getText('未绑定', langType)).addClass("no").click(function() {
                     base.gohref("./setEmail.html");
                 });
             }
             if (data.mobile) {
                 $("#mobile").text(data.mobile)
             } else {
-                $("#mobile").text("未绑定").addClass("no").click(function() {
+                $("#mobile").text(base.getText('未绑定', langType)).addClass("no").click(function() {
                     base.gohref("./setPhone.html");
                 });
             }
             if (data.idNo) {
-                $("#idNo").text("已验证")
+                $("#idNo").text(base.getText('已验证', langType))
             } else {
-                $("#idNo").text("未验证").addClass("no").click(function() {
+                $("#idNo").text(base.getText('未验证', langType)).addClass("no").click(function() {
                     base.gohref("./identity.html");
                 });
             }
@@ -101,7 +101,7 @@ define([
         return UserCtr.changePhoto($("#editPhotoDialog .img-wrap .photoWrapSquare .photo").attr("data-src")).then((data) => {
             base.hideLoadingSpin();
             $("#editPhotoDialog").addClass("hidden")
-            base.showMsg("修改成功");
+            base.showMsg(base.getText('修改成功', langType));
             setTimeout(function() {
                 location.reload(true);
             }, 800)
@@ -134,7 +134,7 @@ define([
         $("#subBtn").click(function() {
             var src = $("#editPhotoDialog .img-wrap .photoWrapSquare .photo").attr("data-src")
             if (src == "" || !src) {
-                base.showMsg("请选择图片");
+                base.showMsg(base.getText('请选择图片', langType));
                 return;
             }
             base.showLoadingSpin();

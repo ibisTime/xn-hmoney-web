@@ -7,6 +7,7 @@ define([
     'app/controller/Top',
     'app/controller/foo'
 ], function (base, Ajax, GeneralCtr, pagination, AccountCtr, Top, Foo) {
+    let langType = localStorage.getItem('langType') || 'ZH';
     let hisConfig = {
         userId: base.getUserId(),
         start: '1',
@@ -54,8 +55,8 @@ define([
                             <div class="list-l">
                             <span>${base.formatDate(item.createDatetime)}</span>
                             <span>${item.symbol}/${item.toSymbol}</span>
-                            <span class="${item.direction == 0 ? 'or-mr' : 'or-mc'}">${item.direction == 0 ? '买入' : '卖出'}</span>
-                            <span>${item.type == 0 ? '市价' : base.formatMoney(`${item.price}`, '', item.toSymbol)}</span>
+                            <span class="${item.direction == 0 ? 'or-mr' : 'or-mc'}">${item.direction == 0 ? base.getText('买入', langType) : base.getText('卖出', langType)}</span>
+                            <span>${item.type == 0 ? base.getText('市价', langType) : base.formatMoney(`${item.price}`, '', item.toSymbol)}</span>
                             <span>${isMarketBuy ? '-' : base.formatMoney(`${item.totalCount}`, '', item.symbol)}</span>
                             <span>${isMarketSell ? '-' : base.formatMoney(`${item.totalAmount}`, '', item.toSymbol)}</span>
                             <span>${base.formatMoney(`${item.tradedCount}`, '', item.symbol)}</span>
@@ -64,7 +65,7 @@ define([
                            <span>${item.avgPrice ? base.formatMoney(`${item.avgPrice}`, '', item.toSymbol) : '-'}</span>
                             <span>${statusValueList[item.status]}</span>
                             <span>
-                                <button data-code="${item.code}" data-status="${item.status}" class="his-detail ${item.status == 4 ? 'dis-btn' : ''}">详情</button>
+                                <button data-code="${item.code}" data-status="${item.status}" class="his-detail ${item.status == 4 ? 'dis-btn' : ''}">${base.getText('详情', langType)}</button>
                             </span>
                             </div>
                             <ul class="det-l">
@@ -92,7 +93,7 @@ define([
             totalData: data.totalCount,
             jumpIptCls: 'pagination-ipt',
             jumpBtnCls: 'pagination-btn',
-            jumpBtn: '确定',
+            jumpBtn: base.getText('确定', langType),
             isHide: true,
             callback: function (_this) {
                 if (_this.getCurrent() != hisConfig.start) {
@@ -125,11 +126,11 @@ define([
             getMyDetailData(code).then(data => {
                 userMxData = data.list;
                 let userMxHtml = `<div>
-                    <span>时间</span>
-                    <span>价格(<i>${userMxData[0].toSymbol}</i>)</span>
-                    <span>数量(<i>${userMxData[0].symbol}</i>)</span>
-                    <span>成交额(<i>${userMxData[0].toSymbol}</i>)</span>
-                    <span>手续费(<i>${userMxData[0].direction == 0 ? userMxData[0].symbol : userMxData[0].toSymbol}</i>)</span>
+                    <span>${base.getText('时间', langType)}</span>
+                    <span>${base.getText('价格', langType)}(<i>${userMxData[0].toSymbol}</i>)</span>
+                    <span>${base.getText('数量', langType)}(<i>${userMxData[0].symbol}</i>)</span>
+                    <span>${base.getText('成交额', langType)}(<i>${userMxData[0].toSymbol}</i>)</span>
+                    <span>${base.getText('手续费', langType)}(<i>${userMxData[0].direction == 0 ? userMxData[0].symbol : userMxData[0].toSymbol}</i>)</span>
                 </div>`;
                 userMxData.forEach(item => {
                     userMxHtml += `<li>

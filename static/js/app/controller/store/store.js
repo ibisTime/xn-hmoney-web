@@ -4,32 +4,34 @@ define([
     'app/controller/Top',
     'app/controller/foo'
 ], function(base, StoreCtr, Top, Foo) {
+    let langType = localStorage.getItem('langType') || 'ZH';
     init();
 
     function init() {
-        if(!base.isLogin()){
-            base.goLogin();
-            return ;
-        }
 
         let stoType = base.getUrlParam('type') || 'yx';
         if(stoType == 'rs'){
             $('.rs-li').addClass('sel-store').siblings().removeClass('sel-store');
             $('.qk-box').addClass('none');
             $('.er-box').removeClass('none');
-        }
-        base.showLoadingSpin();
-
-        $.when(
-            gramMoney(),
-            gramUrl()
-        ).then(data => {
             base.hideLoadingSpin();
-            $('.yxye').text((Math.floor(parseFloat(data.balance) * 100000000) / 100000000).toFixed(8) + data.currency);
-        }, base.hideLoadingSpin);
-        $('.head-nav-wrap .store').addClass('active');
-        addLister();
-        base.hideLoadingSpin();
+        }else{
+            if(!base.isLogin()){
+                base.goLogin();
+                return ;
+            }
+            base.showLoadingSpin();
+            $.when(
+                gramMoney(),
+                gramUrl()
+            ).then(data => {
+                base.hideLoadingSpin();
+                $('.yxye').text((Math.floor(parseFloat(data.balance) * 100000000) / 100000000).toFixed(8) + data.currency);
+            }, base.hideLoadingSpin);
+            $('.head-nav-wrap .store').addClass('active');
+            addLister();
+            base.hideLoadingSpin();
+        }
     }
 
     // 进入游戏

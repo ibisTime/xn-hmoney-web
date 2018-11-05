@@ -156,6 +156,10 @@ var LANGUAGE = {
         'ZH': '二手车兑换',
         'EN': 'Used-car exchange'
     },
+    '开始兑换': {
+        'ZH': '开始兑换',
+        'EN': 'began to change'
+    },
     '即将推出': {
         'ZH': '即将推出',
         'EN': 'Coming soon'
@@ -659,7 +663,7 @@ var LANGUAGE = {
     },
     '交易有何印象': {
         'ZH': '交易有何印象',
-        'EN': 'What is your comment on this transaction?'
+        'EN': 'What is your comment on this transaction'
     },
     '快來评价吧': {
         'ZH': '快來评价吧',
@@ -2306,6 +2310,18 @@ var LANGUAGE = {
 	'登录超时，请重新登录': {
         'ZH': '登录超时，请重新登录',
         'EN': 'Login timeout, please login again'
-	}
+    },
+    '跳转': {
+        'ZH': '跳转',
+        'EN': 'skip'
+    },
+    '共': {
+        'ZH': '共',
+        'EN': 'all'
+    },
+    '页': {
+        'ZH': '页',
+        'EN': 'page'
+    }
 }
 

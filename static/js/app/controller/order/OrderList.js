@@ -10,14 +10,15 @@ define([
     'app/controller/foo',
     'app/controller/public/DealLeft'
 ], function(base, pagination, Validate, GeneralCtr, UserCtr, TradeCtr, TencentCloudLogin, Top, Foo, DealLeft) {
+    let langType = localStorage.getItem('langType') || 'ZH';
     var coin = base.getUrlParam("coin") || 'progress';
     var statusList = {
             "progress": ["-1", "0", "1", "5"],
             "end": ["2", "3", "4"]
         },
         typeList = {
-            "buy": "购买",
-            "sell": "出售",
+            "buy": base.getText('购买', langType),
+            "sell": base.getText('出售', langType),
         },
         statusValueList = {};
     var config = {
@@ -62,7 +63,7 @@ define([
             totalData: data.totalCount,
             jumpIptCls: 'pagination-ipt',
             jumpBtnCls: 'pagination-btn',
-            jumpBtn: '确定',
+            jumpBtn: base.getText('确定', langType),
             isHide: true,
             callback: function(_this) {
                 if (_this.getCurrent() != config.start) {
@@ -93,6 +94,13 @@ define([
                 config.start == 1 && $(".trade-list-wrap .no-data").removeClass("hidden")
             }
             config.start == 1 && initPagination(data);
+            if(langType == 'EN'){
+                $('.k-order-list .am-button').css({
+                    'width': 'auto',
+                    'padding-left': '6px',
+                    'padding-right': '6px',
+                });
+            }
             base.hideLoadingSpin();
         }, base.hideLoadingSpin)
     }
@@ -116,11 +124,11 @@ define([
             type = 'sell';
             //待支付
             if (item.status == "0") {
-                operationHtml = `<div class="am-button am-button-red payBtn" data-ocode="${item.code}">标记付款</div>
-								<div class="am-button am-button-out ml5 cancelBtn" data-ocode="${item.code}">取消交易</div>`;
+                operationHtml = `<div class="am-button am-button-red payBtn" data-ocode="${item.code}">${base.getText('标记付款', langType)}</div>
+								<div class="am-button am-button-out ml5 cancelBtn" data-ocode="${item.code}">${base.getText('取消交易', langType)}</div>`;
             } else if (item.status == "2") {
                 if (item.bsComment != "0" && item.bsComment != "1") {
-                    operationHtml = `<div class="am-button am-button-red commentBtn"  data-ocode="${item.code}">交易评价</div>`
+                    operationHtml = `<div class="am-button am-button-red commentBtn"  data-ocode="${item.code}">${base.getText('交易评价', langType)}</div>`
                 }
             }
             //当前用户为卖家
@@ -130,10 +138,10 @@ define([
             type = 'buy';
             //待支付
             if (item.status == "1") {
-                operationHtml = `<div class="am-button am-button-red releaseBtn mr10" data-ocode="${item.code}">解冻货币</div>`;
+                operationHtml = `<div class="am-button am-button-red releaseBtn mr10" data-ocode="${item.code}">${base.getText('解冻货币', langType)}</div>`;
             } else if (item.status == "2") {
                 if (item.sbComment != "0" && item.sbComment != "1") {
-                    operationHtml = `<div class="am-button am-button-red commentBtn"  data-ocode="${item.code}">交易评价</div>`
+                    operationHtml = `<div class="am-button am-button-red commentBtn"  data-ocode="${item.code}">${base.getText('交易评价', langType)}</div>`
                 }
             }
         }
@@ -141,12 +149,12 @@ define([
         //操作按鈕
         //已支付，待解冻
         if (item.status == "1") {
-            operationHtml += `<div class="am-button arbitrationBtn"  data-ocode="${item.code}">申请仲裁</div>`
+            operationHtml += `<div class="am-button arbitrationBtn"  data-ocode="${item.code}">${base.getText('申请仲裁', langType)}</div>`
         }
 
         //待下单
         if (item.status == "-1") {
-            operationHtml += `<div class="am-button cancelBtn"  data-ocode="${item.code}">取消订单</div>`
+            operationHtml += `<div class="am-button cancelBtn"  data-ocode="${item.code}">${base.getText('取消订单', langType)}</div>`
         }
 
         if (user.photo) {
@@ -171,7 +179,7 @@ define([
 					<td class="amount">${item.status!="-1"?item.tradeAmount+'CNY':''}</td>
 					<td class="quantity">${quantity}</td>
 					<td class="createDatetime">${base.datetime(item.createDatetime)}</td>
-					<td class="status">${item.status=="-1"?'交谈中,'+statusValueList[item.status]:statusValueList[item.status]}</td>
+					<td class="status">${item.status=="-1"? base.getText('交谈中', langType) + ','+statusValueList[item.status]:statusValueList[item.status]}</td>
                     <td class="operation">
                         ${operationHtml}
                     </td>
@@ -214,11 +222,11 @@ define([
         //取消订单按钮 点击
         $("#content").on("click", ".operation .cancelBtn", function() {
             var orderCode = $(this).attr("data-ocode");
-            base.confirm("确认取消交易？", '取消', '确定').then(() => {
+            base.confirm(base.getText('确认取消交易？', langType), base.getText('取消', langType), base.getText('确定', langType)).then(() => {
                 base.showLoadingSpin()
                 TradeCtr.cancelOrder(orderCode).then(() => {
                     base.hideLoadingSpin();
-                    base.showMsg("操作成功");
+                    base.showMsg(base.getText('操作成功', langType));
                     setTimeout(function() {
                         base.showLoadingSpin();
                         getPageOrder(true)
@@ -230,11 +238,11 @@ define([
         //標記打款按钮 点击
         $("#content").on("click", ".operation .payBtn", function() {
             var orderCode = $(this).attr("data-ocode");
-            base.confirm("确认标记打款？", '取消', '确定').then(() => {
+            base.confirm(base.getText('确认标记打款？', langType), base.getText('取消', langType), base.getText('确定', langType)).then(() => {
                 base.showLoadingSpin()
                 TradeCtr.payOrder(orderCode).then(() => {
                     base.hideLoadingSpin();
-                    base.showMsg("操作成功");
+                    base.showMsg(base.getText('操作成功', langType));
                     setTimeout(function() {
                         base.showLoadingSpin();
                         getPageOrder(true)
@@ -279,7 +287,7 @@ define([
                 reason: params.reason
             }).then(() => {
                 base.hideLoadingSpin();
-                base.showMsg("操作成功");
+                base.showMsg(base.getText('操作成功', langType));
                 $("#arbitrationDialog").addClass("hidden");
                 setTimeout(function() {
                     base.showLoadingSpin();
@@ -300,12 +308,12 @@ define([
         //解冻货币按钮 点击
         $("#content").on("click", ".operation .releaseBtn", function() {
             var orderCode = $(this).attr("data-ocode");
-            base.confirm("确认解冻货币？", '取消', '确定').then(() => {
+            base.confirm(base.getText('确认解冻货币？', langType), base.getText('取消', langType), base.getText('确定', langType)).then(() => {
                 base.showLoadingSpin()
                 TradeCtr.releaseOrder(orderCode).then(() => {
                     base.hideLoadingSpin();
 
-                    base.showMsg("操作成功");
+                    base.showMsg(base.getText('操作成功', langType));
                     setTimeout(function() {
                         base.showLoadingSpin();
                         getPageOrder(true)
@@ -328,9 +336,9 @@ define([
             TradeCtr.commentOrder(orderCode, comment, content).then((data) => {
                 base.hideLoadingSpin();
                 if(data.filterFlag == '2'){
-                    base.showMsg("操作成功, 其中含有关键字，需平台进行审核");
+                    base.showMsg(base.getText('操作成功, 其中含有关键字，需平台进行审核', langType));
                 }else{
-                    base.showMsg("操作成功");
+                    base.showMsg(base.getText('操作成功', langType));
                 }
                 $("#commentDialog").addClass("hidden");
                 setTimeout(function() {

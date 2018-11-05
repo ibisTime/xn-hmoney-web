@@ -6,7 +6,7 @@ define([
     'app/controller/Top',
     'app/controller/foo'
 ], function(base, Validate,smsCaptcha, UserCtr, Top, Foo) {
-	
+	let langType = localStorage.getItem('langType') || 'ZH';
 	if(!base.isLogin()){
 		base.goLogin(1)
 	}else{
@@ -24,7 +24,7 @@ define([
     function changePwd(oldLoginPwd, newLoginPwd){
     	return UserCtr.changePwd(oldLoginPwd, newLoginPwd).then(()=>{
 			base.hideLoadingSpin()
-			base.showMsg("设置成功")
+			base.showMsg(base.getText('设置成功', langType))
 			setTimeout(function(){
 				base.logout()
 			},800)

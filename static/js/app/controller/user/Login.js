@@ -6,7 +6,7 @@ define([
     'app/controller/Top',
     'app/controller/foo'
 ], function(base, Swiper, Validate, UserCtr, Top, Foo) {
-
+    let langType = localStorage.getItem('langType') || 'ZH';
     if (base.isLogin()) {
         base.gohref("../user/user.html")
     } else {
@@ -41,7 +41,7 @@ define([
     function login(params) {
         return UserCtr.login(params).then((data) => {
             base.setSessionUser(data);
-            base.showMsg("登录成功");
+            base.showMsg(base.getText('登录成功', langType));
             UserCtr.getUser(true).then((item) => {
                 sessionStorage.setItem("nickname", item.nickname);
                 sessionStorage.setItem("googleAuthFlag", item.googleAuthFlag);

@@ -6,7 +6,7 @@ define([
     'app/interface/BaseCtr',
     'app/module/tencentCloudLogin'
 ], function (base, GeneralCtr, AccountCtr, UserCtr, BaseCtr, TencentCloudLogin) {
-
+    let langType = localStorage.getItem('langType') || 'ZH';
     //请求币种
     BaseCtr.getCoinList().then(function (data) {
         var coinList = {};
@@ -31,7 +31,6 @@ define([
     function init() {
         //中英文切换
 
-        let langType = localStorage.getItem('langType') || 'ZH';
         if(langType == 'EN'){
             $('.lang_select option.l-en').attr('selected', true);
             changeLanguageFn($(document));
@@ -170,7 +169,7 @@ define([
                 }
             })
         }, (msg) => {
-            base.showMsg(msg || "加载失败");
+            base.showMsg(msg || base.getText('加载失败', langType));
         });
     }
 
@@ -194,8 +193,8 @@ define([
                 }
             })
             if (data.length >= 3) {
-                htmlAccount += `<p class="more">查看更多</p>`;
-                html += `<div class="list more">查看更多</div>`;
+                htmlAccount += `<p class="more">${base.getText('查看更多', langType)}</p>`;
+                html += `<div class="list more">${base.getText('查看更多', langType)}</div>`;
             }
             $("#head-user-wrap .wallet .wallet-account-wrap").html(htmlAccount);
             $("#head-user-wrap .wallet .wallet-account-mx .listWrap").html(html);
@@ -268,7 +267,7 @@ define([
                 if (data.tradepwdFlag) {
                     base.gohref(_this.attr("data-href"))
                 } else if (!data.tradepwdFlag) {
-                    base.showMsg("请先设置资金密码")
+                    base.showMsg(base.getText('请先设置资金密码', langType))
                     setTimeout(function () {
                         base.gohref("../user/setTradePwd.html?type=1")
                     }, 1800)

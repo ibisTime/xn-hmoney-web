@@ -7,6 +7,7 @@ define([
     'app/controller/Top',
     'app/controller/foo'
 ], function(base, Swiper, Validate, UserCtr,smsCaptcha, Top, Foo) {
+    let langType = localStorage.getItem('langType') || 'ZH';
     var userReferee = base.getUrlParam("ref") || "";
 	
     if(base.isLogin()){
@@ -29,7 +30,7 @@ define([
 		return UserCtr.resetPwd(params).then((data)=>{
 			
 			base.hideLoadingSpin()
-			base.showMsg("密码重置成功")
+			base.showMsg(base.getText('密码重置成功', langType))
 			setTimeout(function(){
 				base.gohref("../user/login.html")
 			},800)
