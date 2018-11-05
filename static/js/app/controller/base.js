@@ -6,17 +6,6 @@ define([
     'app/interface/BaseCtr'
 ], function(CookieUtil, dialog, loading, BigDecimal, BaseCtr) {
 
-    if (Number.prototype.toFixed) {
-        var ori_toFixed = Number.prototype.toFixed;
-        Number.prototype.toFixed = function() {
-            var num = ori_toFixed.apply(this, arguments);
-            if (num == 0 && num.indexOf('-') == 0) { // -0 and 0
-                num = num.slice(1);
-            }
-            return num;
-        }
-    }
-
     setTimeout(() => {
         $("body").on("click", ".goHref", function() {
             var thishref = $(this).attr("data-href");
