@@ -3960,12 +3960,13 @@ table {
                 }
                 .unread {
                     display: inline-block;
-                    width: 38px;
+                    width: 70px;
                     height: 26px;
                     line-height: 26px;
                     position: relative;
                     top: 2px;
                     color: $red-color;
+                    font-size: 12px;
                 }
             }
         }
@@ -4336,7 +4337,7 @@ table {
                 padding-left: 20px;
             }
             &:last-child {
-                padding-right: 40px;
+                width: 110px;
             }
         }
         .trade-list-wrap .trade-wrap .am-button {

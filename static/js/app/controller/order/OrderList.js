@@ -208,9 +208,9 @@ define([
                 var oCode = _this.attr("data-code")
                 if (unreadMsgList[oCode] && unreadMsgList[oCode] != '0') {
                     if (unreadMsgList[oCode] >= 100) {
-                        _this.find(".unread").html('(99+)')
+                        _this.find(".unread").html('未读(99+)')
                     } else {
-                        _this.find(".unread").html('(' + unreadMsgList[oCode] + ')')
+                        _this.find(".unread").html('未读(' + unreadMsgList[oCode] + ')')
                     }
                 }
             })
