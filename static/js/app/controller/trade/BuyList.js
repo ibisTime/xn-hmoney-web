@@ -24,6 +24,10 @@ define([
     init();
 
     function init() {
+        if(langType == 'EN'){
+            $('.search-wrap .searchType-wrap').css('width', '200px');
+            $('.search-wrap .search-con').css('width', '562px');
+        }
         base.showLoadingSpin();
         getCoinList();
         $(".head-nav-wrap .sell").addClass("active");

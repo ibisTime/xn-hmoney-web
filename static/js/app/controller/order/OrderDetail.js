@@ -33,6 +33,10 @@ define([
     init();
 
     function init() {
+        if(langType == 'EN'){
+            $('.file-wrap .file').css('width', '180px');
+            $('.am-modal-body .file-wrap .am-button').css('width', '180px');
+        }
         base.showLoadingSpin();
         if(!base.isLogin()){
             base.goLogin();
@@ -85,7 +89,7 @@ define([
 
             //卖家/买家信息
             $(".btn-wrap .am-button").addClass("hidden");
-            //当前用户为买家，显示买家信息
+            //当前用户为买家，显示卖家信息
             if (data.buyUser == base.getUserId()) {
                 tradeType = '0';
                 var user = data.sellUserInfo;
@@ -129,17 +133,32 @@ define([
             }
             //待下单
             if (data.status == "-1") {
-
                 $("title").html(base.getText('广告详情', langType) + "-HappyMoney");
                 $(".orderDetail-info .info-wrap").addClass("hidden");
-                if (tradeType == '0') {
-
-                    $(".orderDetail-info .title").html('<i class="icon icon-order"></i>' + base.getText('购买订单', langType))
-                    $(".goBuyDetailBtn").removeClass("hidden");
-                } else if (tradeType == '1') {
-                    $(".orderDetail-info .title").html('<i class="icon icon-order"></i>' + base.getText('出售订单', langType))
-                    $(".goSellDetailBtn").removeClass("hidden");
+                if(data.type == 'buy'){
+                    if(data.buyUser == base.getUserId()){
+                        $(".orderDetail-info .title").html('<i class="icon icon-order"></i>' + base.getText('购买订单', langType))
+                        $(".goBuyDetailBtn").removeClass("hidden");
+                    }
                 }
+                if(data.type == 'sell'){
+                    if(data.sellUser == base.getUserId()){
+                        $(".orderDetail-info .title").html('<i class="icon icon-order"></i>' + base.getText('出售订单', langType))
+                        $(".goSellDetailBtn").removeClass("hidden");
+                    }
+                }
+                $('.cancelBtn').removeClass("hidden");
+                // if(base.getUserId() != data.updater){
+                //     $('.cancelBtn').removeClass("hidden");
+                // }else{
+                //     if (tradeType == '0') {
+                        
+                //     } else if (tradeType == '1') {
+                //         $(".orderDetail-info .title").html('<i class="icon icon-order"></i>' + base.getText('出售订单', langType))
+                //         $(".goSellDetailBtn").removeClass("hidden");
+                //     }
+                // }
+                
 
                 getAdvertiseDetail();
             } else {
@@ -951,7 +970,7 @@ define([
             //--聊天 star--
             $('#send').on('click', function() {
                 if($('#msgedit').val()!=""&&$('#msgedit').val()){
-                    ($('#msgedit').val());
+                    onSendMsg($('#msgedit').val());
                 }
             });
             // $('#msgedit').on('click', function() {
@@ -1148,7 +1167,6 @@ define([
         //购买 点击
         $(".goBuyDetailBtn").on("click", function() {
                 base.gohref("../trade/buy-detail.html?code=" + adsCode)
-
             })
             //出售 点击
         $(".goSellDetailBtn").on("click", function() {

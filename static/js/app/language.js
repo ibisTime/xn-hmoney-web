@@ -19,7 +19,7 @@ var LANGUAGE = {
     },
     '交易': {
         'ZH': '交易',
-        'EN': 'deal'
+        'EN': 'Deal'
     },
     '场外交易': {
         'ZH': '场外交易',
@@ -51,11 +51,11 @@ var LANGUAGE = {
     },
     '去购买': {
         'ZH': '去购买',
-        'EN': 'buy FMVP'
+        'EN': 'Buy FMVP'
     },
     '去出售': {
         'ZH': '去出售',
-        'EN': 'sell FMVP'
+        'EN': 'Sell FMVP'
     },
     '订单': {
         'ZH': '订单',
@@ -244,7 +244,7 @@ var LANGUAGE = {
     /////////////////////////////////////////////////// 商城
     '商城': {
         'ZH': '商城',
-        'EN': 'store'
+        'EN': 'Store'
     },
     '区块链游戏': {
         'ZH': '区块链游戏',
@@ -360,6 +360,10 @@ var LANGUAGE = {
         'ZH': '数量',
         'EN': 'amount'
     },
+    '剩余数量': {
+        'ZH': '剩余数量',
+        'EN': 'remaining quantity'
+    },
     '当前委托': {
         'ZH': '当前委托',
         'EN': 'open orders'
@@ -419,7 +423,7 @@ var LANGUAGE = {
     },
     '状态': {
         'ZH': '状态',
-        'EN': 'Status'
+        'EN': 'status'
     },
     '所有记录': {
         'ZH': '所有记录',
@@ -493,11 +497,11 @@ var LANGUAGE = {
     },
     '人民币': {
         'ZH': '人民币',
-        'EN': 'CNY'
+        'EN': ''
     },
     '美元': {
         'ZH': '美元',
-        'EN': 'USD'
+        'EN': ''
     },
     '支付宝': {
         'ZH': '支付宝',
@@ -525,11 +529,11 @@ var LANGUAGE = {
     },
     '付款方式': {
         'ZH': '付款方式',
-        'EN': 'Terms of payment'
+        'EN': 'terms of payment'
     },
     '限额': {
         'ZH': '限额',
-        'EN': 'Quota'
+        'EN': 'quota'
     },
 
     /////////////////////////////////////////////////// 场外交易-订单详情
@@ -595,11 +599,11 @@ var LANGUAGE = {
     },
     '广告留言': {
         'ZH': '广告留言',
-        'EN': 'The advertising message'
+        'EN': 'the advertising message'
     },
     '标记付款': {
         'ZH': '标记付款',
-        'EN': 'Mark payment'
+        'EN': 'mark payment'
     },
     '取消交易': {
         'ZH': '取消交易',
@@ -685,7 +689,7 @@ var LANGUAGE = {
     ///////////////////////////////////////////////////// 场外交易-广告管理
     '广告管理': {
         'ZH': '广告管理',
-        'EN': 'advertisement management'
+        'EN': 'Advertisement Management'
     },
     '购买广告': {
         'ZH': '购买广告',
@@ -713,7 +717,7 @@ var LANGUAGE = {
     },
     '交易状态': {
         'ZH': '交易状态',
-        'EN': 'Status'
+        'EN': 'status'
     },
     '暂无广告': {
         'ZH': '暂无广告',
@@ -723,7 +727,7 @@ var LANGUAGE = {
     ///////////////////////////////////////////////// 场外交易-信任管理
     '信任管理': {
         'ZH': '信任管理',
-        'EN': 'Trust management'
+        'EN': 'Trust Management'
     },
     '我信任的': {
         'ZH': '我信任的',
@@ -741,15 +745,15 @@ var LANGUAGE = {
     ///////////////////////////////////////////////////// 发布广告
     '发布广告': {
         'ZH': '发布广告',
-        'EN': 'Release advertisement'
+        'EN': 'Release Advertisement'
     },
     '发布': {
         'ZH': '发布',
-        'EN': 'Release'
+        'EN': 'Release '
     },
     '交易广告': {
         'ZH': '交易广告',
-        'EN': 'Trading advertisement'
+        'EN': ' trading advertisement'
     },
     '您想要创建什么样的交易广告': {
         'ZH': '您想要创建什么样的交易广告',
@@ -765,7 +769,7 @@ var LANGUAGE = {
     },
     '交易类型': {
         'ZH': '交易类型',
-        'EN': 'Transaction type'
+        'EN': 'transaction type'
     },
     '选择广告类型': {
         'ZH': '选择广告类型',
@@ -805,7 +809,7 @@ var LANGUAGE = {
     },
     '最小限额': {
         'ZH': '最小限额',
-        'EN': 'The minimum limit'
+        'EN': 'the minimum limit'
     },
     '请输入最小限额': {
         'ZH': '请输入最小限额',
@@ -813,11 +817,11 @@ var LANGUAGE = {
     },
     '最大限额': {
         'ZH': '最大限额',
-        'EN': 'The maximum limit'
+        'EN': 'the maximum limit'
     },
     '请输入最大限额': {
         'ZH': '请输入最大限额',
-        'EN': 'Please enter the maximum limit'
+        'EN': 'please enter the maximum limit'
     },
     '购买总量': {
         'ZH': '购买总量',
@@ -833,7 +837,7 @@ var LANGUAGE = {
     },
     '收款方式': {
         'ZH': '收款方式',
-        'EN': 'Payment methods'
+        'EN': 'payment methods'
     },
     '请输入有关您交易的相关条款或备注您的支付方式': {
         'ZH': '请输入有关您交易的相关条款或备注您的支付方式',
@@ -1220,7 +1224,7 @@ var LANGUAGE = {
     },
     '总金额': {
         'ZH': '总金额',
-        'EN': 'The total amount'
+        'EN': 'the total amount'
     },
     '下单日期': {
         'ZH': '下单日期',
@@ -1273,15 +1277,15 @@ var LANGUAGE = {
     //////////////////////////////////////////////// public
     '订单管理': {
         'ZH': '订单管理',
-        'EN': 'order management'
+        'EN': 'Order Management'
     },
     '我要买入': {
         'ZH': '我要买入',
-        'EN': 'buy'
+        'EN': 'Buy'
     },
     '我要出售': {
         'ZH': '我要出售',
-        'EN': 'sell'
+        'EN': 'Sell'
     },
     ////////////////////////////////////////////////币币交易订单
     '委托价': {
@@ -1697,11 +1701,11 @@ var LANGUAGE = {
 	},
 	'买': {
         'ZH': '买',
-        'EN': 'buy'
+        'EN': 'Buy'
     },
     '卖': {
         'ZH': '卖',
-        'EN': 'sell'
+        'EN': 'Sell'
     },
     '市价': {
         'ZH': '市价',
@@ -1869,15 +1873,15 @@ var LANGUAGE = {
     },
 	'购买': {
         'ZH': '购买',
-        'EN': 'buy'
+        'EN': 'Buy'
     },
 	'出售': {
         'ZH': '出售',
-        'EN': 'sell'
+        'EN': 'Sell'
 	},
 	'取消订单': {
         'ZH': '取消订单',
-        'EN': 'Cancel the order'
+        'EN': 'cancel the order'
 	},
 	'交谈中': {
         'ZH': '交谈中',
@@ -1893,7 +1897,7 @@ var LANGUAGE = {
 	},
 	'最低价格': {
         'ZH': '最低价格',
-        'EN': 'The lowest price'
+        'EN': 'the lowest price'
     },
 	'广告最低可成交的价格': {
         'ZH': '广告最低可成交的价格',
@@ -1901,7 +1905,7 @@ var LANGUAGE = {
 	},
 	'出售总量': {
         'ZH': '出售总量',
-        'EN': 'Total selling amount'
+        'EN': 'total selling amount'
 	},
 	'请输入售卖币的总量': {
         'ZH': '请输入售卖币的总量',
@@ -1965,7 +1969,7 @@ var LANGUAGE = {
 	},
 	'查看详情': {
         'ZH': '查看详情',
-        'EN': 'See details'
+        'EN': 'see details'
 	},
 	'注册成功': {
         'ZH': '注册成功',

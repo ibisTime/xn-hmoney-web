@@ -65,7 +65,7 @@ define([
             var user = data.user;
             userName = user.nickname;
             tradeCoin = data.tradeCoin ? data.tradeCoin : 'ETH';
-
+            let totalCountString = base.formatMoney(data.totalCountString, '', tradeCoin);
             if (user.photo) {
                 tradePhoto = '<div class="photo goHref" data-href="../user/user-detail.html?coin=' + tradeCoin + '&userId=' + user.userId + '"  style="background-image:url(\'' + base.getAvatar(user.photo) + '\')"></div>'
             } else {
@@ -100,7 +100,8 @@ define([
             $("#beiHaoPingCount").html(base.getPercentum(data.user.userStatistics.beiHaoPingCount, data.user.userStatistics.beiPingJiaCount))
             $("#totalTradeCount").html(totalTradeCount + data.tradeCoin)
             $("#leaveMessage").html(data.leaveMessage.replace(/\n/g, '<br>'))
-            $("#limit").html(limit)
+            $("#limit").html(limit);
+            $('#countString').html(totalCountString);
             $("#payType").html(bizTypeList[data.payType])
             $("#payLimit").html(data.payLimit)
 

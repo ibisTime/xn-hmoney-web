@@ -127,7 +127,7 @@ define([
                 operationHtml = `<div class="am-button am-button-red payBtn" data-ocode="${item.code}">${base.getText('标记付款', langType)}</div>
 								<div class="am-button am-button-out ml5 cancelBtn" data-ocode="${item.code}">${base.getText('取消交易', langType)}</div>`;
             } else if (item.status == "2") {
-                if (item.bsComment != "0" && item.bsComment != "1") {
+                if (!item.bsComment) {
                     operationHtml = `<div class="am-button am-button-red commentBtn"  data-ocode="${item.code}">${base.getText('交易评价', langType)}</div>`
                 }
             }
@@ -140,7 +140,7 @@ define([
             if (item.status == "1") {
                 operationHtml = `<div class="am-button am-button-red releaseBtn mr10" data-ocode="${item.code}">${base.getText('解冻货币', langType)}</div>`;
             } else if (item.status == "2") {
-                if (item.sbComment != "0" && item.sbComment != "1") {
+                if (!item.sbComment) {
                     operationHtml = `<div class="am-button am-button-red commentBtn"  data-ocode="${item.code}">${base.getText('交易评价', langType)}</div>`
                 }
             }
@@ -154,7 +154,17 @@ define([
 
         //待下单
         if (item.status == "-1") {
-            operationHtml += `<div class="am-button cancelBtn"  data-ocode="${item.code}">${base.getText('取消订单', langType)}</div>`
+            operationHtml += `<div class="am-button cancelBtn"  data-ocode="${item.code}">${base.getText('取消订单', langType)}</div>`;
+            if(item.type == 'buy'){
+                if(item.buyUser == base.getUserId()){
+                    operationHtml += `<div class="am-button am-button-red buyBtn" style="margin-left: 10px;"  data-ocode="${item.adsCode}">${base.getText('去购买', langType)}</div>`;
+                }
+            }
+            if(item.type == 'sell'){
+                if(item.sellUser == base.getUserId()){
+                    operationHtml += `<div class="am-button am-button-red sellBtn" style="margin-left: 10px;"  data-ocode="${item.adsCode}">${base.getText('去出售', langType)}</div>`;
+                }
+            }
         }
 
         if (user.photo) {
@@ -165,7 +175,7 @@ define([
         }
         if (item.status != "-1") {
             let countNum = parseFloat(base.formatMoney(item.countString, '', item.tradeCoin));
-            quantity = ((Math.floor(parseFloat(countNum) * 1000)) / 1000).toFixed(3)  + item.tradeCoin;
+            quantity = countNum ? ((Math.floor(parseFloat(countNum) * 1000)) / 1000).toFixed(3)  + item.tradeCoin : '-';
         }
         return `<tr data-code="${item.code}">
 					<td class="nickname" style="border-left:1px solid #eee;">
@@ -176,8 +186,8 @@ define([
 					</td>
 					<td class="code">${item.code.substring(item.code.length-8)}</td>
 					<td class="type">${typeList[type]}${item.tradeCoin?item.tradeCoin:'ETH'}</td>
-					<td class="amount">${item.status!="-1"?item.tradeAmount+'CNY':''}</td>
-					<td class="quantity">${quantity}</td>
+					<td class="amount">${item.status!="-1" && item.tradeAmount?item.tradeAmount+'CNY':'-'}</td>
+					<td class="quantity">${quantity ? quantity : '-'}</td>
 					<td class="createDatetime">${base.datetime(item.createDatetime)}</td>
 					<td class="status">${item.status=="-1"? base.getText('交谈中', langType) + ','+statusValueList[item.status]:statusValueList[item.status]}</td>
                     <td class="operation">
@@ -208,6 +218,16 @@ define([
     }
 
     function addListener() {
+        //购买 点击
+        $("#content").on("click", ".operation .buyBtn", function() {
+            var orderCode = $(this).attr("data-ocode");
+            base.gohref("../trade/buy-detail.html?code=" + orderCode)
+        })
+        //出售 点击
+        $("#content").on("click", ".operation .sellBtn", function() {
+            var orderCode = $(this).attr("data-ocode");
+            base.gohref("../trade/sell-detail.html?code=" + orderCode)
+        })
         // 进行中，已结束 点击
         $('.titleStatus.over-hide li').click(function() {
             var _this = $(this)

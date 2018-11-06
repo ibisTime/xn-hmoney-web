@@ -1,9 +1,8 @@
 define([
-    'app/controller/base',
     'jquery',
     'app/util/dialog',
     'app/module/loading'
-], function(base, $, dialog, loading) {
+], function($, dialog, loading) {
     let langType = localStorage.getItem('langType') || 'ZH';
     var cache = {};
 
@@ -55,7 +54,13 @@ define([
                     sessionStorage.removeItem("token"); //token
                     sessionStorage.setItem("l-return", location.pathname + location.search);
                     // 登录
-                    return $.Deferred().reject(base.getText('登录超时，请重新登录', langType), res.errorCode);
+                    let msg = '';
+                    if(langType == 'EN'){
+                        msg = $.Deferred().reject('Login timeout, please login again', res.errorCode);
+                    }else{
+                        msg = $.Deferred().reject('登录超时，请重新登录', res.errorCode);
+                    }
+                    return msg;
                 }
                 if (res.errorCode != "0") {
                     return $.Deferred().reject(res.errorInfo);

@@ -28,10 +28,10 @@ define([
                 base.hideLoadingSpin();
                 $('.yxye').text((Math.floor(parseFloat(data.balance) * 100000000) / 100000000).toFixed(8) + data.currency);
             }, base.hideLoadingSpin);
-            $('.head-nav-wrap .store').addClass('active');
-            addLister();
-            base.hideLoadingSpin();
         }
+        $('.head-nav-wrap .store').addClass('active');
+        addLister();
+        base.hideLoadingSpin();
     }
 
     // 进入游戏

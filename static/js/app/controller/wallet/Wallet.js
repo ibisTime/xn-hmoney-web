@@ -307,6 +307,10 @@ define([
             if(langType == 'EN'){
                 $('.w-zh').addClass('none');
                 $('.w-en').removeClass('none');
+                $('.tradeRecord-list-wrap .list-item div:nth-of-type(1)').css('width', '120px');
+                $('.tr-ul li .tr-mx li:nth-of-type(1)').css('width', '120px');
+                $('.tr-ul li .tr-mx li:nth-of-type(4) .cz-btns').css('width', '400px');
+                $('.tr-ul li .tr-mx li:nth-of-type(4)').css('width', '760px');
             }
             addListener();
         }, base.hideLoadingSpin)

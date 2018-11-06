@@ -24,6 +24,10 @@ define([
     init();
 
     function init() {
+        if(langType == 'EN'){
+            $('.search-wrap .searchType-wrap').css('width', '200px');
+            $('.search-wrap .search-con').css('width', '562px');
+        }
         base.showLoadingSpin();
         getCoinList();
         $(".head-nav-wrap .sell").addClass("active");
@@ -158,9 +162,9 @@ define([
         var operationHtml = '';
 
         if (item.userId == base.getUserId()) {
-            operationHtml = `<div class="am-button am-button-ghost goHref" data-href="../trade/advertise.html?code=${item.code}&coin=${item.tradeCoin}">编辑</div>`;
+            operationHtml = `<div class="am-button am-button-ghost goHref" data-href="../trade/advertise.html?code=${item.code}&coin=${item.tradeCoin}">${base.getText('编辑', langType)}</div>`;
         } else {
-            operationHtml = `<div class="am-button am-button-ghost goHref" data-href="../trade/sell-detail.html?code=${item.code}&coin=${item.tradeCoin}">出售${item.tradeCoin}</div>`;
+            operationHtml = `<div class="am-button am-button-ghost goHref" data-href="../trade/sell-detail.html?code=${item.code}&coin=${item.tradeCoin}">${base.getText('出售', langType)}${item.tradeCoin}</div>`;
         }
         let hpCount = 0;
         if (item.userStatistics.beiPingJiaCount != 0) {

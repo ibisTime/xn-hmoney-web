@@ -33,6 +33,10 @@ define([
 
         if(langType == 'EN'){
             $('.lang_select option.l-en').attr('selected', true);
+            $('.head-user .dd-ul').css({
+                'width': '150px',
+                'left': '-80px'
+            })
             changeLanguageFn($(document));
         }else{
             base.hideLoadingSpin();

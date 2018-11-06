@@ -203,7 +203,6 @@ define([
                     depthFn(buyData, sellData);
                 });
             }
-            console.log(setBazDeal);
             $('.c-b').text(setBazDeal.symbol);
             $('.r-b').text(setBazDeal.symbol);
             $('#tv_chart_container iframe').css('height', '500px');
