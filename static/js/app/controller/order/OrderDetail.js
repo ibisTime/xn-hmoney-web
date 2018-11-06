@@ -90,7 +90,7 @@ define([
                 tradeType = '0';
                 var user = data.sellUserInfo;
                 var myInfo = data.buyUserInfo;
-                $("#user").html(base.getText('买家信息', langType));
+                $("#user").html(base.getText('卖家信息', langType));
 
                 //待支付
                 if (data.status == "0") {
@@ -109,7 +109,7 @@ define([
                 tradeType = '1';
                 var user = data.buyUserInfo;
                 var myInfo = data.sellUserInfo;
-                $("#user").html(base.getText('卖家信息', langType))
+                $("#user").html(base.getText('买家信息', langType))
 
                 //待支付
                 if (data.status == "1") {
