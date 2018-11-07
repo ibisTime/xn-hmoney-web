@@ -25,8 +25,7 @@ define([
         '6': "accept_sell",
         "7": "ccorder_fee",
         "8": "withdraw_fee",
-        "9": "award_reg",
-        "10": "",
+        "9": "ccorder_frozen"
     },
     bizTypeValueList = {};
 
