@@ -158,8 +158,6 @@ define([
                 //         $(".goSellDetailBtn").removeClass("hidden");
                 //     }
                 // }
-
-
                 getAdvertiseDetail();
             } else {
                 $("title").html(base.getText('订单详情', langType) + "-HappyMoney")
@@ -168,13 +166,13 @@ define([
             userName = user.nickname;
             myName = myInfo.nickname;
             if (user.photo) {
-                tradePhoto = '<div class="photo goHref" data-href="../user/user-detail.html?coin=' + tradeCoin + '&userId=' + user.userId + '"   style="background-image:url(\'' + base.getAvatar(user.photo) + '\')"></div>'
+                tradePhoto = `<div class="photo goHref" data-href="../user/user-detail.html?coin=${tradeCoin}&userId=${user.userId}"   style="background-image:url('${base.getAvatar(user.photo)}')"></div>`;
             } else {
                 var tmpl = user.nickname ? user.nickname.substring(0, 1).toUpperCase() : '-';
                 tradePhoto = '<div class="photo goHref" data-href="../user/user-detail.html?coin=' + tradeCoin + '&userId=' + user.userId + '" ><div class="noPhoto">' + tmpl + '</div></div>'
             }
             if (myInfo.photo) {
-                tradePhotoMy = '<div class="photo" style="background-image:url(\'' + base.getAvatar(myInfo.photo) + '\')"></div>'
+                tradePhotoMy = `<div class="photo" style="background-image:url('${base.getAvatar(myInfo.photo)}')"></div>`;
             } else {
                 var tmpl = myInfo.nickname ? myInfo.nickname.substring(0, 1).toUpperCase() : '-';
                 tradePhotoMy = '<div class="photo"><div class="noPhoto">' + tmpl + '</div></div>'
@@ -242,7 +240,7 @@ define([
                 bindScrollHistoryEvent.init();
                 getMyGroup();
             }, function(err) {
-                alert(err.ErrorInfo);
+                console.log(err.ErrorInfo);
             });
 
         }, function() {
@@ -295,7 +293,7 @@ define([
                 }
             },
             function(err) {
-                alert(err.ErrorInfo);
+                console.log(err.ErrorInfo);
             }
         );
     }
@@ -438,14 +436,14 @@ define([
             options,
             function(resp) {
                 if (resp.GroupInfo[0].ShutUpAllMember == 'On') {
-                    alert(base.getText('该群组已开启全局禁言', langType));
+                    console.log(base.getText('该群组已开启全局禁言', langType));
                 }
                 if (cbOK) {
                     cbOK(resp);
                 }
             },
             function(err) {
-                alert(err.ErrorInfo);
+                console.log(err.ErrorInfo);
             }
         );
     };
@@ -482,7 +480,7 @@ define([
                     cbOk && cbOk(msgList);
                 },
                 function(err) {
-                    alert(err.ErrorInfo);
+                    console.log(err.ErrorInfo);
                 }
             );
         });
@@ -526,7 +524,7 @@ define([
                 }
             },
             function(err) {
-                alert(err.ErrorInfo);
+                console.log(err.ErrorInfo);
             }
         );
     };
@@ -798,7 +796,7 @@ define([
     //选择图片触发事件
     function fileOnChange(uploadFile) {
         if (!window.File || !window.FileList || !window.FileReader) {
-            alert(base.getText('您的浏览器不支持', langType) + "File Api");
+            console.log(base.getText('您的浏览器不支持', langType) + "File Api");
             return;
         }
         var file = uploadFile.files[0];
@@ -852,7 +850,7 @@ define([
                 $('#upload_pic_dialog').hide();
             },
             function(err) {
-                alert(err.ErrorInfo);
+                console.log(err.ErrorInfo);
             }
         );
     }
