@@ -152,13 +152,13 @@ define([
                 //     $('.cancelBtn').removeClass("hidden");
                 // }else{
                 //     if (tradeType == '0') {
-                        
+
                 //     } else if (tradeType == '1') {
                 //         $(".orderDetail-info .title").html('<i class="icon icon-order"></i>' + base.getText('出售订单', langType))
                 //         $(".goSellDetailBtn").removeClass("hidden");
                 //     }
                 // }
-                
+
 
                 getAdvertiseDetail();
             } else {
@@ -211,6 +211,7 @@ define([
         let listeners = {
             'onConnNotify': onConnNotify,
             'onMsgNotify': onMsgNotify,
+            'onKickedEventCall': onKickedEventCall,
             'jsonpCallback': jsonpCallback //IE9(含)以下浏览器用到的jsonp回调函数，
         };
         let options = {
@@ -248,6 +249,16 @@ define([
             //			console.log('login err');
             // self.setTententLogined(false);
         });
+    }
+    // 被其他登录实例踢下线
+    function onKickedEventCall() {
+        base.showMsg('登陆失效，请重新登录');
+        base.clearSessionUser();
+        setTimeout(() => {
+            base.showLoadingSpin();
+            base.goLogin(true);
+            base.hideLoadingSpin();
+        }, 800);
     }
     //获取我的群组
     function getMyGroup() {
@@ -289,7 +300,7 @@ define([
         );
     }
 
-    //表情初始化 
+    //表情初始化
     function showEmotionDialog() {
         if (emotionFlag) {
             $('#wl_faces_box').css({
@@ -338,6 +349,10 @@ define([
             case webim.CONNECTION_STATUS.RECONNECT:
                 info = base.getText('连接状态恢复正常', langType) + ': ' + resp.ErrorInfo;
                 webim.Log.warn(info);
+                break;
+            case '91101':
+                // 被踢下线
+                onKickedEventCall(resp);
                 break;
             default:
                 webim.Log.error(base.getText('未知连接状态', langType) + ': =' + resp.ErrorInfo);
