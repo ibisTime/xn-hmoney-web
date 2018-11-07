@@ -48,6 +48,7 @@ define([
         let listeners = {
             'onConnNotify': onConnNotify,
             'onMsgNotify': onMsgNotify,
+            'onKickedEventCall': onKickedEventCall,
             'jsonpCallback': jsonpCallback //IE9(含)以下浏览器用到的jsonp回调函数，
         };
         let options = {
@@ -61,6 +62,17 @@ define([
             //			base.showMsg("聊天加载失败，请刷新页面再试")
             // self.setTententLogined(false);
         });
+    }
+
+    // 被其他登录实例踢下线
+    function onKickedEventCall() {
+        base.showMsg('登陆失效，请重新登录');
+        base.clearSessionUser();
+        setTimeout(() => {
+            base.showLoadingSpin();
+            base.goLogin(true);
+            base.hideLoadingSpin();
+        }, 800);
     }
 
     //获取历史消息显示聊天框
@@ -153,7 +165,7 @@ define([
         });
     }
 
-    //表情初始化 
+    //表情初始化
     function showEmotionDialog() {
         if (emotionFlag) {
             $('#wl_faces_box').css({
@@ -202,6 +214,10 @@ define([
             case webim.CONNECTION_STATUS.RECONNECT:
                 info = '连接状态恢复正常: ' + resp.ErrorInfo;
                 webim.Log.warn(info);
+                break;
+            case '91101':
+                // 被踢下线
+                onKickedEventCall(resp);
                 break;
             default:
                 webim.Log.error('未知连接状态: =' + resp.ErrorInfo);
@@ -826,7 +842,7 @@ define([
         //				$('#send').click();
         //				$('#msgedit').blur()
         //			}
-        //		}); 
+        //		});
 
         $('#group').on('click', function() {
             createGroup();
