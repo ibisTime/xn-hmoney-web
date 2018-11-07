@@ -84,7 +84,8 @@ define([
 
         clearInterval(timeReal);
         var timeReal = setInterval(() => {
-            autoRealData();
+            // autoRealData();
+            getExchange();
         }, 3900);
 
         // 判断是否登录
@@ -109,14 +110,10 @@ define([
             getUserMoney();
             userAllMoneyX();
             autoGetMyDatata();
-            clearInterval(timeMy);
-            var timeMy = setInterval(() => {
-                autoGetMyDatata();
-            }, 2800);
-
             autoGetHisData();
             clearInterval(timeHis);
             var timeHis = setInterval(() => {
+                autoGetMyDatata();
                 autoGetHisData();
             }, 3400);
 
@@ -168,8 +165,6 @@ define([
                 $('.t-d').text(base.formatMoney(`${zfKData.low}`, '', setBazDeal.symbol));
                 $('.t-h').text(base.formatMoney(`${zfKData.volume}`, '', setBazDeal.toSymbol));
             }
-            $('.t-jym').text(setBBList[0].price);
-            $('.sym-exc').text((Math.floor(setBBList[0].currencyPrice * 100) / 100).toFixed(2));
             upBazaarData(setBBList);
             data.list.forEach((item, i) => {
                 $('.baz-list>h5 span').eq(i).text(item.toSymbol);
@@ -179,14 +174,12 @@ define([
             });
             showBazaar(bazaarData[0]);
             autoGetData();
+            sdFn();
             clearInterval(timeGet);
             var timeGet = setInterval(() => {
                 autoGetData();
-            }, 2000);
-            setInterval(() => {
                 sdFn()
             }, 4000);
-            sdFn();
 
             function sdFn() {
                 getDepthData().then(data => {
@@ -223,6 +216,8 @@ define([
                 let zx_exc = (Math.floor(bb_zxj * bb_exchange * 100) / 100).toFixed(2);
                 $('.bb-zxj').text(bb_zxj);
                 $('.zx-exc').text(zx_exc);
+                $('.t-jym').text(bb_zxj);
+                $('.sym-exc').text(zx_exc);
                 let realTimeHtml = '';
                 realTimeData.forEach(item => {
                     realTimeHtml += `<tr>
@@ -593,8 +588,12 @@ define([
                     base.hideLoadingSpin();
                     $(inpNum).val('');
                     $(inpPrice).val('');
-                    $('.mr-exc').text('0.00');
-                    $('.mc-exc').text('0.00');
+                    if(inpPrice === '#ym-price'){
+                        $('.mr-exc').text('0.00');
+                    }
+                    if(inpPrice === '#yr-price'){
+                        $('.mc-exc').text('0.00');
+                    }
                     $('.y-sp .br-p').css('width', '0%');
                     $('.y-sp span:not(.sel-span)').css('background-color', '#f1f1f1');
                     $('.j-sp .br-p').css('width', '0%');
@@ -1036,6 +1035,7 @@ define([
                 $('.all-bb').text('0.00');
                 $('.jy-me').text('0.00000000');
                 $('.mr-exc').text('0.00');
+                $('.mc-exc').text('0.00');
                 break;
             case base.getText('市价交易', langType):
                 isType = 1;

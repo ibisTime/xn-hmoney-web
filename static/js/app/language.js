@@ -59,7 +59,7 @@ var LANGUAGE = {
     },
     '订单': {
         'ZH': '订单',
-        'EN': 'order'
+        'EN': 'Order'
     },
     '查看更多': {
         'ZH': '查看更多',
@@ -366,7 +366,7 @@ var LANGUAGE = {
     },
     '当前委托': {
         'ZH': '当前委托',
-        'EN': 'open orders'
+        'EN': 'Open orders'
     },
     '交易额': {
         'ZH': '交易额',
@@ -431,7 +431,7 @@ var LANGUAGE = {
     },
     '深度图': {
         'ZH': '深度图',
-        'EN': 'depth chart'
+        'EN': 'Depth chart'
     },
     '实时成交': {
         'ZH': '实时成交',
@@ -1196,7 +1196,11 @@ var LANGUAGE = {
     },
     '手续费': {
         'ZH': '手续费',
-        'EN': 'charges'
+        'EN': 'charges rates'
+    },
+    '手续费率': {
+        'ZH': '手续费率',
+        'EN': 'charges rates'
     },
     '下单时间': {
         'ZH': '下单时间',
@@ -1693,7 +1697,7 @@ var LANGUAGE = {
     },
     '挂单': {
         'ZH': '挂单',
-        'EN': 'Entry Orders'
+        'EN': 'entry Orders'
     },
     '吃单': {
         'ZH': '吃单',
@@ -2326,6 +2330,10 @@ var LANGUAGE = {
     '页': {
         'ZH': '页',
         'EN': 'page'
+    },
+    '区块链技术应用实验平台': {
+        'ZH': '区块链技术应用实验平台',
+        'EN': ' Blockchain technology application experimental platform'
     }
 }
 

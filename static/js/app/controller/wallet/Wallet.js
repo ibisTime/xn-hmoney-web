@@ -123,7 +123,6 @@ define([
                 bizTypeValueList[item.dkey] = item.dvalue
             })
             withdrawFee = base.formatMoney(base.getCoinWithdrawFee(currency), '', currency);
-
             $("#withdrawFee").val(withdrawFee + currency);
             getAccount();
 
@@ -267,7 +266,7 @@ define([
             }
             // 提现手续费
             GeneralCtr.getSysConfig('withdraw_fee').then(data => {
-                let txFee = parseFloat(data.cvalue);
+                let txFee = parseFloat(data.cvalue) * 100 + '%';
                 $('.tx-fee').val(txFee);
             })
             qhMoneyType('.con-toBuy', 'CNY');
@@ -471,7 +470,7 @@ define([
                                 </div>
                             </div>
                             <div class="form-item-wrap" id="withdrawFee-wrap${i}">
-                                <samp class="label">${base.getText('手续费', langType)}</samp>
+                                <samp class="label">${base.getText('手续费率', langType)}</samp>
                                 <div class="form-item k_b">
                                     <input type="text" class="input-item withdrawFee tx-fee" id="withdrawFee${i}" value="" disabled="disabled" />
                                 </div>
