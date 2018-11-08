@@ -107,11 +107,11 @@ define([
             $('.affic-list').html(ggHtml);
         });
 
-        // clearInterval(timeReal);
-        // var timeReal = setInterval(() => {
-        //     // autoRealData();
-        //     getExchange();
-        // }, 3900);
+        clearInterval(timeReal);
+        var timeReal = setInterval(() => {
+            // autoRealData();
+            getExchange();
+        }, 3900);
 
         // 判断是否登录
         if (!base.isLogin()) {
@@ -136,11 +136,11 @@ define([
             userAllMoneyX();
             autoGetMyDatata();
             autoGetHisData();
-            // clearInterval(timeHis);
-            // var timeHis = setInterval(() => {
-            //     autoGetMyDatata();
-            //     autoGetHisData();
-            // }, 3400);
+            clearInterval(timeHis);
+            var timeHis = setInterval(() => {
+                autoGetMyDatata();
+                autoGetHisData();
+            }, 3400);
 
             if (jyType == 'xj') {
                 $('.xj_type').addClass('sel-jy').siblings().removeClass('sel-jy');
@@ -200,11 +200,11 @@ define([
             showBazaar(bazaarData[0]);
             autoGetData();
             sdFn();
-            // clearInterval(timeGet);
-            // var timeGet = setInterval(() => {
-            //     autoGetData();
-            //     sdFn()
-            // }, 4000);
+            clearInterval(timeGet);
+            var timeGet = setInterval(() => {
+                autoGetData();
+                sdFn()
+            }, 4000);
 
             function sdFn() {
                 getDepthData().then(data => {
