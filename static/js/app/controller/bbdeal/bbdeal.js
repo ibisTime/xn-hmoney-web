@@ -30,7 +30,7 @@ define([
     let pkObjData = {}; // 盘口最优买卖价
     let statusValueList = {}; // 状态
     let userData = [];
-    let bazaarData = []; // 交易对数据 
+    let bazaarData = []; // 交易对数据
     let setBazDeal = JSON.parse(sessionStorage.getItem('setBazDeal')) || {
         symbol: 'FMVP',
         toSymbol: 'BTC'
@@ -107,11 +107,11 @@ define([
             $('.affic-list').html(ggHtml);
         });
 
-        clearInterval(timeReal);
-        var timeReal = setInterval(() => {
-            // autoRealData();
-            getExchange();
-        }, 3900);
+        // clearInterval(timeReal);
+        // var timeReal = setInterval(() => {
+        //     // autoRealData();
+        //     getExchange();
+        // }, 3900);
 
         // 判断是否登录
         if (!base.isLogin()) {
@@ -136,11 +136,11 @@ define([
             userAllMoneyX();
             autoGetMyDatata();
             autoGetHisData();
-            clearInterval(timeHis);
-            var timeHis = setInterval(() => {
-                autoGetMyDatata();
-                autoGetHisData();
-            }, 3400);
+            // clearInterval(timeHis);
+            // var timeHis = setInterval(() => {
+            //     autoGetMyDatata();
+            //     autoGetHisData();
+            // }, 3400);
 
             if (jyType == 'xj') {
                 $('.xj_type').addClass('sel-jy').siblings().removeClass('sel-jy');
@@ -200,11 +200,11 @@ define([
             showBazaar(bazaarData[0]);
             autoGetData();
             sdFn();
-            clearInterval(timeGet);
-            var timeGet = setInterval(() => {
-                autoGetData();
-                sdFn()
-            }, 4000);
+            // clearInterval(timeGet);
+            // var timeGet = setInterval(() => {
+            //     autoGetData();
+            //     sdFn()
+            // }, 4000);
 
             function sdFn() {
                 getDepthData().then(data => {
@@ -448,7 +448,7 @@ define([
         }, true);
     }
 
-    // 交易  
+    // 交易
     function getLimitedPriceData(type, direction, price, totalCount) {
         if (price) {
             price = base.formatMoneyParse(price, '', setBazDeal.toSymbol);

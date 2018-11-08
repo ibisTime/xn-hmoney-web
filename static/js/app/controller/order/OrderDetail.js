@@ -547,7 +547,7 @@ define([
                 addMsg(msg, prepage);
             }
         }
-        //消息已读上报，并将当前会话的消息设置成自动已读
+        //消息已读上报，并将当前会话的消息设置成自动已读login
         webim.setAutoRead(selSess, true, true);
     }
 
