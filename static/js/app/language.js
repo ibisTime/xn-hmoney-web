@@ -254,6 +254,14 @@ var LANGUAGE = {
         'ZH': '游戏余额',
         'EN': 'game balances'
     },
+    '充值': {
+        'ZH': '充值',
+        'EN': 'top up'
+    },
+    '请输入充值数量': {
+        'ZH': '请输入充值数量',
+        'EN': 'please enter the recharge amount'
+    },
 
     /////////////////////////////////////////////////// 币币交易
     '邀请好友注册': {
@@ -477,7 +485,7 @@ var LANGUAGE = {
     },
     '全部付款方式': {
         'ZH': '全部付款方式',
-        'EN': 'All payment methods'
+        'EN': 'all payment methods'
     },
     '搜广告': {
         'ZH': '搜广告',
@@ -595,7 +603,7 @@ var LANGUAGE = {
     },
     '订单编号': {
         'ZH': '订单编号',
-        'EN': 'The order number'
+        'EN': 'order number'
     },
     '广告留言': {
         'ZH': '广告留言',
@@ -2334,6 +2342,14 @@ var LANGUAGE = {
     '区块链技术应用实验平台': {
         'ZH': '区块链技术应用实验平台',
         'EN': ' Blockchain technology application experimental platform'
+    },
+    '已取消支付': {
+        'ZH': '已取消支付',
+        'EN': 'cancelled payment'
+    },
+    '取消支付': {
+        'ZH': '取消支付',
+        'EN': 'cancel the payment'
     }
 }
 

@@ -33,6 +33,17 @@ define([
     init();
 
     function init() {
+        $('.progress').text(base.getText('进行中', langType));
+        $('.end').text(base.getText('已结束', langType));
+        $('.nickname').text(base.getText('交易伙伴', langType));
+        $('.code').text(base.getText('订单编号', langType));
+        $('.type').text(base.getText('类型', langType));
+        $('.amount').text(base.getText('交易金额', langType));
+        $('.quantity').text(base.getText('交易数量', langType));
+        $('.createDatetime').text(base.getText('创建时间', langType));
+        $('.status').text(base.getText('交易状态', langType));
+        $('.operation').text(base.getText('交易操作', langType));
+
         $(".head-nav-wrap .sell").addClass("active");
         $(".titleStatus li." + coin.toLowerCase()).addClass("on").siblings('li').removeClass('on');
         base.showLoadingSpin();
@@ -193,9 +204,9 @@ define([
                     <td class="operation">
                         ${operationHtml}
                     </td>
-					<td class="goDetail" style="padding-right: 0;">
-						<samp class="unread goHref fl" data-href="../order/order-detail.html?code=${item.code}"></samp>
-						<i class="icon icon-detail goHref fl"  data-href="../order/order-detail.html?code=${item.code}"></i>
+                    <td class="goDetail" style="padding-right: 0;">
+                        <samp class="unread goHref fl" data-href="../order/order-detail.html?code=${item.code}"></samp>
+						<i class="icon icon-detail goHref fr"  data-href="../order/order-detail.html?code=${item.code}"></i>
 					</td>
 				</tr>`;
     }

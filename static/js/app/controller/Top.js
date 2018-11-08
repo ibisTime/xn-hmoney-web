@@ -29,14 +29,35 @@ define([
 
     // 初始化页面
     function init() {
-        //中英文切换
+        //中英文切换  先头部切换
+        $('.en_page').text(base.getText('首页', langType));
+        $('.en_store').text(base.getText('商城', langType));
+        $('.en_deal').text(base.getText('交易', langType));
+        $('.nav-cwjy').text(base.getText('场外交易', langType));
+        $('.nav-bbjy').text(base.getText('币币交易', langType));
+        $('.en_yqhy').text(base.getText('邀请好友', langType));
+        $('.store_en').text(base.getText('商城', langType));
+        $('.store_gm').text(base.getText('区块链游戏', langType));
+        $('.store_car').text(base.getText('二手车兑换', langType));
+        $('.store_ye').text(base.getText('游戏余额', langType));
+        $('.zb-btn').text(base.getText('充值', langType));
+
+        $('.en_cwai').text(base.getText('场外交易', langType));
+        $('.en_gm').text(base.getText('我要买入', langType));
+        $('.en_cs').text(base.getText('我要出售', langType));
+        $('.en_dd').text(base.getText('订单管理', langType));
+        $('.en_gg').text(base.getText('广告管理', langType));
+        $('.en_xr').text(base.getText('信任管理', langType));
+        $('.en_fb').text(base.getText('发布广告', langType));
 
         if(langType == 'EN'){
             $('.lang_select option.l-en').attr('selected', true);
             $('.head-user .dd-ul').css({
                 'width': '150px',
                 'left': '-80px'
-            })
+            });
+            $('.str-h_l').css('margin-right', '15px');
+
             changeLanguageFn($(document));
         }else{
             base.hideLoadingSpin();

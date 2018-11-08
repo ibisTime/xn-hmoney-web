@@ -1,14 +1,25 @@
 define([
     'app/controller/base',
     'app/interface/StoreCtr',
+    'app/interface/UserCtr',
     'app/controller/Top',
     'app/controller/foo'
-], function(base, StoreCtr, Top, Foo) {
+], function(base, StoreCtr, UserCtr, Top, Foo) {
     let langType = localStorage.getItem('langType') || 'ZH';
+    let config = {
+        userId: '',
+        count: 0,
+        tradePwd: ''
+    }
     init();
 
     function init() {
-
+        $('.store_en').text(base.getText('商城', langType));
+        $('.store_gm').text(base.getText('区块链游戏', langType));
+        $('.zb-btn').text(base.getText('充值', langType));
+        $('.go_en').text(base.getText('进入游戏', langType));
+        $('.store_car').text(base.getText('二手车兑换', langType));
+        $('.store-right').removeClass('none');
         let stoType = base.getUrlParam('type') || 'yx';
         if(stoType == 'rs'){
             $('.rs-li').addClass('sel-store').siblings().removeClass('sel-store');
@@ -21,6 +32,7 @@ define([
                 return ;
             }
             base.showLoadingSpin();
+            config.userId = base.getUserId();
             $.when(
                 gramMoney(),
                 gramUrl()
@@ -61,6 +73,39 @@ define([
             if ($(target).attr('class') == 'qx' || $(target).attr('class') == 'str-zb') {
                 $('.str-zb').addClass('none');
                 $('html').removeClass('overflow');
+            }
+            if($(target).attr('class') == 'qr'){
+                let count = $('#gramNum').val().trim();
+                let tradePwd = $('#tradePwd').val().trim();
+                if(count == ''){
+                    base.showMsg('数量不能为空');
+                    return;
+                }else if(tradePwd == ''){
+                    base.showMsg('请输入交易密码');
+                    return;
+                }
+                UserCtr.getUser(true, base.getUserId()).then(res => {
+                    if (res.tradepwdFlag) {
+                        config.count = base.formatMoneyParse(count, '', 'FMVP');
+                        config.tradePwd = tradePwd;
+                        StoreCtr.rechargeGram(config).then(data => {
+                            if(data.code){
+                                base.showMsg('充值成功');
+                                setTimeout(() => {
+                                    location.reload();
+                                }, 1000);
+                            }
+                        }, () => {
+                            $('#gramNum').val('');
+                            $('#tradePwd').val('');
+                        });
+                    } else{
+                        base.showMsg(base.getText('请先设置资金密码', langType))
+                        setTimeout(function () {
+                            base.gohref("../user/setTradePwd.html?type=1")
+                        }, 1800)
+                    } 
+                });
             }
         });
     }

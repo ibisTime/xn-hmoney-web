@@ -165,7 +165,14 @@ define([
                 ...config
             });
         },
-
+        // 标记付款
+        bjPlayfo(config) {
+            return Ajax.get('625273', config);
+        },
+        // 取消订单
+        qxOrder(config) {
+            return Ajax.get('625272', config);
+        }
 
     };
 })

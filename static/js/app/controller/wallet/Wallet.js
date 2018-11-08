@@ -5,10 +5,11 @@ define([
     'app/module/smsCaptcha',
     'app/interface/AccountCtr',
     'app/interface/GeneralCtr',
+    'app/interface/TradeCtr',
     'app/interface/UserCtr',
     'app/controller/Top',
     'app/controller/foo'
-], function (base, pagination, Validate, smsCaptcha, AccountCtr, GeneralCtr, UserCtr, Top, Foo) {
+], function (base, pagination, Validate, smsCaptcha, AccountCtr, GeneralCtr, TradeCtr, UserCtr, Top, Foo) {
     let langType = localStorage.getItem('langType') || 'ZH';
     var userAccountNum = base.getUrlParam('account'); // 用户编号
     var isbuy = base.getUrlParam('isbuy');  // 1 去购买   0 去出售
@@ -26,6 +27,8 @@ define([
     let acceptRule = {};
 
     let picList = {};
+
+    let buyOrderCode = ''; // 去购买订单号
 
     var bizTypeValueList = {};
 
@@ -287,7 +290,12 @@ define([
                         // let rwmcode = new QRCode('rwmcode', picList['支付宝']);
                         // rwmcode.makeCode(picList['支付宝']);
                         $("#rwmcodeAccount").text(zfNumber[item.bankCode]);
+                        $(".zf-apliy").text(zfNumber[item.bankCode]);
                         $('#rwmcode').css({
+                            'backgroundImage': `url(${base.getPic(picList[item.bankName]) })`,
+                            'background-size': '100% 100%'
+                        });
+                        $('#wAddressDialog .pagination').css({
                             'backgroundImage': `url(${base.getPic(picList[item.bankName]) })`,
                             'background-size': '100% 100%'
                         });
@@ -342,8 +350,8 @@ define([
                         <div class="b-c_fs">
                             <p>${base.getText('付款方式', langType)}</p>
                             <div>
-                                <span><img src="" alt=""></span>
-                                <span>${base.getText('支付宝', langType)}</span>
+                                <span>${base.getText('支付宝', langType)}</span>-
+                                <span id="rwmcodeAccount"></span>
                             </div>
                         </div>
                         <div class="zhang-rwm">
@@ -627,22 +635,6 @@ define([
         });
     }
 
-    //添加地址
-    function addCoinAddress(params) {
-        return AccountCtr.addCoinAddress(params).then((data) => {
-            base.hideLoadingSpin();
-            base.showMsg(base.getText('操作成功', langType));
-            setTimeout(function () {
-                $("#addWAddressDialog").addClass("hidden");
-                document.getElementById("addAddress-form").reset();
-                $("#addWAddressDialog .setSecurityAccount .icon-switch").addClass("on")
-                base.showLoadingSpin();
-                configAddress.start = 1;
-                getPageCoinAddress()
-            }, 800)
-        }, base.hideLoadingSpin)
-    }
-
     //提现 / 发送
     function withDraw(params) {
         return AccountCtr.withDraw(params).then((data) => {
@@ -657,18 +649,6 @@ define([
         })
     }
 
-    //弃用地址
-    function deleteCoinAddress(code) {
-        return AccountCtr.deleteCoinAddress(code).then((data) => {
-            base.hideLoadingSpin();
-            base.showMsg(base.getText('操作成功', langType));
-            setTimeout(function () {
-                base.showLoadingSpin();
-                configAddress.start = 1;
-                getPageCoinAddress()
-            }, 800)
-        }, base.hideLoadingSpin)
-    }
 
     function addListener() {
         var _addAddressWrapper = $("#addAddress-form");
@@ -699,105 +679,40 @@ define([
                 $(this).parents('form').reset();
             })
         })
-
-        //选择地址弹窗
-        $("#wAddressDialog .am-modal-body ul").on("click", "li .txt", function () {
-            var _this = $(this).parent("li");
-            if (!_this.hasClass("on")) {
-                _this.addClass("on").siblings("li").removeClass("on");
-            }
-        })
-
-        //选择地址-删除点击
-        $("#wAddressDialog .am-modal-body ul").on("click", "li .deleteBtn", function () {
-            var addressCode = $(this).attr("data-code");
-            base.confirm(base.getText('确定刪除此地址？', langType), base.getText('取消', langType), base.getText('确定', langType)).then(() => {
-                base.showLoadingSpin();
-                deleteCoinAddress(addressCode)
-            }, base.emptyFun)
-
-        })
-
-        // 新增地址弹窗
-        $("#addWAddressDialog .setSecurityAccount .icon-switch").click(function () {
-            if ($(this).hasClass("on")) {
-                $(this).removeClass("on");
-                $("#addWAddressDialog .tradePwdFlag").addClass("hidden");
-                addAddressWrapperRules["tradePwd"] = {};
-                _addAddressWrapper.validate({
-                    'rules': addAddressWrapperRules,
-                    onkeyup: false
-                });
-            } else {
-                $(this).addClass("on");
-                $("#addWAddressDialog .tradePwdFlag").removeClass("hidden")
-                addAddressWrapperRules["tradePwd"] = {
-                    required: true,
-                };
-                _addAddressWrapper.validate({
-                    'rules': addAddressWrapperRules,
-                    onkeyup: false
-                });
-            }
-        })
-
-        $(".dialog .closeBtn").click(function () {
-            $(this).parents(".dialog").addClass("hidden")
-        })
-
-        //管理地址點擊
-        $("#sendOut-form .addressBtn").click(function () {
-            base.showLoadingSpin();
-            $("#wAddressDialog .list").empty()
-            configAddress.start = 1;
-            getPageCoinAddress().then(() => {
-                $("#wAddressDialog").removeClass("hidden")
-            })
-
-        })
-
-        //管理地址彈窗-新增地址點擊
+        //取消支付
         $("#wAddressDialog .addBtn").click(function () {
-            smsCaptcha.init({
-                bizType: "625203",
-                id: "getVerification",
-                mobile: "addWAddressMobile",
-                errorFn: function () {
-                }
+            let config = {
+                userId: base.getUserId(),
+                code: buyOrderCode
+            };
+            TradeCtr.qxOrder(config).then(() => {
+                showMsg(base.getText('已取消支付', langType));
+                $('.con-toBuy .bz_put textarea').val('');
+                $("#wAddressDialog").addClass("hidden");
             });
-            $("#addWAddressDialog").removeClass("hidden")
         })
 
-        //添加地址弹窗-确定点击
-        $("#addWAddressDialog .subBtn").click(function () {
-            if (_addAddressWrapper.valid()) {
-                base.showLoadingSpin();
-                var params = _addAddressWrapper.serializeObject();
-                if ($("#addWAddressDialog .setSecurityAccount .icon-switch").hasClass("on")) {
-                    params.isCerti = "1"
-                } else {
-                    params.isCerti = "0"
-                }
-                params.currency = currency
-                addCoinAddress(params)
-            }
-
-        })
-
-        //管理地址弹窗-确定点击
+        //标记付款
         $("#wAddressDialog .subBtn").click(function () {
-            var address = $("#wAddressDialog .am-modal-body ul li.on").attr("data-address");
-            var status = $("#wAddressDialog .am-modal-body ul li.on").attr("data-status");
-
-            if (status == '1') {
-                $("#sendOut-form .tradePwdWrap").addClass("hidden")
-            } else if (status == '0') {
-
-                $("#sendOut-form .tradePwdWrap").removeClass("hidden")
-            }
-            $("#sendOut-form .payCardNo").val(address);
-            $("#wAddressDialog").addClass("hidden")
+            let config = {
+                userId: base.getUserId(),
+                code: buyOrderCode
+            };
+            base.showLoadingSpin();
+            TradeCtr.bjPlayfo(config).then(() => {
+                base.gohref('./wallet-jilu.html');
+            });
         })
+
+        $('.am-modal-content .out').click(function(){
+            $("#wAddressDialog").addClass("hidden");
+            base.showLoadingSpin();
+            setTimeout(() => {
+                base.gohref('./wallet-jilu.html');
+            }, 1000);
+        })
+
+        $('#wAddressDialog')
 
 
         // 充币、提币操作
@@ -991,11 +906,9 @@ define([
                             tradeAmount: allMoney,
                             remark: buyNote
                         }
-                        AccountCtr.buyX(buyConfig).then(() => {
-                            showMsg();
-                            setTimeout(() => {
-                                base.gohref('./wallet-jilu.html');
-                            }, 1500);
+                        AccountCtr.buyX(buyConfig).then((data) => {
+                            buyOrderCode = data.code;
+                            $('#wAddressDialog').removeClass('hidden');
                         });
                     } else {
                         showMsg(base.getText('输入金额不在限额之内，请重新输入！', langType));
@@ -1093,6 +1006,8 @@ define([
                     }
                 }
             }
+
+
         })
 
         function showMsg(txt) {

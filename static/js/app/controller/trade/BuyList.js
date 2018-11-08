@@ -24,9 +24,16 @@ define([
     init();
 
     function init() {
+        $('.en_nick').text(base.getText('昵称', langType));
+        $('.en_pay').text(base.getText('付款方式', langType));
+        $('.en_xe').text(base.getText('限额', langType));
+        $('.en_price').text(base.getText('价格', langType));
         if(langType == 'EN'){
             $('.search-wrap .searchType-wrap').css('width', '200px');
             $('.search-wrap .search-con').css('width', '562px');
+            $('.show-search').text('All currencies, all payment methods');
+        }else{
+            $('.show-search').text('全部货币，全部付款方式');
         }
         base.showLoadingSpin();
         getCoinList();

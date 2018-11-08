@@ -62,6 +62,31 @@ define([
     init();
 
     function init() {
+        $('.en_jzc').text(base.getText('净资产折合', langType));
+        $('.en_ljyq').text(base.getText('立即邀请', langType));
+        $('.baz-ul-h2').text(base.getText('主区', langType));
+        $('.bb-en_gg').text(base.getText('公告', langType));
+
+        if(langType == 'EN'){
+            $('.bben_yqhy').html('invite friends to register, <br> easily get cashback');
+            $('.tologin').html(`
+                <a href="../user/login.html">Login</a> or
+                <a href="../user/register.html">Register</a> Start trading`
+            );
+            $('.bb-en_bz').html(`currency <img src="/static/images/sx.png" alt="">`);
+            $('.bb-en_zxj').html(`the latest price <img src="/static/images/sx.png" alt="">`);
+            $('.bb-en_zf').html(`change <img src="/static/images/sx.png" alt="">`);
+        }else{
+            $('.bben_yqhy').html('邀请好友注册，<br> 轻松获得交易返佣');
+            $('.tologin').html(`
+                <a href="../user/login.html">登录</a> 或
+                <a href="../user/register.html">注册</a> 开始交易`
+            );
+            $('.bb-en_bz').html(`币种 <img src="/static/images/sx.png" alt="">`);
+            $('.bb-en_zxj').html(`最新价 <img src="/static/images/sx.png" alt="">`);
+            $('.bb-en_zf').html(`涨幅 <img src="/static/images/sx.png" alt="">`);
+        }
+
         base.showLoadingSpin(); // 显示加载
 
         getBBDataFn();

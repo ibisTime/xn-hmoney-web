@@ -37,6 +37,8 @@ define([
                 `
       })
       $('.contact-info-wrap').html(qHtml);
+      $('.foot-text').removeClass('hidden');
+      $('.contact-info-wrap').removeClass('hidden');
       init();
     }, (msg) => {
       base.showMsg(msg || base.getText('加载失败', langType));

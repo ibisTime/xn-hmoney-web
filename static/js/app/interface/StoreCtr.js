@@ -10,5 +10,9 @@ define([
         gramMoney() {
             return Ajax.get("600104", {}, true);
         },
+        // 充币
+        rechargeGram(config) {
+            return Ajax.get("600105", config);
+        },
     };
 })

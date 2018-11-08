@@ -3231,8 +3231,9 @@ table {
 
 .dialog-pagination-wrap {
     p {
-        height: 26px;
-        margin: 20px 0;
+        width: 150px;
+        height: 150px;
+        margin: 20px auto;
         a,
         span {
             width: 26px;
@@ -3903,6 +3904,12 @@ table {
                     margin-left: 12px;
                 }
             }
+            .code{
+                width: 110px !important;
+            }
+            .type{
+                width: 60px !important;
+            }
             .photoWrap {
                 width: 40px;
                 .photo {
@@ -3960,8 +3967,8 @@ table {
                 }
                 .unread {
                     display: inline-block;
-                    width: 70px;
-                    height: 26px;
+                    width: 40px;
+                    // height: 26px;
                     line-height: 26px;
                     position: relative;
                     top: 2px;
@@ -4337,7 +4344,7 @@ table {
                 padding-left: 20px;
             }
             &:last-child {
-                width: 110px;
+                width: 66px;
             }
         }
         .trade-list-wrap .trade-wrap .am-button {
@@ -4373,7 +4380,7 @@ table {
             }
         }
         .trade-list-wrap .trade-wrap .operation {
-            width: 160px;
+            width: 180px;
         }
         .trade-list-wrap .trade-wrap .k-oper {
             width: 190px !important;
@@ -6317,7 +6324,7 @@ html {
     position: fixed;
     left: 0;
     top: 0;
-    z-index: 99999;
+    z-index: 999;
     width: 100%;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.5);
@@ -6344,44 +6351,46 @@ html {
             font-size: 16px;
             color: #343434;
             letter-spacing: 0.13px;
-            margin-bottom: 25px;
+            margin-bottom: 15px;
         }
         .iup-zb {
             height: 38px;
             line-height: 38px;
             display: flex;
+            margin-top: 15px;
             justify-content: center;
             >p {
                 font-size: 14px;
                 color: #666;
                 input {
+                    width: 225px;
                     height: 38px;
                     margin-left: 8px;
                     padding: 4px 10px;
-                    border: 1px solid #ccc;
+                    border-bottom: 1px solid #ccc;
                 }
             }
         }
         .zb-ky_p {
             margin: 15px 0px 35px 0;
         }
-        .btn-box {
-            button {
-                color: #9a9a9a;
-                font-size: 14px;
-                padding: 10px 35px;
-                border-radius: 4px;
-                cursor: pointer;
-            }
-            button:nth-of-type(1) {
-                margin-right: 56px;
-                background-color: #fff;
-                border: 1px solid #9a9a9a;
-            }
-            button:nth-of-type(2) {
-                background-color: #d53d3d;
-                color: #fff;
-            }
+    }
+    .btn-box {
+        button {
+            color: #9a9a9a;
+            font-size: 14px;
+            padding: 10px 35px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:nth-of-type(1) {
+            margin-right: 56px;
+            background-color: #fff;
+            border: 1px solid #9a9a9a;
+        }
+        button:nth-of-type(2) {
+            background-color: #d53d3d;
+            color: #fff;
         }
     }
 }

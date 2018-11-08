@@ -3,9 +3,10 @@ define([
     'pagination',
     'app/util/ajax',
     'app/interface/GeneralCtr',
+    'app/interface/TradeCtr',
     'app/controller/Top',
     'app/controller/foo'
-], function (base, pagination, Ajax, GeneralCtr, Top, Foo) {
+], function (base, pagination, Ajax, GeneralCtr, TradeCtr, Top, Foo) {
     let langType = localStorage.getItem('langType') || 'ZH';
     let userCTSList = [];
 
@@ -123,16 +124,6 @@ define([
         return Ajax.get('625287', j_config);
     }
 
-    // 标记付款
-    function bjPlayfo(config) {
-        return Ajax.get('625273', config);
-    }
-
-    // 取消订单
-    function qxOrder(config) {
-        return Ajax.get('625272', config);
-    }
-
 
     function addListener() {
         $('.cz-type span').off('click').click(function () {
@@ -144,12 +135,12 @@ define([
             };
             switch (selTxt) {
                 case base.getText('标记付款', langType):
-                    bjPlayfo(config).then(() => {
+                    TradeCtr.bjPlayfo(config).then(() => {
                         location.reload();
                     });
                     break;
                 case base.getText('取消订单', langType):
-                    qxOrder(config).then(() => {
+                    TradeCtr.qxOrder(config).then(() => {
                         location.reload();
                     });
                     break;

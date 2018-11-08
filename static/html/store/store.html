@@ -15,17 +15,17 @@
         <div class="store-left">
             <ul>
                 <li class="str-li">
-                    <p>商城</p>
+                    <p class="store_en"></p>
                 </li>
                 <li class="sel-store goHref"  data-href="../store/store.html?type=yx">
-                    <p>区块链游戏</p>
+                    <p class="store_gm"></p>
                 </li>
                 <li class="rs-li goHref" data-href="../store/store.html?type=rs">
-                    <p>二手车兑换</p>
+                    <p class="store_car"></p>
                 </li>
             </ul>
         </div>
-        <div class="store-right">
+        <div class="store-right none">
             <div class="qk-box">
                 <div class="str-head">
                     <div class="str-h_l">
@@ -34,13 +34,13 @@
                         </div>
                         <div class="h-l_txt">
                             <h5>
-                                <span>游戏余额</span>：<span class="yxye"></span>
+                                <span class="store_ye"></span>：<span class="yxye"></span>
                             </h5>
                         </div>
                     </div>
                     <div class="str-h_r">
-                        <!-- <button class="zb-btn">转币</button> -->
-                        <a class="button goGram" target="_blank">进入游戏</a>
+                        <button class="button zb-btn"></button>
+                        <a class="button goGram go_en" target="_blank"></a>
                     </div>
                 </div>
                 <div class="str-h-img">
@@ -57,14 +57,15 @@
     <!-- 转币 -->
     <div class="str-zb none">
         <div class="zb-box">
-            <h5>转入</h5>
-            <p class="zb-ye_p">游戏余额：<span>100.00</span></p>
+            <h5>充值</h5>
+            <p class="zb-ye_p">游戏余额：<span class="yxye"></span></p>
             <div class="iup-zb">
-                <p>转入</p>
-                <p><input type="text" placeholder="请输入转入金额"></p>
+                <p><input type="number" placeholder="请输入充值数量" id="gramNum"></p>
             </div>
-            <p class="zb-ky_p">可用余额：<span>500</span></p>
-            <div class="btn-box">
+            <div class="iup-zb">
+                <p><input type="password" placeholder="请输入交易密码" id="tradePwd"></p>
+            </div>
+            <div class="btn-box" style="margin-top: 50px;">
                 <button class="qx">取消</button>
                 <button class="qr">确认</button>
             </div>
