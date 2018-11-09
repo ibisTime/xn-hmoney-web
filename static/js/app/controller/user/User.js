@@ -15,15 +15,25 @@ define([
     init();
 
     function init() {
+        base.showLoadingSpin();
+
+        $('.user-en_tx').text(base.getText('更换头像', langType));
+        $('.user-en_sf').text(base.getText('身份验证', langType) + '：');
+        $('.user-en_em').text(base.getText('电子邮件', langType) + '：');
+        $('.user-en_sj').text(base.getText('手机号码', langType) + '：');
+        $('.user-en_zc').text(base.getText('注册时间', langType) + '：');
+        $('.user-en_lj').text(base.getText('累计交易次数', langType) + '：');
+
         if(langType == 'EN'){
-            $('.u-zh').addClass('none');
             $('.u-en').removeClass('none');
+        }else{
+            $('.u-zh').removeClass('none');
         }
         $("#left-wrap .user").addClass("on")
         if ($("#head-user-wrap").hasClass("hidden")) {
             $("#head-user-wrap").removeClass("hidden")
         }
-        base.showLoadingSpin();
+
         addListener();
         $.when(
             getUser(),

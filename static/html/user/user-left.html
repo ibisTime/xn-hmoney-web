@@ -1,7 +1,26 @@
-<div class="left-title">用户中心</div>
+<div class="left-title"></div>
 <div class="left-item b_e_b">
-    <div class="title-item"><i class="icon icon-ziliao"></i><samp>用户资料</samp></div>
-    <div class="nav-item goHref user" data-href="../user/user.html">基本信息</div>
-    <div class="nav-item goHref identity" data-href="../user/identity.html">身份验证</div>
-    <div class="nav-item goHref security" data-href="../user/security.html">安全设置</div>
+    <div class="title-item"><i class="icon icon-ziliao"></i><samp class="en_yhzl"></samp></div>
+    <div class="nav-item goHref user uleft_en" data-href="../user/user.html"></div>
+    <div class="nav-item goHref identity" data-href="../user/identity.html"></div>
+    <div class="nav-item goHref security" data-href="../user/security.html"></div>
 </div>
+
+<script>
+    $(function(){
+        let langType = localStorage.getItem('langType') || 'ZH';
+        if(langType == 'EN'){
+            $('.left-title').text('User Center');
+            $('.en_yhzl').text('Profile');
+            $('.uleft_en').text('Basic Information');
+            $('.identity').text('ID Verification');
+            $('.security').text('Security Setting');
+        }else{
+            $('.left-title').text('用户中心');
+            $('.en_yhzl').text('用户资料');
+            $('.uleft_en').text('基本信息');
+            $('.identity').text('身份验证');
+            $('.security').text('安全设置');
+        }
+    })
+</script>

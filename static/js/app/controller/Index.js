@@ -22,6 +22,16 @@ define([
     // 初始化页面
     function init() {
         base.showLoadingSpin();
+        $('.in-en_jq').text(base.getText('尽情游戏 无尽精彩', langType));
+        $('.in-en_xss').text(base.getText('驯兽师', langType));
+        $('.in-en_jxhm').text(base.getText('精彩画面, 任你游', langType));
+        $('.in-en_jryx').text(base.getText('进入游戏', langType));
+        $('.in-en_dh').text(base.getText('二手车兑换', langType));
+        $('.in-en_jjtc').text(base.getText('即将推出，敬请期待', langType));
+        $('.in-en_ksdh').text(base.getText('开始兑换', langType));
+        $('.in-en_wsm').text(base.getText('为什么要选择FUNMVP？', langType));
+        $('.in-en_mm').text(base.getText('买卖自由', langType));
+
         $.when(
             getBanner(),
             GeneralCtr.getDictList({ "parentKey": "pay_type" })

@@ -21,6 +21,30 @@ define([
     init();
 
     function init() {
+        $('.tradeRecord-wrap-title').text(base.getText('币币交易订单', langType));
+        $('.sel-sp').text(base.getText('历史委托', langType));
+        $('.bbo-en_sj').text(base.getText('时间', langType));
+        $('.bbo-en_yjd').text(base.getText('交易对', langType));
+        $('.bbo-en_fx').text(base.getText('方向', langType));
+        $('.bbo-en_wt').text(base.getText('委托价', langType));
+        $('.bbo-en_zt').text(base.getText('状态', langType));
+        $('.bbo-en_cz').text(base.getText('操作', langType));
+        if(langType == 'EN'){
+            $('.bbo-en_wtl').html(`amount(<i class="s-pr">BTC</i>)`);
+            $('.bbo-en_ze').html(`total amount(<i class="tos-pr">BTC</i>)`);
+            $('.bbo-en_ycj').html(`executed quantity(<i class="s-pr">FMVP</i>)`);
+            $('.bbo-en_wcj').html(`unexecuted quantity(<i class="s-pr">FMVP</i>)`);
+            $('.bbo-en_ycje').html(`executed amount(<i class="tos-pr">BTC</i>)`);
+            $('.bbo-en_cjjj').html(`average price(<i class="tos-pr"></i>)`);
+            $('.bbOrder-wrap .bborder-p').css('line-height', '1.5');
+        }else{
+            $('.bbo-en_wtl').html(`委托量(<i class="s-pr">BTC</i>)`);
+            $('.bbo-en_ze').html(`总额(<i class="tos-pr">BTC</i>)`);
+            $('.bbo-en_ycj').html(`已成交量(<i class="s-pr">FMVP</i>)`);
+            $('.bbo-en_wcj').html(`未成交量(<i class="s-pr">FMVP</i>)`);
+            $('.bbo-en_ycje').html(`已成交额(<i class="tos-pr">BTC</i>)`);
+            $('.bbo-en_cjjj').html(`成交均价(<i class="tos-pr"></i>)`);
+        }
         // 判断是否登录
         if (!base.isLogin()) {
             base.goLogin();

@@ -41,6 +41,21 @@ define([
     init();
 
     function init() {
+        $('.en-buy_jy').text(base.getText('交易次数', langType));
+        $('.en-buy_xr').text(base.getText('信任人数', langType));
+        $('.en-buy_hp').text(base.getText('好评率', langType));
+        $('.en-buy_ls').text(base.getText('历史成交', langType));
+        $('.sp-lx').text(base.getText('联系对方', langType));
+        $('.en-buy_bj').text(base.getText('报价', langType) + ':');
+        $('.en-buy_xe').text(base.getText('交易限额', langType) + ':');
+        $('.en-buy_sl').text(base.getText('交易数量', langType) + ':');
+        $('.en-buy_fk').text(base.getText('付款方式', langType) + ':');
+        $('.en-buy_fkqx').text(base.getText('付款期限', langType) + ':');
+        $('.en-sell_mjly').text(base.getText('买家留言', langType) + ':');
+        $('.en-buy_csds').text(base.getText('你想出售多少', langType) + '?');
+        $('.en-buy_kyyy').text(base.getText('账户可用余额', langType) + ':');
+        $('.en-buy_fz').text(base.getText('分钟', langType));
+        $('.en-buy_tx').text(base.getText('交易提醒', langType));
         base.showLoadingSpin();
         $(".head-nav-wrap .sell").addClass("active");
 

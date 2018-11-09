@@ -77,6 +77,13 @@ define([
     }
 
     function init() {
+        $('.wall-en_zzc').text(base.getText('总资产折合', langType));
+        $('.wall-ts').text(base.getText('币币账户与场外账户均可支持充币提币', langType));
+        $('.wall-en_bz').text(base.getText('币种', langType));
+        $('.wall-en_ky').text(base.getText('可用', langType));
+        $('.wall-en_dj').text(base.getText('冻结', langType));
+        $('.wall-en_cz').text(base.getText('操作', langType));
+        $('.yue').removeClass('none');
         base.showLoadingSpin();
         $("#addWAddressMobile").val(base.getUserMobile());
         getCoinList();
@@ -784,6 +791,7 @@ define([
             $('.b-c_put input').val('');
             $('.x_num').text('0.00');
             $('.b-c_put p').text(base.getText('请输入购买金额', langType));
+            $('.x-p_money').text('CNY');
             isSell = false;
             if ($(this).hasClass('sel-sp')) {
                 $('.con-toBuy').hide();
@@ -797,9 +805,10 @@ define([
 
         // 去出售操作
         $('.to-sell').off('click').click(function () {
-            $('.b-c_h p').eq(0).addClass('sel-p').siblings().removeClass('sel-p');
+            $('.sell-c p').eq(0).addClass('sel-p').siblings().removeClass('sel-p');
             $('.b-c_put input').val('');
             $('.x_num').text('0.00');
+            $('.x-p_money').text('CNY');
             isSell = true;
             $('.b-c_put p').text(base.getText('请输入卖出金额', langType));
             if ($(this).hasClass('sel-sp')) {

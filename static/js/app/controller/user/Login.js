@@ -15,6 +15,11 @@ define([
 
     function init() {
         $(".head-button-wrap .button-register").removeClass("hidden");
+        $('.title').text(base.getText('登录', langType));
+        $('#subBtn').text(base.getText('登录', langType));
+        $('.finPwd').text(base.getText('忘记密码', langType) + '?');
+        $('#loginName').attr('placeholder', base.getText('请输入账号', langType));
+        $('#loginPwd').attr('placeholder', base.getText('请输入6-16位的登录密码', langType));
         initSwiperBanner();
         addListener();
         setTimeout(function() {

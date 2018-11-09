@@ -24,6 +24,21 @@ define([
         '4': base.getText('平台已取消', langType)
     }
 
+    $('.tradeRecord-wrap-title').text(base.getText('订单记录', langType));
+    $('.wadet-en_dd').text(base.getText('订单信息', langType));
+    $('.wadet-en_lx').text(base.getText('类型', langType) + ':');
+    $('.wadet-en_bsl').text(base.getText('币数量', langType) + ':');
+    $('.wadet-en_ddh').text(base.getText('订单号', langType) + ':');
+    $('.wadet-en_ze').text(base.getText('订单总额', langType));
+    $('.wadet-en_ssf').text(base.getText('手续费', langType) + ':');
+    $('.wadet-en_zt').text(base.getText('状态', langType) + ':');
+    $('.wadet-en_sj').text(base.getText('下单时间', langType) + ':');
+    $('.wadet-en_sk').text(base.getText('收款信息', langType));
+    $('.wadet-en_skr').text(base.getText('收款人', langType) + ':');
+    $('.wadet-en_skfs').text(base.getText('收款方式', langType) + ':');
+    $('.wadet-en_zh').text(base.getText('账号', langType) + ':');
+    $('.wadet-en_khh').text(base.getText('开户行', langType) + ':');
+
     getBankData().then(data => {
         data.forEach(item => {
             zfType[item.bankCode] = item.bankName;

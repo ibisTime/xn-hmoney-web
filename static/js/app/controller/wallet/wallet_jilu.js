@@ -26,6 +26,14 @@ define([
 
     function init() {
         base.showLoadingSpin();
+        $('.tradeRecord-wrap-title').text(base.getText('订单记录', langType));
+        $('.wajl-en_lx').text(base.getText('类型', langType));
+        $('.wajl-en_bz').text(base.getText('币种', langType));
+        $('.wajl-en_zje').text(base.getText('总金额', langType));
+        $('.date_n').text(base.getText('数量', langType));
+        $('.date_li').text(base.getText('下单日期', langType));
+        $('.wajl-en_zt').text(base.getText('状态', langType));
+        $('.wajl-en_cz').text(base.getText('操作', langType));
         addListener();
         GeneralCtr.getDictList({
             "parentKey": "accept_order_status"

@@ -39,6 +39,22 @@ define([
     init();
 
     function init() {
+        $('.en-buy_jy').text(base.getText('交易次数', langType));
+        $('.en-buy_xr').text(base.getText('信任人数', langType));
+        $('.en-buy_hp').text(base.getText('好评率', langType));
+        $('.en-buy_ls').text(base.getText('历史成交', langType));
+        $('.sp-lx').text(base.getText('联系对方', langType));
+        $('.en-buy_bj').text(base.getText('报价', langType) + ':');
+        $('.en-buy_xe').text(base.getText('交易限额', langType) + ':');
+        $('.en-buy_sl').text(base.getText('交易数量', langType) + ':');
+        $('.en-buy_fk').text(base.getText('付款方式', langType) + ':');
+        $('.en-buy_fkqx').text(base.getText('付款期限', langType) + ':');
+        $('.en-buy_mjly').text(base.getText('卖家留言', langType) + ':');
+        $('.en-buy_mmds').text(base.getText('你想买卖多少', langType) + '?');
+        $('.en-buy_ggsy').text(base.getText('广告剩余可交易量', langType) + ':');
+        $('.en-buy_fz').text(base.getText('分钟', langType));
+        $('.en-buy_tx').text(base.getText('交易提醒', langType));
+
         // 英文修改
         if(langType == 'EN'){
             $('.b-en').addClass('none');

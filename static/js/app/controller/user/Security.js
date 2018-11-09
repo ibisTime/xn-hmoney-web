@@ -14,6 +14,19 @@ define([
 
     function init() {
         base.showLoadingSpin();
+        $('.sec-en_aq').text(base.getText('安全设置', langType));
+        $('.sec-en_zj').text(base.getText('资金密码', langType));
+        $('.sec-en_tx').text(base.getText('提现、修改安全设置时输入', langType));
+        $('.sec-en_em').text(base.getText('绑定邮箱', langType));
+        $('.sec-en_sj').text(base.getText('绑定手机号', langType));
+        $('.sec-en_dlmm').text(base.getText('登录密码', langType));
+        $('.sec-en_dlsr').text(base.getText('用户登录账户时输入', langType));
+        $('.sec-en_xg').text(base.getText('修改', langType));
+        $('.sec-en_gg').text(base.getText('谷歌验证', langType));
+        $('.sec-en_bd').text(base.getText('绑定后', langType) + ',');
+        $('.sec-en_dl').text(base.getText('登录', langType));
+        $('.sec-en_ecyz').text(base.getText('提现时需要谷歌二次验证', langType));
+
         getUser();
         addListener();
     }

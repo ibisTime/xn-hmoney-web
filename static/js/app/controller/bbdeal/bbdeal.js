@@ -273,7 +273,8 @@ define([
                     if (jyType == 'xj') {
                         $('#yr-price').val(toPrice);
                     }
-                    $('.mc-exc').text(((Math.floor(toPrice * bb_exchange) * 100) / 100).toFixed(2));
+                    console.log(bb_exchange);
+                    $('.mc-exc').text((Math.floor(toPrice * bb_exchange * 100) / 100).toFixed(2));
                     $('.all-bb_c').text((Math.floor((syUserMoney / toPrice) * 100) / 100).toFixed(2));
                 }
                 if (pkObjData.sell) {
@@ -876,7 +877,7 @@ define([
                     return;
                 }
             }
-            $('.mr-exc').text(((Math.floor(ym_price * bb_exchange) * 100) / 100).toFixed(2));
+            $('.mr-exc').text((Math.floor(ym_price * bb_exchange * 100) / 100).toFixed(2));
             if (ym_price > 0) {
                 $('.all-bb').text((Math.floor((toSyUserMoney / ym_price) * 100) / 100).toFixed(2));
             }
@@ -894,7 +895,7 @@ define([
                     return;
                 }
             }
-            $('.mc-exc').text(((Math.floor(yr_price * bb_exchange) * 100) / 100).toFixed(2));
+            $('.mc-exc').text(((Math.floor(yr_price * bb_exchange * 100)) / 100).toFixed(2));
             if (yr_price > 0) {
                 $('.all-bb_c').text((Math.floor((syUserMoney / yr_price) * 100) / 100).toFixed(2));
             }

@@ -19,6 +19,16 @@ define([
     
     function init() {
 		base.showLoadingSpin();
+		$('.tr-en_dq').text(base.getText('当前位置', langType));
+		$('.tr-en_zx').text(base.getText('用户中心', langType));
+		$('.tr-en_sz').text(base.getText('安全设置', langType));
+		$('.tr-en_zj').text(base.getText('资金密码', langType));
+		$('#getVerification').text(base.getText('获取验证码', langType));
+		$('#subBtn').text(base.getText('确定', langType));
+		$('#mobile').attr('placeholder', base.getText('请输入手机号', langType));
+		$('#tradePwd').attr('placeholder', base.getText('请输入资金密码', langType));
+		$('#smsCaptcha').attr('placeholder', base.getText('验证码', langType));
+
         if(base.getUserMobile()) {
             $("#mobile").val(base.getUserMobile());
             $("#mobile").siblings('.item-icon').addClass('icon-phone');

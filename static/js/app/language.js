@@ -136,6 +136,10 @@ var LANGUAGE = {
         'ZH': '无尽精彩',
         'EN': ' is endless'
     },
+    '尽情游戏 无尽精彩': {
+        'ZH': '尽情游戏 无尽精彩',
+        'EN': 'The game is endless'
+    },
     '驯兽师': {
         'ZH': '驯兽师',
         'EN': 'Crowned Up'
@@ -147,6 +151,10 @@ var LANGUAGE = {
     '任你游': {
         'ZH': '任你游',
         'EN': 'full of passion'
+    },
+    '精彩画面, 任你游': {
+        'ZH': '精彩画面, 任你游',
+        'EN': 'Wonderful view full of passion'
     },
     '进入游戏': {
         'ZH': '进入游戏',
@@ -163,6 +171,10 @@ var LANGUAGE = {
     '即将推出': {
         'ZH': '即将推出',
         'EN': 'Coming soon'
+    },
+    '即将推出，敬请期待': {
+        'ZH': '即将推出，敬请期待',
+        'EN': 'Coming soon, Coming soon'
     },
     '敬请期待': {
         'ZH': '敬请期待',
@@ -184,9 +196,9 @@ var LANGUAGE = {
         'ZH': '安全可靠',
         'EN': 'reliable'
     },
-    '为什么要选择': {
-        'ZH': '为什么要选择',
-        'EN': 'WHY CHOOSE'
+    '为什么要选择FUNMVP？': {
+        'ZH': '为什么要选择FUNMVP？',
+        'EN': 'WHY CHOOSE FUNMVP?'
     },
     '支持多种数字货币的币币交易与场外交易': {
         'ZH': '支持多种数字货币的币币交易与场外交易',
@@ -423,11 +435,11 @@ var LANGUAGE = {
     },
     '委托量': {
         'ZH': '委托量',
-        'EN': 'Amount'
+        'EN': 'amount'
     },
     '成交均价': {
         'ZH': '成交均价',
-        'EN': 'Average price'
+        'EN': 'average price'
     },
     '状态': {
         'ZH': '状态',
@@ -1324,7 +1336,7 @@ var LANGUAGE = {
     ///////////////////////////////////////////// 用户中心
     '用户资料': {
         'ZH': '用户资料',
-        'EN': 'Profile'
+        'EN': 'profile'
     },
     '基本信息': {
         'ZH': '基本信息',
@@ -1655,6 +1667,10 @@ var LANGUAGE = {
     '位的登录密码': {
         'ZH': '位的登录密码',
         'EN': 'bit login password'
+    },
+    '请输入6-16位的登录密码': {
+        'ZH': '请输入6-16位的登录密码',
+        'EN': 'Please enter a 6-16 bit login password'
     },
     '忘记密码': {
         'ZH': '忘记密码',

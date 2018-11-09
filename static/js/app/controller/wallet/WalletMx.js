@@ -36,6 +36,22 @@ define([
     }
 
     function init() {
+        $('.tradeRecord-wrap-title').text(base.getText('场外交易明细', langType));
+        $('.wamx-en_qb').text(base.getText('全部', langType));
+        $('.wamx-en_cb').text(base.getText('充币', langType));
+        $('.wamx-en_tb').text(base.getText('提现', langType));
+        $('.wamx-en_mr').text(base.getText('交易买入', langType));
+        $('.wamx-en_mc').text(base.getText('交易卖出', langType));
+        $('.wamx-en_gm').text(base.getText('场外承兑商购买', langType));
+        $('.wamx-en_cs').text(base.getText('场外承兑商出售', langType));
+        $('.wamx-en_sxf').text(base.getText('交易手续费', langType));
+        $('.wamx-en_tx').text(base.getText('提现手续费', langType));
+        $('.wamx-en_dj').text(base.getText('冻结记录', langType));
+        $('.wamx-en_sj').text(base.getText('时间', langType));
+        $('.wamx-en_lx').text(base.getText('类型', langType));
+        $('.wamx-en_sli').text(base.getText('数量', langType));
+        $('.wamx-en_sm').text(base.getText('说明', langType));
+
         base.showLoadingSpin();
         $.when(
             GeneralCtr.getDictList({
