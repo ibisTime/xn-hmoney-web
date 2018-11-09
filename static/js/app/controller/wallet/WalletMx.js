@@ -16,16 +16,16 @@ define([
     };
 
     var bizTypeList = {
-        "0": "",
-        "1": "charge",
-        "2": "withdraw",
-        "3": "ccorder_buy",
-        "4": "ccorder_sell",
-        '5': "accept_buy",
-        '6': "accept_sell",
-        "7": "ccorder_fee",
-        "8": "withdraw_fee",
-        "9": "ccorder_frozen"
+        '0': [],
+        '1': ['charge'],
+        '2': ['withdraw'],
+        '3': ['ccorder_buy', 'bborder_buy'],
+        '4': ['ccorder_sell', 'bborder_sell'],
+        '5': ['accept_buy'],
+        '6': ['accept_sell'],
+        '7': ['ccorder_fee', 'bborder_fee'],
+        '8': ['withdraw_fee'],
+        '9': ['ccorder_frozen', 'bborder_frozen']
     },
     bizTypeValueList = {};
 
@@ -115,7 +115,11 @@ define([
             $(this).addClass("on").siblings("li").removeClass("on");
 
             base.showLoadingSpin();
-            config.bizType = bizTypeList[index];
+            if (bizTypeList[index].length > 0) {
+                config.bizTypeList = bizTypeList[index];
+            } else {
+                delete config.bizTypeList;
+            }
             config.start = 1;
             if (index == '8') {
                 config.type = '1';
