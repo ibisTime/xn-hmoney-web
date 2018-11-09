@@ -1774,10 +1774,14 @@ var LANGUAGE = {
     '卖家信息': {
         'ZH': '卖家信息',
         'EN': 'The seller information'
+    },
+    '买家信息': {
+        'ZH': '买家信息',
+        'EN': 'The buyer information'
 	},
 	'广告详情': {
         'ZH': '广告详情',
-        'EN': 'Advertisement details'
+        'EN': 'Advertisement Details'
     },
     '购买订单': {
         'ZH': '购买订单',

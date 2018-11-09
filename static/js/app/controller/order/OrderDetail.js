@@ -33,6 +33,18 @@ define([
     init();
 
     function init() {
+
+        $('.en-det_msg').text(base.getText('订单信息', langType));
+        $('.en-det_gg').text(base.getText('交易价格', langType) + ':');
+        $('.en-det_sl').text(base.getText('交易数量', langType) + ':');
+        $('.en-det_je').text(base.getText('交易金额', langType) + ':');
+        $('.en-det_bj').text(base.getText('报价', langType) + ':');
+        $('.en-det_xe').text(base.getText('交易限额', langType) + ':');
+        $('.en-det_jycz').text(base.getText('交易操作', langType));
+        $('.en-det_code').text(base.getText('订单编号', langType));
+        $('.en-det_fkfs').text(base.getText('付款方式', langType));
+        $('.en-det_ly').text(base.getText('广告留言', langType));
+
         if(langType == 'EN'){
             $('.file-wrap .file').css('width', '180px');
             $('.am-modal-body .file-wrap .am-button').css('width', '180px');
