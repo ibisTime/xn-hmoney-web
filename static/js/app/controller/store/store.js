@@ -103,9 +103,10 @@ define([
                                 }, 1000);
                             }
                         }, () => {
+                            base.hideLoadingSpin();
                             $('#gramNum').val('');
                             // $('#tradePwd').val('');
-                        }, base.hideLoadingSpin);
+                        });
                 //     } else{
                 //         base.showMsg(base.getText('请先设置资金密码', langType))
                 //         setTimeout(function () {
