@@ -8,8 +8,8 @@ define([
     let langType = localStorage.getItem('langType') || 'ZH';
     let config = {
         userId: '',
-        count: 0,
-        tradePwd: ''
+        count: 0
+        // tradePwd: ''
     }
     init();
 
@@ -80,18 +80,19 @@ define([
             }
             if($(target).attr('class') == 'qr'){
                 let count = $('#gramNum').val().trim();
-                let tradePwd = $('#tradePwd').val().trim();
+                // 11/12 去掉充值交易密码
+                // let tradePwd = $('#tradePwd').val().trim();
                 if(count == ''){
                     base.showMsg('数量不能为空');
                     return;
-                }else if(tradePwd == ''){
-                    base.showMsg('请输入交易密码');
-                    return;
+                // }else if(tradePwd == ''){
+                //     base.showMsg('请输入交易密码');
+                //     return;
                 }
-                UserCtr.getUser(true, base.getUserId()).then(res => {
-                    if (res.tradepwdFlag) {
+                // UserCtr.getUser(true, base.getUserId()).then(res => {
+                //     if (res.tradepwdFlag) {
                         config.count = base.formatMoneyParse(count, '', 'FMVP');
-                        config.tradePwd = tradePwd;
+                        // config.tradePwd = tradePwd;
                         base.showLoadingSpin();
                         StoreCtr.rechargeGram(config).then(data => {
                             base.hideLoadingSpin();
@@ -103,15 +104,15 @@ define([
                             }
                         }, () => {
                             $('#gramNum').val('');
-                            $('#tradePwd').val('');
+                            // $('#tradePwd').val('');
                         }, base.hideLoadingSpin);
-                    } else{
-                        base.showMsg(base.getText('请先设置资金密码', langType))
-                        setTimeout(function () {
-                            base.gohref("../user/setTradePwd.html?type=1")
-                        }, 1800)
-                    } 
-                });
+                //     } else{
+                //         base.showMsg(base.getText('请先设置资金密码', langType))
+                //         setTimeout(function () {
+                //             base.gohref("../user/setTradePwd.html?type=1")
+                //         }, 1800)
+                //     }
+                // });
             }
         });
     }
