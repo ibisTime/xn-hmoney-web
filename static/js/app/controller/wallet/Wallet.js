@@ -83,6 +83,10 @@ define([
         $('.wall-en_ky').text(base.getText('可用', langType));
         $('.wall-en_dj').text(base.getText('冻结', langType));
         $('.wall-en_cz').text(base.getText('操作', langType));
+        if(langType == 'EN'){
+            $('title').text('wallet-FUNMVP blockchain technology application experimental platform');
+        }
+        $('title').text('钱包-FUNMVP区块链技术应用实验平台');
         $('.yue').removeClass('none');
         base.showLoadingSpin();
         $("#addWAddressMobile").val(base.getUserMobile());

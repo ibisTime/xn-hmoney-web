@@ -929,6 +929,10 @@ var LANGUAGE = {
     },
 
     //////////////////////////////////////////////////// 购买详情
+    '购买详情': {
+        'ZH': '购买详情',
+        'EN': 'Purchase details'
+    },
     '已认证': {
         'ZH': '已认证',
         'EN': 'certified'
@@ -2361,7 +2365,7 @@ var LANGUAGE = {
     },
     '区块链技术应用实验平台': {
         'ZH': '区块链技术应用实验平台',
-        'EN': ' Blockchain technology application experimental platform'
+        'EN': ' blockchain technology application experimental platform'
     },
     '已取消支付': {
         'ZH': '已取消支付',
@@ -2370,6 +2374,10 @@ var LANGUAGE = {
     '取消支付': {
         'ZH': '取消支付',
         'EN': 'cancel the payment'
+    },
+    '出售详情': {
+        'ZH': '出售详情',
+        'EN': 'Selling details'
     }
 }
 

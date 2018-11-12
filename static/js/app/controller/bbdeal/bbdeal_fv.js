@@ -13,6 +13,10 @@ define([
     init();
 
     function init() {
+        if(langType == 'EN'){
+            $('title').text('fee rate-FUNMVP blockchain technology application experimental platform');
+        }
+        $('title').text('费率-FUNMVP区块链技术应用实验平台');
         getBazaarData().then(data => {
             jyDataList = data.list;
             let fvHtml = '';
@@ -28,7 +32,8 @@ define([
 
         GeneralCtr.getSysConfigType('simu_order_rule').then(data => {
             fvData = parseFloat(data.simu_order_fee_rate) * 100;
-        })
+            base.hideLoadingSpin();
+        }, base.hideLoadingSpin)
 
     }
 

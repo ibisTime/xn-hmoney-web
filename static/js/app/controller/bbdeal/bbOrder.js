@@ -37,6 +37,7 @@ define([
             $('.bbo-en_ycje').html(`executed amount(<i class="tos-pr">BTC</i>)`);
             $('.bbo-en_cjjj').html(`average price(<i class="tos-pr"></i>)`);
             $('.bbOrder-wrap .bborder-p').css('line-height', '1.5');
+            $('title').text('Exchange orders-FUNMVP blockchain technology application experimental platform');
         }else{
             $('.bbo-en_wtl').html(`委托量(<i class="s-pr">BTC</i>)`);
             $('.bbo-en_ze').html(`总额(<i class="tos-pr">BTC</i>)`);
@@ -44,6 +45,7 @@ define([
             $('.bbo-en_wcj').html(`未成交量(<i class="s-pr">FMVP</i>)`);
             $('.bbo-en_ycje').html(`已成交额(<i class="tos-pr">BTC</i>)`);
             $('.bbo-en_cjjj').html(`成交均价(<i class="tos-pr"></i>)`);
+            $('title').text('币币交易订单-FUNMVP区块链技术应用实验平台');
         }
         // 判断是否登录
         if (!base.isLogin()) {

@@ -11,6 +11,10 @@ define([
     init();
 
     function init() {
+        if(langType == 'EN'){
+            $('title').text('FUNMVP blockchain technology application experimental platform');
+        }
+        $('title').text('FUNMVP区块链技术应用实验平台');
         base.showLoadingSpin();
         let setKey = key % 4 == 0 ? key - 4 : key % 4;
        let wLi = $('.article-left li').eq(setKey);

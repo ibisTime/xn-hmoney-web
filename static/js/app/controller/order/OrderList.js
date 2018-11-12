@@ -46,6 +46,7 @@ define([
 
         $(".head-nav-wrap .sell").addClass("active");
         $(".titleStatus li." + coin.toLowerCase()).addClass("on").siblings('li').removeClass('on');
+
         base.showLoadingSpin();
         TencentCloudLogin.goLogin(function(list) {
                 unreadMsgList = list;

@@ -15,7 +15,19 @@ define([
 	}
     
     function init() {
-    	
+    	$('.position').text(base.getText('当前位置', langType) + '：');
+        $('.pwd-en_yh').text(base.getText('用户中心', langType) + '>');
+        $('.pwd-en_aq').text(base.getText('安全设置', langType) + '>');
+        $('.pwd-en_dl').text(base.getText('登录密码', langType));
+        $('.title').text(base.getText('登录密码', langType));
+        $('#subBtn').text(base.getText('确定', langType));
+        $('#oldLoginPwd').attr('placeholder', base.getText('请输入原密码', langType));
+        $('#newLoginPwd').attr('placeholder', base.getText('请输入6-16位的新密码', langType));
+        $('#renewLoginPwd').attr('placeholder', base.getText('请再次输入新密码', langType));
+        if(langType == 'EN'){
+            $('title').text('Login password-FUNMVP blockchain technology application experimental platform');
+        }
+        $('title').text('登录密码-FUNMVP区块链技术应用实验平台');
         base.hideLoadingSpin();
         addListener();
     }

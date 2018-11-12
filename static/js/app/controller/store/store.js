@@ -20,6 +20,10 @@ define([
         $('.go_en').text(base.getText('进入游戏', langType));
         $('.store_car').text(base.getText('二手车兑换', langType));
         $('.store-right').removeClass('none');
+        if(langType == 'EN'){
+            $('title').text('Store-FUNMVP blockchain technology application experimental platform');
+        }
+        $('title').text('商城-FUNMVP区块链技术应用实验平台');
         let stoType = base.getUrlParam('type') || 'yx';
         if(stoType == 'rs'){
             $('.rs-li').addClass('sel-store').siblings().removeClass('sel-store');
@@ -88,7 +92,9 @@ define([
                     if (res.tradepwdFlag) {
                         config.count = base.formatMoneyParse(count, '', 'FMVP');
                         config.tradePwd = tradePwd;
+                        base.showLoadingSpin();
                         StoreCtr.rechargeGram(config).then(data => {
+                            base.hideLoadingSpin();
                             if(data.code){
                                 base.showMsg('充值成功');
                                 setTimeout(() => {
@@ -98,7 +104,7 @@ define([
                         }, () => {
                             $('#gramNum').val('');
                             $('#tradePwd').val('');
-                        });
+                        }, base.hideLoadingSpin);
                     } else{
                         base.showMsg(base.getText('请先设置资金密码', langType))
                         setTimeout(function () {

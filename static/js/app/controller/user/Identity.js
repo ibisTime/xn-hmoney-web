@@ -53,6 +53,10 @@ define([
     }
 
     function init() {
+        if(langType == 'EN'){
+            $('title').text('ID Verification-FUNMVP blockchain technology application experimental platform');
+        }
+        $('title').text('身份验证-FUNMVP区块链技术应用实验平台');
         base.showLoadingSpin();
         $.when(
             getUser(),

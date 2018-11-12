@@ -48,7 +48,9 @@ define([
         if(langType == 'EN'){
             $('.file-wrap .file').css('width', '180px');
             $('.am-modal-body .file-wrap .am-button').css('width', '180px');
+            $('title').text('Order details-FUNMVP blockchain technology application experimental platform');
         }
+        $('title').text('订单详情-FUNMVP区块链技术应用实验平台');
         base.showLoadingSpin();
         if(!base.isLogin()){
             base.goLogin();

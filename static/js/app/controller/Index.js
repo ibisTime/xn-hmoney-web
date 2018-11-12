@@ -31,7 +31,7 @@ define([
         $('.in-en_ksdh').text(base.getText('开始兑换', langType));
         $('.in-en_wsm').text(base.getText('为什么要选择FUNMVP？', langType));
         $('.in-en_mm').text(base.getText('买卖自由', langType));
-
+        $('.fun-mvp').removeClass('none');
         $.when(
             getBanner(),
             GeneralCtr.getDictList({ "parentKey": "pay_type" })

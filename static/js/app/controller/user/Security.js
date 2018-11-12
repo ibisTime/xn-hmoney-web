@@ -13,6 +13,10 @@ define([
     }
 
     function init() {
+        if(langType == 'EN'){
+            $('title').text('Security Setting-FUNMVP blockchain technology application experimental platform');
+        }
+        $('title').text('安全设置-FUNMVP区块链技术应用实验平台');
         base.showLoadingSpin();
         $('.sec-en_aq').text(base.getText('安全设置', langType));
         $('.sec-en_zj').text(base.getText('资金密码', langType));

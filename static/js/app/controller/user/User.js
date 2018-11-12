@@ -26,8 +26,10 @@ define([
 
         if(langType == 'EN'){
             $('.u-en').removeClass('none');
+            $('title').text('user center-FUNMVP blockchain technology application experimental platform');
         }else{
             $('.u-zh').removeClass('none');
+            $('title').text('用户中心-FUNMVP区块链技术应用实验平台');
         }
         $("#left-wrap .user").addClass("on")
         if ($("#head-user-wrap").hasClass("hidden")) {

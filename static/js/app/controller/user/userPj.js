@@ -18,12 +18,18 @@ define([
         objectUserId: userId
     }
     init();
-
     function init() {
+        $('.pj-en_pr').text(base.getText('评价人', langType));
+        $('.pj-en_sfhp').text(base.getText('是否好评', langType));
+        $('.pj-en_nr').text(base.getText('评价内容', langType));
+        $('.pj-en_sj').text(base.getText('评价时间', langType));
+
         if(langType == 'EN'){
             $('.p-zh').addClass('none');
             $('.p-en').removeClass('none');
+            $('title').text('evaluate-FUNMVP blockchain technology application experimental platform');
         }
+        $('title').text('评价-FUNMVP区块链技术应用实验平台');
         base.showLoadingSpin();
         $('.userName').text(nickname);
         $.when(

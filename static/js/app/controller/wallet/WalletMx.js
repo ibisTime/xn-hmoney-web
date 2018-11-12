@@ -52,6 +52,11 @@ define([
         $('.wamx-en_sli').text(base.getText('数量', langType));
         $('.wamx-en_sm').text(base.getText('说明', langType));
 
+        if(langType == 'EN'){
+            $('title').text('order details-FUNMVP blockchain technology application experimental platform');
+        }
+        $('title').text('订单明细-FUNMVP区块链技术应用实验平台');
+
         base.showLoadingSpin();
         $.when(
             GeneralCtr.getDictList({

@@ -76,6 +76,7 @@ define([
             $('.bb-en_bz').html(`currency <img src="/static/images/sx.png" alt="">`);
             $('.bb-en_zxj').html(`the latest price <img src="/static/images/sx.png" alt="">`);
             $('.bb-en_zf').html(`change <img src="/static/images/sx.png" alt="">`);
+            $('title').text('Exchange-FUNMVP blockchain technology application experimental platform');
         }else{
             $('.bben_yqhy').html('邀请好友注册，<br> 轻松获得交易返佣');
             $('.tologin').html(`
@@ -85,6 +86,7 @@ define([
             $('.bb-en_bz').html(`币种 <img src="/static/images/sx.png" alt="">`);
             $('.bb-en_zxj').html(`最新价 <img src="/static/images/sx.png" alt="">`);
             $('.bb-en_zf').html(`涨幅 <img src="/static/images/sx.png" alt="">`);
+            $('title').text('币币交易-FUNMVP区块链技术应用实验平台');
         }
 
         base.showLoadingSpin(); // 显示加载

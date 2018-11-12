@@ -24,7 +24,9 @@ define([
         if(langType == 'EN'){
             $('.login-form').addClass('en-login-form');
             $('.form-item').addClass('en-form-item');
+            $('title').text('Register-FUNMVP blockchain technology application experimental platform');
         }
+        $('title').text('注册-FUNMVP区块链技术应用实验平台');
         $(".head-button-wrap .button-login").removeClass("hidden");
         base.showLoadingSpin();
         $('.title').text(base.getText('注册', langType));

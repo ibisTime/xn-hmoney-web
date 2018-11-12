@@ -31,6 +31,22 @@ define([
     init();
 
     function init() {
+        $('.udet-en_jy').text(base.getText('交易次数', langType));
+        $('.udet-en_xr').text(base.getText('信任人数', langType));
+        $('.udet-en_hp').text(base.getText('好评度', langType));
+        $('.udet-en_ls').text(base.getText('历史交易', langType));
+        $('.k-fb').text(base.getText('发布的广告', langType));
+        $('.buy').text(base.getText('在线购买', langType));
+        $('.sell').text(base.getText('在线出售', langType));
+        $('.currency').text(base.getText('交易币种', langType));
+        $('.oayType').text(base.getText('付款方式', langType));
+        $('.limit').text(base.getText('交易限额', langType));
+        $('.price').text(base.getText('价格', langType));
+
+        if(langType == 'EN'){
+            $('title').text('personal homepage-FUNMVP blockchain technology application experimental platform');
+        }
+        $('title').text('个人主页-FUNMVP区块链技术应用实验平台');
         base.showLoadingSpin();
         // getUserRelation() // 测试
         // 查询币种和付款方式

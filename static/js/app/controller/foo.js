@@ -8,8 +8,20 @@ define([
   getFooData();
 
   function init() {
+    $('.foo-en_gj').text(getText('工具', langType));
+    $('.en-help').text(getText('帮助中心', langType));
+    $('.foo-en_pt').text(getText('平台介绍', langType));
+    $('.foo-en_lx').text(getText('联系我们', langType));
+    $('.foo-en_gg').text(getText('公告', langType));
+    $('.foo-en_tk').text(getText('条款说明', langType));
+    $('.foo-en_yhxy').text(getText('用户协议', langType));
+    $('.foo-en_ystk').text(getText('隐私条款', langType));
+    $('.foo-en_flsm').text(getText('法律申明', langType));
+    $('.foo-en_fvsm').text(getText('费率说明', langType));
+
     if(langType == 'EN'){
       $('.contact-txt').css('width', '39%');
+      $('.foo-en_buy').text('Buy FMVP');
     }
     addListener();
   }

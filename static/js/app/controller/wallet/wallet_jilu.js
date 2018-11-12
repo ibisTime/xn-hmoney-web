@@ -34,6 +34,10 @@ define([
         $('.date_li').text(base.getText('下单日期', langType));
         $('.wajl-en_zt').text(base.getText('状态', langType));
         $('.wajl-en_cz').text(base.getText('操作', langType));
+        if(langType == 'EN'){
+            $('title').text('orders records-FUNMVP blockchain technology application experimental platform');
+        }
+        $('title').text('订单记录-FUNMVP区块链技术应用实验平台');
         addListener();
         GeneralCtr.getDictList({
             "parentKey": "accept_order_status"

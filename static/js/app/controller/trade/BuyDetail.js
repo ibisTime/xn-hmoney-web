@@ -59,7 +59,9 @@ define([
         if(langType == 'EN'){
             $('.b-en').addClass('none');
             $('.b-zh').removeClass('none');
+            $('title').text('Purchase details-FUNMVP blockchain technology application experimental platform');
         }
+        $('title').text('购买详情-FUNMVP区块链技术应用实验平台');
         base.showLoadingSpin();
         $(".head-nav-wrap .sell").addClass("active");
         if (!isDetail) {

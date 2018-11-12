@@ -24,8 +24,10 @@ define([
     function init() {
         if(langType == 'EN'){
             $('.en_fbgg').html('Release <span class="bb-name"></span> trading advertisement');
+            $('title').text('Release Advertisement-FUNMVP blockchain technology application experimental platform');
         }else{
-            $('.en_fbgg').html('发布<span class="bb-name"></span>交易广告')
+            $('.en_fbgg').html('发布<span class="bb-name"></span>交易广告');
+            $('title').text('发布广告-FUNMVP区块链技术应用实验平台');
         }
         $(".head-nav-wrap .sell").addClass("active");
         // let index = 0;

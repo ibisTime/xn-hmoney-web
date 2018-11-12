@@ -56,6 +56,10 @@ define([
         $('.en-buy_kyyy').text(base.getText('账户可用余额', langType) + ':');
         $('.en-buy_fz').text(base.getText('分钟', langType));
         $('.en-buy_tx').text(base.getText('交易提醒', langType));
+        if(langType == 'EN'){
+            $('title').text('Selling details-FUNMVP blockchain technology application experimental platform');
+        }
+        $('title').text('出售详情-FUNMVP区块链技术应用实验平台');
         base.showLoadingSpin();
         $(".head-nav-wrap .sell").addClass("active");
 

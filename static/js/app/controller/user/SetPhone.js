@@ -16,7 +16,19 @@ define([
     }
 
     function init() {
-
+        $('.position').text(base.getText('当前位置', langType) + '：');
+        $('.ph-en_yh').text(base.getText('用户中心', langType) + '>');
+        $('.ph-en_aq').text(base.getText('安全设置', langType) + '>');
+        $('.ph-en_sj').text(base.getText('手机号', langType));
+        $('.title').text(base.getText('绑定手机号', langType));
+        $('#getVerification').text(base.getText('获取手机验证码', langType));
+        $('#subBtn').text(base.getText('确定', langType));
+        $('#mobile').attr('placeholder', base.getText('请输入手机号', langType));
+        $('#captcha').attr('placeholder', base.getText('手机验证码', langType));
+        if(langType == 'EN'){
+            $('title').text('Cellphone number-FUNMVP blockchain technology application experimental platform');
+        }
+        $('title').text('手机号-FUNMVP区块链技术应用实验平台');
         base.hideLoadingSpin();
         addListener();
     }

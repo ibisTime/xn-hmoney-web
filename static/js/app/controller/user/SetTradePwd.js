@@ -29,6 +29,11 @@ define([
 		$('#tradePwd').attr('placeholder', base.getText('请输入资金密码', langType));
 		$('#smsCaptcha').attr('placeholder', base.getText('验证码', langType));
 
+		if(langType == 'EN'){
+			$('title').text('capital password-FUNMVP blockchain technology application experimental platform');
+		}
+		$('title').text('资金密码-FUNMVP区块链技术应用实验平台');
+
         if(base.getUserMobile()) {
             $("#mobile").val(base.getUserMobile());
             $("#mobile").siblings('.item-icon').addClass('icon-phone');

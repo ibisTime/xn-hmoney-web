@@ -17,6 +17,21 @@ define([
     }
 
     function init() {
+        $('.position').text(base.getText('当前位置', langType) + '：');
+        $('.gle-en_yh').text(base.getText('用户中心', langType) + '>');
+        $('.gle-en_aq').text(base.getText('安全设置', langType) + '>');
+        $('.gle-en_ge').text(base.getText('谷歌验证码', langType));
+        $('.title').text(base.getText('谷歌验证码', langType));
+        $('#getVerification').text(base.getText('获取验证码', langType));
+        $('#subBtn').text(base.getText('确定', langType));
+        $('#smsCaptcha').attr('placeholder', base.getText('验证码', langType));
+        $('#secret').attr('placeholder', base.getText('密钥', langType));
+        $('#googleCaptcha').attr('placeholder', base.getText('谷歌验证码', langType));
+
+        if(langType == 'EN'){
+            $('title').text('Google verification code-FUNMVP blockchain technology application experimental platform');
+        }
+        $('title').text('谷歌验证码-FUNMVP区块链技术应用实验平台');
         base.showLoadingSpin();
         if (type == 1) {
             $('#form-wrapper div').eq(0).addClass('none');
