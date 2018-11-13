@@ -172,6 +172,13 @@ define([
         // 取消订单
         qxOrder(config) {
             return Ajax.get('625272', config);
+        },
+        // 获取交易对
+        getTradePair() {
+            return Ajax.post("650100", {
+                start: '1',
+                limit: '10'
+            }, true);
         }
 
     };

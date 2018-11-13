@@ -16,7 +16,7 @@ define([
     function init() {
         $('.store_en').text(base.getText('商城', langType));
         $('.store_gm').text(base.getText('区块链游戏', langType));
-        $('.zb-btn').text(base.getText('充值', langType));
+        $('.zb-btn').text(base.getText('转入游戏', langType));
         $('.go_en').text(base.getText('进入游戏', langType));
         $('.store_car').text(base.getText('二手车兑换', langType));
         $('.store-right').removeClass('none');
@@ -108,7 +108,7 @@ define([
                             // $('#tradePwd').val('');
                         });
                 //     } else{
-                //         base.showMsg(base.getText('请先设置资金密码', langType))
+                //         base.showMsg(base.getText('请先设置交易密码', langType))
                 //         setTimeout(function () {
                 //             base.gohref("../user/setTradePwd.html?type=1")
                 //         }, 1800)

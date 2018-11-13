@@ -124,7 +124,7 @@ define([
 
     $.validator.addMethod("tradePwdLength", function(value, element) {
         return this.optional(element) || /^\d{6}$/.test(value);
-    }, base.getText('资金密码长度为6位且为数字', langType));
+    }, base.getText('交易密码长度为6位且为数字', langType));
 
     //小数最后8位
     $.validator.addMethod("amountEth", function(value, element) {
@@ -147,7 +147,7 @@ define([
 
 
 
-    //身份证号码的验证规则 
+    //身份证号码的验证规则
     function isIdCardNo(num) {
         var len = num.length,
             re;

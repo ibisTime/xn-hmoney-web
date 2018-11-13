@@ -11,7 +11,6 @@ define([
     'app/controller/foo'
 ], function (base, pagination, Validate, smsCaptcha, AccountCtr, GeneralCtr, TradeCtr, UserCtr, Top, Foo) {
     let langType = localStorage.getItem('langType') || 'ZH';
-    var userAccountNum = base.getUrlParam('account'); // 用户编号
     var isbuy = base.getUrlParam('isbuy');  // 1 去购买   0 去出售
     var bbKey = base.getUrlParam('key');
     var withdrawFee = 0; // 取现手续费
@@ -29,8 +28,6 @@ define([
     let picList = {};
 
     let buyOrderCode = ''; // 去购买订单号
-
-    var bizTypeValueList = {};
 
     var configAddress = {
             start: 1,
@@ -77,45 +74,10 @@ define([
     }
 
     function init() {
-        $('.wall-en_zzc').text(base.getText('总资产折合', langType));
-        $('.wall-ts').text(base.getText('币币账户与场外账户均可支持充币提币', langType));
-        $('.wall-en_bz').text(base.getText('币种', langType));
-        $('.wall-en_ky').text(base.getText('可用', langType));
-        $('.wall-en_dj').text(base.getText('冻结', langType));
-        $('.wall-en_cz').text(base.getText('操作', langType));
-        if(langType == 'EN'){
-            $('title').text('wallet-FUNMVP blockchain technology application experimental platform');
-        }
-        $('title').text('钱包-FUNMVP区块链技术应用实验平台');
-        $('.yue').removeClass('none');
         base.showLoadingSpin();
+        setHtml();
+        $('.yue').removeClass('none');
         $("#addWAddressMobile").val(base.getUserMobile());
-        getCoinList();
-        //总资产
-        UserCtr.userAllMoneyX('CNY').then(data => {
-            $('.u-bb').text(data.symbol);
-            $('.u-money').text((Math.floor(data.currency * 100) / 100).toFixed(2));
-        });
-        // 获取承兑商FMVP价格
-        getAcceptRule();
-        // 获取银行卡
-        AccountCtr.getBankData().then(data => {
-            if (data.length > 0) {
-                data.forEach((item) => {
-                    zfType[item.bankName] = item.bankCode;
-                    zfNumber[item.bankCode] = item.bankcardNumber;
-                    picList[item.bankName] = item.pic;
-                });
-                zfOne = data[0].bankName;
-            }
-        });
-        // 获取银行渠道
-        AccountCtr.getGmBankData().then(data => {
-            data.forEach(item => {
-                gmType[item.bankName] = item.bankCode
-            })
-        });
-
         if (base.getGoogleAuthFlag() == "true" && base.getGoogleAuthFlag()) {
             $(".googleAuthFlag").removeClass("hidden");
             addAddressWrapperRules["googleCaptcha"] = {
@@ -127,42 +89,59 @@ define([
                 sms: true
             }
         }
-
         $.when(
-            GeneralCtr.getDictList({
-                "parentKey": "jour_biz_type_user"
-            }),
-        ).then((data1, data2) => {
-            data1.forEach(function (item) {
-                bizTypeValueList[item.dkey] = item.dvalue
-            })
-            withdrawFee = base.formatMoney(base.getCoinWithdrawFee(currency), '', currency);
-            $("#withdrawFee").val(withdrawFee + currency);
+            GeneralCtr.getSysConfig('withdraw_fee'), // 提现手续费
+            getUserAllMoneyX(),
+            getAcceptRule(),
+        ).then((withdrawFeeData) => {
+            base.hideLoadingSpin();
+            withdrawFee = parseFloat(withdrawFeeData.cvalue) * 100 + '%';
             getAccount();
-
-        }, getAccount);
+        }, () => {
+            base.hideLoadingSpin();
+        });
+        // 获取银行卡
+        getBankData();
+        // 获取银行渠道
+        getGmBankData();
     }
 
-    //根据config配置设置 币种列表
-    function getCoinList() {
-        var coinList = base.getCoinList();
-        var coinListKey = Object.keys(coinList);
-        var listHtml = '';
-
-        for (var i = 0; i < coinListKey.length; i++) {
-            var tmpl = coinList[coinListKey[i]]
-            listHtml += `<li class="${tmpl.coin.toLowerCase()}" data-c='${tmpl.coin.toLowerCase()}'>${tmpl.name}(${tmpl.coin})</li>`;
-        }
-
-        $("#wallet-top ul").html(listHtml);
-
-        $("#wallet-top ul").find('.' + currency.toLocaleLowerCase()).addClass("on")
-
-        $("#wallet-top ul").on("click", "li", function () {
-            var c = $(this).attr("data-c");
-
-            base.gohrefReplace("./wallet.html?c=" + c)
-        })
+    function setHtml() {
+        $('title').text(base.getText('钱包-FUNMVP区块链技术应用实验平台'));
+        $('.wall-en_zzc').text(base.getText('总资产折合', langType));
+        $('.wall-ts').text(base.getText('币币账户与场外账户均可支持充币提币', langType));
+        $('.wall-en_bz').text(base.getText('币种', langType));
+        $('.wall-en_ky').text(base.getText('可用', langType));
+        $('.wall-en_dj').text(base.getText('冻结', langType));
+        $('.wall-en_cz').text(base.getText('操作', langType));
+    }
+    //总资产
+    function getUserAllMoneyX() {
+        return UserCtr.userAllMoneyX('CNY').then(data => {
+            $('.u-bb').text(data.symbol);
+            $('.u-money').text((Math.floor(data.currency * 100) / 100).toFixed(2));
+        });
+    }
+    // 获取银行卡
+    function getBankData() {
+        return AccountCtr.getBankData().then(data => {
+            if (data.length > 0) {
+                data.forEach((item) => {
+                    zfType[item.bankName] = item.bankCode;
+                    zfNumber[item.bankCode] = item.bankcardNumber;
+                    picList[item.bankName] = item.pic;
+                });
+                zfOne = data[0].bankName;
+            }
+        });
+    }
+    // 获取银行渠道
+    function getGmBankData() {
+        return AccountCtr.getGmBankData().then(data => {
+            data.forEach(item => {
+                gmType[item.bankName] = item.bankCode
+            })
+        });
     }
 
     // 获取承兑商FMVP价格
@@ -172,8 +151,6 @@ define([
             acceptRule = data;
             withdrawFee = base.formatMoney(base.getCoinWithdrawFee(currency), '', currency);
             $("#withdrawFee").val(withdrawFee + currency);
-
-            getAccount();
         }, base.hideLoadingSpin);
     }
 
@@ -228,31 +205,34 @@ define([
         }
 
         if (toType == 'CNY') {
-            $('.b-m_type').text('￥');
+            $(pType + ' .currency_type').text('￥');
             $(pType + ' .x-p_money').text('CNY');
             if($(pType + ' .sel-p').text() === base.getText('数量', langType)){
                 $(pType + ' .m_bb').text('FMVP');
+            } else {
+                $(pType + ' .m_cyn').text('FMVP');
             }
             $(pType + ' .min-money').text(acceptRule.accept_order_min_cny_amount);
             $(pType + ' .max-money').text(acceptRule.accept_order_max_cny_amount);
         } else {
-            $('.s-m_type').text('$');
+            $(pType + ' .currency_type').text('$');
             $(pType + ' .min-money').text(acceptRule.accept_order_min_usd_amount);
             $(pType + ' .max-money').text(acceptRule.accept_order_max_usd_amount);
             $(pType + ' .x-p_money').text('USD');
             if($(pType + ' .sel-p').text() === base.getText('数量', langType)){
                 $(pType + ' .m_bb').text('FMVP');
+            }  else {
+                $(pType + ' .m_cyn').text('FMVP');
             }
         }
     }
 
     //我的账户
     function getAccount() {
-        base.showLoadingSpin();
         return AccountCtr.getAccount().then((data) => {
             let ulElement = '';
             let erWm = [];
-            data.forEach((item, i) => {
+            data.map((item, i) => {
                 ulElement += buildHtml(item, i);
                 erWm.push(item.address);
             });
@@ -278,11 +258,6 @@ define([
                 $('.toCbETH').addClass('sel-sp');
                 $('.toCbETH').parents('.tr-mx').siblings('.con-box').show();
             }
-            // 提现手续费
-            GeneralCtr.getSysConfig('withdraw_fee').then(data => {
-                let txFee = parseFloat(data.cvalue) * 100 + '%';
-                $('.tx-fee').val(txFee);
-            })
             qhMoneyType('.con-toBuy', 'CNY');
             qhMoneyType('.con-toSell', 'CNY');
             // zfType[item.zfType[item.bankName] = item.bankCode] = item.bankCode
@@ -333,7 +308,7 @@ define([
             addListener();
         }, base.hideLoadingSpin)
     }
-
+    // <span class="x-bf_r"><i>-</i> 3.5%</span>
     let tuBuyHtml = `
             <div class="con-toBuy bb-box" style="display: none;">
                 <h5 class="x-tit">${base.getText('去购买', langType)}</h5>
@@ -341,7 +316,7 @@ define([
                     <div class="buy-head">
                         <p class="x-h_p1">FMVP / <span class="x-p_money">CNY</span></p>
                         <p class="x-h_p2"><img src="/static/images/qhX.png" class="fr"/></p>
-                        <p class="x-h_p3">${base.getText('单价', langType)}：<span class="b-m_type"></span> <span class="x-mon"></span> <span class="x-bf_r"><i>-</i> 3.5%</span></p>
+                        <p class="x-h_p3">${base.getText('单价', langType)}：<span class="currency_type b-m_type"></span> <span class="x-mon"></span></p>
                     </div>
                     <div class="buy-con">
                         <div class="b-c_h buy-c">
@@ -386,7 +361,7 @@ define([
                     <div class="buy-head">
                         <p class="x-h_p1">FMVP / <span class="x-p_money">CNY</span></p>
                         <p class="x-h_p2"><img src="/static/images/qhX.png" class="fr"/></p>
-                        <p class="x-h_p3">${base.getText('单价', langType)}：<span class="s-m_type"></span> <span class="x-mon"></span> <span class="x-bf_r"><i>-</i> 3.5%</span></p>
+                        <p class="x-h_p3">${base.getText('单价', langType)}：<span class="currency_type s-m_type"></span> <span class="x-mon"></span></p>
                     </div>
                     <div class="buy-con">
                         <div class="b-c_h sell-c">
@@ -416,9 +391,9 @@ define([
                             <input type="text" placeholder="${base.getText('请输入账号或卡号', langType)}" />
                         </div>
                         <div class="form-item-wrap tradePwdWrap" style="margin-top: 20px;">
-                            <samp class="label">${base.getText('资金密码', langType)}</samp>
+                            <samp class="label">${base.getText('交易密码', langType)}</samp>
                             <div class="form-item k_b b-p_m" style="margin-top: 5px;margin-bottom: 20px;">
-                                <input type="password" id="money_pow" class="input-item" name="tradePwd" placeholder="${base.getText('请输入资金密码', langType)}" />
+                                <input type="password" id="money_pow" class="input-item" name="tradePwd" placeholder="${base.getText('请输入交易密码', langType)}" />
                             </div>
                         </div>
                         <div class="b-c_foo">
@@ -491,13 +466,13 @@ define([
                             <div class="form-item-wrap" id="withdrawFee-wrap${i}">
                                 <samp class="label">${base.getText('手续费率', langType)}</samp>
                                 <div class="form-item k_b">
-                                    <input type="text" class="input-item withdrawFee tx-fee" id="withdrawFee${i}" value="" disabled="disabled" />
+                                    <input type="text" class="input-item withdrawFee tx-fee" id="withdrawFee${i}" value="${withdrawFee}" disabled="disabled" />
                                 </div>
                             </div>
                             <div class="form-item-wrap tradePwdWrap">
-                                <samp class="label">${base.getText('资金密码', langType)}</samp>
+                                <samp class="label">${base.getText('交易密码', langType)}</samp>
                                 <div class="form-item k_b mr20">
-                                    <input type="password" class="input-item" name="tradePwd" placeholder="${base.getText('请输入资金密码', langType)}" />
+                                    <input type="password" class="input-item" name="tradePwd" placeholder="${base.getText('请输入交易密码', langType)}" />
                                 </div>
                                 <div class="findPwd fl goHref" data-href="../user/setTradePwd.html?type=1&isWallet=1">${base.getText('忘记密码？', langType)}</div>
                             </div>
@@ -530,61 +505,6 @@ define([
                 </div>
             </li>`
         return DHtml;
-    }
-
-    // 初始化交易记录分页器
-    function initPaginationFlow(data) {
-        $("#pagination .pagination").pagination({
-            pageCount: data.totalPage,
-            showData: config.limit,
-            jump: true,
-            coping: true,
-            prevContent: '<img src="/static/images/arrow---left.png" />',
-            nextContent: '<img src="/static/images/arrow---right.png" />',
-            keepShowPN: true,
-            totalData: data.totalCount,
-            jumpIptCls: 'pagination-ipt',
-            jumpBtnCls: 'pagination-btn',
-            jumpBtn: base.getText('确定', langType),
-            isHide: true,
-            callback: function (_this) {
-                if (_this.getCurrent() != config.start) {
-                    base.showLoadingSpin();
-                    config.start = _this.getCurrent();
-                    getPageFlow(config);
-                }
-            }
-        });
-    }
-
-    //分页查询我的账户流水
-    function getPageFlow(params) {
-        return AccountCtr.getPageFlow(params, true).then((data) => {
-            var lists = data.list;
-            if (data.list.length) {
-                var html = "";
-                lists.forEach((item, i) => {
-                    html += buildHtmlFlow(item);
-                });
-                $(".tradeRecord-list-wrap .list-wrap").html(html)
-                $(".tradeRecord-list-wrap .no-data").addClass("hidden");
-            } else {
-                config.start == 1 && $(".tradeRecord-list-wrap .list-wrap").empty()
-                config.start == 1 && $(".tradeRecord-list-wrap .no-data").removeClass("hidden");
-            }
-
-            config.start == 1 && initPaginationFlow(data);
-            base.hideLoadingSpin();
-        }, base.hideLoadingSpin)
-    }
-
-    function buildHtmlFlow(item) {
-        return `<div class="list-item">
-					<div>${base.formateDatetime(item.createDatetime)}</div>
-					<div>${bizTypeValueList[item.bizType]}</div>
-					<div title="${base.formatMoney(item.transAmountString,'',item.currency)}">${base.formatMoney(item.transAmountString,'',item.currency)}</div>
-					<div>${item.bizNote}</div>
-				</div>`
     }
 
     //分页查询地址
@@ -676,7 +596,7 @@ define([
 
         //接受/发送点击
         $(".trList .subBtn").off('click').click(function () {
-            //提币/发送 需要验证是否有资金密码 和实名
+            //提币/发送 需要验证是否有交易密码 和实名
             let params = {};
             let formData = $(this).parents('form').serializeArray();
             formData.forEach(item => {
@@ -754,7 +674,7 @@ define([
                             $(target).parents('.tr-mx').siblings('.con-tb').show(200).siblings('.con-box').hide(200);
                         }
                     } else if (!data.tradepwdFlag) {
-                        base.showMsg(base.getText('请先设置资金密码', langType));
+                        base.showMsg(base.getText('请先设置交易密码', langType));
                         setTimeout(function() {
                             base.gohref("../user/setTradePwd.html?type=0")
                         }, 1800)
@@ -795,7 +715,6 @@ define([
             $('.b-c_put input').val('');
             $('.x_num').text('0.00');
             $('.b-c_put p').text(base.getText('请输入购买金额', langType));
-            $('.x-p_money').text('CNY');
             isSell = false;
             if ($(this).hasClass('sel-sp')) {
                 $('.con-toBuy').hide();
@@ -812,9 +731,10 @@ define([
             $('.sell-c p').eq(0).addClass('sel-p').siblings().removeClass('sel-p');
             $('.b-c_put input').val('');
             $('.x_num').text('0.00');
-            $('.x-p_money').text('CNY');
             isSell = true;
-            $('.b-c_put p').text(base.getText('请输入卖出金额', langType));
+            let minMoney = $('.con-toSell .min-money').text();
+            let moneyType = $('.con-toSell .x-p_money').eq(0).text();
+            $('.con-toSell .b-c_put p').text(base.getText('请输入出售金额', langType) + ', ' + base.getText('最低额度', langType) + ' ' + minMoney + moneyType);
             if ($(this).hasClass('sel-sp')) {
                 $('.con-toSell').hide();
                 $(this).removeClass('sel-sp');
@@ -835,24 +755,28 @@ define([
             $('#money_pow').val('');
             if (isSell) {
                 let m_type = $('.con-toSell .x-p_money').eq(0).text();
-                if ($(this).text() == base.getText('金额', langType)) {
-                    $('.b-c_put p').text(base.getText('请输入卖出金额', langType));
+                let minMoney = $('.con-toSell .min-money').text();
+                $('.con-toSell .b-c_put input').val('');
+                if ($(this).index() === 0) {
                     $('.m_cyn').text('CNY');
                     $('.m_bb').text(m_type);
+                    $('.con-toSell .b-c_put p').text(base.getText('请输入出售金额', langType) + ', ' + base.getText('最低额度', langType) + ' ' + minMoney + m_type);
                 } else {
-                    $('.b-c_put p').text(base.getText('请输入卖出数量', langType));
                     $('.m_bb').text('FMVP');
                     $('.con-toSell .m_cyn').text(m_type);
+                    $('.con-toSell .b-c_put p').text(base.getText('请输入出售数量', langType) + ', ' + base.getText('最低额度', langType) + ' ' + minMoney + m_type);
                 }
             } else {
                 let m_type = $('.con-toBuy .x-p_money').eq(0).text();
+                let minMoney = $('.con-toSell .min-money').text();
+                $('.con-toBuy .b-c_put p').text('');
                 if ($(this).text() == base.getText('金额', langType)) {
-                    $('.b-c_put p').text(base.getText('请输入购买金额', langType));
+                    $('.con-toBuy .b-c_put p').text(base.getText('请输入购买金额', langType) + ', ' + base.getText('最低额度', langType) + ' ' + minMoney + m_type);
                     $('.m_cyn').text('FMVP');
                     $('.m_bb').text(m_type);
                 } else {
-                    $('.b-c_put p').text(base.getText('请输入购买数量', langType));
                     $('.m_bb').text('FMVP');
+                    $('.con-toBuy .b-c_put p').text(base.getText('请输入购买数量', langType) + ', ' + base.getText('最低额度', langType) + ' ' + minMoney + m_type);
                     $('.con-toBuy .m_cyn').text(m_type);
                 }
             }

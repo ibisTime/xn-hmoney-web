@@ -2,15 +2,15 @@ define([
     'jquery',
     'app/module/validate',
     'app/module/loading',
-    'app/interface/userCtr'
-], function ($, Validate, loading, userCtr) {
+    'app/interface/UserCtr'
+], function ($, Validate, loading, UserCtr) {
     var tmpl = __inline("index.html");
     var defaultOpt = {};
     var first = true;
 
     function _identity(){
         loading.createLoading("认证中...");
-        userCtr.identity({
+        UserCtr.identity({
             realName: $("#identityRealName").val(),
             idNo: $("#identityIdNo").val()
         }).then(function(){

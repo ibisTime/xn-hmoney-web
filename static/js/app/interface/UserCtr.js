@@ -9,7 +9,6 @@ define([
          */
         login(config) {
             return Ajax.post("805050", {
-                kind: "C",
                 ...config
             });
         },
@@ -52,7 +51,6 @@ define([
          */
         resetPwd(config) {
             return Ajax.post('805063', {
-                kind: 'C',
                 ...config
             });
         },
@@ -83,7 +81,7 @@ define([
             });
         },
 
-        // 设置资金密码
+        // 设置交易密码
         setTradePwd(tradePwd, smsCaptcha) {
             return Ajax.post('805066', {
                 tradePwd,
@@ -91,7 +89,7 @@ define([
                 userId: base.getUserId()
             });
         },
-        // 重置支付密码
+        // 重置交易密码
         changeTradePwd(newTradePwd, smsCaptcha) {
             return Ajax.post("805067", {
                 newTradePwd,

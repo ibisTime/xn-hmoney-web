@@ -1,5 +1,5 @@
 var LANGUAGE = {
-    ////////////////////////////////////////////////////// 头部
+    // *****// 头部
     '登录': {
         'ZH': '登录',
         'EN': 'Login'
@@ -76,7 +76,7 @@ var LANGUAGE = {
         'ZH': '退出登录',
         'EN': 'log out '
     },
-    ///////////////////////////////////////////////////// 尾部
+    // *****/ 尾部
     '工具': {
         'ZH': '工具',
         'EN': 'Tools'
@@ -122,7 +122,7 @@ var LANGUAGE = {
         'EN': 'Fee rate'
     },
 
-    ///////////////////////////////////////////////////////// 首页
+    // *****///// 首页
     '尽情游戏': {
         'ZH': '尽情游戏',
         'EN': 'The game '
@@ -261,9 +261,13 @@ var LANGUAGE = {
         'ZH': '游戏余额',
         'EN': 'game balances'
     },
+    '转入游戏': {
+        'ZH': '转入游戏',
+        'EN': 'Recharge'
+    },
     '充值': {
         'ZH': '充值',
-        'EN': 'top up'
+        'EN': 'Recharge'
     },
     '请输入充值数量': {
         'ZH': '请输入充值数量',
@@ -485,7 +489,7 @@ var LANGUAGE = {
         'EN': 'block explorer'
     },
 
-    //////////////////////////////////////////////////// 场外交易-购买
+    // ***** 场外交易-购买
     '全部货币': {
         'ZH': '全部货币',
         'EN': 'All currencies'
@@ -701,7 +705,7 @@ var LANGUAGE = {
         'EN': 'submit'
     },
 
-    ///////////////////////////////////////////////////// 场外交易-广告管理
+    // *****/ 场外交易-广告管理
     '广告管理': {
         'ZH': '广告管理',
         'EN': 'Advertisement Management'
@@ -757,7 +761,7 @@ var LANGUAGE = {
         'EN': 'blocked by me'
     },
 
-    ///////////////////////////////////////////////////// 发布广告
+    // *****/ 发布广告
     '发布广告': {
         'ZH': '发布广告',
         'EN': 'Release Advertisement'
@@ -923,7 +927,7 @@ var LANGUAGE = {
         'EN': 'unrelease'
     },
 
-    //////////////////////////////////////////////////// 购买详情
+    // ***** 购买详情
     '购买详情': {
         'ZH': '购买详情',
         'EN': 'Purchase details'
@@ -988,8 +992,8 @@ var LANGUAGE = {
         'ZH': '交易提醒',
         'EN': 'Trading reminder'
     },
-    '资金密码': {
-        'ZH': '资金密码',
+    '交易密码': {
+        'ZH': '交易密码',
         'EN': 'capital password'
     },
     '确认': {
@@ -1163,7 +1167,11 @@ var LANGUAGE = {
         'EN': 'No orders'
     },
 
-    //////////////////////////////////////////////////// 钱包
+    // ***** 钱包
+    '钱包-FUNMVP区块链技术应用实验平台': {
+        'ZH': '钱包-FUNMVP区块链技术应用实验平台',
+        'EN': 'wallet-FUNMVP blockchain technology application experimental platform'
+    },
     '钱包': {
         'ZH': '钱包',
         'EN': 'wallet'
@@ -1257,6 +1265,10 @@ var LANGUAGE = {
         'ZH': '场外交易明细',
         'EN': 'Fiat transaction details'
     },
+    '交易明细': {
+        'ZH': '交易明细',
+        'EN': 'Transaction details'
+    },
     '提现': {
         'ZH': '提现',
         'EN': 'withdraw'
@@ -1284,6 +1296,18 @@ var LANGUAGE = {
     '提现手续费': {
         'ZH': '提现手续费',
         'EN': 'withdrawal charges'
+    },
+    '手续费': {
+        'ZH': '手续费',
+        'EN': 'fee'
+    },
+    '游戏提现': {
+        'ZH': '游戏提现',
+        'EN': 'withdrawal'
+    },
+    '冻结解冻': {
+        'ZH': '冻结解冻',
+        'EN': 'freezing and thaw'
     },
     '邀请好友收入': {
         'ZH': '邀请好友收入',
@@ -1521,7 +1545,7 @@ var LANGUAGE = {
         'ZH': '真实填写',
         'EN': 'Fill in the real'
     },
-    //////////////////////////////////////////////////// 安全设置
+    // ***** 安全设置
     '修改安全设置时输入': {
         'ZH': '修改安全设置时输入',
         'EN': 'Input when changing security Settings'
@@ -1578,8 +1602,8 @@ var LANGUAGE = {
         'ZH': '请输入手机号',
         'EN': 'Please enter your cellphone number'
     },
-    '请输入资金密码': {
-        'ZH': '请输入资金密码',
+    '请输入交易密码': {
+        'ZH': '请输入交易密码',
         'EN': 'Please enter fund password'
     },
     '验证码': {
@@ -1865,7 +1889,7 @@ var LANGUAGE = {
     '未知消息元素类型': {
         'ZH': '未知消息元素类型',
         'EN': 'Unknown message element type'
-	},//////////////////////////////////////////////////////
+	},// *****//
 	'您的浏览器不支持': {
         'ZH': '您的浏览器不支持',
         'EN': 'Your browser does not support it'
@@ -1954,12 +1978,16 @@ var LANGUAGE = {
         'ZH': '确认下架此广告？',
         'EN': 'confirm unrelease advertisement?'
 	},
-	'购买成功': {
-        'ZH': '购买成功',
+	'下单成功': {
+        'ZH': '下单成功',
         'EN': 'success'
 	},
-	'请先设置资金密码': {
-        'ZH': '请先设置资金密码',
+    '购买成功': {
+        'ZH': '购买成功',
+        'EN': 'success'
+    },
+	'请先设置交易密码': {
+        'ZH': '请先设置交易密码',
         'EN': 'Please set fund password first'
 	},
 	'编辑': {
@@ -2118,6 +2146,10 @@ var LANGUAGE = {
         'ZH': '单笔限制',
         'EN': 'Single limit'
 	},
+    '最低额度': {
+        'ZH': '最低额度',
+        'EN': 'min'
+    },
 	'请输入购买金额': {
         'ZH': '请输入购买金额',
         'EN': 'Please enter the purchase amount'
@@ -2334,8 +2366,8 @@ var LANGUAGE = {
         'ZH': '验证码格式错误',
         'EN': 'Validation code format error'
     },
-	'资金密码长度为6位且为数字': {
-        'ZH': '资金密码长度为6位且为数字',
+	'交易密码长度为6位且为数字': {
+        'ZH': '交易密码长度为6位且为数字',
         'EN': 'The password length is 6 digits'
 	},
 	'必须由数字和大小写字母组成': {

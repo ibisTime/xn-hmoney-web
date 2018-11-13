@@ -26,7 +26,7 @@ define([
                 var $oinput = obj.find("#" + name);
                 if ($oinput.attr("type") == "radio" || $oinput.attr("type") == "checkbox") {
                     $oinput.each(function() {
-                        if (Object.prototype.toString.apply(ival) == '[object Array]') { //是复选框，并且是数组  
+                        if (Object.prototype.toString.apply(ival) == '[object Array]') { //是复选框，并且是数组
                             for (var i = 0; i < ival.length; i++) {
                                 if ($(this).val() == ival[i])
                                     $(this).attr("checked", "checked");
@@ -37,7 +37,7 @@ define([
                             };
                         }
                     });
-                } else if ($oinput.attr("type") == "textarea") { //多行文本框  
+                } else if ($oinput.attr("type") == "textarea") { //多行文本框
                     obj.find("[name=" + name + "]").html(ival);
                 } else {
                     if ($oinput.attr("data-format")) { //需要格式化的日期 如:data-format="yyyy-MM-dd"
@@ -176,7 +176,7 @@ define([
             var s2 = new BigDecimal.BigDecimal(s2);
             return Base.formatMoney(s1.multiply(s2).toString(), '', coin);
         },
-        //金额金额放大 默认 放大 r || 8位 
+        //金额金额放大 默认 放大 r || 8位
         formatMoneyParse: function(m, r, coin) {
             var unit = coin ? Base.getCoinUnit(coin) : "1e18";
             var r = r || new BigDecimal.BigDecimal(unit);
@@ -433,11 +433,11 @@ define([
                     });
             }
         },
-        /* 
-         * url 目标url 
-         * arg 需要替换的参数名称 
-         * arg_val 替换后的参数的值 
-         * return url 参数替换后的url 
+        /*
+         * url 目标url
+         * arg 需要替换的参数名称
+         * arg_val 替换后的参数的值
+         * return url 参数替换后的url
          */
         changeURLArg: function(url, arg, arg_val) {
             var pattern = arg + '=([^&]*)';
@@ -540,6 +540,9 @@ define([
         },
         // 根据语言获取文本
         getText: function(text, lang) {
+            if(lang == '' || !lang){
+                lang = NOWLANG
+            }
             var t = LANGUAGE[text] && LANGUAGE[text][lang] ? LANGUAGE[text][lang] : '';
             if (!LANGUAGE[text] || t == '') {
                 if (!LANGUAGE[text]) {

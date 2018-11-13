@@ -4,10 +4,10 @@ define([
     'swiper',
     'app/interface/GeneralCtr',
     'app/interface/UserCtr',
-    'app/util/ajax',
+    'app/interface/TradeCtr',
     'app/controller/Top',
     'app/controller/foo'
-], function(base, Handlebars, Swiper, GeneralCtr, UserCtr, Ajax, Top, Foo) {
+], function(base, Handlebars, Swiper, GeneralCtr, UserCtr, TradeCtr, Top, Foo) {
     let langType = localStorage.getItem('langType') || 'ZH';
     let adverData = []; // 广告数据
     let aarketData = []; // 行情数据
@@ -15,13 +15,22 @@ define([
         '0': base.getText('出售', langType),
         '1': base.getText('购买', langType)
     }
-    let payType = {};
 
     init();
 
     // 初始化页面
     function init() {
         base.showLoadingSpin();
+        // 英文隐藏
+        if(langType == 'EN'){
+            $('.i-zh').addClass('none');
+            $('.i-en').removeClass('none').css({
+                'font-size': '36px',
+                'line-height': '1.2'
+            });
+            $('.contact-txt').css('width', '39%');
+        }
+        $(".head-nav-wrap .index").addClass("active");
         $('.in-en_jq').text(base.getText('尽情游戏 无尽精彩', langType));
         $('.in-en_xss').text(base.getText('驯兽师', langType));
         $('.in-en_jxhm').text(base.getText('精彩画面, 任你游', langType));
@@ -31,36 +40,35 @@ define([
         $('.in-en_ksdh').text(base.getText('开始兑换', langType));
         $('.in-en_wsm').text(base.getText('为什么要选择FUNMVP？', langType));
         $('.in-en_mm').text(base.getText('买卖自由', langType));
-        $('.fun-mvp').removeClass('none');
         $.when(
             getBanner(),
-            GeneralCtr.getDictList({ "parentKey": "pay_type" })
-        ).then((data,data1) => {
-            data1.forEach(function(item) {
-                payType[item.dkey] = item.dvalue;
-            })
-            base.hideLoadingSpin()
-        }, base.hideLoadingSpin)
-        $(".head-nav-wrap .index").addClass("active");
+            getPageAdvertiseUser(),
+            getTradePair()
+        ).then(() => {
+            base.hideLoadingSpin();
+        }, base.hideLoadingSpin);
 
         addListener();
-        getAdvertising().then(data => {
+
+    }
+
+    //获取最新4条广告
+    function getPageAdvertiseUser() {
+        return TradeCtr.getPageAdvertiseUser({
+            start: '1',
+            limit: '4',
+            statusList: ['1']
+        }).then(data => {
             adverData = data.list;
-            adverData.length = 4;
             let adverHtml = '';
+            let payImageList = {
+                '0': '/static/images/zfb.png',
+                '1': '/static/images/wxpay.png',
+                '2': '/static/images/yhk.png',
+            };
             adverData.forEach(item => {
-                let payImage = '';
-                switch (item.payType) {
-                    case '0':
-                        payImage = '/static/images/zfb.png';
-                        break;
-                    case '1':
-                        payImage = '/static/images/wxpay.png';
-                        break;
-                    case '2':
-                        payImage = '/static/images/yhk.png';
-                        break;
-                }
+                let payImage = payImageList[item.payType];
+
                 let mButHtml = '';
                 mButHtml = `<button class="goHref" data-href="${item.tradeType == 0 ? '../trade/sell-list.html?coin=' + item.tradeCoin + '&mod=cs' : '../trade/buy-list.html?coin=' + item.tradeCoin + '&mod=gm'}">${typeList[item.tradeType]}</button>`
                 adverHtml += `<li>
@@ -78,48 +86,6 @@ define([
             })
             $('.bb-jy ul').html(adverHtml);
         });
-        getBazaarData().then(data => {
-            let bzfList = [];
-            aarketData = data.list;
-            aarketData.forEach(item => {
-                let exchangeRate = item.exchangeRate;
-                bzfList.push(`${exchangeRate < 0 ? '' : '+'}` + exchangeRate * 100);
-            })
-            aarketData.length = 2;
-            let aarketHtml = '';
-            aarketData.forEach((item, index) => {
-                aarketHtml += `<li class="toHref" style="cursor: pointer;" data-href="../bbdeal/bbdeal.html" data-sym="${item.toSymbol}">
-                    <p><span>${item.symbol}</span> / <span>${item.toSymbol}</span></p>
-                    <h5>${(Math.floor(item.price * 10000) / 10000).toFixed(4)}</h5>
-                    <p><span class="zj"></span><span class="zf">${bzfList[index]}</span>% <span class="zf-img"><img src=${bzfList[index].indexOf('-') == 0 ? '/static/images/xj.png' : '/static/images/ss.png'} alt=""></span></p>
-                </li>`
-            })
-            $('.bb-hq_r ul').html(aarketHtml);
-            $('.bb-hq_r li').click(function(){
-                let href = $(this).attr('data-href');
-                let sym = $(this).attr('data-sym');
-                let setBazDeal = {
-                    symbol: 'FMVP',
-                    toSymbol: 'BTC'
-                }
-                if(sym == 'ETH'){
-                    setBazDeal.toSymbol = 'ETH';
-                    setBazDeal.toUnit = base.getCoinUnit('ETH');
-                }
-                sessionStorage.setItem('setBazDeal', JSON.stringify(setBazDeal));
-                base.gohref(href);
-            })
-        });
-
-        // 英文隐藏
-        if(langType == 'EN'){
-            $('.i-zh').addClass('none');
-            $('.i-en').removeClass('none').css({
-                'font-size': '36px',
-                'line-height': '1.2'
-            });
-            $('.contact-txt').css('width', '39%');
-        }
     }
 
     // 初始化swiper
@@ -172,21 +138,43 @@ define([
         });
     }
 
-    //获取广告信息
-    function getAdvertising() {
-        return Ajax.post('625225', {
-            start: '1',
-            limit: '10',
-            statusList: ['1']
-        })
-    }
-
     // 市场（交易对）
-    function getBazaarData() {
-        return Ajax.post("650100", {
+    function getTradePair() {
+        return TradeCtr.getTradePair({
             start: '1',
             limit: '10'
-        }, true);
+        }).then(data => {
+            let bzfList = [];
+            aarketData = data.list;
+            aarketData.forEach(item => {
+                let exchangeRate = item.exchangeRate;
+                bzfList.push(`${exchangeRate < 0 ? '' : '+'}` + exchangeRate * 100);
+            })
+            aarketData.length = 2;
+            let aarketHtml = '';
+            aarketData.forEach((item, index) => {
+                aarketHtml += `<li class="toHref" style="cursor: pointer;" data-href="../bbdeal/bbdeal.html" data-sym="${item.toSymbol}">
+                    <p><span>${item.symbol}</span> / <span>${item.toSymbol}</span></p>
+                    <h5>${(Math.floor(item.price * 100000000) / 100000000).toFixed(8)}</h5>
+                    <p><span class="zj"></span><span class="zf">${bzfList[index]}</span>% <span class="zf-img"><img src=${bzfList[index].indexOf('-') == 0 ? '/static/images/xj.png' : '/static/images/ss.png'} alt=""></span></p>
+                </li>`
+            })
+            $('.bb-hq_r ul').html(aarketHtml);
+            $('.bb-hq_r li').click(function(){
+                let href = $(this).attr('data-href');
+                let sym = $(this).attr('data-sym');
+                let setBazDeal = {
+                    symbol: 'FMVP',
+                    toSymbol: 'BTC'
+                }
+                if(sym == 'ETH'){
+                    setBazDeal.toSymbol = 'ETH';
+                    setBazDeal.toUnit = base.getCoinUnit('ETH');
+                }
+                sessionStorage.setItem('setBazDeal', JSON.stringify(setBazDeal));
+                base.gohref(href);
+            })
+        });
     }
 
     // 获取币种行情

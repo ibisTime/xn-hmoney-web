@@ -40,7 +40,6 @@ define([
         $('.store_gm').text(base.getText('区块链游戏', langType));
         $('.store_car').text(base.getText('二手车兑换', langType));
         $('.store_ye').text(base.getText('游戏余额', langType));
-        $('.zb-btn').text(base.getText('充值', langType));
 
         $('.en_cwai').text(base.getText('场外交易', langType));
         $('.en_gm').text(base.getText('我要买入', langType));
@@ -109,7 +108,7 @@ define([
 
         function FindChsAndReplaceIt(nodeObj){
             var pat = new RegExp("[\u4e00-\u9fa5]+","g");
-            if ((nodeObj.text() || nodeObj.val() || nodeObj.attr("title") || nodeObj.attr("placeholder")) 
+            if ((nodeObj.text() || nodeObj.val() || nodeObj.attr("title") || nodeObj.attr("placeholder"))
                 && (pat.exec(nodeObj.text()) || pat.exec(nodeObj.val()) || pat.exec(nodeObj.attr("title")) || pat.exec(nodeObj.attr("placeholder")))){
                 var str = "";
                 if (nodeObj.text()){
@@ -129,7 +128,7 @@ define([
                     ReplaceValue(str, nodeObj, "placeholder");
                 }
             }
-        } 
+        }
 
         function ReplaceValue(str, nodeObj, attrType){
             var arr;
@@ -292,11 +291,11 @@ define([
                 if (data.tradepwdFlag) {
                     base.gohref(_this.attr("data-href"))
                 } else if (!data.tradepwdFlag) {
-                    base.showMsg(base.getText('请先设置资金密码', langType))
+                    base.showMsg(base.getText('请先设置交易密码', langType))
                     setTimeout(function () {
                         base.gohref("../user/setTradePwd.html?type=1")
                     }, 1800)
-                } 
+                }
             }, base.hideLoadingSpin)
         })
     }

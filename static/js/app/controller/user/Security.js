@@ -19,7 +19,7 @@ define([
         $('title').text('安全设置-FUNMVP区块链技术应用实验平台');
         base.showLoadingSpin();
         $('.sec-en_aq').text(base.getText('安全设置', langType));
-        $('.sec-en_zj').text(base.getText('资金密码', langType));
+        $('.sec-en_zj').text(base.getText('交易密码', langType));
         $('.sec-en_tx').text(base.getText('提现、修改安全设置时输入', langType));
         $('.sec-en_em').text(base.getText('绑定邮箱', langType));
         $('.sec-en_sj').text(base.getText('绑定手机号', langType));

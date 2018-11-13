@@ -1026,9 +1026,9 @@ table {
 
 .bb-hq {
     padding: 70px 0 90px 0;
-    height: 408px;
+    height: 328px;
     background-image: url('/static/images/bj.png');
-    background-size: 100%;
+    background-size: 100% 100%;
     background-repeat: no-repeat;
     display: flex;
     justify-content: center;
@@ -6292,7 +6292,6 @@ table {
                     color: #D53D3D;
                     font-size: 14px;
                     background-color: #fff;
-                    margin-right: 40px;
                     cursor: pointer;
                     transition: all .3s;
                     &:hover {

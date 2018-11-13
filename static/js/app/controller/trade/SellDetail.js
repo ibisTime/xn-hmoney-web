@@ -53,13 +53,14 @@ define([
         $('.en-buy_fkqx').text(base.getText('付款期限', langType) + ':');
         $('.en-sell_mjly').text(base.getText('买家留言', langType) + ':');
         $('.en-buy_csds').text(base.getText('你想出售多少', langType) + '?');
-        $('.en-buy_kyyy').text(base.getText('账户可用余额', langType) + ':');
+        $('.en-buy_kyyy span').text(base.getText('账户可用余额', langType) + ':' + '');
         $('.en-buy_fz').text(base.getText('分钟', langType));
         $('.en-buy_tx').text(base.getText('交易提醒', langType));
         if(langType == 'EN'){
             $('title').text('Selling details-FUNMVP blockchain technology application experimental platform');
+        } else {
+            $('title').text('出售详情-FUNMVP区块链技术应用实验平台');
         }
-        $('title').text('出售详情-FUNMVP区块链技术应用实验平台');
         base.showLoadingSpin();
         $(".head-nav-wrap .sell").addClass("active");
 
@@ -191,7 +192,7 @@ define([
         config.count = base.formatMoneyParse($("#buyEth").val(), '', tradeCoin);
         config.tradePwd = $('#moneyPow').val();
         return TradeCtr.sellETH(config).then((data) => {
-            base.showMsg(base.getText('出售成功', langType));
+            base.showMsg(base.getText('下单成功', langType));
             setTimeout(function() {
                 base.gohref("../order/order-list.html?mod=dd");
             }, 2000)
@@ -238,11 +239,11 @@ define([
                         }
                     }
                 } else if (!data.tradepwdFlag) {
-                    base.showMsg(base.getText('请先设置资金密码', langType))
+                    base.showMsg(base.getText('请先设置交易密码', langType))
                     setTimeout(function() {
                         base.gohref("../user/setTradePwd.html?type=1&mod=dd");
                     }, 1800)
-                } 
+                }
                 // else if (!data.realName) {
                 //     base.showMsg("请先进行身份验证")
                 //     setTimeout(function() {
@@ -252,7 +253,7 @@ define([
             }, base.hideLoadingSpin);
         })
 
-        //资金密码-放弃点击
+        //交易密码-放弃点击
         $("#submitMon .closeBtn").click(function() {
             $("#submitMon").addClass("hidden");
             $('#moneyPow').val('');
@@ -315,6 +316,6 @@ define([
         $('.detail-container-wrap').on('click', '.topj', function(){
             base.gohref(`../user/user-pj.html?userId=${userId}&nickname=${nickname}`);
         })
-        
+
     }
 });

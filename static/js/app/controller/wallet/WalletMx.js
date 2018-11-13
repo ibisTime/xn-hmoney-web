@@ -19,13 +19,23 @@ define([
         '0': [],
         '1': ['charge'],
         '2': ['withdraw'],
-        '3': ['ccorder_buy', 'bborder_buy'],
-        '4': ['ccorder_sell', 'bborder_sell'],
-        '5': ['accept_buy'],
-        '6': ['accept_sell'],
-        '7': ['ccorder_fee', 'bborder_fee'],
-        '8': ['withdraw_fee'],
-        '9': ['ccorder_frozen', 'bborder_frozen']
+        '3': ['ccorder_buy', 'bborder_buy', 'accept_buy'],
+        '4': ['ccorder_sell', 'bborder_sell', 'accept_sell'],
+        '5': ['ccorder_fee', 'bborder_fee', 'withdraw_fee'],
+        '6': ['game_in'],
+        '7': ['game_out'],
+        '8': [
+            'ccorder_frozen',
+            'ccorder_unfrozen_revoke',
+            'ccorder_unfrozen_trade',
+            'bborder_frozen',
+            'bborder_unfrozen_revoke',
+            'bborder_unfrozen_trade',
+            'withdraw_frozen',
+            'withdraw_unfrozen',
+            'accept_frozen',
+            'accept_unfrozen'
+        ]
     },
     bizTypeValueList = {};
 
@@ -36,17 +46,20 @@ define([
     }
 
     function init() {
-        $('.tradeRecord-wrap-title').text(base.getText('场外交易明细', langType));
+        $('.tradeRecord-wrap-title').text(base.getText('交易明细', langType));
         $('.wamx-en_qb').text(base.getText('全部', langType));
         $('.wamx-en_cb').text(base.getText('充币', langType));
         $('.wamx-en_tb').text(base.getText('提现', langType));
         $('.wamx-en_mr').text(base.getText('交易买入', langType));
         $('.wamx-en_mc').text(base.getText('交易卖出', langType));
-        $('.wamx-en_gm').text(base.getText('场外承兑商购买', langType));
-        $('.wamx-en_cs').text(base.getText('场外承兑商出售', langType));
-        $('.wamx-en_sxf').text(base.getText('交易手续费', langType));
-        $('.wamx-en_tx').text(base.getText('提现手续费', langType));
-        $('.wamx-en_dj').text(base.getText('冻结记录', langType));
+        // $('.wamx-en_gm').text(base.getText('场外承兑商购买', langType));
+        // $('.wamx-en_cs').text(base.getText('场外承兑商出售', langType));
+        // $('.wamx-en_sxf').text(base.getText('交易手续费', langType));
+        // $('.wamx-en_tx').text(base.getText('提现手续费', langType));
+        $('.wamx-en_fee').text(base.getText('手续费', langType));
+        $('.wamx-en_zryx').text(base.getText('转入游戏', langType));
+        $('.wamx-en_yxtx').text(base.getText('游戏提现', langType));
+        $('.wamx-en_dj').text(base.getText('冻结解冻', langType));
         $('.wamx-en_sj').text(base.getText('时间', langType));
         $('.wamx-en_lx').text(base.getText('类型', langType));
         $('.wamx-en_sli').text(base.getText('数量', langType));

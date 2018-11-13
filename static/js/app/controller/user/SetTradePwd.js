@@ -7,32 +7,32 @@ define([
     'app/controller/foo'
 ], function(base, Validate,smsCaptcha, UserCtr, Top, Foo) {
 	let langType = localStorage.getItem('langType') || 'ZH';
-	var type = base.getUrlParam("type");//设置类型： 0,设置  1，修改 
+	var type = base.getUrlParam("type");//设置类型： 0,设置  1，修改
 	var isWallet = !!base.getUrlParam("isWallet");//钱包点击跳转过来
-	
+
 	if(!base.isLogin()){
 		base.goLogin()
 	}else{
 		$("#left-wrap .security").addClass("on")
     	init();
 	}
-    
+
     function init() {
 		base.showLoadingSpin();
 		$('.tr-en_dq').text(base.getText('当前位置', langType));
 		$('.tr-en_zx').text(base.getText('用户中心', langType));
 		$('.tr-en_sz').text(base.getText('安全设置', langType));
-		$('.tr-en_zj').text(base.getText('资金密码', langType));
+		$('.tr-en_zj').text(base.getText('交易密码', langType));
 		$('#getVerification').text(base.getText('获取验证码', langType));
 		$('#subBtn').text(base.getText('确定', langType));
 		$('#mobile').attr('placeholder', base.getText('请输入手机号', langType));
-		$('#tradePwd').attr('placeholder', base.getText('请输入资金密码', langType));
+		$('#tradePwd').attr('placeholder', base.getText('请输入交易密码', langType));
 		$('#smsCaptcha').attr('placeholder', base.getText('验证码', langType));
 
 		if(langType == 'EN'){
 			$('title').text('capital password-FUNMVP blockchain technology application experimental platform');
 		}
-		$('title').text('资金密码-FUNMVP区块链技术应用实验平台');
+		$('title').text('交易密码-FUNMVP区块链技术应用实验平台');
 
         if(base.getUserMobile()) {
             $("#mobile").val(base.getUserMobile());
@@ -43,8 +43,8 @@ define([
         }
         addListener();
 	}
-	
-    //设置资金密码
+
+    //设置交易密码
     function setTradePwd(tradePwd, smsCaptcha){
     	return UserCtr.setTradePwd(tradePwd, smsCaptcha).then(()=>{
 			base.hideLoadingSpin()
@@ -54,8 +54,8 @@ define([
 			},800)
 		},base.hideLoadingSpin)
     }
-    
-    //重设资金密码
+
+    //重设交易密码
     function changeTradePwd(tradePwd, smsCaptcha){
     	return UserCtr.changeTradePwd(tradePwd, smsCaptcha).then(()=>{
 			base.hideLoadingSpin()
@@ -69,8 +69,8 @@ define([
 			},800)
 		},base.hideLoadingSpin)
 	}
-	
-    
+
+
     function addListener() {
 		var _formWrapper = $("#form-wrapper");
 		// let reg = /^[a-z0-9._%-]+@([a-z0-9-]+\.)+[a-z]{2,4}$/;
@@ -110,9 +110,9 @@ define([
 				}else if(type=='1'){
 					changeTradePwd(params.tradePwd,params.smsCaptcha)
 				}
-				
+
 			}
-    		
+
 	    })
     }
 });

@@ -68,10 +68,10 @@ define([
             $(".buy-wrap").removeClass("hidden");
         }
         $.when(
-            GeneralCtr.getSysConfig("trade_remind")  
+            GeneralCtr.getSysConfig("trade_remind")
         ).then((data) => {
             $("#tradeWarn").html(data.cvalue.replace(/\n/g, '<br>'))
-            getAdvertiseDetail() 
+            getAdvertiseDetail()
         })
         addListener();
 
@@ -189,9 +189,9 @@ define([
     function buyETH() {
         config.tradeAmount = $("#buyAmount").val();
         config.count = base.formatMoneyParse($("#buyEth").val(), '', tradeCoin);
-        // config.资金密码 = $('#moneyPow').val();
+        // config.交易密码 = $('#moneyPow').val();
         return TradeCtr.buyETH(config).then((data) => {
-                base.showMsg(base.getText('购买成功', langType))
+                base.showMsg(base.getText('下单成功', langType))
 
                 setTimeout(function() {
                     base.gohref("../order/order-list.html?mod=dd")
@@ -229,11 +229,11 @@ define([
                         }
                     }
                 } else if (!data.tradepwdFlag) {
-                    base.showMsg(base.getText('请先设置资金密码', langType))
+                    base.showMsg(base.getText('请先设置交易密码', langType))
                     setTimeout(function() {
                         base.gohref("../user/setTradePwd.html?type=1")
                     }, 1800)
-                } 
+                }
                 // else if (!data.realName) {
                 //     base.showMsg("请先进行身份验证")
                 //     setTimeout(function() {
@@ -243,7 +243,7 @@ define([
             }, base.hideLoadingSpin);
         })
 
-        //资金密码-放弃点击
+        //交易密码-放弃点击
         // $("#submitMon .closeBtn").click(function() {
         //     $("#submitMon").addClass("hidden");
         // })
