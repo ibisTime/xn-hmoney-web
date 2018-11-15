@@ -1,7 +1,7 @@
 fis.hook('amd', {
     baseUrl: "./js",
     paths: {
-        'jquery': "lib/jquery-1.10.2",
+        'jquery': "lib/jquery",
         'Handlebars': 'lib/handlebars.runtime-v3.0.3',
         'IScroll': "lib/iscroll",
         'iScroll': "lib/iscroll1",
@@ -54,7 +54,7 @@ fis.match('*.{js,css}', {
     useHash: false
 });
 fis.match('/js/lib/jquery-1.10.2.js', {
-  useHash: false,
+  useHash: true,
   release: '/$0'
 });
 fis.match('/js/app/module/charting_library/**.html', {

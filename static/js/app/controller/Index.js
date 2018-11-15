@@ -16,7 +16,9 @@ define([
         '1': base.getText('购买', langType)
     }
 
-    init();
+    $(document).ready(function () {
+        init();
+    });
 
     // 初始化页面
     function init() {

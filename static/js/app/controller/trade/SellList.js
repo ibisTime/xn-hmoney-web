@@ -198,15 +198,15 @@ define([
 							<div class="dot ${loginStatus}"></div>
 						</div>
                         <samp class="name">${item.user.nickname ? item.user.nickname : '-'}</samp>
-    <p class="n-dist"><samp>${base.getText('交易', langType)}<i>${item.userStatistics.jiaoYiCount}</i></samp> ·
+                        <p class="n-dist"><samp>${base.getText('交易', langType)}<i>${item.userStatistics.jiaoYiCount}</i></samp> ·
                             <samp>${base.getText('好评度', langType)}<i>${hpCount}</i></samp> ·
                             <samp>${base.getText('信任', langType)}<i>${item.userStatistics.beiXinRenCount}</i></samp>
                         </p>
 					</td>
-					<td class="payType">${payTypeHtml}</td>
 					<td class="avaliable">${base.formatMoney(item.leftCountString, '', item.tradeCoin)}</td>
 					<td class="limit">${item.minTrade}-${item.maxTrade} ${item.tradeCurrency}</td>
 					<td class="price">${item.truePrice.toFixed(2)} ${item.tradeCurrency}</td>
+					<td class="payType">${payTypeHtml}</td>
 					<td class="operation">
 						${operationHtml}
 					</td>
