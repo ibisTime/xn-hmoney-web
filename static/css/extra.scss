@@ -3613,6 +3613,21 @@ table {
 
 .trade-container {
     width: 100%;
+
+    .trade-list-wrap .trade-wrap {
+        .nickname{
+            width: 270px;
+        }
+        .payType{
+            width: 100px;
+        }
+        .limit{
+            width: 170px;
+        }
+        .price{
+            width: 150px;
+        }
+    }
 }
 
 .detail-container {
@@ -4669,6 +4684,7 @@ table {
     }
     .num-huadtiao {
         border: 1px solid #dedede;
+        width: 100%;
         height: 0;
         margin-top: 26px;
         position: relative;

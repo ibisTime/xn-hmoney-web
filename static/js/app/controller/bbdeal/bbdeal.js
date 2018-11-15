@@ -109,7 +109,7 @@ define([
             $('.affic-list').html(ggHtml);
         });
 
-        clearInterval(timeReal);
+        (timeReal);
         var timeReal = setInterval(() => {
             // autoRealData();
             getExchange();
@@ -325,14 +325,10 @@ define([
 
     function getExchange() {
         getBBExchange('CNY').then(data => {
-            if (data.length != 0) {
-                let lastPrice = Math.floor(data[0].lastPrice * 1000) / 1000;
+                let lastPrice = Math.floor(data.mid * 1000) / 1000;
                 bb_exchange = lastPrice.toFixed(3);
                 $('.bb-exc').text(bb_exchange);
                 autoRealData();
-            } else {
-                return false;
-            }
         })
     }
 
@@ -510,9 +506,9 @@ define([
 
     // 获取币种汇率、行情
     function getBBExchange(ex_type) {
-        return Ajax.post('650101', {
-            symbol: setBazDeal.toSymbol,
-            referCurrency: ex_type
+        return Ajax.post('625292', {
+            coin: setBazDeal.toSymbol,
+            refCurrency: ex_type
         });
     }
 
@@ -1351,7 +1347,7 @@ define([
                 {
                     class: 'chart-buttons',
                     label: base.getText('分时', langType),
-                    resolution: "1",
+                    resolution: "",
                     chartType: 3
                 }, {
                     class: '',
@@ -1419,20 +1415,22 @@ define([
                 button.parent().addClass('chart-buttons-wrap');
                 button.addClass("button " + item.class).attr("data-chart-type", item.chartType === undefined ? 8 : item.chartType);
                 button.on('click', function (e) {
-                    if ($(this).hasClass('chart-buttons')) {
-                        return;
-                    }
                     // if (!_self.widget.changingInterval && !button.hasClass("selected")) {
-                    let chartType = +button.attr("data-chart-type");
+                    let chartType = + button.attr("data-chart-type");
                     // let resolution = button.attr("data-resolution");
                     if (chart.resolution() !== item.resolution) {
                         // _self.widget.changingInterval = true;
                         $("#tv_chart_container").attr("firstLoad", "0");
                         $("#tv_chart_container").attr("startDatetime", '');
-                        chart.setResolution(item.resolution);
+                        // 分时
+                        var _this_resolution = item.resolution;
+                        if ($(this).hasClass('chart-buttons')) {
+                            _this_resolution = chart.resolution()
+                        }
+                        chart.setResolution(_this_resolution);
                     }
                     if (chart.chartType() !== chartType) {
-                        // chart.setChartType(chartType);
+                        chart.setChartType(chartType);
                     }
                     updateSelectedIntervalButton(button);
                     // }

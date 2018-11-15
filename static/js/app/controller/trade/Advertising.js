@@ -67,7 +67,7 @@ define([
 
         // if (coin && base.getCoinType($('.fb-sel').text()) == "1") {
         //     mid = ''
-        //     
+        //
         //     $(".premiumRateExp-wrap").addClass("hidden");
         // }
         $("#price").attr("disabled", true);
@@ -209,14 +209,9 @@ define([
             mid = data.marketPrice;
             var tradeCoin = data.tradeCoin ? data.tradeCoin : 'ETH';
             data.totalCount = base.formatMoney(data.totalCountString, '', tradeCoin)
-            // 进度条初始化
+            // // 进度条初始化
             $('.yj-num').val(premiumRate);
-            let parWidth = $('.num-huadtiao').width();
-            let xLeft = (parWidth * data.premiumRate) / 30;
-            jdLeft = parseInt($('.num-go').css('left')) - 50 - xLeft;
-            $('.num-go').css({
-                left: (50 + xLeft) + '%'
-            })
+            $('.yj-num').keyup();
             //广告类型
             if (data.tradeType == '1') {
                 $(".trade-type .item").eq(0).addClass("on").siblings('.item').removeClass("on").addClass("hidden")
@@ -451,7 +446,7 @@ define([
             let parWidth = $('.num-huadtiao').width();
             jdLeft = (parWidth * leftValue) / 100;
             isKup = false;
-            let jdValue = (mid + mid * leftValue / 100).toFixed(2);
+            let jdValue = (mid * (1 + (leftValue / 100))).toFixed(2);
             let ccWidth = 50 / $('.num-huadtiao').width();
             $("#price").val(jdValue);
             $('.num-go').css({

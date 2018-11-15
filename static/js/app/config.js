@@ -1,15 +1,11 @@
 var SYSTEM_CODE = "CD-HPMN000024"; //
 var COMPANY_CODE = "CD-HPMN000024";
-var PIC_PREFIX = 'http://pgf8juy5p.bkt.clouddn.com/'; // 七牛云
+var PIC_PREFIX = 'http://image.hp.hichengdai.com/'; // 七牛云
 var PHOTO_SUFFIX = '?imageMogr2/auto-orient/thumbnail/!150x150r';
 var THUMBNAIL_SUFFIX = "";
-// web 域名
-//var DOMAIN_NAME = 'http://localhost:4009';
-// h5 域名
-//var INVITATION_HREF = 'http://localhost:4009';
-// web 域名 测试 邀请好友  http://www.funmvp.com/
+// web 域名 邀请好友
 var DOMAIN_NAME = 'http://www.funmvp.com';
-// h5 域名 测试 邀请好友
+// h5 域名 邀请好友
 var INVITATION_HREF = 'http://m.funmvp.com';
 //帮助中心
 var HELPCONTENT = 'https://funmvp.zendesk.com/hc/zh-cn/';

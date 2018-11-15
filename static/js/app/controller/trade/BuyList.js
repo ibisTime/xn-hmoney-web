@@ -26,6 +26,7 @@ define([
     function init() {
         $('.en_nick').text(base.getText('昵称', langType));
         $('.en_pay').text(base.getText('付款方式', langType));
+        $('.en_count').text(base.getText('Avaliable', langType));
         $('.en_xe').text(base.getText('限额', langType));
         $('.en_price').text(base.getText('价格', langType));
         if(langType == 'EN'){
@@ -177,6 +178,7 @@ define([
                         </p>
 					</td>
 					<td class="payType">${bizTypeList[item.payType]}</td>
+					<td class="avaliable">${base.formatMoney(item.leftCountString, '', item.tradeCoin)}</td>
 					<td class="limit">${item.minTrade}-${item.maxTrade} ${item.tradeCurrency}</td>
 					<td class="price">${item.truePrice.toFixed(2)} ${item.tradeCurrency}</td>
 					<td class="operation">
