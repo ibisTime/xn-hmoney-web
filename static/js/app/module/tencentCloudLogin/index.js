@@ -24,9 +24,9 @@ define([
     var unreadMsgFlag = false;
 
     if (base.isLogin() && !/\/order-list\.html/.test(location.href) && !/\/buy-detail\.html/.test(location.href) && !/\/sell-detail\.html/.test(location.href)) {
-        window.onload = function() {
-            getTencunLogin(); // 测试
-        }
+        $(document).ready(function () {
+            getTencunLogin();
+        });
     }
 
     function init() {

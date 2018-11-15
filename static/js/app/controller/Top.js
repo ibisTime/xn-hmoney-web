@@ -7,25 +7,27 @@ define([
     'app/module/tencentCloudLogin'
 ], function (base, GeneralCtr, AccountCtr, UserCtr, BaseCtr, TencentCloudLogin) {
     let langType = localStorage.getItem('langType') || 'ZH';
-    //请求币种
-    BaseCtr.getCoinList().then(function (data) {
-        var coinList = {};
-        for (var i in data) {
-            coinList[data[i].symbol] = {
-                'id': data[i].id,
-                'coin': data[i].symbol,
-                'unit': '1e' + data[i].unit,
-                'name': data[i].cname,
-                'type': data[i].type,
-                'withdrawFeeString': data[i].withdrawFeeString
-            }
-        }
-        sessionStorage.setItem("coinList", JSON.stringify(coinList))
-        init();
-    }, function () {
-        init();
-    })
+    // langPackage 配置文件
 
+    let langPackage = LANGUAGE;
+    //请求币种
+    // BaseCtr.getCoinList().then(function (data) {
+    //     var coinList = {};
+    //     for (var i in data) {
+    //         coinList[data[i].symbol] = {
+    //             'id': data[i].id,
+    //             'coin': data[i].symbol,
+    //             'unit': '1e' + data[i].unit,
+    //             'name': data[i].cname,
+    //             'type': data[i].type,
+    //             'withdrawFeeString': data[i].withdrawFeeString
+    //         }
+    //     }
+    //     sessionStorage.setItem("coinList", JSON.stringify(coinList))
+        init();
+    // }, function () {
+    //     init();
+    // })
 
     // 初始化页面
     function init() {
@@ -70,8 +72,6 @@ define([
             location.reload();
         });
 
-
-
         getCoinList();
         $("#footTeTui").html(FOOT_TETUI)
         $("#footEmail").html(FOOT_EMAIL)
@@ -79,22 +79,14 @@ define([
             $("#head-user-wrap .nickname").text(sessionStorage.getItem("nickname"))
             $("#head-user-wrap").removeClass("hidden");
             $.when(
-                getAccount(), // 正式
-                //getBanner() // 测试
+                getAccount()
             )
         } else {
             $("#head-button-wrap").removeClass("hidden");
-            $.when(
-                //getBanner()
-            )
         }
 
         addListener();
     }
-
-    // langPackage 配置文件
-
-    let langPackage = LANGUAGE;
 
     function changeLanguageFn(nodeObj){
         if (nodeObj.children().length > 0){
@@ -134,8 +126,8 @@ define([
             var arr;
             var pat = new RegExp("[\u4e00-\u9fa5]+","g");
             while((arr = pat.exec(str)) != null){
-              if (langPackage[arr[0]]){
-                  str = str.replace(arr[0], langPackage[arr[0]]['EN']);
+              if (langPackage[arr.input]){
+                  str = str.replace(arr.input, langPackage[arr.input]['EN']);
                   if (attrType == "text"){
                     nodeObj.text(str);
                   }
@@ -174,27 +166,6 @@ define([
         $(".head-nav-wrap .sell .down-wrap ul").html(sellListHtml);
         //购买
         $(".head-nav-wrap .advertise .down-wrap ul").html(advListHtml);
-    }
-
-    // 获取banner
-    function getBanner() {
-        return GeneralCtr.getBanner({}).then((data) => {
-            data.forEach((item) => {
-                if (item.location === 'web_download') {
-                    $('#downImg').attr("src", base.getPic(item.pic, "?imageMogr2/auto-orient/thumbnail/!280x280r"));
-                } else if (item.location === 'web_qq') {
-                    $('#qqImg').attr("src", base.getPic(item.pic, "?imageMogr2/auto-orient/thumbnail/!280x280r"));
-                } else if (item.location === 'web_weibo') {
-                    $('#wbImg').attr("src", base.getPic(item.pic, "?imageMogr2/auto-orient/thumbnail/!280x280r"));
-                } else if (item.location === 'web_wechat') {
-                    $('#wxImg').attr("src", base.getPic(item.pic, "?imageMogr2/auto-orient/thumbnail/!280x280r"));
-                } else if (item.location === 'web_trade') {
-                    $('#tradeBanner').css("background-image", "url('" + base.getPic(item.pic, "?imageMogr2/auto-orient/thumbnail/!1200x90r") + "')");
-                }
-            })
-        }, (msg) => {
-            base.showMsg(msg || base.getText('加载失败', langType));
-        });
     }
 
     //我的账户

@@ -23,9 +23,9 @@ define([
     var unreadMsgList = {}; //未读消息数
 
     if (base.isLogin()) {
-        window.onload = function() {
-            getTencunLogin(); // 测试
-        }
+        $(document).ready(function () {
+            getTencunLogin();
+        });
     }
 
     function init() {

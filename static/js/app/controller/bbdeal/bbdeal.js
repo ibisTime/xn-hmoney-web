@@ -59,6 +59,8 @@ define([
 
     let togoI = 0;
 
+    let bazaarDataBb_zxj = 0;
+
     //买入卖出价格基数和整除基数
     let priceRules = {
         'BTC': {
@@ -112,13 +114,7 @@ define([
             getCandles();
         }, 1);
 
-        // setTimeout(function () {
-        //     clearInterval(timeReal);
-        //     var timeReal = setInterval(() => {
-        //         // autoRealData();
-        //         getExchange();
-        //     }, 3900);
-        // }, 1);
+
         // 判断是否登录
         if (!base.isLogin()) {
             $('.con-r-current').addClass('none');
@@ -128,6 +124,13 @@ define([
             $('.tologin').removeClass('none');
             $('.am-btn').addClass('dis-btn');
             $('.sel-span').css('background-color', '#ccc');
+            setTimeout(function () {
+                clearInterval(timeReal);
+                var timeReal = setInterval(() => {
+                    // autoRealData();
+                    getExchange();
+                }, 3900);
+            }, 1);
         } else {
             //状态
             $.when(
@@ -155,13 +158,19 @@ define([
             userAllMoneyX();
             autoGetMyDatata();
             autoGetHisData();
-            // setTimeout(function () {
-            //     clearInterval(timeHis);
-            //     var timeHis = setInterval(() => {
-            //         autoGetMyDatata();
-            //         autoGetHisData();
-            //     }, 3400);
-            // }, 1);
+
+            setTimeout(function () {
+                clearInterval(timeHis);
+                clearInterval(timeReal);
+                var timeReal = setInterval(() => {
+                    // autoRealData();
+                    getExchange();
+                }, 3900);
+                var timeHis = setInterval(() => {
+                    autoGetMyDatata();
+                    autoGetHisData();
+                }, 3400);
+            }, 1);
 
             if (jyType == 'xj') {
                 $('.xj_type').addClass('sel-jy').siblings().removeClass('sel-jy');
@@ -218,7 +227,7 @@ define([
             })
             // 涨幅、k数据
             let zfKData = setBBList[0].dayLineInfo;
-            zfData = (setBBList[0].exchangeRate * 10000) / 100;
+            zfData = ((setBBList[0].exchangeRate * 10000) / 100).toFixed(2);
             if (zfKData) {
                 $('.t-zf').text(`${zfData}%`);
                 $('.t-g').text(zfKData.high);
@@ -236,11 +245,11 @@ define([
             autoGetData();
             setTimeout(function () {
                 sdFn();
-                //     clearInterval(timeGet);
-                //     var timeGet = setInterval(() => {
-                //         autoGetData();
-                //         sdFn()
-                //     }, 4000);
+                    clearInterval(timeGet);
+                    var timeGet = setInterval(() => {
+                        autoGetData();
+                        sdFn()
+                    }, 4000);
             }, 1);
 
             $('.c-b').text(setBazDeal.symbol);
@@ -272,14 +281,14 @@ define([
 
     function autoRealData() {
         getRealTimeData().then(data => {
+            let bb_zxj = bazaarDataBb_zxj;
+            let zx_exc = (Math.floor(bb_zxj * bb_exchange * 100) / 100).toFixed(2);
+            $('.bb-zxj').text(bb_zxj);
+            $('.t-jym').text(bb_zxj);
+            $('.zx-exc').text(zx_exc);
+            $('.sym-exc').text(zx_exc);
             if (data.list.length > 0) {
                 realTimeData = data.list;
-                let bb_zxj = base.formatMoney(`${realTimeData[0].tradedPrice}`, '', setBazDeal.toSymbol);
-                let zx_exc = (Math.floor(bb_zxj * bb_exchange * 100) / 100).toFixed(2);
-                $('.bb-zxj').text(bb_zxj);
-                $('.zx-exc').text(zx_exc);
-                $('.t-jym').text(bb_zxj);
-                $('.sym-exc').text(zx_exc);
                 let realTimeHtml = '';
                 realTimeData.forEach(item => {
                     realTimeHtml += `<tr>
@@ -291,9 +300,6 @@ define([
                 });
                 // ${base.formatMoney(`${item.tradedPrice}`, '', item.toSymbol)}
                 $('.dep-table tbody').html(realTimeHtml);
-            } else {
-                $('.bb-zxj').text('0.00');
-                $('.zx-exc').text('0.00');
             }
         });
     }
@@ -575,13 +581,15 @@ define([
     function showBazaar(bazaarData) {
         let bazULHtml = '';
         if (bazaarData) {
+            let bb_zxj = bazaarData.price;
+            bazaarDataBb_zxj = bb_zxj;
             bazULHtml += `<li>
                         <p class="li-left">
                             <img src="/static/images/zx.png" alt="">
                             <img src="/static/images/xxk.png" alt="" class="none">
                             <span>${bazaarData.symbol}</span>
                         </p>
-                        <p class="li-con bb-zxj">0.0</p>
+                        <p class="li-con bb-zxj">${bb_zxj}</p>
                         <p class="li-right d-baz"><span> </span>${zfData}%</p>
                     </li>`;
             $('.baz-ul').html(bazULHtml);
@@ -986,6 +994,7 @@ define([
                 type: 'line',
                 smooth: false,
                 step: 'end',
+                symbol: 'none',
                 lineStyle: {
                     width: 0
                 },
@@ -993,21 +1002,21 @@ define([
                     normal: {}
                 },
                 data: buyLjListData
-            },
-                {
-                    name: en_mc,
-                    type: 'line',
-                    // barCategoryGap: 0,
-                    smooth: false,
-                    step: 'end',
-                    lineStyle: {
-                        width: 0
-                    },
-                    areaStyle: {
-                        normal: {}
-                    },
-                    data: sellLjListData
-                }
+            }, {
+                name: en_mc,
+                type: 'line',
+                // barCategoryGap: 0,
+                smooth: false,
+                step: 'end',
+                symbol: 'none',
+                lineStyle: {
+                    width: 0
+                },
+                areaStyle: {
+                    normal: {}
+                },
+                data: sellLjListData
+            }
             ]
         };
         myChart.setOption(option)
@@ -1200,7 +1209,7 @@ define([
         // 计算
         let _num = (tmplVal - tmplRadix) / tmplStep;
         // console.log(tmplVal, tmplRadix, tmplStep, _num);
-        if (_num.toString().split('.')[1]){
+        if (_num.toString().split('.')[1]) {
             return false;
         } else {
             return true;
@@ -1338,19 +1347,19 @@ define([
             }
             // 获取已验证小数点后的值
             ym_price = $('#ym-price').val();
-            if (!ymPriceIsR(ym_price)){
-                base.showMsg(base.getText('单位跳动基数为', langType) + '：' + priceRules[setBazDeal.toSymbol].step, 1200);
+            if (ym_price && ym_price != '' && !ymPriceIsR(ym_price) && ym_price > 0) {
+                base.showMsg(base.getText('单位跳动基数为', langType) + `：${priceRules[setBazDeal.toSymbol].step}`, 1200);
                 $(this).val(ymPricelVal);
             }
             // 获取已验证跳动基数后的值
             ym_price = $('#ym-price').val();
-            ymPricelVal = $('#ym-price').val();
+            ymPricelVal = ym_price;
             $('.mr-exc').text((Math.floor(ym_price * bb_exchange * 100) / 100).toFixed(2));
             if (ym_price > 0) {
                 $('.all-bb').text((Math.floor((toSyUserMoney / ym_price) * 100) / 100).toFixed(2));
             }
         })
-
+        let yrPricelVal = '';
         $('#yr-price').keyup(function () {
             let yr_price = $(this).val();
             let yRight = yr_price.split('.')[1];
@@ -1360,9 +1369,19 @@ define([
                     yRight = yRight.substring(0, 8);
                     base.showMsg(base.getText('小数点后最大不得大于八位', langType));
                     $(this).val(yLeft + '.' + yRight);
-                    return;
                 }
             }
+            // 获取已验证小数点后的值
+            yr_price = $('#yr-price').val();
+            if (!yr_price && yr_price != '' && !ymPriceIsR(yr_price) && yr_price > 0) {
+                base.showMsg(base.getText('单位跳动基数为', langType) + `：${priceRules[setBazDeal.toSymbol].step}`, 1200);
+                $(this).val(yrPricelVal);
+            } else if (!yr_price && yr_price != '') {
+                return false;
+            }
+            // 获取已验证跳动基数后的值
+            yr_price = $('#yr-price').val();
+            yrPricelVal = yr_price;
             $('.mc-exc').text(((Math.floor(yr_price * bb_exchange * 100)) / 100).toFixed(2));
             if (yr_price > 0) {
                 $('.all-bb_c').text((Math.floor((syUserMoney / yr_price) * 100) / 100).toFixed(2));
