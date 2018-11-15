@@ -67,7 +67,7 @@ define([
         $('.baz-ul-h2').text(base.getText('主区', langType));
         $('.bb-en_gg').text(base.getText('公告', langType));
 
-        if(langType == 'EN'){
+        if (langType == 'EN') {
             $('.bben_yqhy').html('invite friends to register, <br> easily get cashback');
             $('.tologin').html(`
                 <a href="../user/login.html">Login</a> or
@@ -77,7 +77,7 @@ define([
             $('.bb-en_zxj').html(`the latest price <img src="/static/images/sx.png" alt="">`);
             $('.bb-en_zf').html(`change <img src="/static/images/sx.png" alt="">`);
             $('title').text('Exchange-FUNMVP blockchain technology application experimental platform');
-        }else{
+        } else {
             $('.bben_yqhy').html('邀请好友注册，<br> 轻松获得交易返佣');
             $('.tologin').html(`
                 <a href="../user/login.html">登录</a> 或
@@ -108,13 +108,13 @@ define([
             })
             $('.affic-list').html(ggHtml);
         });
-
-        (timeReal);
-        var timeReal = setInterval(() => {
-            // autoRealData();
-            getExchange();
-        }, 3900);
-
+        // setTimeout(function () {
+        //     clearInterval(timeReal);
+        //     var timeReal = setInterval(() => {
+        //         // autoRealData();
+        //         getExchange();
+        //     }, 3900);
+        // }, 1);
         // 判断是否登录
         if (!base.isLogin()) {
             $('.con-r-current').addClass('none');
@@ -138,11 +138,13 @@ define([
             userAllMoneyX();
             autoGetMyDatata();
             autoGetHisData();
-            clearInterval(timeHis);
-            var timeHis = setInterval(() => {
-                autoGetMyDatata();
-                autoGetHisData();
-            }, 3400);
+            // setTimeout(function () {
+            //     clearInterval(timeHis);
+            //     var timeHis = setInterval(() => {
+            //         autoGetMyDatata();
+            //         autoGetHisData();
+            //     }, 3400);
+            // }, 1);
 
             if (jyType == 'xj') {
                 $('.xj_type').addClass('sel-jy').siblings().removeClass('sel-jy');
@@ -187,10 +189,10 @@ define([
             let zfKData = setBBList[0].dayLineInfo;
             zfData = setBBList[0].exchangeRate * 100;
             if (zfKData) {
-                $('.t-zf').text(`${zfData}%`)
-                $('.t-g').text(base.formatMoney(`${zfKData.high}`, '', setBazDeal.symbol));
-                $('.t-d').text(base.formatMoney(`${zfKData.low}`, '', setBazDeal.symbol));
-                $('.t-h').text(base.formatMoney(`${zfKData.volume}`, '', setBazDeal.toSymbol));
+                $('.t-zf').text(`${zfData.toFixed(2)}%`);
+                $('.t-g').text(zfKData.high);
+                $('.t-d').text(zfKData.low);
+                $('.t-h').text(zfKData.volume);
             }
             upBazaarData(setBBList);
             data.list.forEach((item, i) => {
@@ -202,11 +204,13 @@ define([
             showBazaar(bazaarData[0]);
             autoGetData();
             sdFn();
-            clearInterval(timeGet);
-            var timeGet = setInterval(() => {
-                autoGetData();
-                sdFn()
-            }, 4000);
+            // setTimeout(function () {
+            //     clearInterval(timeGet);
+            //     var timeGet = setInterval(() => {
+            //         autoGetData();
+            //         sdFn()
+            //     }, 4000);
+            // }, 1);
 
             function sdFn() {
                 getDepthData().then(data => {
@@ -223,6 +227,7 @@ define([
                     depthFn(buyData, sellData);
                 });
             }
+
             $('.c-b').text(setBazDeal.symbol);
             $('.r-b').text(setBazDeal.symbol);
             $('#tv_chart_container iframe').css('height', '500px');
@@ -325,10 +330,10 @@ define([
 
     function getExchange() {
         getBBExchange('CNY').then(data => {
-                let lastPrice = Math.floor(data.mid * 1000) / 1000;
-                bb_exchange = lastPrice.toFixed(3);
-                $('.bb-exc').text(bb_exchange);
-                autoRealData();
+            let lastPrice = Math.floor(data.mid * 1000) / 1000;
+            bb_exchange = lastPrice.toFixed(3);
+            $('.bb-exc').text(bb_exchange);
+            autoRealData();
         })
     }
 
@@ -506,9 +511,9 @@ define([
 
     // 获取币种汇率、行情
     function getBBExchange(ex_type) {
-        return Ajax.post('625292', {
-            coin: setBazDeal.toSymbol,
-            refCurrency: ex_type
+        return Ajax.post('650102', {
+            symbol: setBazDeal.toSymbol,
+            referCurrency: ex_type
         });
     }
 
@@ -612,10 +617,10 @@ define([
                     base.hideLoadingSpin();
                     $(inpNum).val('');
                     $(inpPrice).val('');
-                    if(inpPrice === '#ym-price'){
+                    if (inpPrice === '#ym-price') {
                         $('.mr-exc').text('0.00');
                     }
-                    if(inpPrice === '#yr-price'){
+                    if (inpPrice === '#yr-price') {
                         $('.mc-exc').text('0.00');
                     }
                     $('.y-sp .br-p').css('width', '0%');
@@ -1416,7 +1421,7 @@ define([
                 button.addClass("button " + item.class).attr("data-chart-type", item.chartType === undefined ? 8 : item.chartType);
                 button.on('click', function (e) {
                     // if (!_self.widget.changingInterval && !button.hasClass("selected")) {
-                    let chartType = + button.attr("data-chart-type");
+                    let chartType = +button.attr("data-chart-type");
                     // let resolution = button.attr("data-resolution");
                     if (chart.resolution() !== item.resolution) {
                         // _self.widget.changingInterval = true;

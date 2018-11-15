@@ -3620,6 +3620,11 @@ table {
         }
         .payType{
             width: 100px;
+            .icon{
+                width: 30px;
+                height: 20px;
+                background-size: 20px;
+            }
         }
         .limit{
             width: 170px;

@@ -165,6 +165,18 @@ define([
         if (item.userStatistics.beiPingJiaCount != 0) {
             hpCount = base.getPercentum(item.userStatistics.beiHaoPingCount, item.userStatistics.beiPingJiaCount);
         }
+        let payTypeList = {
+            '0': '/static/images/pay-zfb.png',
+            '1': '/static/images/pay-bankcard.png',
+            '2': '/static/images/pay-weChat.png',
+        };
+
+        let payTypeHtml = ``;
+        if (payTypeList[item.payType]) {
+            payTypeHtml = `<i class="icon" style="background-image: url('${payTypeList[item.payType]}')"></i>`;
+        } else {
+            payTypeHtml = bizTypeList[item.payType];
+        }
         return `<tr>
 					<td class="nickname" style="padding-left: 20px;">
 						<div class="photoWrap fl goHref" data-href="../user/user-detail.html?coin=${item.tradeCoin}&userId=${item.userId}&adsCode=${item.code}" style="margin-right: 10px;">
@@ -177,7 +189,7 @@ define([
                             <samp>${base.getText('信任', langType)}<i>${item.userStatistics.beiXinRenCount}</i></samp>
                         </p>
 					</td>
-					<td class="payType">${bizTypeList[item.payType]}</td>
+					<td class="payType">${payTypeHtml}</td>
 					<td class="avaliable">${base.formatMoney(item.leftCountString, '', item.tradeCoin)}</td>
 					<td class="limit">${item.minTrade}-${item.maxTrade} ${item.tradeCurrency}</td>
 					<td class="price">${item.truePrice.toFixed(2)} ${item.tradeCurrency}</td>

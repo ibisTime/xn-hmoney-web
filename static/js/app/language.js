@@ -123,6 +123,10 @@ var LANGUAGE = {
     },
 
     // *****///// 首页
+    'FUNMVP区块链技术应用实验平台': {
+        'ZH': 'FUNMVP区块链技术应用实验平台',
+        'EN': 'FUNMVP blockchain technology application experimental platform'
+    },
     '尽情游戏': {
         'ZH': '尽情游戏',
         'EN': 'The game '
@@ -194,6 +198,18 @@ var LANGUAGE = {
     '为什么要选择FUNMVP？': {
         'ZH': '为什么要选择FUNMVP？',
         'EN': 'WHY CHOOSE FUNMVP?'
+    },
+    '支持多种数字货币的币币交易与场外交易，买卖自由、双向交易、快速方便': {
+        'ZH': '支持多种数字货币的币币交易与场外交易，买卖自由、双向交易、快速方便',
+        'EN': 'transactions of fiat and exchange which support multiple digital currency, safesafe、two-way trading、quick and easy'
+    },
+    'SSL、多重加密等银行级别安全技术，十年技术安全团队、多重保障资产安全': {
+        'ZH': 'SSL、多重加密等银行级别安全技术，十年技术安全团队、多重保障资产安全',
+        'EN': 'SSL、Multiple encryption and other bank-level security technologies，10 years\' technical security team、Multiple safeguards of fund security'
+    },
+    '支持多终端交易，WEB、APP行情及时掌握，快速交易，贴心服务，全球市场，交易随时随地': {
+        'ZH': '支持多终端交易，WEB、APP行情及时掌握，快速交易，贴心服务，全球市场，交易随时随地',
+        'EN': 'Support multi-terminal transactions,WEB、APP grasp market timely,transact fast,caring service,global market,Trading anywhere, anytime'
     },
     '支持多种数字货币的币币交易与场外交易': {
         'ZH': '支持多种数字货币的币币交易与场外交易',

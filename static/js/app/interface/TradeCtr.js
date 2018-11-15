@@ -58,10 +58,10 @@ define([
         },
         // 获取广告价格
         getAdvertisePrice(coin, ctype) {
-            let refCurrency = ctype || 'CNY';
-            return Ajax.get("625292", {
-                coin,
-                refCurrency
+            let referCurrency = ctype || 'CNY';
+            return Ajax.get("650102", {
+                symbol: coin,
+                referCurrency: referCurrency
             });
         },
         // 数字货币折合
