@@ -150,7 +150,7 @@ define([
             aarketData = data.list;
             aarketData.forEach(item => {
                 let exchangeRate = item.exchangeRate;
-                bzfList.push(`${exchangeRate < 0 ? '' : '+'}` + exchangeRate * 100);
+                bzfList.push(`${exchangeRate < 0 ? '' : '+'}` + (exchangeRate * 100).toFixed(2));
             })
             aarketData.length = 2;
             let aarketHtml = '';

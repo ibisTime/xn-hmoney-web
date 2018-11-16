@@ -1313,11 +1313,11 @@ define([
                 return false;
             }
             // 获取已验证小数点后的值
-            var ym_price = $('#ym-price').val();
-            if (ym_price && ym_price != '' && !ymPriceIsR(ym_price) && ym_price > 0) {
-                base.showMsg(base.getText('单位跳动基数为', langType) + `：${priceRules[setBazDeal.toSymbol].step}`, 1500);
-                return false;
-            }
+            // var ym_price = $('#ym-price').val();
+            // if (ym_price && ym_price != '' && !ymPriceIsR(ym_price) && ym_price > 0) {
+            //     base.showMsg(base.getText('单位跳动基数为', langType) + `：${priceRules[setBazDeal.toSymbol].step}`, 1500);
+            //     return false;
+            // }
             placeAnOrder('0', '#ym-price', '#buyNum');
         })
 
@@ -1327,11 +1327,11 @@ define([
                 return false;
             }
             // 获取已验证小数点后的值
-            var yr_price = $('#yr-price').val();
-            if (yr_price && yr_price != '' && !ymPriceIsR(yr_price) && yr_price > 0) {
-                base.showMsg(base.getText('单位跳动基数为', langType) + `：${priceRules[setBazDeal.toSymbol].step}`, 1500);
-                return false;
-            }
+            // var yr_price = $('#yr-price').val();
+            // if (yr_price && yr_price != '' && !ymPriceIsR(yr_price) && yr_price > 0) {
+            //     base.showMsg(base.getText('单位跳动基数为', langType) + `：${priceRules[setBazDeal.toSymbol].step}`, 1500);
+            //     return false;
+            // }
 
             placeAnOrder('1', '#yr-price', '#sellNum');
         })
@@ -1383,7 +1383,6 @@ define([
                 $('.all-bb').text((Math.floor((toSyUserMoney / ym_price) * 100) / 100).toFixed(2));
             }
         })
-        let yrPricelVal = '';
         $('#yr-price').keyup(function () {
             let yr_price = $(this).val();
             let yRight = yr_price.split('.')[1];
@@ -1393,19 +1392,9 @@ define([
                     yRight = yRight.substring(0, 8);
                     base.showMsg(base.getText('小数点后最大不得大于八位', langType));
                     $(this).val(yLeft + '.' + yRight);
+                    return false;
                 }
             }
-            // 获取已验证小数点后的值
-            yr_price = $('#yr-price').val();
-            if (!yr_price && yr_price != '' && !ymPriceIsR(yr_price) && yr_price > 0) {
-                base.showMsg(base.getText('单位跳动基数为', langType) + `：${priceRules[setBazDeal.toSymbol].step}`, 1200);
-                $(this).val(yrPricelVal);
-            } else if (!yr_price && yr_price != '') {
-                return false;
-            }
-            // 获取已验证跳动基数后的值
-            yr_price = $('#yr-price').val();
-            yrPricelVal = yr_price;
             $('.mc-exc').text(((Math.floor(yr_price * bb_exchange * 100)) / 100).toFixed(2));
             if (yr_price > 0) {
                 $('.all-bb_c').text((Math.floor((syUserMoney / yr_price) * 100) / 100).toFixed(2));
