@@ -123,7 +123,6 @@ define([
 
     }
 
-
     function buildHtml(item) {
         var operationHtml = ''
 
@@ -132,11 +131,15 @@ define([
             operationHtml = `<div class="am-button am-button-red publish mr20 goHref" data-href="../trade/advertise.html?code=${item.code}&mod=gg&coin=${item.tradeCoin}">${base.getText('编辑', langType)}</div>
         					<div class="am-button publish goHref am-button-ghost am-button-out" data-href="../trade/advertise.html?code=${item.code}&mod=gg&coin=${item.tradeCoin}">${base.getText('查看', langType)}</div>`
 
-            //已发布 
+            //已发布
         } else {
+            // 待发布
+            if(item.status == '0') {
+                operationHtml = `<div class="am-button am-button-red publish mr20 goHref" data-href="../trade/advertise.html?code=${item.code}&mod=gg&coin=${item.tradeCoin}">${base.getText('编辑', langType)}</div>`
             //已上架
-            if (item.status == "1") {
-                operationHtml = `<div class="am-button am-button-red mr20 doDownBtn" data-code="${item.code}">${base.getText('下架', langType)}</div>`
+            } else if (item.status == "1") {
+                operationHtml = `<div class="am-button am-button-red publish mr20 goHref" data-href="../trade/advertise.html?code=${item.code}&mod=gg&coin=${item.tradeCoin}">${base.getText('编辑', langType)}</div>
+                                <div class="am-button am-button-red mr20 doDownBtn" data-code="${item.code}">${base.getText('下架', langType)}</div>`
             }
             if (type == 'buy') {
                 operationHtml += `<div class="am-button goHref am-button-ghost" data-href="../trade/buy-detail.html?code=${item.code}&isD=1">${base.getText('查看详情', langType)}</div>`
@@ -145,7 +148,6 @@ define([
             }
         }
         return `<tr>
-        <td class="code">${item.code}</td>
         <td class="type">${typeList[type.toLowerCase()]}${item.tradeCoin?item.tradeCoin:'ETH'}</td>
         <td class="price">${item.truePrice ? item.truePrice.toFixed(2) : '-'}</td>
         <td class="quantity ">${item.leftCountString ? base.formatMoney(item.leftCountString, '', item.tradeCoin) : '-'}</td>

@@ -30,7 +30,7 @@ define([
          * @param adsCode
          */
         submitAdvertise(config, refresh) {
-            if (config.publishType == '3') {
+            if (config.publishType == '3' || config.publishType == '2') {
                 return Ajax.get("625221", {
                     operator: base.getUserId(),
                     userId: base.getUserId(),

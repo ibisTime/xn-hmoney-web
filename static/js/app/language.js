@@ -886,6 +886,10 @@ var LANGUAGE = {
         'ZH': '请输入有关您交易的相关条款或备注您的支付方式',
         'EN': 'Please enter the terms of your transaction or remarks about your payment method'
     },
+    '付款备注里不得出现 BTC/ETH/FMVP、数字货币、区块链等字眼。': {
+        'ZH': '付款备注里不得出现 BTC/ETH/FMVP、数字货币、区块链等字眼。',
+        'EN': 'Please enter the terms of your transaction or remarks about your payment method'
+    },
     '谢谢': {
         'ZH': '谢谢',
         'EN': 'thank you'

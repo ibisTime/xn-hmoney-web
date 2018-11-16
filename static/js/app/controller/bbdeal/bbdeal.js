@@ -128,7 +128,7 @@ define([
                 clearInterval(timeReal);
                 var timeReal = setInterval(() => {
                     // autoRealData();
-                    getExchange();
+                    getBazaarDataBbZxj();
                 }, 3900);
             }, 1);
         } else {
@@ -164,7 +164,7 @@ define([
                 clearInterval(timeReal);
                 var timeReal = setInterval(() => {
                     // autoRealData();
-                    getExchange();
+                    getBazaarDataBbZxj();
                 }, 3900);
                 var timeHis = setInterval(() => {
                     autoGetMyDatata();
@@ -217,6 +217,27 @@ define([
             userHistoryData = data.list;
             hisOrder(userHistoryData);
         })
+    }
+
+    // 更新最新价
+    function getBazaarDataBbZxj(){
+        getBazaarData().then(data => { // 更新最新价
+            let setBBList = data.list.filter(item => {
+                return item.symbol == setBazDeal.symbol && item.toSymbol == setBazDeal.toSymbol;
+            })
+            // 涨幅、k数据
+            let zfKData = setBBList[0].dayLineInfo;
+            zfData = ((setBBList[0].exchangeRate * 10000) / 100).toFixed(2);
+            if (zfKData) {
+                $('.t-zf').text(`${zfData}%`);
+                $('.t-g').text(zfKData.high);
+                $('.t-d').text(zfKData.low);
+                $('.t-h').text(zfKData.volume);
+            }
+            upBazaarData(setBBList);
+            bazaarDataBb_zxj = setBBList[0].price;
+            getExchange();
+        });
     }
 
     function getBBDataFn() {
@@ -581,15 +602,14 @@ define([
     function showBazaar(bazaarData) {
         let bazULHtml = '';
         if (bazaarData) {
-            let bb_zxj = bazaarData.price;
-            bazaarDataBb_zxj = bb_zxj;
+            bazaarDataBb_zxj = bazaarData.price;
             bazULHtml += `<li>
                         <p class="li-left">
                             <img src="/static/images/zx.png" alt="">
                             <img src="/static/images/xxk.png" alt="" class="none">
                             <span>${bazaarData.symbol}</span>
                         </p>
-                        <p class="li-con bb-zxj">${bb_zxj}</p>
+                        <p class="li-con bb-zxj">${bazaarDataBb_zxj}</p>
                         <p class="li-right d-baz"><span> </span>${zfData}%</p>
                     </li>`;
             $('.baz-ul').html(bazULHtml);
@@ -1292,12 +1312,24 @@ define([
             if (!base.isLogin()) {
                 return false;
             }
+            // 获取已验证小数点后的值
+            var ym_price = $('#ym-price').val();
+            if (ym_price && ym_price != '' && !ymPriceIsR(ym_price) && ym_price > 0) {
+                base.showMsg(base.getText('单位跳动基数为', langType) + `：${priceRules[setBazDeal.toSymbol].step}`, 1500);
+                return false;
+            }
             placeAnOrder('0', '#ym-price', '#buyNum');
         })
 
         //卖出
         $('.jy-con-right .am-button-red').off('click').click(function () {
             if (!base.isLogin()) {
+                return false;
+            }
+            // 获取已验证小数点后的值
+            var yr_price = $('#yr-price').val();
+            if (yr_price && yr_price != '' && !ymPriceIsR(yr_price) && yr_price > 0) {
+                base.showMsg(base.getText('单位跳动基数为', langType) + `：${priceRules[setBazDeal.toSymbol].step}`, 1500);
                 return false;
             }
 
@@ -1331,7 +1363,6 @@ define([
         })
 
         //订单输入 汇率换算
-        let ymPricelVal = '';
         $('#ym-price').keyup(function () {
             let ym_price = $(this).val();
             // let ym =  (ym_price > 0 && /^\d+(?:\.\d{1,8})?$/.test(ym_price));
@@ -1343,17 +1374,10 @@ define([
                     // 去掉提示 可不用提示
                     base.showMsg(base.getText('小数点后最大不得大于八位', langType));
                     $(this).val(yLeft + '.' + yRight);
+                    return;
                 }
             }
-            // 获取已验证小数点后的值
-            ym_price = $('#ym-price').val();
-            if (ym_price && ym_price != '' && !ymPriceIsR(ym_price) && ym_price > 0) {
-                base.showMsg(base.getText('单位跳动基数为', langType) + `：${priceRules[setBazDeal.toSymbol].step}`, 1200);
-                $(this).val(ymPricelVal);
-            }
             // 获取已验证跳动基数后的值
-            ym_price = $('#ym-price').val();
-            ymPricelVal = ym_price;
             $('.mr-exc').text((Math.floor(ym_price * bb_exchange * 100) / 100).toFixed(2));
             if (ym_price > 0) {
                 $('.all-bb').text((Math.floor((toSyUserMoney / ym_price) * 100) / 100).toFixed(2));

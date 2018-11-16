@@ -555,10 +555,20 @@ define([
                 base.showMsg(base.getText('操作成功', langType));
                 base.showLoadingSpin();
                 setTimeout(() => {
-                    if (params.tradeType == '0') {
-                        base.gohref('../trade/sell-list.html?coin=' + coin + '&mod=cs');
+                    // 保存草稿
+                    if(params.publishType) {
+                        if (params.tradeType == '0') {
+                            base.gohref('../user/advertise.html?coin=' + coin + '&type=BUY&mod=gg');
+                        } else {
+                            base.gohref('../user/advertise.html?coin=' + coin + '&type=SELL&mod=gg');
+                        }
+
                     } else {
-                        base.gohref('../trade/buy-list.html?coin=' + coin + '&mod=gm');
+                        if (params.tradeType == '0') {
+                            base.gohref('../trade/sell-list.html?coin=' + coin + '&mod=cs');
+                        } else {
+                            base.gohref('../trade/buy-list.html?coin=' + coin + '&mod=gm');
+                        }
                     }
                     base.hideLoadingSpin()
                 }, 1000)

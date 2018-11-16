@@ -24,7 +24,9 @@ define([
     //         }
     //     }
     //     sessionStorage.setItem("coinList", JSON.stringify(coinList))
+    $(document).ready(function () {
         init();
+    })
     // }, function () {
     //     init();
     // })

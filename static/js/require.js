@@ -200,7 +200,7 @@ var requirejs, require, define;
                 //Defaults. Do not set a default for map
                 //config to speed up normalize(), which
                 //will run faster if there is no default.
-                waitSeconds: 20,
+                waitSeconds: 30,
                 baseUrl: './',
                 paths: {},
                 bundles: {},
