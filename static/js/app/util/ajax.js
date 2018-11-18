@@ -43,7 +43,7 @@ define([
                     type: 'post',
                     url: '/api',
                     headers: {
-                        "Accept-Language": langType == 'EN' ? "en_US" : 'zh-CN,zh'
+                        "Accept-Language": langType == 'EN' ? "en_US" : 'zh_CN'
                     },
                     data: param
                 });
