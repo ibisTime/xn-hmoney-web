@@ -11,11 +11,21 @@ define([
     init();
 
     function init() {
+        base.showLoadingSpin();
         if(langType == 'EN'){
             $('title').text('FUNMVP blockchain technology application experimental platform');
         }
         $('title').text('FUNMVP区块链技术应用实验平台');
-        base.showLoadingSpin();
+        $(".aboutUs").html(base.getText('关于我们'));
+        $(".introduce").html(base.getText('平台介绍'));
+        $(".contact").html(base.getText('联系我们'));
+        $(".notice").html(base.getText('公告'));
+        $(".terms").html(base.getText('条款说明'));
+        $(".agreement").html(base.getText('用户协议'));
+        $(".privacy").html(base.getText('隐私条款'));
+        $(".legal").html(base.getText('法律声明'));
+        $(".rate").html(base.getText('费率说明'));
+
         let setKey = key % 4 == 0 ? key - 4 : key % 4;
        let wLi = $('.article-left li').eq(setKey);
         wLi.addClass('sel-li');
@@ -26,6 +36,7 @@ define([
 
     function getSysConfig(ckey) {
         return GeneralCtr.getSysConfig(ckey).then((data) => {
+            base.hideLoadingSpin();
             $("#content").html(data.cvalue);
         }, base.hideLoadingSpin)
     }
@@ -41,15 +52,15 @@ define([
 
     function selContent(key){
         switch(key){
-            case '1': 
+            case '1':
                 $("#content").html('');
                 getSysConfig('about_us');
                 break;
-            case '2': 
+            case '2':
                 $("#content").html('');
                 getSysConfig('service');
                 break;
-            case '3': 
+            case '3':
                 $("#content").html('');
                 notice().then(data => {
                     let ggHtml = '';
@@ -64,19 +75,19 @@ define([
                     })
                 });
                 break;
-            case '5': 
+            case '5':
                 $("#content").html('');
                 getSysConfig('reg_protocol');
                 break;
-            case '6': 
+            case '6':
                 $("#content").html('');
                 getSysConfig('privacy');
                 break;
-            case '7': 
+            case '7':
                 $("#content").html('');
                 getSysConfig('raw_note');
                 break;
-            case '8': 
+            case '8':
                 $("#content").html('');
                 getSysConfig('fee_note');
                 break;

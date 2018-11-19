@@ -113,8 +113,8 @@ var LANGUAGE = {
         'ZH': '隐私条款',
         'EN': 'Privacy Policy'
     },
-    '法律申明': {
-        'ZH': '法律申明',
+    '法律声明': {
+        'ZH': '法律声明',
         'EN': 'Legal Statement'
     },
     '费率说明': {
@@ -288,6 +288,10 @@ var LANGUAGE = {
     '请输入充值数量': {
         'ZH': '请输入充值数量',
         'EN': 'please enter the recharge amount'
+    },
+    '充值数量不能为空': {
+        'ZH': '充值数量不能为空',
+        'EN': 'The amount of recharge can not be empty'
     },
 
     /////////////////////////////////////////////////// 币币交易
@@ -568,7 +572,7 @@ var LANGUAGE = {
     },
     '付款方式': {
         'ZH': '付款方式',
-        'EN': 'terms of payment'
+        'EN': 'Payment mehod'
     },
     '限额': {
         'ZH': '限额',
@@ -1640,7 +1644,7 @@ var LANGUAGE = {
     },
     '获取验证码': {
         'ZH': '获取验证码',
-        'EN': 'Get the verification code'
+        'EN': 'Get code'
     },
     '邮箱': {
         'ZH': '邮箱',
@@ -2433,6 +2437,10 @@ var LANGUAGE = {
     '出售详情': {
         'ZH': '出售详情',
         'EN': 'Selling details'
+    },
+    '您有未读消息': {
+        'ZH': '您有未读消息',
+        'EN': 'You have new news'
     }
 }
 

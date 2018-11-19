@@ -83,7 +83,7 @@ define([
                 // 11/12 去掉充值交易密码
                 // let tradePwd = $('#tradePwd').val().trim();
                 if(count == ''){
-                    base.showMsg('数量不能为空');
+                    base.showMsg(base.getText('充值数量不能为空'));
                     return;
                 // }else if(tradePwd == ''){
                 //     base.showMsg('请输入交易密码');

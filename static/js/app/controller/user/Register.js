@@ -32,11 +32,11 @@ define([
         $('.title').text(base.getText('注册', langType));
         $('.sel-li_m').text(base.getText('手机注册', langType));
         $('.sel-eml').text(base.getText('邮箱注册', langType));
-        $('#getVerification').text(base.getText('获取验证码', langType));
+        $('.txt-getVerification').text(base.getText('获取验证码', langType));
         $('.en_yjs').text(base.getText('我已阅读并接受', langType));
         $('.en_fw').text(base.getText('产品服务条款', langType));
         $('#subBtn').text(base.getText('注册', langType));
-        
+
         $('#nickname').attr('placeholder', base.getText('请输入用户名', langType));
         $('#mobile').attr('placeholder', base.getText('请输入手机号', langType));
         $('#smsCaptcha').attr('placeholder', base.getText('请输入验证码', langType));

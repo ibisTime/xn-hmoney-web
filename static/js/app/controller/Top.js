@@ -7,6 +7,7 @@ define([
     'app/module/tencentCloudLogin'
 ], function (base, GeneralCtr, AccountCtr, UserCtr, BaseCtr, TencentCloudLogin) {
     let langType = localStorage.getItem('langType') || 'ZH';
+    var firstLoad = true;
     // langPackage 配置文件
 
     let langPackage = LANGUAGE;
@@ -61,7 +62,12 @@ define([
             });
             $('.str-h_l').css('margin-right', '15px');
 
-            changeLanguageFn($(document));
+            setTimeout(function () {
+                if (firstLoad) {
+                    firstLoad = false;
+                    changeLanguageFn($(document))
+                }
+            }, 1);
         }else{
             base.hideLoadingSpin();
         }
@@ -107,6 +113,7 @@ define([
                 var str = "";
                 if (nodeObj.text()){
                     str = nodeObj.text();
+                    console.log(str);
                     ReplaceValue(str, nodeObj, "text");
                 }
                 if (nodeObj.val()){

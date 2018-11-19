@@ -89,7 +89,7 @@ var LANGUAGE = {
 	'隐私条款': {
 		'EN': 'The game'
 	},
-	'法律申明': {
+	'法律声明': {
 		'EN': 'The game'
 	},
 	'费率说明': {

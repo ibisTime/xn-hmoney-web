@@ -36,6 +36,27 @@ var NOWLANG = localStorage.getItem('langType') || 'ZH';
             } catch (e) {}
         }
     }
+    // 游戏跳转
+    // 只跳转首页
+    if (/\/index\.html/.test(location.href)) {
+        var userId, token,
+            regUserId = new RegExp("(^|&)userId=([^&]*)(&|$)", "i"),
+            regToken = new RegExp("(^|&)token=([^&]*)(&|$)", "i");
+        var thisUrlUserId = window.location.search.substr(1).match(regUserId);
+        var thisUrlToken = window.location.search.substr(1).match(regToken);
+
+        if (thisUrlUserId != null){
+            userId = decodeURIComponent(thisUrlUserId[2]);
+        }
+        if (thisUrlToken != null){
+            token = decodeURIComponent(thisUrlToken[2]);
+        }
+        if(userId && token) {
+            sessionStorage.setItem("userId", userId);
+            sessionStorage.setItem("token", token);
+        }
+    }
+
 })();
 function getThispage(href) {
     if (href.indexOf('/login.html') > -1) {

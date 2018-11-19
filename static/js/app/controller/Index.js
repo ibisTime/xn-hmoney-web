@@ -9,6 +9,8 @@ define([
     'app/controller/foo'
 ], function(base, Handlebars, Swiper, GeneralCtr, UserCtr, TradeCtr, Top, Foo) {
     let langType = localStorage.getItem('langType') || 'ZH';
+    let userId = base.getUrlParam('userId') || '';
+    let token = base.getUrlParam('token') || '';
     let adverData = []; // 广告数据
     let aarketData = []; // 行情数据
     let typeList = {
@@ -17,6 +19,9 @@ define([
     }
 
     $(document).ready(function () {
+        if (userId && token) {
+            getUserInfo();
+        }
         init();
     });
 
@@ -52,6 +57,16 @@ define([
 
         addListener();
 
+    }
+    // 游戏跳转
+    function getUserInfo() {
+        UserCtr.getUser(true).then((item) => {
+            sessionStorage.setItem("nickname", item.nickname);
+            sessionStorage.setItem("googleAuthFlag", item.googleAuthFlag);
+            sessionStorage.setItem("mobile",item.mobile ? item.mobile : '');
+            sessionStorage.setItem("email",item.email ? item.email : '');
+            sessionStorage.setItem("inviteCode", item.userId);
+        })
     }
 
     //获取最新4条广告

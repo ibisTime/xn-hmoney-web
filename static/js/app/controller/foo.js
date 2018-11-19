@@ -16,7 +16,7 @@ define([
     $('.foo-en_tk').text(base.getText('条款说明', langType));
     $('.foo-en_yhxy').text(base.getText('用户协议', langType));
     $('.foo-en_ystk').text(base.getText('隐私条款', langType));
-    $('.foo-en_flsm').text(base.getText('法律申明', langType));
+    $('.foo-en_flsm').text(base.getText('法律声明', langType));
     $('.foo-en_fvsm').text(base.getText('费率说明', langType));
 
     if(langType === 'EN'){
