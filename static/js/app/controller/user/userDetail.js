@@ -31,6 +31,7 @@ define([
     init();
 
     function init() {
+        $('title').text(base.getText('个人主页') + '-' +base.getText('FUNMVP区块链技术应用实验平台'));
         $('.udet-en_jy').text(base.getText('交易次数', langType));
         $('.udet-en_xr').text(base.getText('信任人数', langType));
         $('.udet-en_hp').text(base.getText('好评度', langType));
@@ -43,10 +44,6 @@ define([
         $('.limit').text(base.getText('交易限额', langType));
         $('.price').text(base.getText('价格', langType));
 
-        if(langType == 'EN'){
-            $('title').text('personal homepage-FUNMVP blockchain technology application experimental platform');
-        }
-        $('title').text('个人主页-FUNMVP区块链技术应用实验平台');
         base.showLoadingSpin();
         // getUserRelation() // 测试
         // 查询币种和付款方式
@@ -112,12 +109,6 @@ define([
         }, () => {});
     }
 
-    // function getAdvertiseDetail() {
-    //     return TradeCtr.getAdvertiseDetail(adsCode).then(data => {
-            
-    //     });
-    // }
-
     // 分页查广告
     function getPageAdvertise() {
         TradeCtr.getPageAdvertiseUser(config, true).then((data) => {
@@ -142,13 +133,13 @@ define([
     function buildHtml(item) {
         var operationHtml = '';
         if (item.tradeType == '1') {
-            operationHtml = `<div class="am-button goHref" data-href="../trade/buy-detail.html?code=${item.code}&coin=${item.tradeCoin}">购买</div>`
+            operationHtml = `<div class="am-button goHref" data-href="../trade/buy-detail.html?code=${item.code}&coin=${item.tradeCoin}">${base.getText('购买')}</div>`
         } else {
             operationHtml = `<div class="am-button goHref" data-href="../trade/sell-detail.html?code=${item.code}&coin=${item.tradeCoin}">${base.getText('出售', langType)}</div>`
         }
 
         return `<tr>
-					<td class="currency">${base.getCoinName(item.tradeCoin)}(${item.tradeCoin})</td>
+					<td class="currency">${item.tradeCoin}</td>
 					<td class="payType">${payType[item.payType]}</td>
 					<td class="limit">${item.minTrade}-${item.maxTrade} ${item.tradeCurrency}</td>
 					<td class="price">${item.truePrice} ${item.tradeCurrency}/${item.tradeCoin?item.tradeCoin:' ETH'}</td>

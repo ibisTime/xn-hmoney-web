@@ -22,10 +22,8 @@ define([
     $(".head-nav-wrap .sell").addClass("active");
 
     function init() {
-        $('.en_wait').text(base.getText('我信任的', langType));
-        $('.en_waitme').text(base.getText('信任我的', langType));
-        $('.en_nowait').text(base.getText('我屏蔽的', langType));
         base.showLoadingSpin();
+        setHtml();
         switch (gohref) {
             case 'm_xr':
                 $('.k-trustStatus li').eq(0).addClass('on');
@@ -57,6 +55,12 @@ define([
             getPageTrust(config);
         }
         addListener();
+    }
+    function setHtml() {
+        base.getDealLeftText();
+        $('.en_wait').text(base.getText('我信任的', langType));
+        $('.en_waitme').text(base.getText('信任我的', langType));
+        $('.en_nowait').text(base.getText('我屏蔽的', langType));
     }
 
     // 初始化分页器

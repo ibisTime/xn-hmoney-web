@@ -39,6 +39,22 @@ define([
     init();
 
     function init() {
+        base.showLoadingSpin();
+        setHtml();
+        if (!isDetail) {
+            $(".buy-wrap").removeClass("hidden");
+        }
+        $.when(
+            GeneralCtr.getSysConfig("trade_remind")
+        ).then((data) => {
+            $("#tradeWarn").html(data.cvalue.replace(/\n/g, '<br>'))
+            getAdvertiseDetail()
+        })
+        addListener();
+
+    }
+    function setHtml() {
+        $('title').text(base.getText('购买详情') + '-' +base.getText('FUNMVP区块链技术应用实验平台'));
         $('.en-buy_jy').text(base.getText('交易次数', langType));
         $('.en-buy_xr').text(base.getText('信任人数', langType));
         $('.en-buy_hp').text(base.getText('好评率', langType));
@@ -54,27 +70,9 @@ define([
         $('.en-buy_ggsy').text(base.getText('广告剩余可交易量', langType) + ':');
         $('.en-buy_fz').text(base.getText('分钟', langType));
         $('.en-buy_tx').text(base.getText('交易提醒', langType));
-
-        // 英文修改
-        if(langType == 'EN'){
-            $('.b-en').addClass('none');
-            $('.b-zh').removeClass('none');
-            $('title').text('Purchase details-FUNMVP blockchain technology application experimental platform');
-        }
-        $('title').text('购买详情-FUNMVP区块链技术应用实验平台');
-        base.showLoadingSpin();
-        $(".head-nav-wrap .sell").addClass("active");
-        if (!isDetail) {
-            $(".buy-wrap").removeClass("hidden");
-        }
-        $.when(
-            GeneralCtr.getSysConfig("trade_remind")
-        ).then((data) => {
-            $("#tradeWarn").html(data.cvalue.replace(/\n/g, '<br>'))
-            getAdvertiseDetail()
-        })
-        addListener();
-
+        $('.en-buy_tx').text(base.getText('交易提醒', langType));
+        $('.warnWrap .warn-txt1').html(base.getText('提醒：请确认价格再下单,下单彼此交易的'));
+        $('.warnWrap .warn-txt2').html(base.getText('将被托管锁定，请放心购买。'));
     }
 
     //获取详情

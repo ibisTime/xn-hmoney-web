@@ -27,19 +27,9 @@ define([
     init();
 
     function init() {
-        $('.buy').text(base.getText('购买广告', langType));
-        $('.sell').text(base.getText('出售广告', langType));
-        $('.code').text(base.getText('编号', langType));
-        $('.en_gg').text(base.getText('广告类型', langType));
-        $('.en_jg').text(base.getText('价格', langType));
-        $('.quantity').text(base.getText('剩余数量', langType));
-        $('.en_yj').text(base.getText('溢价比例', langType));
-        $('.createDatetime').text(base.getText('创建时间', langType));
-        $('.status').text(base.getText('交易状态', langType));
-
-        $(".head-nav-wrap .sell").addClass("active");
         $(".titleStatus li." + type.toLowerCase()).addClass("on").siblings('li').removeClass('on');
         base.showLoadingSpin();
+        setHtml();
         getCoinList();
         type = type.toLowerCase()
         if (type == 'buy') {
@@ -60,18 +50,29 @@ define([
         addListener();
     }
 
+    function setHtml() {
+        base.getDealLeftText();
+        $('.buy').text(base.getText('购买广告', langType));
+        $('.sell').text(base.getText('出售广告', langType));
+        $('.code').text(base.getText('编号', langType));
+        $('.en_gg').text(base.getText('广告类型', langType));
+        $('.en_jg').text(base.getText('价格', langType));
+        $('.quantity').text(base.getText('剩余数量', langType));
+        $('.en_yj').text(base.getText('溢价比例', langType));
+        $('.createDatetime').text(base.getText('创建时间', langType));
+        $('.status').text(base.getText('交易状态', langType));
+    }
+
     //根据config配置设置 币种列表
     function getCoinList() {
-        var coinList = base.getCoinList();
-        var coinListKey = Object.keys(coinList);
+        var coinList = base.getCoinArray();
         var buylistHtml = '';
         var selllistHtml = '';
 
-        for (var i = 0; i < coinListKey.length; i++) {
-            var tmpl = coinList[coinListKey[i]]
+        coinList.map(tmpl => {
             buylistHtml += `<div class="nav-item goHref buy ${tmpl.coin.toLowerCase()}" data-href="../user/advertise.html?type=buy&mod=gg&coin=${tmpl.coin.toLowerCase()}">${tmpl.coin}</div>`;
             selllistHtml += `<div class="nav-item goHref sell ${tmpl.coin.toLowerCase()}" data-href="../user/advertise.html?type=sell&mod=gg&coin=${tmpl.coin.toLowerCase()}">${tmpl.coin}</div>`;
-        }
+        });
 
         $("#left-wrap .buy-nav-item").html(buylistHtml);
         $("#left-wrap .sell-nav-item").html(selllistHtml);

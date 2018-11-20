@@ -3338,8 +3338,7 @@ table {
     .search-wrap {
         width: 920px;
         height: 58px;
-        margin: 0 auto;
-        margin-top: 30px;
+        margin: 30px auto 0;
         .icon-down {
             width: 16px;
             height: 16px;
@@ -3481,6 +3480,7 @@ table {
                 background-color: #f4f4f4;
                 td {
                     font-size: 16px;
+                    white-space: nowrap;
                 }
             }
             tbody tr {
@@ -3885,6 +3885,7 @@ table {
                     height: 46px;
                     color: #999;
                     font-size: 14px;
+                    white-space: nowrap;
                     &.operation {
                         text-align: center;
                     }
@@ -3925,10 +3926,10 @@ table {
                 }
             }
             .code{
-                width: 110px !important;
+                width: 90px !important;
             }
             .type{
-                width: 60px !important;
+                width: 80px !important;
             }
             .photoWrap {
                 width: 40px;
@@ -4355,6 +4356,8 @@ table {
             overflow: hidden;
             .titleStatus li {
                 margin-left: 40px;
+                min-width: 60px;
+                height: 62px;
             }
         }
         .trade-list-wrap .trade-wrap tr td {

@@ -22,64 +22,17 @@ define([
     init();
 
     function init() {
-        if(langType == 'EN'){
-            $('.en_fbgg').html('Release <span class="bb-name"></span> trading advertisement');
-            $('title').text('Release Advertisement-FUNMVP blockchain technology application experimental platform');
-        }else{
-            $('.en_fbgg').html('发布<span class="bb-name"></span>交易广告');
-            $('title').text('发布广告-FUNMVP区块链技术应用实验平台');
-        }
-        $(".head-nav-wrap .sell").addClass("active");
-        // let index = 0;
-        // if (coin == 'ETH') {
-        //     index = 1;
-        //     selTradeCoin = 'ETH';
-        // }
-        // $('.fb-ul li').eq(index).addClass('fb-sel').siblings('li').removeClass('fb-sel');
+        //币种下拉
+        getCoinList();
+        setHtml();
         base.showLoadingSpin();
         if (code != "") {
             $("#draftBtn").addClass("hidden")
         }
-
-        //根据config配置设置 币种列表
-        function getCoinList() {
-            var coinList = base.getCoinList();
-            var coinListKey = Object.values(coinList);
-            var listHtml = '';
-            for (var i = 0; i < coinListKey.length; i++) {
-                var tmpl = coinListKey[i]
-                listHtml += `<li class="${tmpl.coin}" data-coin="${tmpl.coin.toLowerCase()}">${tmpl.coin}</li>`;
-            }
-            $(".fb-ul").html(listHtml);
-            if (coin) {
-                $('.' + coin).addClass('fb-sel');
-            } else {
-                $(".fb-ul li:nth-of-type(1)").addClass("fb-sel");
-                coin = coinListKey[0].coin.toUpperCase();
-            }
-            $('.bb-name').text(coin);
-        }
-
-        //币种下拉
-        getCoinList();
         $("#coin").text(coin.toUpperCase())
         $("#tradeCoin").val(coin.toUpperCase())
 
-        // if (coin && base.getCoinType($('.fb-sel').text()) == "1") {
-        //     mid = ''
-        //
-        //     $(".premiumRateExp-wrap").addClass("hidden");
-        // }
         $("#price").attr("disabled", true);
-        // if (code != "") {
-        //     getAdvertiseDetail(); // 测试
-        // }
-        // getAdvertisePrice().then(data => {
-        //         mid = data.mid;
-        //         if(coin != 'X'){
-        //             $('#price').val(mid);
-        //         }else{}
-        //     }) // 测试
         $.when(
             GeneralCtr.getSysConfig("trade_remind"),
             GeneralCtr.getDictList({ "parentKey": "trade_time_out" }),
@@ -147,41 +100,71 @@ define([
         addListener();
     }
 
-    function getAdvertisePrice(setCoin, m_type) {
-        let wantCoin = setCoin || coin;
-        return TradeCtr.getAdvertisePrice(wantCoin, m_type);
-        // if (base.getCoinType(coin.toUpperCase()) == '0') {
-        //     // return TradeCtr.getAdvertisePrice(coin.toUpperCase());
-        // } else {
-        //     return '-';
-        // }
+    function setHtml() {
+        $('title').text(base.getText('发布广告') + '-' +base.getText('FUNMVP区块链技术应用实验平台'));
+        $('.en_fbgg').html(`${base.getText('发布')}<span class="bb-name"></span>${base.getText('交易广告')}`);
+        $('.jylx').html(base.getText('交易类型'));
+        $('.fy_gdxz').html(base.getText('更多信息'));
+        $('.xzgglx').html(base.getText('选择广告类型') + '：');
+        $('.xzgglxsm').html(base.getText('选择广告类型说明'));
+        $('.zxcs').html(base.getText('在线出售'));
+        $('.zxgm').html(base.getText('在线购买'));
+        $('.hb').html(base.getText('货币') + '：');
+        $('.hbsm').html(base.getText('您希望交易付款的货币类型'));
+        $('.yj').html(base.getText('溢价') + '：');
+        $('.fy_jg').html(base.getText('价格') + '：');
+        $('.fy_zdjxt').html(base.getText('最低价（选填）') + '：');
+        $('.fy_zxxe').html(base.getText('最小限额') + '：');
+        $('.fy_zdxe').html(base.getText('最大限额') + '：');
+        $('.fy_gmzl').html(base.getText('购买总量') + '：');
+        $('.fy_zhkyye').html(base.getText('账户可用余额'));
+        $('.fy_fkfs').html(base.getText('收款方式') + '：');
+        $('.fy_ggly').html(base.getText('广告留言') + '：');
+        $('.fy_gjsz').html(base.getText('显示高级设置'));
+        $('.fy_jxsxrdjyz').html(base.getText('仅限受信任的交易者') + `：<samp id="trustExp"></samp>`);
+        $('.fy_qy').html(base.getText('启用'));
+        $('.fy_kfsj').html(base.getText('开放时间') + `：<samp id="displayTimeExp"></samp>`);
+        $('.fy_rhsh').html(base.getText('任何时候'));
+        $('.fy_zdy').html(base.getText('自定义'));
+        $('.fy_xq1').html(base.getText('星期一') + '：');
+        $('.fy_xq2').html(base.getText('星期二') + '：');
+        $('.fy_xq3').html(base.getText('星期三') + '：');
+        $('.fy_xq4').html(base.getText('星期四') + '：');
+        $('.fy_xq5').html(base.getText('星期五') + '：');
+        $('.fy_xq6').html(base.getText('星期六') + '：');
+        $('.fy_xq7').html(base.getText('星期日') + '：');
+        $('.fy_xsgjsz').html(base.getText('显示高级设置') + '...');
+        $('#draftBtn').html(base.getText('保存草稿'));
+        $('#submitBtn').html(base.getText('立即发布'));
+        $('#doDownBtn').html(base.getText('下架'));
 
     }
 
     //根据config配置设置 币种列表
-    // function getCoinList() {
-    //     var coinList = base.getCoinList();
-    //     var coinListKey = Object.keys(coinList);
-    //     var listHtml = '';
+    function getCoinList() {
+        var coinList = base.getCoinArray();
+        var listHtml = '';
+        coinList.map(item => {
+            listHtml += `<li class="${item.coin}" data-coin="${item.coin.toLowerCase()}">${item.coin}</li>`;
+        });
+        $(".fb-ul").html(listHtml);
+        if (coin) {
+            $('.' + coin).addClass('fb-sel');
+        } else {
+            $(".fb-ul li:nth-of-type(1)").addClass("fb-sel");
+            coin = coinList[0].coin.toUpperCase();
+        }
+        $('.bb-name').text(coin);
+    }
 
-    //     for (var i = 0; i < coinListKey.length; i++) {
-    //         // console.log(coinList[coinListKey[i]])
-    //         var tmpl = coinList[coinListKey[i]]
-    //         listHtml += `<option value="${tmpl.coin}">${tmpl.name}(${tmpl.coin})</option>`;
-    //     }
-    //     $("#tradeCoin").html(listHtml);
-    // }
+    function getAdvertisePrice(setCoin, m_type) {
+        let wantCoin = setCoin || coin;
+        return TradeCtr.getAdvertisePrice(wantCoin, m_type);
+    }
 
     //我的账户
     function getAccount(currency) {
         return AccountCtr.getAccount().then((data) => {
-            // if (data.accountList) {
-            //     data.accountList.forEach(function(item) {
-            //         if (item.currency == currency) {
-            //             $(".accountLeftCountString").attr('data-amount', base.formatMoneySubtract(item.amountString, item.frozenAmountString, currency));
-            //         }
-            //     })
-            // }
             data.forEach(function(item) {
                 if (item.currency == currency) {
                     $(".accountLeftCountString").attr('data-amount', base.formatMoneySubtract(`${item.amount}`, `${item.frozenAmount}`, currency));

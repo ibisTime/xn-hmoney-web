@@ -3,34 +3,17 @@ define([
     'app/interface/GeneralCtr',
     'app/interface/AccountCtr',
     'app/interface/UserCtr',
-    'app/interface/BaseCtr',
     'app/module/tencentCloudLogin'
-], function (base, GeneralCtr, AccountCtr, UserCtr, BaseCtr, TencentCloudLogin) {
+], function (base, GeneralCtr, AccountCtr, UserCtr, TencentCloudLogin) {
     let langType = localStorage.getItem('langType') || 'ZH';
     var firstLoad = true;
     // langPackage 配置文件
 
     let langPackage = LANGUAGE;
-    //请求币种
-    // BaseCtr.getCoinList().then(function (data) {
-    //     var coinList = {};
-    //     for (var i in data) {
-    //         coinList[data[i].symbol] = {
-    //             'id': data[i].id,
-    //             'coin': data[i].symbol,
-    //             'unit': '1e' + data[i].unit,
-    //             'name': data[i].cname,
-    //             'type': data[i].type,
-    //             'withdrawFeeString': data[i].withdrawFeeString
-    //         }
-    //     }
-    //     sessionStorage.setItem("coinList", JSON.stringify(coinList))
+
     $(document).ready(function () {
         init();
-    })
-    // }, function () {
-    //     init();
-    // })
+    });
 
     // 初始化页面
     function init() {
@@ -45,14 +28,6 @@ define([
         $('.store_gm').text(base.getText('区块链游戏', langType));
         $('.store_car').text(base.getText('二手车兑换', langType));
         $('.store_ye').text(base.getText('游戏余额', langType));
-
-        $('.en_cwai').text(base.getText('场外交易', langType));
-        $('.en_gm').text(base.getText('我要买入', langType));
-        $('.en_cs').text(base.getText('我要出售', langType));
-        $('.en_dd').text(base.getText('订单管理', langType));
-        $('.en_gg').text(base.getText('广告管理', langType));
-        $('.en_xr').text(base.getText('信任管理', langType));
-        $('.en_fb').text(base.getText('发布广告', langType));
 
         if(langType == 'EN'){
             $('.lang_select option.l-en').attr('selected', true);
@@ -80,7 +55,6 @@ define([
             location.reload();
         });
 
-        getCoinList();
         $("#footTeTui").html(FOOT_TETUI)
         $("#footEmail").html(FOOT_EMAIL)
         if (base.isLogin()) {
@@ -113,7 +87,6 @@ define([
                 var str = "";
                 if (nodeObj.text()){
                     str = nodeObj.text();
-                    console.log(str);
                     ReplaceValue(str, nodeObj, "text");
                 }
                 if (nodeObj.val()){
@@ -152,29 +125,6 @@ define([
               }
             }
         }
-    }
-
-    //根据config配置设置 头部币种下拉
-    function getCoinList() {
-        var coinList = base.getCoinList();
-        var coinListKey = Object.keys(coinList);
-        var buyListHtml = '';
-        var sellListHtml = '';
-        var advListHtml = '';
-
-        for (var i = 0; i < coinListKey.length; i++) {
-            var tmpl = coinList[coinListKey[i]]
-            buyListHtml += `<li class="goHref" data-href="../trade/buy-list.html?coin=${tmpl.coin.toLowerCase()}&mod=gm">${tmpl.coin}</li>`;
-            sellListHtml += `<li class="goHref" data-href="../trade/sell-list.html?coin=${tmpl.coin.toLowerCase()}&mod=cs">${tmpl.coin}</li>`;
-            advListHtml += `<li class="goHref" data-href="../trade/advertise.html?coin=${tmpl.coin.toLowerCase()}&mod=gg">${tmpl.coin}</li>`;
-        }
-
-        //购买
-        $(".head-nav-wrap .buy .down-wrap ul").html(buyListHtml);
-        //购买
-        $(".head-nav-wrap .sell .down-wrap ul").html(sellListHtml);
-        //购买
-        $(".head-nav-wrap .advertise .down-wrap ul").html(advListHtml);
     }
 
     //我的账户

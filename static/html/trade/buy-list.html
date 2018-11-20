@@ -12,37 +12,23 @@
 
         <div class="search-wrap mt20 none">
             <div class="searchType-wrap fl userSelect_none" id="searchTypeWrap">
-                <div class="show-wrap b_e" data-type="adver"><samp class="en_sgg">搜广告</samp><i class="icon icon-down"></i></div>
+                <div class="show-wrap b_e" data-type="adver"><samp class="en_sgg"></samp><i class="icon icon-down"></i></div>
                 <ul class="select-ul bg_fff">
-                    <li data-type="adver en_sgg">搜广告</li>
-                    <li data-type="user">搜用户</li>
+                    <li class="en_sgg" data-type="adver"></li>
+                    <li class="user" data-type="user"></li>
                 </ul>
             </div>
             <div class="search-con fl bg_fff b_e_b b_e_t" id="searchConWrap">
                 <div class="advertisement-wrap adver">
-                    <!-- <div class="item fl mr10">
-                                <samp>价格區間:</samp>
-                                <input type="text" name="minPrice" class="text ml5 minPrice" />
-                                <samp>~</samp>
-                                <input type="text" name="maxPrice" class="text maxPrice" />
-                            </div> -->
                     <div class="item fl">
-                        <samp>货币</samp>
-                        <select class="payTypeMoney ml5" name="payTypeMoney">
-                            <option value="">请选择</option>
-                            <option value="CNY">CNY人民币</option>
-                            <option value="USD">USD美元</option>
-                        </select>
+                        <samp class="hb"></samp>
+                        <select class="payTypeMoney ml5" name="payTypeMoney"></select>
                         <i class="icon icon-down"></i>
                     </div>
                     <div class="item fl">
-                        <samp>付款方式</samp>:
+                        <samp class="fkfs"></samp>:
                         <select class="payType ml5" name="payType">
-								<option value="">请选择</option>
-								<option value="0">支付宝</option>
-								<option value="1">微信</option>
-								<option value="2">银行卡转账</option>
-							</select>
+                        </select>
                         <i class="icon icon-down"></i>
                     </div>
                 </div>
@@ -52,7 +38,7 @@
             </div>
             <div class="search-btn fl">
                 <div class="am-button am-button-red am-button-noradius" id="searchBtn">
-                    <i class="icon icon-search"></i><span>搜索</span>
+                    <i class="icon icon-search"></i><span class="search-txt"></span>
                 </div>
             </div>
         </div>

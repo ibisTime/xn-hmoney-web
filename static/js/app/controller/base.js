@@ -352,7 +352,7 @@ define([
         },
         /**
          * 弹窗
-         * base.confirm.then()
+         * Base.confirm.then()
          * */
         confirm: function(msg, cancelValue, okValue) {
             return (new Promise(function(resolve, reject) {
@@ -510,6 +510,9 @@ define([
                 return COIN_DEFAULTDATA;
             }
         },
+        getCoinArray: function() {
+            return COIN_DEFAULTDATALIST;
+        },
         //获取币种名字
         getCoinName: function(coin) {
             var n = Base.getCoinList()[coin].name
@@ -558,6 +561,16 @@ define([
                 }
             }
             return t;
+        },
+        // 场外交易等文本
+        getDealLeftText() {
+            $('.en_cwai').text(Base.getText('场外交易'));
+            $('.en_gm').text(Base.getText('我要买入'));
+            $('.en_cs').text(Base.getText('我要出售'));
+            $('.en_dd').text(Base.getText('订单管理'));
+            $('.en_gg').text(Base.getText('广告管理'));
+            $('.en_xr').text(Base.getText('信任管理'));
+            $('.en_fb').text(Base.getText('发布广告'));
         }
     };
 

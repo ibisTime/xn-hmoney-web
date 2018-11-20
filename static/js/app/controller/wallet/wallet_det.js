@@ -71,6 +71,10 @@ define([
         $('.o-fee').text(base.formatMoney(`${userCTSList.fee}`, '', 'FMVP'));
 
         let realName = userCTSList.bankcard ? userCTSList.bankcard.realName : userCTSList.user.realName;
+        // 类型 买入
+        if(userCTSList.type === '0') {
+            realName = 'otc商家';
+        }
         $('.u-name').text(realName);
         $('.u-kcode').text(userCTSList.receiveCardNo);
         $('.u-khu').text(userCTSList.receiveInfo);

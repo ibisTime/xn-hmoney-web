@@ -41,6 +41,23 @@ define([
     init();
 
     function init() {
+        base.showLoadingSpin();
+        setHtml();
+
+        if (!isDetail) {
+            $(".buy-wrap").removeClass("hidden")
+        }
+        $.when(
+            GeneralCtr.getSysConfig("trade_remind")  // 测试
+        ).then((data) => {
+            $("#tradeWarn").html(data.cvalue.replace(/\n/g, '<br>'))
+            getAdvertiseDetail()   // 正式
+        }, base.hideLoadingSpin)
+        addListener();
+
+    }
+    function setHtml() {
+        $('title').text(base.getText('出售详情') + '-' +base.getText('FUNMVP区块链技术应用实验平台'));
         $('.en-buy_jy').text(base.getText('交易次数', langType));
         $('.en-buy_xr').text(base.getText('信任人数', langType));
         $('.en-buy_hp').text(base.getText('好评率', langType));
@@ -56,27 +73,9 @@ define([
         $('.en-buy_kyyy span').text(base.getText('账户可用余额', langType) + ':' + '');
         $('.en-buy_fz').text(base.getText('分钟', langType));
         $('.en-buy_tx').text(base.getText('交易提醒', langType));
-        if(langType == 'EN'){
-            $('title').text('Selling details-FUNMVP blockchain technology application experimental platform');
-        } else {
-            $('title').text('出售详情-FUNMVP区块链技术应用实验平台');
-        }
-        base.showLoadingSpin();
-        $(".head-nav-wrap .sell").addClass("active");
-
-        if (!isDetail) {
-            $(".buy-wrap").removeClass("hidden")
-        }
-        $.when(
-            GeneralCtr.getSysConfig("trade_remind")  // 测试
-        ).then((data) => {
-            $("#tradeWarn").html(data.cvalue.replace(/\n/g, '<br>'))
-            getAdvertiseDetail()   // 正式
-        }, base.hideLoadingSpin)
-        addListener();
-
+        $('.warnWrap .warn-txt1').html(base.getText('提醒：请确认价格再下单,下单彼此交易的'));
+        $('.warnWrap .warn-txt2').html(base.getText('将被托管锁定，请放心购买。'));
     }
-
     //获取详情
     function getAdvertiseDetail() {
         return TradeCtr.getAdvertiseDetail(code).then((data) => {
@@ -261,6 +260,10 @@ define([
 
         //下单确认弹窗-确认点击
         $("#submitMon .subBtn").click(function() {
+            if (!$('#moneyPow').val() || $('#moneyPow').val() === '') {
+                base.showMsg(base.getText('请输入交易密码'));
+                return false;
+            }
             sellETH();
             $("#submitMon").addClass("hidden");
             $('#moneyPow').val('');

@@ -33,6 +33,26 @@ define([
     init();
 
     function init() {
+        $(".titleStatus li." + coin.toLowerCase()).addClass("on").siblings('li').removeClass('on');
+        base.showLoadingSpin();
+        setHtml();
+        TencentCloudLogin.goLogin(function(list) {
+                unreadMsgList = list;
+                isUnreadList = true;
+                addUnreadMsgNum();
+        })
+        GeneralCtr.getDictList({ "parentKey": "trade_order_status" }).then((data) => {
+                data.forEach(function(item) {
+                    statusValueList[item.dkey] = item.dvalue
+                });
+                getPageOrder();
+            }, base.hideLoadingSpin)
+            // getPageOrder(); // new
+        addListener();
+    }
+
+    function setHtml() {
+        base.getDealLeftText();
         $('.progress').text(base.getText('进行中', langType));
         $('.end').text(base.getText('已结束', langType));
         $('.nickname').text(base.getText('交易伙伴', langType));
@@ -43,25 +63,8 @@ define([
         $('.createDatetime').text(base.getText('创建时间', langType));
         $('.status').text(base.getText('交易状态', langType));
         $('.operation').text(base.getText('交易操作', langType));
-
-        $(".head-nav-wrap .sell").addClass("active");
-        $(".titleStatus li." + coin.toLowerCase()).addClass("on").siblings('li').removeClass('on');
-
-        base.showLoadingSpin();
-        TencentCloudLogin.goLogin(function(list) {
-                unreadMsgList = list;
-                isUnreadList = true;
-                addUnreadMsgNum();
-            }) // 测试
-        GeneralCtr.getDictList({ "parentKey": "trade_order_status" }).then((data) => {
-                data.forEach(function(item) {
-                    statusValueList[item.dkey] = item.dvalue
-                });
-                getPageOrder();
-            }, base.hideLoadingSpin)
-            // getPageOrder(); // new
-        addListener();
     }
+
     // 初始化分页器
     function initPagination(data) {
         $("#pagination .pagination").pagination({
@@ -220,9 +223,9 @@ define([
                 var oCode = _this.attr("data-code")
                 if (unreadMsgList[oCode] && unreadMsgList[oCode] != '0') {
                     if (unreadMsgList[oCode] >= 100) {
-                        _this.find(".unread").html('未读(99+)')
+                        _this.find(".unread").html(base.getText('未读') + '(99+)')
                     } else {
-                        _this.find(".unread").html('未读(' + unreadMsgList[oCode] + ')')
+                        _this.find(".unread").html(base.getText('未读') + '(' + unreadMsgList[oCode] + ')')
                     }
                 }
             })
@@ -292,8 +295,6 @@ define([
 
         })
 
-        
-
         //彈窗-放棄
         $("#arbitrationDialog .closeBtn").click(function() {
             $("#arbitrationDialog").addClass("hidden");
@@ -312,21 +313,23 @@ define([
         //彈窗-申請仲裁
         $("#arbitrationDialog .subBtn").click(function() {
             var orderCode = $(this).attr("data-ocode");
-            var params = _formWrapper.serializeObject()
-            base.showLoadingSpin()
-            TradeCtr.arbitrationlOrder({
-                code: orderCode,
-                reason: params.reason
-            }).then(() => {
-                base.hideLoadingSpin();
-                base.showMsg(base.getText('操作成功', langType));
-                $("#arbitrationDialog").addClass("hidden");
-                setTimeout(function() {
-                    base.showLoadingSpin();
-                    $("#form-wrapper .textarea-item").val("")
-                    getPageOrder(true)
-                }, 1500)
-            }, base.hideLoadingSpin)
+            var params = _formWrapper.serializeObject();
+            if (_formWrapper.valid()) {
+                base.showLoadingSpin()
+                TradeCtr.arbitrationlOrder({
+                    code: orderCode,
+                    reason: params.reason
+                }).then(() => {
+                    base.hideLoadingSpin();
+                    base.showMsg(base.getText('操作成功', langType));
+                    $("#arbitrationDialog").addClass("hidden");
+                    setTimeout(function() {
+                        base.showLoadingSpin();
+                        $("#form-wrapper .textarea-item").val("")
+                        getPageOrder(true)
+                    }, 1500)
+                }, base.hideLoadingSpin)
+            }
         })
 
         //交易评价按钮 点击

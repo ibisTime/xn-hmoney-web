@@ -24,6 +24,7 @@ define([
     var userName = '',
         myName = '';
     var payType = {};
+    var tradeOrderStatus = {};
     var firstLoad = false;
     var newMsgHtml = `<div id="newMsgWrap" class="newMsg-wrap goHref" data-href="../order/order-list.html?mod=dd">${base.getText('您有未读消息')}</div>`;
     var tradeType;
@@ -33,7 +34,30 @@ define([
     init();
 
     function init() {
-
+        base.showLoadingSpin();
+        setHtml();
+        if(!base.isLogin()){
+            base.goLogin();
+            return ;
+        }
+        $.when(
+            GeneralCtr.getDictList({ "parentKey": "pay_type" }),
+            GeneralCtr.getDictList({ "parentKey": "trade_order_status" }),
+            GeneralCtr.getSysConfig('tips')
+        ).then((payTypeData, tradeOderStatusData, tipsData) => {
+            payTypeData.forEach(function(item) {
+                payType[item.dkey] = item.dvalue;
+            });
+            tradeOderStatusData.forEach(function(item) {
+                tradeOrderStatus[item.dkey] = item.dvalue;
+            });
+            $('.wxtip-txt').html(tipsData.cvalue.replace(/\n/g, '<br>'));
+            getOrderDetail();
+        }, base.hideLoadingSpin);
+        addListener();
+    }
+    function setHtml() {
+        $('title').text(base.getText('订单详情') + '-' +base.getText('FUNMVP区块链技术应用实验平台'));
         $('.en-det_msg').text(base.getText('订单信息', langType));
         $('.en-det_gg').text(base.getText('交易价格', langType) + ':');
         $('.en-det_sl').text(base.getText('交易数量', langType) + ':');
@@ -48,26 +72,8 @@ define([
         if(langType == 'EN'){
             $('.file-wrap .file').css('width', '180px');
             $('.am-modal-body .file-wrap .am-button').css('width', '180px');
-            $('title').text('Order details-FUNMVP blockchain technology application experimental platform');
         }
-        $('title').text('订单详情-FUNMVP区块链技术应用实验平台');
-        base.showLoadingSpin();
-        if(!base.isLogin()){
-            base.goLogin();
-            return ;
-        }
-        GeneralCtr.getDictList({ "parentKey": "pay_type" }).then((data) => {
-            data.forEach(function(item) {
-                payType[item.dkey] = item.dvalue;
-            });
-            getOrderDetail();
-        }, base.hideLoadingSpin);
-        GeneralCtr.getSysConfig('tips').then(data => {
-            $('.wxtip-txt').html(data.cvalue.replace(/\n/g, '<br>'));
-        })
-        addListener();
     }
-
     function getTencunLogin() {
         return GeneralCtr.getTencunLogin().then((data) => {
             loginInfo = {
@@ -83,14 +89,14 @@ define([
 
     function getOrderDetail() {
         return TradeCtr.getOrderDetail(code).then((data) => {
-            adsCode = data.adsCode
+            adsCode = data.adsCode;
                 //待支付
             if (data.status == '0' || data.status == '1') {
                 $("#invalidDatetime samp").html(base.getText('订单將在拖管中保持至', langType) + "<i>" + base.formatDate(data.invalidDatetime, "hh:mm:ss") + "</i>," + base.getText('逾期未支付交易將自动取消', langType));
                 $("#invalidDatetime").removeClass("hidden")
                 $("#statusInfo").addClass("hidden")
             }
-            $("#statusInfo samp").html(data.remark)
+            $("#statusInfo samp").html(tradeOrderStatus[data.status]);
             $("#tradePrice").html(data.tradePrice);
             $('.m_type').text(data.tradeCurrency);
             tradeCoin = data.tradeCoin ? data.tradeCoin : 'ETH';
@@ -681,7 +687,7 @@ define([
 
         //系統消息 //昵称  消息时间
         if (fromAccount == 'admin') {
-            msghead.innerHTML = adminMsg + '<samp>(' + webim.Tool.formatText2Html(webim.Tool.formatTimeStamp(msg.getTime())) + ")</samp>";
+            msghead.innerHTML = base.getText(adminMsg) + '<samp>(' + webim.Tool.formatText2Html(webim.Tool.formatTimeStamp(msg.getTime())) + ")</samp>";
             onemsg.setAttribute('class', 'onemsg admin')
 
             //对方消息
@@ -1110,10 +1116,7 @@ define([
 
         //申請仲裁按钮 点击
         $(".arbitrationBtn").on("click", function() {
-
             $("#arbitrationDialog").removeClass("hidden");
-
-
         })
 
         //彈窗-放棄
@@ -1133,19 +1136,21 @@ define([
 
         //彈窗-申請仲裁
         $("#arbitrationDialog .subBtn").click(function() {
-            var params = _formWrapper.serializeObject()
-            base.showLoadingSpin()
-            TradeCtr.arbitrationlOrder({
-                code: code,
-                reason: params.reason
-            }).then(() => {
-                base.hideLoadingSpin();
+            var params = _formWrapper.serializeObject();
+            if (_formWrapper.valid()) {
+                base.showLoadingSpin()
+                TradeCtr.arbitrationlOrder({
+                    code: code,
+                    reason: params.reason
+                }).then(() => {
+                    base.hideLoadingSpin();
 
-                base.showMsg(base.getText('操作成功', langType));
-                auSx();
-                $("#arbitrationDialog").addClass("hidden");
-                $("#form-wrapper .textarea-item").val("")
-            }, base.hideLoadingSpin)
+                    base.showMsg(base.getText('操作成功', langType));
+                    auSx();
+                    $("#arbitrationDialog").addClass("hidden");
+                    $("#form-wrapper .textarea-item").val("")
+                }, base.hideLoadingSpin)
+            }
         })
 
         //交易评价按钮 点击

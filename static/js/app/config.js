@@ -17,14 +17,40 @@ var COIN_DEFAULTDATA = {
     "BTC": { "id": "2", "coin": "BTC", "unit": "1e8", "name": "比特币", "type": "1" },
     "ETH": { "id": "3", "coin": "ETH", "unit": "1e18", "name": "以太坊", "type": "0"}
 };
+var COIN_DEFAULTDATALIST = [
+    { "id": "1", "coin": "FMVP", "unit": "1e18", "name": "FMVP币", "type": "0T" },
+    { "id": "2", "coin": "BTC", "unit": "1e8", "name": "比特币", "type": "1" },
+    { "id": "3", "coin": "ETH", "unit": "1e18", "name": "以太坊", "type": "0"}
+];
 
 // 当前langType
 var NOWLANG = localStorage.getItem('langType') || 'ZH';
 (function() {
+    var userId, token, gameFlag = false;
+    // 游戏跳转
+    // 只跳转首页
+    if (/\/index\.html/.test(location.href)) {
+        var regUserId = new RegExp("(^|&)userId=([^&]*)(&|$)", "i"),
+            regToken = new RegExp("(^|&)token=([^&]*)(&|$)", "i");
+        var thisUrlUserId = window.location.search.substr(1).match(regUserId);
+        var thisUrlToken = window.location.search.substr(1).match(regToken);
+        gameFlag = true;
+
+        if (thisUrlUserId != null){
+            userId = decodeURIComponent(thisUrlUserId[2]);
+        }
+        if (thisUrlToken != null){
+            token = decodeURIComponent(thisUrlToken[2]);
+        }
+    }
     if (/AppleWebKit.*Mobile/i.test(navigator.userAgent)  ||  (/MIDP|SymbianOS|NOKIA|SAMSUNG|LG|NEC|TCL|Alcatel|BIRD|DBTEL|Dopod|PHILIPS|HAIER|LENOVO|MOT-|Nokia|SonyEricsson|SIE-|Amoi|ZTE/.test(navigator.userAgent))) {
         if (window.location.href.indexOf("?mobile") < 0) {
             try {
-                var thisPage = getThispage(window.location.href);
+                if(gameFlag && userId && token) {
+                    setConfigCookie("userId", userId);
+                    setConfigCookie("token", token);
+                }
+                var thisPage = getThispage(window.location.href, gameFlag);
                 if (/Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent)) {
                     window.location.href = INVITATION_HREF + thisPage;
                 } else
@@ -35,35 +61,35 @@ var NOWLANG = localStorage.getItem('langType') || 'ZH';
                 }
             } catch (e) {}
         }
-    }
-    // 游戏跳转
-    // 只跳转首页
-    if (/\/index\.html/.test(location.href)) {
-        var userId, token,
-            regUserId = new RegExp("(^|&)userId=([^&]*)(&|$)", "i"),
-            regToken = new RegExp("(^|&)token=([^&]*)(&|$)", "i");
-        var thisUrlUserId = window.location.search.substr(1).match(regUserId);
-        var thisUrlToken = window.location.search.substr(1).match(regToken);
-
-        if (thisUrlUserId != null){
-            userId = decodeURIComponent(thisUrlUserId[2]);
-        }
-        if (thisUrlToken != null){
-            token = decodeURIComponent(thisUrlToken[2]);
-        }
-        if(userId && token) {
+    } else {
+        if(gameFlag && userId && token) {
             sessionStorage.setItem("userId", userId);
             sessionStorage.setItem("token", token);
         }
     }
-
 })();
-function getThispage(href) {
+function getThispage(href, gameFlag) {
     if (href.indexOf('/login.html') > -1) {
         return '/login';
     } else if(href.indexOf('/register.html') > -1) {
         return '/registered';
-    } else {
+    } else if(href.indexOf('/index.html') > -1) {
+        if (gameFlag) {
+            return '/page?gF=1';
+        } else {
+            return '/page';
+        }
+    }  {
         return '';
     }
+}
+function setConfigCookie(name, value, expires) {
+    var expr = '';
+    if (!expires) {
+        var Days = 30;
+        var exp = new Date();
+        exp.setTime(exp.getTime() + Days * 24 * 60 * 60 * 1000);
+        expr = ';expires=' + exp.toGMTString();
+    }
+    document.cookie = name + '=' + escape(value) + expr + ';path=/;';
 }

@@ -14,16 +14,8 @@ define([
     init();
 
     function init() {
-        $('.store_en').text(base.getText('商城', langType));
-        $('.store_gm').text(base.getText('区块链游戏', langType));
-        $('.zb-btn').text(base.getText('转入游戏', langType));
-        $('.go_en').text(base.getText('进入游戏', langType));
-        $('.store_car').text(base.getText('二手车兑换', langType));
+        setHtml();
         $('.store-right').removeClass('none');
-        if(langType == 'EN'){
-            $('title').text('Store-FUNMVP blockchain technology application experimental platform');
-        }
-        $('title').text('商城-FUNMVP区块链技术应用实验平台');
         let stoType = base.getUrlParam('type') || 'yx';
         if(stoType == 'rs'){
             $('.rs-li').addClass('sel-store').siblings().removeClass('sel-store');
@@ -48,6 +40,14 @@ define([
         $('.head-nav-wrap .store').addClass('active');
         addLister();
         base.hideLoadingSpin();
+    }
+    function setHtml() {
+        $('title').text(base.getText('商城') + '-' +base.getText('FUNMVP区块链技术应用实验平台'));
+        $('.store_en').text(base.getText('商城', langType));
+        $('.store_gm').text(base.getText('区块链游戏', langType));
+        $('.zb-btn').text(base.getText('转入游戏', langType));
+        $('.go_en').text(base.getText('进入游戏', langType));
+        $('.store_car').text(base.getText('二手车兑换', langType));
     }
 
     // 进入游戏

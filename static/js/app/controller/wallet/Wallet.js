@@ -277,10 +277,10 @@ define([
                         // rwmcode.makeCode(picList['支付宝']);
                         $("#rwmcodeAccount").text(zfNumber[item.bankCode]);
                         $(".zf-apliy").text(zfNumber[item.bankCode]);
-                        $('#rwmcode').css({
-                            'backgroundImage': `url(${base.getPic(picList[item.bankName]) })`,
-                            'background-size': '100% 100%'
-                        });
+                        // $('#rwmcode').css({
+                        //     'backgroundImage': `url(${base.getPic(picList[item.bankName]) })`,
+                        //     'background-size': '100% 100%'
+                        // });
                         $('#wAddressDialog .pagination').css({
                             'backgroundImage': `url(${base.getPic(picList[item.bankName]) })`,
                             'background-size': '100% 100%'
@@ -339,9 +339,6 @@ define([
                                 <span>${base.getText('支付宝', langType)}</span>-
                                 <span id="rwmcodeAccount"></span>
                             </div>
-                        </div>
-                        <div class="zhang-rwm">
-                            <div class="rwm-box" id="rwmcode"></div>
                         </div>
                         <div class="bz_put">
                             <div><textarea placeholder="${base.getText('请输入自己的支付宝账号（以便确认）', langType)}"></textarea></div>

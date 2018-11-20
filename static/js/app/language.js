@@ -10,11 +10,11 @@ var LANGUAGE = {
     },
     '首页': {
         'ZH': '首页',
-        'EN': 'Home page'
+        'EN': 'Home'
     },
     '交易': {
         'ZH': '交易',
-        'EN': 'Deal'
+        'EN': 'Trades'
     },
     '场外交易': {
         'ZH': '场外交易',
@@ -46,11 +46,11 @@ var LANGUAGE = {
     },
     '去购买': {
         'ZH': '去购买',
-        'EN': 'Buy FMVP'
+        'EN': 'Buy'
     },
     '去出售': {
         'ZH': '去出售',
-        'EN': 'Sell FMVP'
+        'EN': 'Sell'
     },
     '订单': {
         'ZH': '订单',
@@ -397,11 +397,11 @@ var LANGUAGE = {
     },
     '数量': {
         'ZH': '数量',
-        'EN': 'amount'
+        'EN': 'Amount'
     },
     '剩余数量': {
         'ZH': '剩余数量',
-        'EN': 'remaining quantity'
+        'EN': 'Quantity'
     },
     '当前委托': {
         'ZH': '当前委托',
@@ -538,13 +538,17 @@ var LANGUAGE = {
         'ZH': '请选择',
         'EN': 'Please choose'
     },
-    '人民币': {
-        'ZH': '人民币',
-        'EN': ''
+    'CNY人民币': {
+        'ZH': 'CNY人民币',
+        'EN': 'CNY RMB'
     },
-    '美元': {
-        'ZH': '美元',
-        'EN': ''
+    'USD美元': {
+        'ZH': 'USD美元',
+        'EN': 'USD dollar'
+    },
+    '全部货币，全部付款方式': {
+        'ZH': '全部货币，全部付款方式',
+        'EN': 'All currencies, all payment methods'
     },
     '支付宝': {
         'ZH': '支付宝',
@@ -594,27 +598,27 @@ var LANGUAGE = {
     },
     '交易价格': {
         'ZH': '交易价格',
-        'EN': 'trade price'
+        'EN': 'Price'
     },
     '交易数量': {
         'ZH': '交易数量',
-        'EN': 'trade volume'
+        'EN': 'Volume'
     },
     '交易金额': {
         'ZH': '交易金额',
-        'EN': 'trade amount'
+        'EN': 'Amount'
     },
     '报价': {
         'ZH': '报价',
-        'EN': 'quotation'
+        'EN': 'Quotation'
     },
     '交易限额': {
         'ZH': '交易限额',
-        'EN': 'trade limit'
+        'EN': 'Limit'
     },
     '聊天': {
         'ZH': '聊天',
-        'EN': 'chat'
+        'EN': 'Chat'
     },
     '按回车发送消息': {
         'ZH': '按回车发送消息',
@@ -622,11 +626,11 @@ var LANGUAGE = {
     },
     '电子邮箱': {
         'ZH': '电子邮箱',
-        'EN': 'email address'
+        'EN': 'Email address'
     },
     '手机号码': {
         'ZH': '手机号码',
-        'EN': 'cellphone number'
+        'EN': 'Cellphone number'
     },
     '实名认证': {
         'ZH': '实名认证',
@@ -638,7 +642,7 @@ var LANGUAGE = {
     },
     '交易操作': {
         'ZH': '交易操作',
-        'EN': 'Trading operations'
+        'EN': 'Operations'
     },
     '订单编号': {
         'ZH': '订单编号',
@@ -654,7 +658,7 @@ var LANGUAGE = {
     },
     '取消交易': {
         'ZH': '取消交易',
-        'EN': 'cancel the transaciotn'
+        'EN': 'Cancel the trade'
     },
     '交易评价': {
         'ZH': '交易评价',
@@ -718,19 +722,19 @@ var LANGUAGE = {
     },
     '快來评价吧': {
         'ZH': '快來评价吧',
-        'EN': 'come and make a comment'
+        'EN': 'Come and make a comment'
     },
     '好评': {
         'ZH': '好评',
-        'EN': 'praises'
+        'EN': 'Praises'
     },
     '差评': {
         'ZH': '差评',
-        'EN': 'complaints'
+        'EN': 'Complaints'
     },
     '提交': {
         'ZH': '提交',
-        'EN': 'submit'
+        'EN': 'Submit'
     },
 
     // *****/ 场外交易-广告管理
@@ -752,7 +756,7 @@ var LANGUAGE = {
     },
     '广告类型': {
         'ZH': '广告类型',
-        'EN': 'advertisement type'
+        'EN': 'Type'
     },
     '溢价比例': {
         'ZH': '溢价比例',
@@ -760,11 +764,11 @@ var LANGUAGE = {
     },
     '创建时间': {
         'ZH': '创建时间',
-        'EN': 'Creation date'
+        'EN': 'Date'
     },
     '交易状态': {
         'ZH': '交易状态',
-        'EN': 'status'
+        'EN': 'Status'
     },
     '暂无广告': {
         'ZH': '暂无广告',
@@ -816,11 +820,15 @@ var LANGUAGE = {
     },
     '交易类型': {
         'ZH': '交易类型',
-        'EN': 'transaction type'
+        'EN': 'Type'
     },
     '选择广告类型': {
         'ZH': '选择广告类型',
         'EN': 'Select advertisement type'
+    },
+    '选择广告类型说明': {
+        'ZH': '您想要创建什么样的交易广告？如果您希望出售，请确保您在本网站的钱包中可用余额充足。',
+        'EN': 'What kind of trading advertisement do you want to create? If you wish to sell, Please ensure enough available balances'
     },
     '在线出售': {
         'ZH': '在线出售',
@@ -1016,6 +1024,14 @@ var LANGUAGE = {
         'ZH': '请输入您购买的数量',
         'EN': 'Please enter the quantity you purchased'
     },
+    '请输入您出售的金额': {
+        'ZH': '请输入您出售的金额',
+        'EN': 'Please enter the amount you sell'
+    },
+    '请输入您出售的数量': {
+        'ZH': '请输入您出售的数量',
+        'EN': 'Please enter the quantity you sell'
+    },
     '立即购买': {
         'ZH': '立即购买',
         'EN': 'Buy now'
@@ -1052,6 +1068,18 @@ var LANGUAGE = {
         'ZH': '购买数量',
         'EN': 'Purchase quantity'
     },
+    '出售价格': {
+        'ZH': '出售价格',
+        'EN': 'Sale price'
+    },
+    '出售金额': {
+        'ZH': '出售金额',
+        'EN': 'Sale amount'
+    },
+    '出售数量': {
+        'ZH': '出售数量',
+        'EN': 'Sale quantity'
+    },
     '提醒': {
         'ZH': '提醒',
         'EN': 'remind'
@@ -1067,6 +1095,14 @@ var LANGUAGE = {
     '请放心购买': {
         'ZH': '请放心购买',
         'EN': 'Please feel free to buy.'
+    },
+    '提醒：请确认价格再下单,下单彼此交易的': {
+        'ZH': '提醒：请确认价格再下单,下单彼此交易的',
+        'EN': 'Reminder: please confirm that the price is placed on the order. The '
+    },
+    '将被托管锁定，请放心购买。': {
+        'ZH': '将被托管锁定，请放心购买。',
+        'EN': ' will be placed under the custody order. Please rest assured.'
     },
     '确认购买': {
         'ZH': '确认购买',
@@ -1092,7 +1128,7 @@ var LANGUAGE = {
     ///////////////////////////////////////// 用户详情
     '好评度': {
         'ZH': '好评度',
-        'EN': 'rating'
+        'EN': 'Praises'
     },
     '历史交易': {
         'ZH': '历史交易',
@@ -1180,11 +1216,11 @@ var LANGUAGE = {
     /////////////////////////////////////////////////// 订单管理
     '进行中': {
         'ZH': '进行中',
-        'EN': 'in progress'
+        'EN': 'In progress'
     },
     '已结束': {
         'ZH': '已结束',
-        'EN': 'completed'
+        'EN': 'Completed'
     },
     '交易伙伴': {
         'ZH': '交易伙伴',
@@ -1192,7 +1228,7 @@ var LANGUAGE = {
     },
     '类型': {
         'ZH': '类型',
-        'EN': 'type'
+        'EN': 'Type'
     },
     '暂无订单': {
         'ZH': '暂无订单',
@@ -1960,19 +1996,19 @@ var LANGUAGE = {
     },
 	'购买': {
         'ZH': '购买',
-        'EN': 'Buy'
+        'EN': 'Buy '
     },
 	'出售': {
         'ZH': '出售',
-        'EN': 'Sell'
+        'EN': 'Sell '
 	},
 	'取消订单': {
         'ZH': '取消订单',
-        'EN': 'cancel the order'
+        'EN': 'Cancel'
 	},
 	'交谈中': {
         'ZH': '交谈中',
-        'EN': 'in conversation'
+        'EN': 'In conversation'
 	},
 	'最高价格': {
         'ZH': '最高价格',
@@ -1984,7 +2020,11 @@ var LANGUAGE = {
 	},
 	'最低价格': {
         'ZH': '最低价格',
-        'EN': 'the lowest price'
+        'EN': 'The lowest price'
+    },
+    '最低价（选填）': {
+        'ZH': '最低价（选填）',
+        'EN': 'The lowest price (Selection)'
     },
 	'广告最低可成交的价格': {
         'ZH': '广告最低可成交的价格',
@@ -2012,11 +2052,11 @@ var LANGUAGE = {
 	},
 	'下单成功': {
         'ZH': '下单成功',
-        'EN': 'success'
+        'EN': 'Success'
 	},
     '购买成功': {
         'ZH': '购买成功',
-        'EN': 'success'
+        'EN': 'Success'
     },
 	'请先设置交易密码': {
         'ZH': '请先设置交易密码',
@@ -2024,15 +2064,15 @@ var LANGUAGE = {
 	},
 	'编辑': {
         'ZH': '编辑',
-        'EN': 'edit'
+        'EN': 'Edit'
 	},
 	'信任': {
         'ZH': '信任',
-        'EN': 'trust'
+        'EN': 'Trust'
 	},
 	'出售成功': {
         'ZH': '出售成功',
-        'EN': 'success'
+        'EN': 'Success'
     },
 	'密码重置成功': {
         'ZH': '密码重置成功',
@@ -2441,6 +2481,46 @@ var LANGUAGE = {
     '您有未读消息': {
         'ZH': '您有未读消息',
         'EN': 'You have new news'
+    },
+    '个人主页': {
+        'ZH': '个人主页',
+        'EN': 'Personal homepage'
+    },
+    '未读': {
+        'ZH': '未读',
+        'EN': 'Unread'
+    },
+    '系统消息：交易已下单，等待买家标记打款': {
+        'ZH': '系统消息：交易已下单等待买家标记打款',
+        'EN': 'System Message: The transaction has placed an order waiting for the buyer to mark the payment'
+    },
+    '系统消息：卖家已释放': {
+        'zh': '系统消息：卖家已释放',
+        'en': 'System Message: Seller has released'
+    },
+    '系统消息：买家已标记打款': {
+        'ZH': '系统消息：买家已标记打款',
+        'EN': 'System Message: Buyer has marked the payment'
+    },
+    '系统消息：订单已申请仲裁': {
+        'ZH': '系统消息：订单已申请仲裁',
+        'EN': 'System Message: Order has applied for arbitration'
+    },
+    '系统消息：仲裁申请已处理完成': {
+        'ZH': '系统消息：仲裁申请已处理完成',
+        'EN': 'System Message: The arbitration application has been processed'
+    },
+    '系统消息：买家已评价': {
+        'ZH': '系统消息：买家已评价',
+        'EN': 'System Message: Buyer has evaluated'
+    },
+    '系统消息：卖家已评价': {
+        'ZH': '系统消息：卖家已评价',
+        'EN': 'System Message: Seller has evaluated'
+    },
+    '订单已完成': {
+        'ZH': '订单已完成',
+        'EN': 'Order has been completed'
     }
 }
 

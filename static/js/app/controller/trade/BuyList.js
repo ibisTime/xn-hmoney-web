@@ -20,52 +20,79 @@ define([
         "1": base.getText('微信', langType),
         "2": base.getText('银行卡转账', langType)
     };
+    // 货币下拉
+    var payTypeMoneyList = [{
+        key: 'CNY',
+        value: base.getText('CNY人民币')
+    }, {
+        key: 'USD',
+        value: base.getText('USD美元')
+    }];
+    // 付款类型下拉
+    var payTypeList = [{
+        key: '0',
+        value: base.getText('支付宝')
+    }, {
+        key: '1',
+        value: base.getText('微信')
+    }, {
+        key: '2',
+        value: base.getText('银行卡转账')
+    }];
 
     init();
 
     function init() {
-        $('.en_nick').text(base.getText('昵称', langType));
-        $('.en_pay').text(base.getText('付款方式', langType));
-        $('.en_count').text(base.getText('Avaliable', langType));
-        $('.en_xe').text(base.getText('限额', langType));
-        $('.en_price').text(base.getText('价格', langType));
-        if(langType == 'EN'){
-            $('.search-wrap .searchType-wrap').css('width', '200px');
-            $('.search-wrap .search-con').css('width', '562px');
-            $('.show-search').text('All currencies, all payment methods');
-        }else{
-            $('.show-search').text('全部货币，全部付款方式');
-        }
         base.showLoadingSpin();
         getCoinList();
-        $(".head-nav-wrap .sell").addClass("active");
+        setHtml();
         getPageAdvertise();
         addListener();
     }
 
+    function setHtml() {
+        base.getDealLeftText();
+        $('.en_nick').text(base.getText('昵称'));
+        $('.en_pay').text(base.getText('付款方式'));
+        $('.en_count').text(base.getText('Avaliable'));
+        $('.en_xe').text(base.getText('限额'));
+        $('.en_price').text(base.getText('价格'));
+        $('.show-search').text(base.getText('全部货币，全部付款方式'));
+        $('.searchType-wrap .en_sgg').text(base.getText('搜广告'));
+        $('.searchType-wrap .user').text(base.getText('搜用户'));
+        $('.advertisement-wrap .hb').text(base.getText('货币'));
+        $('.advertisement-wrap .fkfs').text(base.getText('货币'));
+        $('.search-btn .search-txt').text(base.getText('搜索'));
+        if(langType === 'EN'){
+            $('.search-wrap .searchType-wrap').css('width', '200px');
+            $('.search-wrap .search-con').css('width', '562px');
+        }
+        var payTypeMoneyHtml = `<option value="">${base.getText('请选择')}</option>`;
+        payTypeMoneyList.map(item => {
+            payTypeMoneyHtml += `<option value="${item.key}">${item.value}</option>`
+        });
+
+        var payTypeHtml = `<option value="">${base.getText('请选择')}</option>`;
+        payTypeList.map(item => {
+            payTypeHtml += `<option value="${item.key}">${item.value}</option>`
+        });
+        $('.advertisement-wrap .payTypeMoney').html(payTypeMoneyHtml);
+        $('.advertisement-wrap .payType').html(payTypeHtml);
+    }
+
     //根据config配置设置 币种列表
     function getCoinList() {
-        var coinList = base.getCoinList();
-        var coinListKey = Object.values(coinList);
+        var coinList = base.getCoinArray();
         var listHtml = '';
-        // coinListKey.length = 2;
-        // coinListKey = coinListKey.filter(item => {
-        //     return item.id > 1;
-        // });
-        // for (var i = coinListKey.length - 1; i > -1; i--) {
-        //     var tmpl = coinListKey[i]
-        //     listHtml += `<li class="${tmpl.coin.toLowerCase()}" data-coin="${tmpl.coin}">${tmpl.coin}</li>`;
-        // }
-        for (var i = 0; i < coinListKey.length; i++) {
-            var tmpl = coinListKey[i]
-            listHtml += `<li class="${tmpl.coin.toLowerCase()}" data-coin="${tmpl.coin}">${tmpl.coin}</li>`;
-        }
+        coinList.map(item => {
+            listHtml += `<li class="${item.coin.toLowerCase()}" data-coin="${item.coin}">${item.coin}</li>`;
+        });
         $("#coin-top ul").html(listHtml);
         if (coin) {
             $("#coin-top ul li." + coin.toLowerCase()).addClass("on");
         } else {
             $("#coin-top ul li:nth-of-type(1)").addClass("on");
-            config.coin = coinListKey[0].coin.toUpperCase();
+            config.coin = coinList[0].coin.toUpperCase();
         }
     }
 
