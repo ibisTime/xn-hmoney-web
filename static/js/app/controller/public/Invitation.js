@@ -20,22 +20,8 @@ define([
 
     function init() {
         // base.showLoadingSpin();
-        $('.invi-en_yq').text(base.getText('成功邀请', langType));
-        $('.invi-en_sy').text(base.getText('已得收益', langType));
-        $('#qrcodeBtn').text(base.getText('二维码推荐', langType));
-        $('#invitationBtn').text(base.getText('文字推荐', langType));
-        $('.sel-span').text(base.getText('邀请记录', langType));
-        $('.invi-en_yhm').text(base.getText('用户名', langType));
-        $('.invi-en_zc').text(base.getText('注册时间', langType));
-        $('.invi-en_jy').text(base.getText('交易总额', langType));
-
-        if(langType == 'EN'){
-            $('title').text('Invitiation-FUNMVP blockchain technology application experimental platform');
-            $('.invi-en_yjn').text('Cashback calculation(Registration cashback + Trading Cashback)');
-        }
-        $('title').text('邀请好友-FUNMVP区块链技术应用实验平台');
-        $('.invi-en_yjn').text('佣金计算(注册佣金 + 交易佣金)');
         $(".head-nav-wrap .advertise").addClass("active");//DOMAIN_NAME
+        setHtml();
         // web端文字推荐
         $("#invitationDialog .hrefWrap p").html(DOMAIN_NAME + "/user/register.html?inviteCode=" + inviteCode)
 
@@ -47,11 +33,28 @@ define([
             // getUserInviteProfit()
         )
         if(langType == 'EN'){
-            $('#invitationBtn').css('width', 'auto');
+            $('#invitationBtn').css({'width':'auto', 'padding': '0 15px'});
             $('.pt10').css('display', 'flex');
         }
         addListener();
 
+    }
+
+    function setHtml() {
+        $('title').text(base.getText('邀请好友') + '-' +base.getText('FUNMVP区块链技术应用实验平台'));
+        $('.invi-en_yq').text(base.getText('成功邀请', langType));
+        $('.invi-en_sy').text(base.getText('已得收益', langType));
+        $('#qrcodeBtn').text(base.getText('二维码推荐', langType));
+        $('#invitationBtn').text(base.getText('文字推荐', langType));
+        $('.sel-span').text(base.getText('邀请记录', langType));
+        $('.invi-en_yhm').text(base.getText('用户名', langType));
+        $('.invi-en_zc').text(base.getText('注册时间', langType));
+        $('.invi-en_jy').text(base.getText('交易总额', langType));
+        $('.fy_ren').text('(' + base.getText('人', langType) + ')');
+        $('.fy_hdgz').text(base.getText('活动规则', langType));
+        $('.fy_smewm').text(base.getText('扫描二维码邀请注册', langType));
+        $('.fy_fzljsm').text(base.getText('复制下面这段文字...', langType));
+        $('.invi-en_yjn').text(`${base.getText('佣金计算')}(${base.getText('注册佣金')} + ${base.getText('交易佣金')})`);
     }
 
     // 获取邀请好友的链接

@@ -18,18 +18,33 @@ define([
     // 初始化页面
     function init() {
         //中英文切换  先头部切换
-        $('.en_page').text(base.getText('首页', langType));
-        $('.en_store').text(base.getText('商城', langType));
-        $('.en_deal').text(base.getText('交易', langType));
-        $('.nav-cwjy').text(base.getText('场外交易', langType));
-        $('.nav-bbjy').text(base.getText('币币交易', langType));
-        $('.en_yqhy').text(base.getText('邀请好友', langType));
-        $('.store_en').text(base.getText('商城', langType));
-        $('.store_gm').text(base.getText('区块链游戏', langType));
-        $('.store_car').text(base.getText('二手车兑换', langType));
-        $('.store_ye').text(base.getText('游戏余额', langType));
+        $('.en_page').text(base.getText('首页'));
+        $('.en_store').text(base.getText('商城'));
+        $('.en_deal').text(base.getText('交易'));
+        $('.nav-cwjy').text(base.getText('场外交易'));
+        $('.nav-bbjy').text(base.getText('币币交易'));
+        $('#head-button-wrap .button-login').text(base.getText('登录'));
+        $('#head-button-wrap .button-register').text(base.getText('注册'));
+        $('#head-user-wrap .fy_top_zc').text(base.getText('资产'));
+        $('#head-user-wrap .fy_top_zzc').text(base.getText('总资产'));
+        $('#head-user-wrap .fy_top_kyzc').text(base.getText('可用资产'));
+        $('#head-user-wrap .fy_top_djzc').text(base.getText('冻结资产'));
+        $('#head-user-wrap .fy_top_bz').text(base.getText('币种'));
+        $('#head-user-wrap .fy_top_buy').text(base.getText('去购买'));
+        $('#head-user-wrap .fy_top_sell').text(base.getText('去出售'));
+        $('#head-user-wrap .fy_top_dd').text(base.getText('订单'));
+        $('#head-user-wrap .fy_top_cwjydd').text(base.getText('场外交易订单'));
+        $('#head-user-wrap .fy_top_bbjydd').text(base.getText('币币交易订单'));
+        $('#head-user-wrap .fy_top_yyzx').text(base.getText('用户中心'));
+        $('#head-user-wrap .fy_top_yqhy').text(base.getText('邀请好友'));
+        $('#head-user-wrap .fy_top_tcdl').text(base.getText('退出登录'));
+        $('.en_yqhy').text(base.getText('邀请好友'));
+        $('.store_en').text(base.getText('商城'));
+        $('.store_gm').text(base.getText('区块链游戏'));
+        $('.store_car').text(base.getText('二手车兑换'));
+        $('.store_ye').text(base.getText('游戏余额'));
 
-        if(langType == 'EN'){
+        if(langType === 'EN'){
             $('.lang_select option.l-en').attr('selected', true);
             $('.head-user .dd-ul').css({
                 'width': '150px',
@@ -52,7 +67,7 @@ define([
                 case 'zh': localStorage.clear('langType');break;
                 case 'en': localStorage.setItem('langType', 'EN');break;
             }
-            location.reload();
+            location.reload(true);
         });
 
         $("#footTeTui").html(FOOT_TETUI)
@@ -147,8 +162,8 @@ define([
                 }
             })
             if (data.length >= 3) {
-                htmlAccount += `<p class="more">${base.getText('查看更多', langType)}</p>`;
-                html += `<div class="list more">${base.getText('查看更多', langType)}</div>`;
+                htmlAccount += `<p class="more">${base.getText('查看更多')}</p>`;
+                html += `<div class="list more">${base.getText('查看更多')}</div>`;
             }
             $("#head-user-wrap .wallet .wallet-account-wrap").html(htmlAccount);
             $("#head-user-wrap .wallet .wallet-account-mx .listWrap").html(html);
@@ -221,7 +236,7 @@ define([
                 if (data.tradepwdFlag) {
                     base.gohref(_this.attr("data-href"))
                 } else if (!data.tradepwdFlag) {
-                    base.showMsg(base.getText('请先设置交易密码', langType))
+                    base.showMsg(base.getText('请先设置交易密码'))
                     setTimeout(function () {
                         base.gohref("../user/setTradePwd.html?type=1")
                     }, 1800)

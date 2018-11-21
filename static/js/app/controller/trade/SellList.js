@@ -62,7 +62,10 @@ define([
         $('.searchType-wrap .user').text(base.getText('搜用户'));
         $('.advertisement-wrap .hb').text(base.getText('货币'));
         $('.advertisement-wrap .fkfs').text(base.getText('货币'));
-        $('.search-btn .search-txt').text(base.getText('搜索'));
+        $('#buyAmount').attr('placeholder', base.getText('请输入您出售的金额'));
+        $('#buyEth').attr('placeholder', base.getText('搜索请输入您出售的数量'));
+        $('#buyBtn').html(base.getText('立即出售'));
+
         if(langType === 'EN'){
             $('.search-wrap .searchType-wrap').css('width', '200px');
             $('.search-wrap .search-con').css('width', '562px');

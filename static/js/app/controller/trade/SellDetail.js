@@ -73,6 +73,11 @@ define([
         $('.en-buy_kyyy span').text(base.getText('账户可用余额', langType) + ':' + '');
         $('.en-buy_fz').text(base.getText('分钟', langType));
         $('.en-buy_tx').text(base.getText('交易提醒', langType));
+        $('.fy_ljcs').html(base.getText('立即出售'));
+        $('#buyAmount').attr('placeholder', base.getText('请输入您出售的金额'));
+        $('#buyEth').attr('placeholder', base.getText('请输入您出售的数量'));
+        $('#buyBtn').html(base.getText('立即出售'));
+
         $('.warnWrap .warn-txt1').html(base.getText('提醒：请确认价格再下单,下单彼此交易的'));
         $('.warnWrap .warn-txt2').html(base.getText('将被托管锁定，请放心购买。'));
     }
@@ -86,7 +91,7 @@ define([
             tradeCoin = data.tradeCoin ? data.tradeCoin : 'ETH';
             let totalCountString = base.formatMoney(data.totalCountString, '', tradeCoin);
             if (user.photo) {
-                tradePhoto = '<div class="photo goHref" data-href="../user/user-detail.html?coin=' + tradeCoin + '&userId=' + user.userId + '"  style="background-image:url(\'' + base.getAvatar(user.photo) + '\')"></div>'
+                tradePhoto = '<div class="photo goHref" data-href="../user/user-detail.html?coin=' + tradeCoin + '&userId=' + user.userId + ` style="background-image:url(${base.getAvatar(user.photo)})"></div>`
             } else {
                 var tmpl = user.nickname ? user.nickname.substring(0, 1).toUpperCase(): '-';
                 tradePhoto = '<div class="photo goHref" data-href="../user/user-detail.html?coin=' + tradeCoin + '&userId=' + user.userId + '" ><div class="noPhoto">' + tmpl + '</div></div>'
@@ -164,7 +169,7 @@ define([
             var myInfo = data;
             myName = myInfo.nickname;
             if (myInfo.photo) {
-                tradePhotoMy = '<div class="photo" style="background-image:url(\'' + base.getAvatar(myInfo.photo) + '\')"></div>'
+                tradePhotoMy = `<div class="photo" style="background-image:url('${base.getAvatar(myInfo.photo)}')"></div>`;
             } else {
                 var tmpl = myInfo.nickname.substring(0, 1).toUpperCase();
                 tradePhotoMy = '<div class="photo"><div class="noPhoto">' + tmpl + '</div></div>'

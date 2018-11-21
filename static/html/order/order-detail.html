@@ -34,7 +34,7 @@
         <div class="k-orderDet-mid">
             <div class="orderDetail-middle b_e ">
                 <div class="title wp100 b_e_b">
-                    <div class="item on en-o_lt">聊天</div>
+                    <div class="item on en-o_lt"></div>
                     <!-- 注意区分 卖家买家 -->
                     <div class="item" id="user"></div>
                 </div>
@@ -43,10 +43,10 @@
                     <div class="wrap chat-wrap hp100 wp100">
                         <div class="msgflow" id="msgflow"></div>
                         <div class="btnWrap">
-                            <textarea type="text" id="msgedit" class="msgedit" placeholder="按回车发送消息"></textarea>
+                            <textarea type="text" id="msgedit" class="msgedit" placeholder=""></textarea>
                             <button id="msgImg" class="msgImg"></button>
                             <button id="openPic" class="openPic"></button>
-                            <button id="send" class="am-button am-button-red send">发送</button>
+                            <button id="send" class="am-button am-button-red send"></button>
                             <div class="emotionUL-wrap hidden">
                                 <ul id="emotionUL" class="wp100"></ul>
                             </div>
@@ -59,22 +59,22 @@
                             <div class="nickname" id="nickname">junxi</div>
                             <div class="txt">
                                 <!--<p><samp>交易量：</samp><samp id="user">30+ETH</samp></p>-->
-                                <p><samp>电子邮箱</samp><samp id="email"></samp></p>
+                                <p><samp class="fy_dzyx"></samp><samp id="email"></samp></p>
                             </div>
                             <div class="txt">
                                 <!--<p><samp>已確認的交易次数：</samp><samp id="jiaoyi">30+ETH</samp></p>-->
-                                <p><samp>手机号码</samp><samp id="mobile"></samp></p>
+                                <p><samp class="fy_sjhm"></samp><samp id="mobile"></samp></p>
                             </div>
                             <div class="txt">
                                 <!--<p><samp>好评度：</samp><samp>90%</samp></p>-->
-                                <p><samp>实名认证</samp><samp id="identity"></samp></p>
+                                <p><samp class="fy_smrz"></samp><samp id="identity"></samp></p>
                             </div>
                             <!--<div class="txt">
 											<p><samp>第一次购买：</samp><samp id="firstBuyDatatime"></samp></p>
 											<p><samp>信任：</samp><samp id="trust">237</samp></p>
 										</div>-->
                             <div class="txt">
-                                <p><samp>用户创建时间</samp><samp id="createDatetime"></samp></p>
+                                <p><samp class="fy_yhcjsj"></samp><samp id="createDatetime"></samp></p>
                             </div>
                         </div>
                     </div>
@@ -97,13 +97,13 @@
                     </div> -->
 
                     <div class="btn-wrap jy-btns">
-                        <div class="am-button-red ml20 payBtn hidden">标记付款</div>
-                        <div class="am-button-gray ml20 cancelBtn hidden">取消交易</div>
-                        <div class="am-button-red ml20 commentBtn hidden">交易评价</div>
-                        <div class="am-button-red ml20 releaseBtn hidden">解冻货币</div>
-                        <div class="am-button-ghost ml20 arbitrationBtn hidden">申请仲裁</div>
-                        <div class="am-button-ghost ml20 goBuyDetailBtn hidden">购买</div>
-                        <div class="am-button-ghost ml20 goSellDetailBtn hidden">出售</div>
+                        <div class="am-button-red ml20 payBtn hidden"></div>
+                        <div class="am-button-gray ml20 cancelBtn hidden"></div>
+                        <div class="am-button-red ml20 commentBtn hidden"></div>
+                        <div class="am-button-red ml20 releaseBtn hidden"></div>
+                        <div class="am-button-ghost ml20 arbitrationBtn hidden"></div>
+                        <div class="am-button-ghost ml20 goBuyDetailBtn hidden"></div>
+                        <div class="am-button-ghost ml20 goSellDetailBtn hidden"></div>
                     </div>
                     <!-- <div class="jb-msg"><i class="icon jbicon"></i> -->
                     <!-- <span style="cursor: pointer;">举报这条广告</span> -->
@@ -113,7 +113,7 @@
         </div>
 
         <div class="k-order-ts">
-            <h3>温馨提示</h3>
+            <h3 class="fy_wxts"></h3>
             <p class="wxtip-txt"></p>
         </div>
 
@@ -124,22 +124,22 @@
                 <div class="am-modal-content">
                     <div class="am-modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                        <h4 class="modal-title" id="upload_pic_low_ie_dialog_label"> 发送图片</h4>
+                        <h4 class="modal-title" id="upload_pic_low_ie_dialog_label"></h4>
                     </div>
                     <div class="am-modal-body">
                         <form id="updli_form" enctype="multipart/form-data" class="form-horizontal" onkeydown="if(event.keyCode==13)return false;">
                             <div class="form-group file-wrap">
-                                <label for="File" class="col-sm-2 control-label">选择</label>
+                                <label for="File" class="col-sm-2 control-label fy_xz"></label>
                                 <div class="col-sm-10">
                                     <input type="file" class="file" accept="image/*" id="updli_file" />
                                 </div>
-                                <div class="am-button am-button-ghost">选择图片</div>
+                                <div class="am-button am-button-ghost fy_xztp"></div>
                             </div>
                         </form>
                     </div>
                     <div class="am-modal-footer">
-                        <button type="button" class="am-button am-button-gray" id="updli_close"> 关闭</button>
-                        <button type="button" class="am-button am-button-red ml20" id="updli_send"> 发送</button>
+                        <button type="button" class="am-button am-button-gray" id="updli_close"></button>
+                        <button type="button" class="am-button am-button-red ml20" id="updli_send"></button>
                     </div>
                 </div>
                 <!-- /.modal-content -->
@@ -153,7 +153,7 @@
                 <div class="am-modal-content">
                     <div class="am-modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                        <h4 class="modal-title" id="upload_pic_dialog_label">发送图片</h4>
+                        <h4 class="modal-title" id="upload_pic_dialog_label"></h4>
                     </div>
                     <div class="am-modal-body">
 
@@ -162,16 +162,16 @@
                                 <div class="col-sm-10">
                                     <input class="file" type="file" accept="image/*" id="upd_pic" />
                                 </div>
-                                <div class="am-button am-button-ghost">选择图片</div>
+                                <div class="am-button am-button-ghost fy_xztp"></div>
                             </div>
                             <div class="form-group">
-                                <label for="File" class="col-sm-2 control-label">预览</label>
+                                <label for="File" class="col-sm-2 control-label fy_yl"></label>
                                 <div class="col-sm-10">
                                     <div id="previewPicDiv"></div>
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for="upd_progress" class="col-sm-2 control-label">进度</label>
+                                <label for="upd_progress" class="col-sm-2 control-label fy_jd"></label>
                                 <div class="col-sm-10">
                                     <progress id="upd_progress" value="0" max="100"></progress>
                                 </div>
@@ -180,8 +180,8 @@
                         </form>
                     </div>
                     <div class="am-modal-footer">
-                        <button type="button" class="am-button am-button-gray" id="upd_close">关闭</button>
-                        <button type="button" class="am-button am-button-red ml20" id="upd_send">发送</button>
+                        <button type="button" class="am-button am-button-gray" id="upd_close"></button>
+                        <button type="button" class="am-button am-button-red ml20" id="upd_send"></button>
                     </div>
                 </div>
                 <!-- /.modal-content -->
@@ -195,7 +195,7 @@
                 <div class="am-modal-content">
                     <div class="am-modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                        <h4 class="modal-title" id="click_pic_dialog_label">查看图片</h4>
+                        <h4 class="modal-title" id="click_pic_dialog_label"></h4>
                     </div>
                     <div class="am-modal-body">
                         <form class="form-horizontal" role="form">
@@ -207,7 +207,7 @@
                         </form>
                     </div>
                     <div class="am-modal-footer">
-                        <button type="button" class="am-button am-button-red" id="click_pic_dialog_close">关闭</button>
+                        <button type="button" class="am-button am-button-red" id="click_pic_dialog_close"></button>
                         <!--<button type="button" class="btn btn-primary" id="viewOriPicBt">查看原图</button>-->
                     </div>
                 </div>
@@ -224,20 +224,20 @@
                 <div class="am-modal-content">
                     <div class="am-modal-header">
                         <p class="iconWrap"><i class="icon icon-order"></i></p>
-                        <p>申请仲裁</p>
+                        <p class="fy_sqzc"></p>
                     </div>
                     <div class="am-modal-body">
                         <div class="arbitration-content">
                             <form class="form-wrapper form-wrapper-noIcon" id="form-wrapper">
                                 <div class="form-item form-item-textarea b_e">
-                                    <textarea style="resize: none;" class="textarea-item" name="reason" placeholder="请填写您申请仲裁的理由"></textarea>
+                                    <textarea style="resize: none;" class="textarea-item fy_reason" name="reason" placeholder=""></textarea>
                                 </div>
                             </form>
                         </div>
                     </div>
                     <div class="am-modal-footer">
-                        <div class="am-button am-button-gray mr40 closeBtn">放弃</div>
-                        <div class="am-button am-button-red subBtn">确认申请</div>
+                        <div class="am-button am-button-gray mr40 closeBtn"></div>
+                        <div class="am-button am-button-red subBtn"></div>
                     </div>
                 </div>
             </div>
@@ -250,26 +250,26 @@
         <div class="am-modal">
             <div class="am-modal-content">
                 <div class="am-modal-header">
-                    <p>交易评价</p>
+                    <p class="fy_jypj"></p>
                 </div>
                 <div class="am-modal-body">
-                    <p class="title">交易有何印象？快來评价吧</p>
+                    <p class="title fy_jyyx"></p>
                     <div class="comment-Wrap">
                         <div class="item on" data-value="2">
                             <div class="icon icon-good"></div>
-                            <p>好评</p>
+                            <p class="fy_hp"></p>
                         </div>
                         <div class="item ml20" data-value="0">
                             <div class="icon icon-bad"></div>
-                            <p>差评</p>
+                            <p class="fy_cp"></p>
                         </div>
                     </div>
                     <div class="com-content">
-                        <textarea name="" id="pjText" placeholder="快來评价吧"></textarea>
+                        <textarea name="" id="pjText" placeholder=""></textarea>
                     </div>
                 </div>
                 <div class="am-modal-footer">
-                    <div class="am-button am-button-red subBtn">提交</div>
+                    <div class="am-button am-button-red subBtn"></div>
                 </div>
             </div>
         </div>

@@ -1,16 +1,16 @@
 define([
     'app/controller/base',
     'app/util/ajax',
+    'app/controller/Top',
+    'app/controller/foo',
+    'app/module/echarts',
     'app/interface/GeneralCtr',
     'pagination',
     'app/interface/AccountCtr',
     'app/module/charting_library/charting_library.min',
     'app/module/datafeeds/udf/dist/bundle',
-    'app/interface/UserCtr',
-    'app/controller/Top',
-    'app/controller/foo',
-    'app/module/echarts'
-], function (base, Ajax, GeneralCtr, pagination, AccountCtr, TradingView, Datafeeds, UserCtr, Top, Foo, echarts) {
+    'app/interface/UserCtr'
+], function (base, Ajax, Top, Foo, echarts, GeneralCtr, pagination, AccountCtr, TradingView, Datafeeds, UserCtr) {
     let langType = localStorage.getItem('langType') || 'ZH';
     let en_mr = base.getText('买入', langType);
     let en_mc = base.getText('卖出', langType);
@@ -78,42 +78,13 @@ define([
     });
 
     function init() {
-        $('.en_jzc').text(base.getText('净资产折合', langType));
-        $('.en_ljyq').text(base.getText('立即邀请', langType));
-        $('.baz-ul-h2').text(base.getText('主区', langType));
-        $('.bb-en_gg').text(base.getText('公告', langType));
-
-        if (langType == 'EN') {
-            $('.bben_yqhy').html('invite friends to register, <br> easily get cashback');
-            $('.tologin').html(`
-                <a href="../user/login.html">Login</a> or
-                <a href="../user/register.html">Register</a> Start trading`
-            );
-            $('.bb-en_bz').html(`currency <img src="/static/images/sx.png" alt="">`);
-            $('.bb-en_zxj').html(`the latest price <img src="/static/images/sx.png" alt="">`);
-            $('.bb-en_zf').html(`change <img src="/static/images/sx.png" alt="">`);
-            $('title').text('Exchange-FUNMVP blockchain technology application experimental platform');
-        } else {
-            $('.bben_yqhy').html('邀请好友注册，<br> 轻松获得交易返佣');
-            $('.tologin').html(`
-                <a href="../user/login.html">登录</a> 或
-                <a href="../user/register.html">注册</a> 开始交易`
-            );
-            $('.bb-en_bz').html(`币种 <img src="/static/images/sx.png" alt="">`);
-            $('.bb-en_zxj').html(`最新价 <img src="/static/images/sx.png" alt="">`);
-            $('.bb-en_zf').html(`涨幅 <img src="/static/images/sx.png" alt="">`);
-            $('title').text('币币交易-FUNMVP区块链技术应用实验平台');
-        }
-
         base.showLoadingSpin(); // 显示加载
-
+        setHtml();
         getBBDataFn();
-
         setTimeout(function () {
             // k线
             getCandles();
         }, 1);
-
 
         // 判断是否登录
         if (!base.isLogin()) {
@@ -198,9 +169,79 @@ define([
 
         addLister();
 
-        $('a').off('click').click(function () {
+        $('.aHref').off('click').click(function () {
             sessionStorage.setItem('l-return', '../bbdeal/bbdeal.html');
         })
+    }
+
+    function setHtml() {
+        $('title').text(base.getText('币币交易') + '-' +base.getText('FUNMVP区块链技术应用实验平台'));
+        $('.en_jzc').text(base.getText('净资产折合', langType) + '：');
+        $('.en_ljyq').text(base.getText('立即邀请', langType) + '  >');
+        $('.baz-ul-h2').text(base.getText('主区', langType));
+        $('.bb-en_gg').text(base.getText('公告', langType));
+        $('.bben_yqhy').html(`${base.getText('邀请好友注册')}，<br> ${base.getText('轻松获得交易返佣')}`);
+        $('.tologin').html(`<a class="aHref" href="../user/login.html">${base.getText('登录')}</a> ${base.getText('或')}
+                <a class="aHref" href="../user/register.html">${base.getText('注册')}</a> ${base.getText('开始交易')}`);
+        $('.bb-en_bz').html(`${base.getText('币种')} <img src="/static/images/sx.png" alt="">`);
+        $('.bb-en_zxj').html(`${base.getText('最新价')} <img src="/static/images/sx.png" alt="">`);
+        $('.bb-en_zf').html(`${base.getText('涨幅')} <img src="/static/images/sx.png" alt="">`);
+        $('.fy_zf').text(base.getText('涨幅', langType));
+        $('.fy_hige').text(base.getText('高', langType));
+        $('.fy_low').text(base.getText('低', langType));
+        $('.fy_jyl').text(base.getText('24H量', langType));
+        $('.fy_xjjy').text(base.getText('限价交易', langType));
+        $('.fy_sjjy').text(base.getText('市价交易', langType));
+
+        $('.jy-con-left .fy_ky1').text(base.getText('可用', langType));
+        $('.jy-con-left .fy_cb').text(base.getText('充币', langType));
+        $('.jy-con-left .fy_mrj').text(base.getText('买入价', langType));
+        $('.jy-con-left .fy_mrl').text(base.getText('买入量', langType));
+        $('.jy-con-left .fy_jye').text(base.getText('交易额', langType));
+        $('.jy-con-left .fy_mr').text(base.getText('买入', langType));
+
+        $('.jy-con-right .fy_ky').text(base.getText('可用', langType));
+        $('.jy-con-right .fy_qgm').text(base.getText('去购买', langType));
+        $('.jy-con-right .fy_mcj').text(base.getText('卖出价', langType));
+        $('.jy-con-right .yf_mcl').text(base.getText('卖出量', langType));
+        $('.jy-con-right .fy_jye').text(base.getText('交易额', langType));
+
+        $('.bb-r-new .fy_jye').text(base.getText('最新价', langType));
+        $('.bb-r-new .fy_jg b').text(base.getText('价格', langType));
+        $('.bb-r-new .fy_sl b').text(base.getText('数量', langType));
+
+        $('.con-r-current .fy_dqwt').text(base.getText('当前委托', langType));
+        $('.con-r-current .fy_mr').text(base.getText('买入', langType));
+        $('.con-r-current .fy_mc').text(base.getText('卖出', langType));
+        $('.con-r-current .fy_all').text(base.getText('全部', langType));
+
+        $('.con-r-history .fy_lswt').text(base.getText('历史委托', langType));
+        $('.con-r-history .fy_mr').text(base.getText('买入', langType));
+        $('.con-r-history .fy_mc').text(base.getText('卖出', langType));
+        $('.con-r-history .fy_all').text(base.getText('全部', langType));
+
+        $('.cur-table .fy_time').text(base.getText('时间', langType));
+        $('.cur-table .fy_jyd').text(base.getText('交易对', langType));
+        $('.cur-table .fy_jg').text(base.getText('价格', langType));
+        $('.cur-table .fy_sl').text(base.getText('数量', langType));
+        $('.cur-table .fy_wtze').text(base.getText('委托总额', langType));
+        $('.cur-table .fy_ycj').text(base.getText('已成交', langType));
+        $('.cur-table .fy_wcj').text(base.getText('未成交', langType));
+        $('.cur-table .fy_cz').text(base.getText('操作', langType));
+        $('.cur-table .fy_zwjl').text(base.getText('暂无记录', langType));
+
+        $('.his-table .fy_time').text(base.getText('时间', langType));
+        $('.his-table .fy_jyd').text(base.getText('交易对', langType));
+        $('.his-table .fy_fx').text(base.getText('方向', langType));
+        $('.his-table .fy_jg').text(base.getText('价格', langType));
+        $('.his-table .fy_wtl').text(base.getText('委托量', langType));
+        $('.his-table .fy_ycj').text(base.getText('已成交', langType));
+        $('.his-table .fy_cjjj').text(base.getText('成交均价', langType));
+        $('.his-table .fy_status').text(base.getText('状态', langType));
+
+        $('.his-table .fy_syjl').text(base.getText('所有记录', langType));
+        $('.his-table .fy_zwjl').text(base.getText('暂无记录', langType));
+
     }
 
     // 分页查询我的委托单
@@ -1245,17 +1286,19 @@ define([
                 if (dom.hasClass('none')) {
                     dom.removeClass('none');
                     dom.next('b').addClass('none');
-                    dom.parent().nextAll('div').animate({
+                    dom.parent().nextAll('div').css({
+                        'padding': '20px 30px 60px'
+                    }).animate({
                         'height': '100%'
                     }, 300);
                 } else {
                     dom.addClass('none');
                     dom.next('b').removeClass('none');
                     dom.parent().nextAll('div').css({
-                        'overflow': 'hidden',
-                        'padding': '0'
+                        'overflow': 'hidden'
                     }).animate({
-                        'height': '0'
+                        'height': '0',
+                        'padding': '0 30px'
                     }, 300);
                 }
             }

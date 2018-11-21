@@ -53,11 +53,8 @@ define([
     }
 
     function init() {
-        if(langType == 'EN'){
-            $('title').text('ID Verification-FUNMVP blockchain technology application experimental platform');
-        }
-        $('title').text('身份验证-FUNMVP区块链技术应用实验平台');
         base.showLoadingSpin();
+        setHtml();
         $.when(
             getUser(),
             getQiniuToken(sf_photoFile)
@@ -70,6 +67,24 @@ define([
             });
         })
         addListener();
+    }
+    function setHtml() {
+        $('title').text(base.getText('身份验证') + '-' +base.getText('FUNMVP区块链技术应用实验平台'));
+        $('.left-title').text(base.getText('用户中心'));
+        $('.en_yhzl').text(base.getText('用户资料'));
+        $('.uleft_en').text(base.getText('基本信息'));
+        $('.identity').text(base.getText('身份验证'));
+        $('.security').text(base.getText('安全设置'));
+        $('.fy_rzsm').text(base.getText('为确保交易安全...'));
+        $('.fy_zgdlsfz').text(base.getText('中国大陆身份证'));
+        $('.fy_syyddszgdlyh').text(base.getText('适用于大多数中国大陆用户'));
+        $('.fy_zk').text(base.getText('展开'));
+        $('.fy_xm').text(base.getText('姓名') + '：');
+        $('.fy_zjh').text(base.getText('证件号') + '：');
+        $('.fy_sctpzysx').text(base.getText('上传图片注意事项') + '：');
+        $('.fy_sfzh').text(base.getText('身份证号') + '：');
+
+
     }
 
     //获取用户详情
@@ -100,10 +115,10 @@ define([
                         case '1':
                             isYz('#alreadyIdentity', '.sfz');
                             break;
-                        case '2': 
+                        case '2':
                             isYz('#hzIdentity', '.hz');
                             break;
-                        case '3': 
+                        case '3':
                             isYz('#jzIdentity', '.jz');
                             break;
                     }
@@ -229,7 +244,7 @@ define([
         $('#jz_photoFile1').bind('change', function() {
             showImg(this, true);
         })
-        
+
         //反
         $("#jz_photoFile2").bind('change', function() {
             showImg(this, false);

@@ -13,11 +13,19 @@ define([
     }
 
     function init() {
-        if(langType == 'EN'){
-            $('title').text('Security Setting-FUNMVP blockchain technology application experimental platform');
-        }
-        $('title').text('安全设置-FUNMVP区块链技术应用实验平台');
         base.showLoadingSpin();
+        setHtml();
+        getUser();
+        addListener();
+    }
+
+    function setHtml() {
+        $('title').text(base.getText('安全设置') + '-' +base.getText('FUNMVP区块链技术应用实验平台'));
+        $('.left-title').text(base.getText('用户中心'));
+        $('.en_yhzl').text(base.getText('用户资料'));
+        $('.uleft_en').text(base.getText('基本信息'));
+        $('.identity').text(base.getText('身份验证'));
+        $('.security').text(base.getText('安全设置'));
         $('.sec-en_aq').text(base.getText('安全设置', langType));
         $('.sec-en_zj').text(base.getText('交易密码', langType));
         $('.sec-en_tx').text(base.getText('提现、修改安全设置时输入', langType));
@@ -29,10 +37,12 @@ define([
         $('.sec-en_gg').text(base.getText('谷歌验证', langType));
         $('.sec-en_bd').text(base.getText('绑定后', langType) + ',');
         $('.sec-en_dl').text(base.getText('登录', langType));
+        $('.fy_ljsz').text(base.getText('立即设置', langType));
+        $('.fy_ybd').text(base.getText('已绑定', langType));
+        $('.setGoogle .close').text(base.getText('关闭', langType));
+        $('.setGoogle .open').text(base.getText('启用', langType));
         $('.sec-en_ecyz').text(base.getText('提现时需要谷歌二次验证', langType));
 
-        getUser();
-        addListener();
     }
 
     //获取用户详情

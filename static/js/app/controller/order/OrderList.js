@@ -17,8 +17,8 @@ define([
             "end": ["2", "3", "4"]
         },
         typeList = {
-            "buy": base.getText('购买', langType),
-            "sell": base.getText('出售', langType),
+            "buy": base.getText('购买'),
+            "sell": base.getText('出售'),
         },
         statusValueList = {};
     var config = {
@@ -53,16 +53,29 @@ define([
 
     function setHtml() {
         base.getDealLeftText();
-        $('.progress').text(base.getText('进行中', langType));
-        $('.end').text(base.getText('已结束', langType));
-        $('.nickname').text(base.getText('交易伙伴', langType));
-        $('.code').text(base.getText('订单编号', langType));
-        $('.type').text(base.getText('类型', langType));
-        $('.amount').text(base.getText('交易金额', langType));
-        $('.quantity').text(base.getText('交易数量', langType));
-        $('.createDatetime').text(base.getText('创建时间', langType));
-        $('.status').text(base.getText('交易状态', langType));
-        $('.operation').text(base.getText('交易操作', langType));
+        $('.progress').text(base.getText('进行中'));
+        $('.end').text(base.getText('已结束'));
+        $('.nickname').text(base.getText('交易伙伴'));
+        $('.code').text(base.getText('订单编号'));
+        $('.type').text(base.getText('类型'));
+        $('.amount').text(base.getText('交易金额'));
+        $('.quantity').text(base.getText('交易数量'));
+        $('.createDatetime').text(base.getText('创建时间'));
+        $('.status').text(base.getText('交易状态'));
+        $('.operation').text(base.getText('交易操作'));
+        $('.fy_zwdd').text(base.getText('暂无订单'));
+
+        $('#arbitrationDialog .fy_sqzc').text(base.getText('申请仲裁'));
+        $('#arbitrationDialog .fy_reason').attr('placeholder', base.getText('请填写您申请仲裁的理由'));
+        $('#arbitrationDialog .closeBtn').html(base.getText('放弃'));
+        $('#arbitrationDialog .subBtn').html(base.getText('确认申请'));
+
+        $('#commentDialog .fy_jypj').html(base.getText('交易评价'));
+        $('#commentDialog .fy_jyyx').html(base.getText('交易有何印象？快來评价吧'));
+        $('#commentDialog .fy_hp').html(base.getText('好评'));
+        $('#commentDialog .fy_cp').html(base.getText('差评'));
+        $('#commentDialog #pjText').attr('placeholder', base.getText('快來评价吧'));
+        $('#commentDialog .subBtn').html(base.getText('提交'));
     }
 
     // 初始化分页器
@@ -78,7 +91,7 @@ define([
             totalData: data.totalCount,
             jumpIptCls: 'pagination-ipt',
             jumpBtnCls: 'pagination-btn',
-            jumpBtn: base.getText('确定', langType),
+            jumpBtn: base.getText('确定'),
             isHide: true,
             callback: function(_this) {
                 if (_this.getCurrent() != config.start) {
@@ -139,11 +152,11 @@ define([
             type = 'sell';
             //待支付
             if (item.status == "0") {
-                operationHtml = `<div class="am-button am-button-red payBtn" data-ocode="${item.code}">${base.getText('标记付款', langType)}</div>
-								<div class="am-button am-button-out ml5 cancelBtn" data-ocode="${item.code}">${base.getText('取消交易', langType)}</div>`;
+                operationHtml = `<div class="am-button am-button-red payBtn" data-ocode="${item.code}">${base.getText('标记付款')}</div>
+								<div class="am-button am-button-out ml5 cancelBtn" data-ocode="${item.code}">${base.getText('取消交易')}</div>`;
             } else if (item.status == "2") {
                 if (!item.bsComment) {
-                    operationHtml = `<div class="am-button am-button-red commentBtn"  data-ocode="${item.code}">${base.getText('交易评价', langType)}</div>`
+                    operationHtml = `<div class="am-button am-button-red commentBtn"  data-ocode="${item.code}">${base.getText('交易评价')}</div>`
                 }
             }
             //当前用户为卖家
@@ -153,10 +166,10 @@ define([
             type = 'buy';
             //待支付
             if (item.status == "1") {
-                operationHtml = `<div class="am-button am-button-red releaseBtn mr10" data-ocode="${item.code}">${base.getText('解冻货币', langType)}</div>`;
+                operationHtml = `<div class="am-button am-button-red releaseBtn mr10" data-ocode="${item.code}">${base.getText('解冻货币')}</div>`;
             } else if (item.status == "2") {
                 if (!item.sbComment) {
-                    operationHtml = `<div class="am-button am-button-red commentBtn"  data-ocode="${item.code}">${base.getText('交易评价', langType)}</div>`
+                    operationHtml = `<div class="am-button am-button-red commentBtn"  data-ocode="${item.code}">${base.getText('交易评价')}</div>`
                 }
             }
         }
@@ -164,20 +177,20 @@ define([
         //操作按鈕
         //已支付，待解冻
         if (item.status == "1") {
-            operationHtml += `<div class="am-button arbitrationBtn"  data-ocode="${item.code}">${base.getText('申请仲裁', langType)}</div>`
+            operationHtml += `<div class="am-button arbitrationBtn"  data-ocode="${item.code}">${base.getText('申请仲裁')}</div>`
         }
 
         //待下单
         if (item.status == "-1") {
-            operationHtml += `<div class="am-button cancelBtn"  data-ocode="${item.code}">${base.getText('取消订单', langType)}</div>`;
+            operationHtml += `<div class="am-button cancelBtn"  data-ocode="${item.code}">${base.getText('取消订单')}</div>`;
             if(item.type == 'buy'){
                 if(item.buyUser == base.getUserId()){
-                    operationHtml += `<div class="am-button am-button-red buyBtn" style="margin-left: 10px;"  data-ocode="${item.adsCode}">${base.getText('去购买', langType)}</div>`;
+                    operationHtml += `<div class="am-button am-button-red buyBtn" style="margin-left: 10px;"  data-ocode="${item.adsCode}">${base.getText('去购买')}</div>`;
                 }
             }
             if(item.type == 'sell'){
                 if(item.sellUser == base.getUserId()){
-                    operationHtml += `<div class="am-button am-button-red sellBtn" style="margin-left: 10px;"  data-ocode="${item.adsCode}">${base.getText('去出售', langType)}</div>`;
+                    operationHtml += `<div class="am-button am-button-red sellBtn" style="margin-left: 10px;"  data-ocode="${item.adsCode}">${base.getText('去出售')}</div>`;
                 }
             }
         }
@@ -204,7 +217,7 @@ define([
 					<td class="amount">${item.status!="-1" && item.tradeAmount?item.tradeAmount+'CNY':'-'}</td>
 					<td class="quantity">${quantity ? quantity : '-'}</td>
 					<td class="createDatetime">${base.datetime(item.createDatetime)}</td>
-					<td class="status">${item.status=="-1"? base.getText('交谈中', langType) + ','+statusValueList[item.status]:statusValueList[item.status]}</td>
+					<td class="status">${item.status=="-1"? base.getText('交谈中') + ','+statusValueList[item.status]:statusValueList[item.status]}</td>
                     <td class="operation">
                         ${operationHtml}
                     </td>
@@ -257,11 +270,11 @@ define([
         //取消订单按钮 点击
         $("#content").on("click", ".operation .cancelBtn", function() {
             var orderCode = $(this).attr("data-ocode");
-            base.confirm(base.getText('确认取消交易？', langType), base.getText('取消', langType), base.getText('确定', langType)).then(() => {
+            base.confirm(base.getText('确认取消交易？'), base.getText('取消'), base.getText('确定')).then(() => {
                 base.showLoadingSpin()
                 TradeCtr.cancelOrder(orderCode).then(() => {
                     base.hideLoadingSpin();
-                    base.showMsg(base.getText('操作成功', langType));
+                    base.showMsg(base.getText('操作成功'));
                     setTimeout(function() {
                         base.showLoadingSpin();
                         getPageOrder(true)
@@ -273,11 +286,11 @@ define([
         //標記打款按钮 点击
         $("#content").on("click", ".operation .payBtn", function() {
             var orderCode = $(this).attr("data-ocode");
-            base.confirm(base.getText('确认标记打款？', langType), base.getText('取消', langType), base.getText('确定', langType)).then(() => {
+            base.confirm(base.getText('确认标记打款？'), base.getText('取消'), base.getText('确定')).then(() => {
                 base.showLoadingSpin()
                 TradeCtr.payOrder(orderCode).then(() => {
                     base.hideLoadingSpin();
-                    base.showMsg(base.getText('操作成功', langType));
+                    base.showMsg(base.getText('操作成功'));
                     setTimeout(function() {
                         base.showLoadingSpin();
                         getPageOrder(true)
@@ -321,7 +334,7 @@ define([
                     reason: params.reason
                 }).then(() => {
                     base.hideLoadingSpin();
-                    base.showMsg(base.getText('操作成功', langType));
+                    base.showMsg(base.getText('操作成功'));
                     $("#arbitrationDialog").addClass("hidden");
                     setTimeout(function() {
                         base.showLoadingSpin();
@@ -343,12 +356,12 @@ define([
         //解冻货币按钮 点击
         $("#content").on("click", ".operation .releaseBtn", function() {
             var orderCode = $(this).attr("data-ocode");
-            base.confirm(base.getText('确认解冻货币？', langType), base.getText('取消', langType), base.getText('确定', langType)).then(() => {
+            base.confirm(base.getText('确认解冻货币？'), base.getText('取消'), base.getText('确定')).then(() => {
                 base.showLoadingSpin()
                 TradeCtr.releaseOrder(orderCode).then(() => {
                     base.hideLoadingSpin();
 
-                    base.showMsg(base.getText('操作成功', langType));
+                    base.showMsg(base.getText('操作成功'));
                     setTimeout(function() {
                         base.showLoadingSpin();
                         getPageOrder(true)
@@ -371,9 +384,9 @@ define([
             TradeCtr.commentOrder(orderCode, comment, content).then((data) => {
                 base.hideLoadingSpin();
                 if(data.filterFlag == '2'){
-                    base.showMsg(base.getText('操作成功, 其中含有关键字，需平台进行审核', langType));
+                    base.showMsg(base.getText('操作成功, 其中含有关键字，需平台进行审核'));
                 }else{
-                    base.showMsg(base.getText('操作成功', langType));
+                    base.showMsg(base.getText('操作成功'));
                 }
                 $("#commentDialog").addClass("hidden");
                 setTimeout(function() {

@@ -58,21 +58,65 @@ define([
     }
     function setHtml() {
         $('title').text(base.getText('订单详情') + '-' +base.getText('FUNMVP区块链技术应用实验平台'));
-        $('.en-det_msg').text(base.getText('订单信息', langType));
-        $('.en-det_gg').text(base.getText('交易价格', langType) + ':');
-        $('.en-det_sl').text(base.getText('交易数量', langType) + ':');
-        $('.en-det_je').text(base.getText('交易金额', langType) + ':');
-        $('.en-det_bj').text(base.getText('报价', langType) + ':');
-        $('.en-det_xe').text(base.getText('交易限额', langType) + ':');
-        $('.en-det_jycz').text(base.getText('交易操作', langType));
-        $('.en-det_code').text(base.getText('订单编号', langType));
-        $('.en-det_fkfs').text(base.getText('付款方式', langType));
-        $('.en-det_ly').text(base.getText('广告留言', langType));
-
         if(langType == 'EN'){
             $('.file-wrap .file').css('width', '180px');
             $('.am-modal-body .file-wrap .am-button').css('width', '180px');
         }
+        $('.en-det_msg').text(base.getText('订单信息'));
+        $('.en-det_gg').text(base.getText('交易价格') + ':');
+        $('.en-det_sl').text(base.getText('交易数量') + ':');
+        $('.en-det_je').text(base.getText('交易金额') + ':');
+        $('.en-det_bj').text(base.getText('报价') + ':');
+        $('.en-det_xe').text(base.getText('交易限额') + ':');
+        $('.en-det_jycz').text(base.getText('交易操作'));
+        $('.en-det_code').text(base.getText('订单编号'));
+        $('.en-det_fkfs').text(base.getText('付款方式'));
+        $('.en-det_ly').text(base.getText('广告留言'));
+        $('.en-o_lt').text(base.getText('聊天'));
+        $('#msgedit').attr('placeholder', base.getText('按回车发送消息'));
+        $('#send').html(base.getText('发送'));
+        $('.fy_dzyx').html(base.getText('电子邮箱'));
+        $('.fy_sjhm').html(base.getText('手机号码'));
+        $('.fy_smrz').html(base.getText('实名认证'));
+        $('.fy_yhcjsj').html(base.getText('用户创建时间'));
+        $('.payBtn').html(base.getText('标记付款'));
+        $('.cancelBtn').html(base.getText('取消交易'));
+        $('.commentBtn').html(base.getText('交易评价'));
+        $('.releaseBtn').html(base.getText('解冻货币'));
+        $('.arbitrationBtn').html(base.getText('申请仲裁'));
+        $('.goBuyDetailBtn').html(base.getText('购买'));
+        $('.goSellDetailBtn').html(base.getText('出售'));
+        $('.fy_wxts').html(base.getText('温馨提示'));
+        $('#upload_pic_low_ie_dialog_label').html(base.getText('发送图片'));
+        $('.fy_xztp').html(base.getText('选择图片'));
+        $('.fy_xz').html(base.getText('选择'));
+        $('#updli_close').html(base.getText('关闭'));
+        $('#updli_send').html(base.getText('发送'));
+
+        $('#upload_pic_dialog_label').html(base.getText('发送图片'));
+        $('.fy_xztp').html(base.getText('选择图片'));
+        $('.fy_xz').html(base.getText('选择'));
+        $('.fy_yl').html(base.getText('预览'));
+        $('.fy_jd').html(base.getText('进度'));
+        $('#upd_close').html(base.getText('关闭'));
+        $('#upd_send').html(base.getText('发送'));
+
+        $('#click_pic_dialog_label').html(base.getText('查看图片'));
+
+        $('#upd_close').html(base.getText('关闭'));
+
+        $('#arbitrationDialog .fy_sqzc').html(base.getText('申请仲裁'));
+        $('#arbitrationDialog .fy_reason').attr('placeholder', base.getText('请填写您申请仲裁的理由'));
+        $('#arbitrationDialog .closeBtn').html(base.getText('放弃'));
+        $('#arbitrationDialog .subBtn').html(base.getText('确认申请'));
+
+        $('#commentDialog .fy_jypj').html(base.getText('交易评价'));
+        $('#commentDialog .fy_jyyx').html(base.getText('交易有何印象？快來评价吧'));
+        $('#commentDialog .fy_hp').html(base.getText('好评'));
+        $('#commentDialog .fy_cp').html(base.getText('差评'));
+        $('#commentDialog #pjText').attr('placeholder', base.getText('快來评价吧'));
+        $('#commentDialog .subBtn').html(base.getText('提交'));
+
     }
     function getTencunLogin() {
         return GeneralCtr.getTencunLogin().then((data) => {
@@ -92,7 +136,7 @@ define([
             adsCode = data.adsCode;
                 //待支付
             if (data.status == '0' || data.status == '1') {
-                $("#invalidDatetime samp").html(base.getText('订单將在拖管中保持至', langType) + "<i>" + base.formatDate(data.invalidDatetime, "hh:mm:ss") + "</i>," + base.getText('逾期未支付交易將自动取消', langType));
+                $("#invalidDatetime samp").html(base.getText('订单將在拖管中保持至') + "<i>" + base.formatDate(data.invalidDatetime, "hh:mm:ss") + "</i>," + base.getText('逾期未支付交易將自动取消'));
                 $("#invalidDatetime").removeClass("hidden")
                 $("#statusInfo").addClass("hidden")
             }
@@ -114,7 +158,7 @@ define([
                 tradeType = '0';
                 var user = data.sellUserInfo;
                 var myInfo = data.buyUserInfo;
-                $("#user").html(base.getText('卖家信息', langType));
+                $("#user").html(base.getText('卖家信息'));
 
                 //待支付
                 if (data.status == "0") {
@@ -133,7 +177,7 @@ define([
                 tradeType = '1';
                 var user = data.buyUserInfo;
                 var myInfo = data.sellUserInfo;
-                $("#user").html(base.getText('买家信息', langType))
+                $("#user").html(base.getText('买家信息'))
 
                 //待支付
                 if (data.status == "1") {
@@ -153,17 +197,17 @@ define([
             }
             //待下单
             if (data.status == "-1") {
-                $("title").html(base.getText('广告详情', langType) + "-HappyMoney");
+                $("title").html(base.getText('广告详情') + "-HappyMoney");
                 $(".orderDetail-info .info-wrap").addClass("hidden");
                 if(data.type == 'buy'){
                     if(data.buyUser == base.getUserId()){
-                        $(".orderDetail-info .title").html('<i class="icon icon-order"></i>' + base.getText('购买订单', langType))
+                        $(".orderDetail-info .title").html('<i class="icon icon-order"></i>' + base.getText('购买订单'))
                         $(".goBuyDetailBtn").removeClass("hidden");
                     }
                 }
                 if(data.type == 'sell'){
                     if(data.sellUser == base.getUserId()){
-                        $(".orderDetail-info .title").html('<i class="icon icon-order"></i>' + base.getText('出售订单', langType))
+                        $(".orderDetail-info .title").html('<i class="icon icon-order"></i>' + base.getText('出售订单'))
                         $(".goSellDetailBtn").removeClass("hidden");
                     }
                 }
@@ -174,13 +218,13 @@ define([
                 //     if (tradeType == '0') {
 
                 //     } else if (tradeType == '1') {
-                //         $(".orderDetail-info .title").html('<i class="icon icon-order"></i>' + base.getText('出售订单', langType))
+                //         $(".orderDetail-info .title").html('<i class="icon icon-order"></i>' + base.getText('出售订单'))
                 //         $(".goSellDetailBtn").removeClass("hidden");
                 //     }
                 // }
                 getAdvertiseDetail();
             } else {
-                $("title").html(base.getText('订单详情', langType) + "-HappyMoney")
+                $("title").html(base.getText('订单详情') + "-HappyMoney")
             }
 
             userName = user.nickname;
@@ -206,9 +250,9 @@ define([
                 firstLoad = true;
             }
 
-            $("#mobile").html(user.mobile != "" && user.mobile ? base.getText('已验证', langType) : base.getText('未验证', langType))
-            $("#email").html(user.email != "" && user.email ? base.getText('已验证', langType) : base.getText('未验证', langType))
-            $("#identity").html(user.realname != "" && user.realName ? base.getText('已验证', langType) : base.getText('未验证', langType))
+            $("#mobile").html(user.mobile != "" && user.mobile ? base.getText('已验证') : base.getText('未验证'))
+            $("#email").html(user.email != "" && user.email ? base.getText('已验证') : base.getText('未验证'))
+            $("#identity").html(user.realname != "" && user.realName ? base.getText('已验证') : base.getText('未验证'))
             $("#createDatetime").html(base.formateDatetime(user.createDatetime))
 
             base.hideLoadingSpin();
@@ -358,14 +402,14 @@ define([
         var info;
         switch (resp.ErrorCode) {
             case webim.CONNECTION_STATUS.ON:
-                webim.Log.warn(base.getText('建立连接成功', langType) + ': ' + resp.ErrorInfo);
+                webim.Log.warn(base.getText('建立连接成功') + ': ' + resp.ErrorInfo);
                 break;
             case webim.CONNECTION_STATUS.OFF:
-                info = base.getText('连接已断开，无法收到新消息，请检查下你的网络是否正常', langType) + ': ' + resp.ErrorInfo;
+                info = base.getText('连接已断开，无法收到新消息，请检查下你的网络是否正常') + ': ' + resp.ErrorInfo;
                 webim.Log.warn(info);
                 break;
             case webim.CONNECTION_STATUS.RECONNECT:
-                info = base.getText('连接状态恢复正常', langType) + ': ' + resp.ErrorInfo;
+                info = base.getText('连接状态恢复正常') + ': ' + resp.ErrorInfo;
                 webim.Log.warn(info);
                 break;
             case '91101':
@@ -373,7 +417,7 @@ define([
                 onKickedEventCall(resp);
                 break;
             default:
-                webim.Log.error(base.getText('未知连接状态', langType) + ': =' + resp.ErrorInfo);
+                webim.Log.error(base.getText('未知连接状态') + ': =' + resp.ErrorInfo);
                 break;
         }
     }
@@ -456,7 +500,7 @@ define([
             options,
             function(resp) {
                 if (resp.GroupInfo[0].ShutUpAllMember == 'On') {
-                    console.log(base.getText('该群组已开启全局禁言', langType));
+                    console.log(base.getText('该群组已开启全局禁言'));
                 }
                 if (cbOK) {
                     cbOK(resp);
@@ -477,7 +521,7 @@ define([
                 'ReqMsgNumber': reqMsgCount
             };
             if (options.ReqMsgSeq == null || options.ReqMsgSeq == undefined || options.ReqMsgSeq <= 0) {
-                webim.Log.warn(base.getText('该群还没有历史消息', langType) + ":options=" + JSON.stringify(options));
+                webim.Log.warn(base.getText('该群还没有历史消息') + ":options=" + JSON.stringify(options));
                 return;
             }
             selSess = null;
@@ -488,7 +532,7 @@ define([
                 options,
                 function(msgList) {
                     if (msgList.length == 0) {
-                        webim.Log.warn(base.getText('该群没有历史消息了', langType) + ":options=" + JSON.stringify(options));
+                        webim.Log.warn(base.getText('该群没有历史消息了') + ":options=" + JSON.stringify(options));
                         return;
                     }
                     var msgSeq = msgList[0].seq - 1;
@@ -512,11 +556,11 @@ define([
         if (tempInfo) {
             reqMsgSeq = tempInfo.ReqMsgSeq;
             if (reqMsgSeq <= 0) {
-                webim.Log.warn(base.getText('该群没有历史消息可拉取了', langType));
+                webim.Log.warn(base.getText('该群没有历史消息可拉取了'));
                 return;
             }
         } else {
-            webim.Log.error(base.getText('获取下一次拉取的群消息seq为空', langType));
+            webim.Log.error(base.getText('获取下一次拉取的群消息seq为空'));
             return;
         }
         var options = {
@@ -529,7 +573,7 @@ define([
             options,
             function(msgList) {
                 if (msgList.length == 0) {
-                    webim.Log.warn(base.getText('该群没有历史消息了', langType) + ":options=" + JSON.stringify(options));
+                    webim.Log.warn(base.getText('该群没有历史消息了') + ":options=" + JSON.stringify(options));
                     return;
                 }
                 var msgSeq = msgList[0].seq - 1;
@@ -631,7 +675,7 @@ define([
             webim.Tool.setCookie("tmpmsg_" + groupId, '', 0);
             $('#msgedit').val('')
         }, () => {
-            base.showMsg(base.getText('消息发送失败，请重新发送', langType));
+            base.showMsg(base.getText('消息发送失败，请重新发送'));
         });
     }
 
@@ -651,7 +695,7 @@ define([
         fromAccountNick = msg.getFromAccountNick() || fromAccount;
         fromAccountImage = msg.fromAccountHeadurl || '';
         if (fromAccount == 'admin') {
-            fromAccountNick = base.getText('系统消息', langType);
+            fromAccountNick = base.getText('系统消息');
         }
         var onemsg = document.createElement("div");
 
@@ -768,7 +812,7 @@ define([
                     }
                     break;
                 default:
-                    webim.Log.error(base.getText('未知消息元素类型', langType) + ': elemType=' + type);
+                    webim.Log.error(base.getText('未知消息元素类型') + ': elemType=' + type);
                     break;
             }
         }
@@ -816,7 +860,7 @@ define([
     //选择图片触发事件
     function fileOnChange(uploadFile) {
         if (!window.File || !window.FileList || !window.FileReader) {
-            console.log(base.getText('您的浏览器不支持', langType) + "File Api");
+            console.log(base.getText('您的浏览器不支持') + "File Api");
             return;
         }
         var file = uploadFile.files[0];
@@ -877,7 +921,7 @@ define([
     //发送图片消息
     function sendPic(images, imgName) {
         if (!groupId) {
-            alert(base.getText('您还没有好友，暂不能聊天', langType));
+            alert(base.getText('您还没有好友，暂不能聊天'));
             return;
         }
         var sess = webim.MsgStore.sessByTypeId(webim.SESSION_TYPE.GROUP, groupId);
@@ -949,12 +993,12 @@ define([
         var photoExt = obj.value.substr(obj.value.lastIndexOf(".") + 1).toLowerCase(); //获得文件后缀名
         var pos = picExts.indexOf(photoExt);
         if (pos < 0) {
-            alert(base.getText('您选中的文件不是图片，请重新选择', langType));
+            alert(base.getText('您选中的文件不是图片，请重新选择'));
             return false;
         }
         fileSize = Math.round(fileSize / 1024 * 100) / 100; //单位为KB
         if (fileSize > 30 * 1024) {
-            alert(base.getText('您选择的图片大小超过限制(最大为30M)，请重新选择', langType));
+            alert(base.getText('您选择的图片大小超过限制(最大为30M)，请重新选择'));
             return false;
         }
         return true;
@@ -1091,11 +1135,11 @@ define([
 
         //取消订单按钮 点击
         $(".cancelBtn").on("click", function() {
-            base.confirm(base.getText('确认取消交易？', langType), base.getText('取消', langType), base.getText('确定', langType)).then(() => {
+            base.confirm(base.getText('确认取消交易？'), base.getText('取消'), base.getText('确定')).then(() => {
                 base.showLoadingSpin()
                 TradeCtr.cancelOrder(code).then(() => {
                     base.hideLoadingSpin();
-                    base.showMsg(base.getText('操作成功', langType));
+                    base.showMsg(base.getText('操作成功'));
                     auSx();
                 }, base.hideLoadingSpin)
             }, base.emptyFun)
@@ -1103,12 +1147,12 @@ define([
 
         //标记打款按钮 点击
         $(".payBtn").on("click", function() {
-            base.confirm(base.getText('确认标记打款？', langType), base.getText('取消', langType), base.getText('确定', langType)).then(() => {
+            base.confirm(base.getText('确认标记打款？'), base.getText('取消'), base.getText('确定')).then(() => {
                 base.showLoadingSpin()
                 TradeCtr.payOrder(code).then(() => {
                     base.hideLoadingSpin();
 
-                    base.showMsg(base.getText('操作成功', langType));
+                    base.showMsg(base.getText('操作成功'));
                     auSx();
                 }, base.hideLoadingSpin)
             }, base.emptyFun)
@@ -1145,7 +1189,7 @@ define([
                 }).then(() => {
                     base.hideLoadingSpin();
 
-                    base.showMsg(base.getText('操作成功', langType));
+                    base.showMsg(base.getText('操作成功'));
                     auSx();
                     $("#arbitrationDialog").addClass("hidden");
                     $("#form-wrapper .textarea-item").val("")
@@ -1163,12 +1207,12 @@ define([
 
         //解冻货币按钮 点击
         $(".releaseBtn").on("click", function() {
-            base.confirm(base.getText('确认解冻货币？', langType), base.getText('取消', langType), base.getText('确定', langType)).then(() => {
+            base.confirm(base.getText('确认解冻货币？'), base.getText('取消'), base.getText('确定')).then(() => {
                 base.showLoadingSpin()
                 TradeCtr.releaseOrder(code).then(() => {
                     base.hideLoadingSpin();
 
-                    base.showMsg(base.getText('操作成功', langType));
+                    base.showMsg(base.getText('操作成功'));
                     auSx();
                 }, base.hideLoadingSpin);
             }, base.emptyFun)
@@ -1186,9 +1230,9 @@ define([
             TradeCtr.commentOrder(code, comment, content).then((data) => {
                 base.hideLoadingSpin();
                 if(data.filterFlag == '2'){
-                    base.showMsg(base.getText('操作成功, 其中含有关键字，需平台进行审核', langType));
+                    base.showMsg(base.getText('操作成功, 其中含有关键字，需平台进行审核'));
                 }else{
-                    base.showMsg(base.getText('操作成功', langType));
+                    base.showMsg(base.getText('操作成功'));
                 }
                 auSx();
                 $("#commentDialog").addClass("hidden");

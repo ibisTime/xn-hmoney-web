@@ -7,7 +7,7 @@ define([
         this.options = $.extend({}, this.defaultOptions, opt);
         var _self = this;
         var verification = $("#" + _self.options.id);
-        verification.text("获取验证码").prop("disabled",false);
+        verification.text(base.getText('获取验证码')).prop("disabled",false);
         clearInterval(_self.timer);
         $("#" + this.options.id).off("click")
             .on("click", function(e) {
@@ -38,9 +38,9 @@ define([
                 var i = 60;
                 _this.timer = window.setInterval(() => {
                     if(i > 0 && verification.attr("disabled")){
-                        verification.text("重新发送("+ i-- + "s)");
+                        verification.text(base.getText('重新发送')+ "("+ i-- + "s)");
                     }else {
-                        verification.text("获取验证码").prop("disabled",false);
+                        verification.text(base.getText('获取验证码')).prop("disabled",false);
                         clearInterval(_this.timer);
                     }
                 }, 1000);

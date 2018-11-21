@@ -23,16 +23,13 @@ define([
 		$('.tr-en_zx').text(base.getText('用户中心', langType));
 		$('.tr-en_sz').text(base.getText('安全设置', langType));
 		$('.tr-en_zj').text(base.getText('交易密码', langType));
-		$('#getVerification').text(base.getText('获取验证码', langType));
+		$('#getVerification').html(base.getText('获取验证码'));
 		$('#subBtn').text(base.getText('确定', langType));
 		$('#mobile').attr('placeholder', base.getText('请输入手机号', langType));
 		$('#tradePwd').attr('placeholder', base.getText('请输入交易密码', langType));
 		$('#smsCaptcha').attr('placeholder', base.getText('验证码', langType));
 
-		if(langType == 'EN'){
-			$('title').text('capital password-FUNMVP blockchain technology application experimental platform');
-		}
-		$('title').text('交易密码-FUNMVP区块链技术应用实验平台');
+        $('title').text(base.getText('交易密码') + '-' +base.getText('FUNMVP区块链技术应用实验平台'));
 
         if(base.getUserMobile()) {
             $("#mobile").val(base.getUserMobile());

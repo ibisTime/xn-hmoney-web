@@ -10,6 +10,7 @@ define([
   function init() {
     $('.foo-en_gj').text(base.getText('工具', langType));
     $('.en-help').text(base.getText('帮助中心', langType));
+    $('.foo-en_gywm').text(base.getText('关于我们', langType));
     $('.foo-en_pt').text(base.getText('平台介绍', langType));
     $('.foo-en_lx').text(base.getText('联系我们', langType));
     $('.foo-en_gg').text(base.getText('公告', langType));
@@ -43,11 +44,11 @@ define([
                 <div class="contact-info">
                     <div class="foo-tip">
                         <img src="${item.type === 'qq' ? '/static/images/qq.png' : '/static/images/weixin.png'}">
-                        <div class="foo-qq"><span class="fname">${item.name}</span>：<span class="foo-url">${item.url}</span></div>
+                        <div class="foo-qq"><span class="fname">${base.getText('客服')}${base.getText(item.type)}</span>：<span class="foo-url">${item.url}</span></div>
                     </div>
                 </div>
                 `
-      })
+      });
       $('.contact-info-wrap').html(qHtml);
       $('.foot-text').removeClass('hidden');
       $('.contact-info-wrap').removeClass('hidden');

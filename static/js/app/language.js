@@ -77,6 +77,18 @@ var LANGUAGE = {
         'EN': 'log out '
     },
     // *****/ 尾部
+    '客服': {
+        'ZH': '客服',
+        'EN': 'Customer service '
+    },
+    'qq': {
+        'ZH': 'QQ',
+        'EN': 'QQ'
+    },
+    'wx': {
+        'ZH': '微信',
+        'EN': 'WeChat'
+    },
     '工具': {
         'ZH': '工具',
         'EN': 'Tools'
@@ -99,7 +111,7 @@ var LANGUAGE = {
     },
     '公告': {
         'ZH': '公告',
-        'EN': 'announcement'
+        'EN': 'Notice'
     },
     '条款说明': {
         'ZH': '条款说明',
@@ -317,7 +329,7 @@ var LANGUAGE = {
     },
     '开始交易': {
         'ZH': '开始交易',
-        'EN': 'Start trading'
+        'EN': 'start trading'
     },
     '币种': {
         'ZH': '币种',
@@ -325,7 +337,7 @@ var LANGUAGE = {
     },
     '最新价': {
         'ZH': '最新价',
-        'EN': 'The latest price'
+        'EN': 'Latest price'
     },
     '涨幅': {
         'ZH': '涨幅',
@@ -337,63 +349,63 @@ var LANGUAGE = {
     },
     '高': {
         'ZH': '高',
-        'EN': 'high'
+        'EN': 'High'
     },
     '低': {
         'ZH': '低',
-        'EN': 'low'
+        'EN': 'Low'
     },
-    '量': {
-        'ZH': '量',
-        'EN': 'volume'
+    '24H量': {
+        'ZH': '24H量',
+        'EN': '24H Volume'
     },
     '限价交易': {
         'ZH': '限价交易',
-        'EN': 'limit transaction'
+        'EN': 'Limit transaction'
     },
     '市价交易': {
         'ZH': '市价交易',
-        'EN': 'market transaction'
+        'EN': 'Market transaction'
     },
     '费率': {
         'ZH': '费率',
-        'EN': 'fee rate'
+        'EN': 'Fee rate'
     },
     '可用': {
         'ZH': '可用',
-        'EN': 'available'
+        'EN': 'Available'
     },
     '充币': {
         'ZH': '充币',
-        'EN': 'deposit'
+        'EN': 'Deposit'
     },
     '买入价': {
         'ZH': '买入价',
-        'EN': 'price'
+        'EN': 'Price'
     },
     '买入量': {
         'ZH': '买入量',
-        'EN': 'amount'
+        'EN': 'Amount'
     },
     '买入': {
         'ZH': '买入',
-        'EN': 'buy'
+        'EN': 'Buy'
     },
     '卖出价': {
         'ZH': '卖出价',
-        'EN': 'price'
+        'EN': 'Price'
     },
     '卖出量': {
         'ZH': '卖出量',
-        'EN': 'amount'
+        'EN': 'Amount'
     },
     '卖出': {
         'ZH': '卖出',
-        'EN': 'sell'
+        'EN': 'Sell'
     },
     '最低价': {
         'ZH': '最低价',
-        'EN': 'The lowest price'
+        'EN': 'Lowest price'
     },
     '数量': {
         'ZH': '数量',
@@ -409,7 +421,7 @@ var LANGUAGE = {
     },
     '交易额': {
         'ZH': '交易额',
-        'EN': 'amount'
+        'EN': 'Amount'
     },
     '历史委托': {
         'ZH': '历史委托',
@@ -417,56 +429,56 @@ var LANGUAGE = {
     },
     '全部': {
         'ZH': '全部',
-        'EN': 'all'
+        'EN': 'All'
     },
     '时间': {
         'ZH': '时间',
-        'EN': 'time'
+        'EN': 'Time'
     },
     '交易对': {
         'ZH': '交易对',
-        'EN': 'direction'
+        'EN': 'Direction'
     },
     '方向': {
         'ZH': '方向',
-        'EN': 'type'
+        'EN': 'Type'
     },
     '委托总额': {
         'ZH': '委托总额',
-        'EN': 'total amount'
+        'EN': 'Total amount'
     },
     '已成交': {
         'ZH': '已成交',
-        'EN': 'executed'
+        'EN': 'Executed'
     },
     '未成交': {
         'ZH': '未成交',
-        'EN': 'unexecuted'
+        'EN': 'Unexecuted'
     },
     '操作': {
         'ZH': '操作',
-        'EN': 'action'
+        'EN': 'Operations'
     },
     '暂无记录': {
         'ZH': '暂无记录',
-        'EN': `no open orders yet 
+        'EN': `No open orders yet 
         Go to the Trade tab and make your order!`
     },
     '委托量': {
         'ZH': '委托量',
-        'EN': 'amount'
+        'EN': 'Amount'
     },
     '成交均价': {
         'ZH': '成交均价',
-        'EN': 'average price'
+        'EN': 'Average price'
     },
     '状态': {
         'ZH': '状态',
-        'EN': 'status'
+        'EN': 'Status'
     },
     '所有记录': {
         'ZH': '所有记录',
-        'EN': 'all orders'
+        'EN': 'All orders'
     },
     '深度图': {
         'ZH': '深度图',
@@ -650,15 +662,15 @@ var LANGUAGE = {
     },
     '广告留言': {
         'ZH': '广告留言',
-        'EN': 'the advertising message'
+        'EN': 'The advertising message'
     },
     '标记付款': {
         'ZH': '标记付款',
-        'EN': 'mark payment'
+        'EN': 'Mark payment'
     },
     '取消交易': {
         'ZH': '取消交易',
-        'EN': 'Cancel the trade'
+        'EN': 'Cancel'
     },
     '交易评价': {
         'ZH': '交易评价',
@@ -666,7 +678,7 @@ var LANGUAGE = {
     },
     '解冻货币': {
         'ZH': '解冻货币',
-        'EN': 'unfrozen'
+        'EN': 'Unfrozen'
     },
     '申请仲裁': {
         'ZH': '申请仲裁',
@@ -674,31 +686,31 @@ var LANGUAGE = {
     },
     '发送图片': {
         'ZH': '发送图片',
-        'EN': 'send picture'
+        'EN': 'Send picture'
     },
     '选择': {
         'ZH': '选择',
-        'EN': 'select'
+        'EN': 'Select'
     },
     '选择图片': {
         'ZH': '选择图片',
-        'EN': 'select image'
+        'EN': 'Select image'
     },
     '关闭': {
         'ZH': '关闭',
-        'EN': 'close'
+        'EN': 'Close'
     },
     '发送': {
         'ZH': '发送',
-        'EN': 'send'
+        'EN': 'Send'
     },
     '预览': {
         'ZH': '预览',
-        'EN': 'preview'
+        'EN': 'Preview'
     },
     '进度': {
         'ZH': '进度',
-        'EN': 'progress'
+        'EN': 'Progress'
     },
     '查看图片': {
         'ZH': '查看图片',
@@ -714,7 +726,7 @@ var LANGUAGE = {
     },
     '确认申请': {
         'ZH': '确认申请',
-        'EN': 'confirm'
+        'EN': 'Confirm'
     },
     '交易有何印象': {
         'ZH': '交易有何印象',
@@ -723,6 +735,10 @@ var LANGUAGE = {
     '快來评价吧': {
         'ZH': '快來评价吧',
         'EN': 'Come and make a comment'
+    },
+    '交易有何印象？快來评价吧': {
+        'ZH': '交易有何印象？快來评价吧',
+        'EN': 'What is your comment on this transaction? Come and make a comment'
     },
     '好评': {
         'ZH': '好评',
@@ -910,6 +926,10 @@ var LANGUAGE = {
         'ZH': '显示高级设置',
         'EN': 'Display advanced Settings'
     },
+    '保存草稿': {
+        'ZH': '保存草稿',
+        'EN': 'Save Draft'
+    },
     '仅限受信任的交易者': {
         'ZH': '仅限受信任的交易者',
         'EN': 'Only trusted traders'
@@ -1007,6 +1027,10 @@ var LANGUAGE = {
     '卖家留言': {
         'ZH': '卖家留言',
         'EN': 'message from seller'
+    },
+    '买家留言': {
+        'ZH': '卖家留言',
+        'EN': 'message from buyer'
     },
     '你想买卖多少': {
         'ZH': '你想买卖多少',
@@ -1112,6 +1136,14 @@ var LANGUAGE = {
         'ZH': '放弃购买',
         'EN': 'Give up'
     },
+    '确认出售': {
+        'ZH': '确认出售',
+        'EN': 'Confirm'
+    },
+    '放弃出售': {
+        'ZH': '放弃出售',
+        'EN': 'Give up'
+    },
     '未认证': {
         'ZH': '未认证',
         'EN': 'uncertified'
@@ -1182,15 +1214,15 @@ var LANGUAGE = {
     },
     '佣金计算': {
         'ZH': '佣金计算',
-        'EN': 'Cashback calculation'
+        'EN': 'Cashback'
     },
     '注册佣金': {
         'ZH': '注册佣金',
-        'EN': 'Registration cashback'
+        'EN': 'Registration'
     },
     '交易佣金': {
         'ZH': '交易佣金',
-        'EN': 'Trading Cashback'
+        'EN': 'Trading'
     },
     '活动规则': {
         'ZH': '活动规则',
@@ -1211,6 +1243,10 @@ var LANGUAGE = {
     '你就可以享受好友的交易提成了': {
         'ZH': '你就可以享受好友的交易提成了',
         'EN': 'You can then get cashback from your friends.'
+    },
+    '复制下面这段文字...': {
+        'ZH': '复制下面这段文字给好友，好友通过你的专属链接注册成功，你就可以享受好友的交易提成了',
+        'EN': 'copy and link to share, Friends registered through your exclusive link successfully, You can then get cashback from your friends.'
     },
 
     /////////////////////////////////////////////////// 订单管理
@@ -1577,50 +1613,21 @@ var LANGUAGE = {
         'ZH': '您的驾照图片的信息',
         'EN': 'Information about your driving license photo'
     },
-    '为确保交易安全': {
-        'ZH': '为确保交易安全',
-        'EN': 'To secure the transaction'
-    },
-    '保障您的合法权益': {
-        'ZH': '保障您的合法权益',
-        'EN': 'Protect your legal rights and interests'
-    },
-    '请您完成身份验证': {
-        'ZH': '请您完成身份验证',
-        'EN': 'Please complete your authentication'
-    },
-    '我们提供安全高效实时联网的官方身份认证服务': {
-        'ZH': '我们提供安全高效实时联网的官方身份认证服务',
-        'EN': 'We provide an official identity authentication service for secure and efficient real-time networking'
-    },
-    '具有更高级别的安全保证': {
-        'ZH': '具有更高级别的安全保证',
-        'EN': 'A higher level of security assurance'
-    },
-    '身份验证一旦成功': {
-        'ZH': '身份验证一旦成功',
-        'EN': 'Once ID has been authenticatd successfully'
-    },
-    '不予修改和解除认证': {
-        'ZH': '不予修改和解除认证',
-        'EN': 'Certification shall not be modified or revoked'
-    },
-    '建议您慎重选择': {
-        'ZH': '建议您慎重选择',
-        'EN': 'suggest you choose carefully'
-    },
-    '真实填写': {
-        'ZH': '真实填写',
-        'EN': 'Fill in the real'
+    '为确保交易安全...': {
+        'ZH': '为确保交易安全，保障您的合法权益，请您完成身份验证！我们提供安全高效实时联网的官方身份认证服务，具有更高级别的安全保证。身份验证一旦成功，不予修改和解除认证。建议您慎重选择，真实填写。',
+        'EN': 'To secure the transaction, Protect your legal rights and interests, Please complete your authentication!' +
+            'We provide an official identity authentication service for secure and efficient real-time networking,' +
+            'A higher level of security assurance. A higher level of security assurance, Certification shall not be modified or revoked.' +
+            ' Suggest you choose carefully, Fill in the real.'
     },
     // ***** 安全设置
-    '修改安全设置时输入': {
-        'ZH': '修改安全设置时输入',
-        'EN': 'Input when changing security Settings'
+    '提现、修改安全设置时输入': {
+        'ZH': '提现、修改安全设置时输入',
+        'EN': 'Enter and modify security settings when input'
     },
     '修改': {
         'ZH': '修改',
-        'EN': 'modification'
+        'EN': 'Modification'
     },
     '立即设置': {
         'ZH': '立即设置',
@@ -2486,21 +2493,33 @@ var LANGUAGE = {
         'ZH': '个人主页',
         'EN': 'Personal homepage'
     },
+    '人': {
+        'ZH': '人',
+        'EN': 'People'
+    },
     '未读': {
         'ZH': '未读',
         'EN': 'Unread'
     },
     '系统消息：交易已下单，等待买家标记打款': {
-        'ZH': '系统消息：交易已下单等待买家标记打款',
+        'ZH': '系统消息：交易已下单，等待买家标记打款',
         'EN': 'System Message: The transaction has placed an order waiting for the buyer to mark the payment'
     },
-    '系统消息：卖家已释放': {
-        'zh': '系统消息：卖家已释放',
-        'en': 'System Message: Seller has released'
+    '系统消息：订单支付超时，系统自动取消': {
+        'ZH': '系统消息：订单支付超时，系统自动取消',
+        'EN': 'System Message: Order payment timeout, system cancel automatically'
+    },
+    '系统消息：订单已取消': {
+        'ZH': '系统消息：订单已取消',
+        'EN': 'System Message: Order has cancelled'
     },
     '系统消息：买家已标记打款': {
         'ZH': '系统消息：买家已标记打款',
         'EN': 'System Message: Buyer has marked the payment'
+    },
+    '系统消息：卖家已释放': {
+        'ZH': '系统消息：卖家已释放',
+        'EN': 'System Message: Seller has released'
     },
     '系统消息：订单已申请仲裁': {
         'ZH': '系统消息：订单已申请仲裁',
@@ -2510,6 +2529,14 @@ var LANGUAGE = {
         'ZH': '系统消息：仲裁申请已处理完成',
         'EN': 'System Message: The arbitration application has been processed'
     },
+    '系统消息：买家申请仲裁不通过，买家实际未付款，订单取消': {
+        'ZH': '系统消息：买家申请仲裁不通过，买家实际未付款，订单取消',
+        'EN': 'System Message: Buyer to apply for arbitration does not pass, the buyer is not actually paid, order cancelled'
+    },
+    '系统消息：买家申请仲裁通过，买家实际已付款，自动解冻': {
+        'ZH': '系统消息：买家申请仲裁通过，买家实际已付款，自动解冻',
+        'EN': 'System message: Buyer apply for arbitration through the buyer has actually paid, automatic thawing'
+    },
     '系统消息：买家已评价': {
         'ZH': '系统消息：买家已评价',
         'EN': 'System Message: Buyer has evaluated'
@@ -2517,10 +2544,6 @@ var LANGUAGE = {
     '系统消息：卖家已评价': {
         'ZH': '系统消息：卖家已评价',
         'EN': 'System Message: Seller has evaluated'
-    },
-    '订单已完成': {
-        'ZH': '订单已完成',
-        'EN': 'Order has been completed'
     }
 }
 

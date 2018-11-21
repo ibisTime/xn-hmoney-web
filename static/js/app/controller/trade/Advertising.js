@@ -19,6 +19,11 @@ define([
     var pay = '';
     var midBlv = 0;
     var isKup = true;
+    let langText = '';
+    if (langType === 'EN') {
+        langText = '_en';
+    }
+
     init();
 
     function init() {
@@ -269,13 +274,13 @@ define([
         $("#price").val(mid);
 
         return GeneralCtr.getSysConfigType(param, true).then((data) => {
-            $("#displayTimeExp").html(data.displayTime)
-            $("#maxTradeExp").html(data.maxTrade)
-            $("#minTradeExp").html(data.minTrade)
-            $("#payLimitExp").html(data.payLimit)
-            $("#payTypeExp").html(data.payType)
-            $("#premiumRateExp").html(data.premiumRate)
-            $("#priceExp").html(data.price);
+            $("#displayTimeExp").html(data['displayTime'+langText]);
+            $("#maxTradeExp").html(data['maxTrade'+langText])
+            $("#minTradeExp").html(data['minTrade'+langText])
+            $("#payLimitExp").html(data['payLimit'+langText])
+            $("#payTypeExp").html(data['payType'+langText])
+            $("#premiumRateExp").html(data['premiumRate'+langText])
+            $("#priceExp").html(data['price'+langText]);
 
             if (type == 'buy') {
                 $("#protectPriceExp").siblings('.txt').text(base.getText('最高价格', langType) + '：');
@@ -289,9 +294,9 @@ define([
                 $("#totalCount").attr('placeholder', base.getText('请输入售卖币的总量', langType));
             }
 
-            $("#protectPriceExp").html(data.protectPrice);
-            $("#totalCountExp").html(data.totalCount);
-            $("#trustExp").html(data.trust);
+            $("#protectPriceExp").html(data['protectPrice'+langText]);
+            $("#totalCountExp").html(data['totalCount'+langText]);
+            $("#trustExp").html(data['trust'+langText]);
             base.hideLoadingSpin();
         }, base.hideLoadingSpin)
     }

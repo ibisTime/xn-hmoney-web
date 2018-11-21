@@ -48,41 +48,44 @@ define([
         data.forEach(item => {
             zfType[item.bankCode] = item.bankName;
         })
+        getCTS();
     })
 
-    getCTSData().then(data => {
-        userCTSList = data;
-        if (userCTSList.status == 0 || userCTSList.status == 1) {
-            $('.cz-btn').removeClass('none');
-        }
-        if (userCTSList.status == 0) {
-            $('.qx').removeClass('none');
-        }
-        if (userCTSList.status == 0 && userCTSList.type == 0) {
-            $('.qr').removeClass('none');
-        }
-        $('.o-type').text(typeList[userCTSList.type]);
-        $('.x-num').text(base.formatMoney(`${userCTSList.count}`, '', 'FMVP'));
-        $('.o-code').text(userCTSList.code);
-        $('.o-all').text((Math.floor(userCTSList.tradeAmount * 100) / 100).toFixed(2));
-        $('.o-status').text(statusList[userCTSList.status]);
-        $('.o-date').text(base.formateDatetime(userCTSList.createDatetime));
-        $('.o-money').text(userCTSList.tradeCurrency);
-        $('.o-fee').text(base.formatMoney(`${userCTSList.fee}`, '', 'FMVP'));
+    function getCTS() {
+        getCTSData().then(data => {
+            userCTSList = data;
+            if (userCTSList.status == 0 || userCTSList.status == 1) {
+                $('.cz-btn').removeClass('none');
+            }
+            if (userCTSList.status == 0) {
+                $('.qx').removeClass('none');
+            }
+            if (userCTSList.status == 0 && userCTSList.type == 0) {
+                $('.qr').removeClass('none');
+            }
+            $('.o-type').text(typeList[userCTSList.type]);
+            $('.x-num').text(base.formatMoney(`${userCTSList.count}`, '', 'FMVP'));
+            $('.o-code').text(userCTSList.code);
+            $('.o-all').text((Math.floor(userCTSList.tradeAmount * 100) / 100).toFixed(2));
+            $('.o-status').text(statusList[userCTSList.status]);
+            $('.o-date').text(base.formateDatetime(userCTSList.createDatetime));
+            $('.o-money').text(userCTSList.tradeCurrency);
+            $('.o-fee').text(base.formatMoney(`${userCTSList.fee}`, '', 'FMVP'));
 
-        let realName = userCTSList.bankcard ? userCTSList.bankcard.realName : userCTSList.user.realName;
-        // 类型 买入
-        if(userCTSList.type === '0') {
-            realName = 'otc商家';
-        }
-        $('.u-name').text(realName);
-        $('.u-kcode').text(userCTSList.receiveCardNo);
-        $('.u-khu').text(userCTSList.receiveInfo);
-        $('.u-type').text(zfType[userCTSList.receiveType]);
-        if(userCTSList.receiveType === 'alipay'){
-            $('.l-khu').addClass('hidden');
-        }
-    })
+            let realName = userCTSList.user.nickname;
+            // 类型 买入
+            if(userCTSList.type === '0') {
+                realName = 'otc商家';
+            }
+            $('.u-name').text(realName);
+            $('.u-kcode').text(userCTSList.receiveCardNo);
+            $('.u-khu').text(userCTSList.receiveInfo);
+            $('.u-type').text(zfType[userCTSList.receiveType]);
+            if(userCTSList.receiveType === 'alipay'){
+                $('.l-khu').addClass('hidden');
+            }
+        })
+    }
 
     //查询我的承兑商信息
     function getCTSData() {
