@@ -2501,6 +2501,7 @@ var LANGUAGE = {
         'ZH': '未读',
         'EN': 'Unread'
     },
+    // 腾讯云
     '系统消息：交易已下单，等待买家标记打款': {
         'ZH': '系统消息：交易已下单，等待买家标记打款',
         'EN': 'System Message: The transaction has placed an order waiting for the buyer to mark the payment'
@@ -2544,6 +2545,39 @@ var LANGUAGE = {
     '系统消息：卖家已评价': {
         'ZH': '系统消息：卖家已评价',
         'EN': 'System Message: Seller has evaluated'
+    },
+    // 流水
+    '提交卖出[FMVP/ETH]委托单': {
+        'ZH': '提交卖出[FMVP/ETH]委托单',
+        'EN': 'Commit sell FMVP/ETH order'
+    },
+    '提交购买[FMVP/ETH]委托单': {
+        'ZH': '提交购买[FMVP/ETH]委托单',
+        'EN': 'Commit buy FMVP/ETH order'
+    },
+    '提交卖出[FMVP/BTC]委托单': {
+        'ZH': '提交卖出[FMVP/BTC]委托单',
+        'EN': 'Commit sell FMVP/BTC order'
+    },
+    '提交购买[FMVP/BTC]委托单': {
+        'ZH': '提交购买[FMVP/BTC]委托单',
+        'EN': 'Commit buy FMVP/BTC order'
+    },
+    '充币-来自地址': {
+        'ZH': '充币-来自地址',
+        'EN': 'Charge-from address '
+    },
+    '充币-来自交易': {
+        'ZH': '充币-来自交易',
+        'EN': 'Charge-from transactional '
+    },
+    '充币-交易id': {
+        'ZH': '充币-交易id',
+        'EN': 'Charge-from id'
+    },
+    '充币-外部地址': {
+        'ZH': '充币-外部地址',
+        'EN': 'Charge-from external address'
     }
 }
 

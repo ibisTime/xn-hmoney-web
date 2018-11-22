@@ -137,8 +137,31 @@ define([
 					<div>${base.formateDatetime(item.createDatetime)}</div>
 					<div>${bizTypeValueList[item.bizType]}</div>
 					<div title="${base.formatMoney(item.transAmountString,'',item.currency)}">${base.formatMoney(item.transAmountString,'',item.currency)}</div>
-					<div>${item.bizNote}</div>
+					<div>${getBizNote(item)}</div>
 				</div>`
+    }
+
+    // 根据语言替换说明中文
+    function getBizNote(item) {
+        // 币币交易买入卖出
+        if (item.bizType === 'bborder_frozen') {
+            return base.getText(item.bizNote);
+        // 充值
+        } else if (item.bizType === 'charge') {
+            if(item.bizNote.indexOf('充币-来自地址') > -1) {
+                return item.bizNote.replace('充币-来自地址', base.getText('充币-来自地址'));
+            } else if(item.bizNote.indexOf('充币-来自交易') > -1) {
+                return item.bizNote.replace('充币-来自交易', base.getText('充币-来自交易'));
+            } else if(item.bizNote.indexOf('充币-交易id') > -1) {
+                return item.bizNote.replace('充币-交易id', base.getText('充币-交易id'));
+            } else if(item.bizNote.indexOf('充币-来自地址') > -1) {
+                return item.bizNote.replace('充币-外部地址', base.getText('充币-外部地址'));
+            } else {
+                return bizTypeValueList[item.bizType];
+            }
+        } else {
+            return bizTypeValueList[item.bizType];
+        }
     }
 
     function addListener() {

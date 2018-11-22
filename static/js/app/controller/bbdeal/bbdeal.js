@@ -439,7 +439,7 @@ define([
         getSymbolDetail().then(data => {
             $('.bzz-con_l .txt-h').html(data.cname);
             $('bzz-con_l .txt-p').html(data.ename);
-            $('.bzz-box .txt-p').html(data.introduction);
+            $('.bzz-box .txt-p').html(langType === 'ZH' ? data.introduction : data.enIntroduction);
             $('.bzz-time').html(data.icoDatetime ? new Date(data.icoDatetime).toLocaleDateString() : '');
             $('.bzz-f_all').html(data.maxSupply);
             $('.bzz-l_all').html(data.totalSupply);

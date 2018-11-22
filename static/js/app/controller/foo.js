@@ -3,7 +3,6 @@ define([
   'app/interface/GeneralCtr'
 ], function (base, GeneralCtr) {
   let langType = localStorage.getItem('langType') || 'ZH';
-  let srcList = {};
 
   getFooData();
 
@@ -39,9 +38,8 @@ define([
         $('#qrcodeF').children('img').prop('src', base.getAvatar(data[0].pic));
       }
       data.forEach(item => {
-        srcList[item.name] = item.pic;
         qHtml += `
-                <div class="contact-info">
+                <div class="contact-info" data-url="${item.pic}">
                     <div class="foo-tip">
                         <img src="${item.type === 'qq' ? '/static/images/qq.png' : '/static/images/weixin.png'}">
                         <div class="foo-qq"><span class="fname">${base.getText('客服')}${base.getText(item.type)}</span>：<span class="foo-url">${item.url}</span></div>
@@ -57,11 +55,6 @@ define([
       base.showMsg(msg || base.getText('加载失败', langType));
     });
   }
-  // function getAboutUs() {
-  //   return GeneralCtr.getSysConfig('service').then(data => {
-  //     // console.log('us', data);
-  //   })
-  // }
 
   function addListener() {
     $('.help').click(function () {
@@ -69,8 +62,7 @@ define([
     });
 
     $('.contact-info-wrap .contact-info').mouseenter(function () {
-      let text = $(this).children('.foo-tip').children('.foo-qq').children('.fname').text();
-      let src = srcList[text];
+      let src = $(this).attr('data-url');
       $('#qrcodeF').children('img').prop('src', base.getAvatar(src));
     })
   }
