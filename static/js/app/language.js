@@ -201,7 +201,7 @@ var LANGUAGE = {
     },
     '买卖自由': {
         'ZH': '买卖自由',
-        'EN': 'safesafe'
+        'EN': 'safe and reliable'
     },
     '安全可靠': {
         'ZH': '安全可靠',
@@ -410,6 +410,10 @@ var LANGUAGE = {
     '数量': {
         'ZH': '数量',
         'EN': 'Amount'
+    },
+    'count': {
+        'ZH': '数量',
+        'EN': 'count'
     },
     '剩余数量': {
         'ZH': '剩余数量',
@@ -1423,7 +1427,7 @@ var LANGUAGE = {
     },
     '说明': {
         'ZH': '说明',
-        'EN': 'instruction'
+        'EN': 'Instruction'
     },
     //////////////////////////////////////////////// public
     '订单管理': {
@@ -2245,6 +2249,10 @@ var LANGUAGE = {
         'ZH': '请输入卖出金额',
         'EN': 'Please enter the selling amount'
 	},
+    '请输入出售金额': {
+        'ZH': '请输入出售金额',
+        'EN': 'Please enter the selling amount'
+    },
 	'请输入账号或卡号': {
         'ZH': '请输入账号或卡号',
         'EN': 'Please enter your account number or bank card number'
@@ -2500,6 +2508,10 @@ var LANGUAGE = {
     '未读': {
         'ZH': '未读',
         'EN': 'Unread'
+    },
+    'otc商家': {
+        'ZH': 'otc商家',
+        'EN': 'Otc business'
     },
     // 腾讯云
     '系统消息：交易已下单，等待买家标记打款': {

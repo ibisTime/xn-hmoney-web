@@ -115,7 +115,9 @@
 
     <link rel="import" href="footer.html?__inline">
     <script>
-        require(['app/controller/Index']);
+        require(['domReady!'], function (doc) {
+            require(['app/controller/Index'])
+        });
     </script>
 </body>
 

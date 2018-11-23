@@ -110,7 +110,9 @@
 
     <link rel="import" href="../footer.html?__inline">
     <script>
-        require(['app/controller/user/userDetail']);
+        require(['domReady!'], function (doc) {
+            require(['app/controller/user/userDetail']);
+        });
     </script>
 </body>
 

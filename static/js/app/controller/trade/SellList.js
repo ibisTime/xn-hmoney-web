@@ -63,7 +63,7 @@ define([
         $('.advertisement-wrap .hb').text(base.getText('货币'));
         $('.advertisement-wrap .fkfs').text(base.getText('货币'));
         $('#buyAmount').attr('placeholder', base.getText('请输入您出售的金额'));
-        $('#buyEth').attr('placeholder', base.getText('搜索请输入您出售的数量'));
+        $('#buyEth').attr('placeholder', base.getText('请输入您出售的数量'));
         $('#buyBtn').html(base.getText('立即出售'));
 
         if(langType === 'EN'){

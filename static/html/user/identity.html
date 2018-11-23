@@ -188,7 +188,9 @@
     <script type="text/javascript" src="../../js/lib/qiniu/plupload.full.min.js"></script>
     <script type="text/javascript" src="../../js/lib/qiniu/qiniu.min.js"></script>
     <script>
-        require(['app/controller/user/Identity']);
+        require(['domReady!'], function (doc) {
+            require(['app/controller/user/Identity']);
+        });
     </script>
 </body>
 

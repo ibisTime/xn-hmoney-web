@@ -42,7 +42,9 @@
     <link rel="import" href="../footer.html?__inline">
     <script src="../../js/lib/qrcode.js"></script>
     <script>
-        require(['app/controller/bbdeal/bbdeal_fv']);
+        require(['domReady!'], function (doc) {
+            require(['app/controller/bbdeal/bbdeal_fv']);
+        });
     </script>
 </body>
 

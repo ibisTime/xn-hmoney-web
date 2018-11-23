@@ -53,7 +53,7 @@ define([
     // 进入游戏
     function gramUrl(){
         return StoreCtr.gramUrl().then(data => {
-            var url = `${data.gameUrl}?userId=${data.userId}&phone=${data.phone}&hashID=${data.hashID}&sign=${data.sign}`;
+            var url = `${data.gameUrl}?userId=${data.userId}&phone=${data.phone}&hashID=${data.hashID}&sign=${data.sign}&timestamp=${data.timestamp}`;
             $(".goGram").attr('href', url);
         });
     }

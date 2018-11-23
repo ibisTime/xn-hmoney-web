@@ -129,7 +129,7 @@ define([
                 data.forEach((item) => {
                     zfType[item.bankName] = item.bankCode;
                     zfNumber[item.bankCode] = item.bankcardNumber;
-                    picList[item.bankName] = item.pic;
+                    picList[item.bankCode] = item.pic;
                 });
                 zfOne = data[0].bankName;
             }
@@ -272,7 +272,7 @@ define([
                 let zfTypeHtml = '';
                 data.forEach(item => {
                     zfTypeHtml += `<option value="${item.bankName}">${item.bankName}</option>`;
-                    if(item.bankName == base.getText('支付宝', langType)){
+                    if(item.bankCode == 'alipay'){
                         // let rwmcode = new QRCode('rwmcode', picList['支付宝']);
                         // rwmcode.makeCode(picList['支付宝']);
                         $("#rwmcodeAccount").text(zfNumber[item.bankCode]);
@@ -282,7 +282,7 @@ define([
                         //     'background-size': '100% 100%'
                         // });
                         $('#wAddressDialog .pagination').css({
-                            'backgroundImage': `url(${base.getPic(picList[item.bankName]) })`,
+                            'backgroundImage': `url(${base.getPic(picList[item.bankCode]) })`,
                             'background-size': '100% 100%'
                         });
                     }
@@ -321,7 +321,7 @@ define([
                     <div class="buy-con">
                         <div class="b-c_h buy-c">
                             <p class="sel-p">${base.getText('金额', langType)}</p>
-                            <p>${base.getText('数量', langType)}</p>
+                            <p>${base.getText('count', langType)}</p>
                             <div class="b-c_d">${base.getText('单笔限制', langType)}：<span class="min-money"></span> - <span class="max-money"></span> <span class="x-p_money"></span></div>
                         </div>
                         <div class="b-c_put">
@@ -363,12 +363,12 @@ define([
                     <div class="buy-con">
                         <div class="b-c_h sell-c">
                             <p class="sel-p">${base.getText('金额', langType)}</p>
-                            <p>${base.getText('数量', langType)}</p>
+                            <p>${base.getText('count', langType)}</p>
                             <div class="b-c_d">${base.getText('单笔限制', langType)}：<span class="min-money"></span> - <span class="max-money"></span> <span class="x-p_money">CNY</span></div>
                         </div>
                         <div class="b-c_put">
                             <input type="text">
-                            <p>${base.getText('请输入卖出金额', langType)}</p>
+                            <p>${base.getText('请输入出售金额', langType)}</p>
                             <span class="m_bb x-p_money">CNY</span>
                         </div>
                         <div class="b-c_yue">
@@ -821,7 +821,7 @@ define([
             }
 
 
-            if ($(this).text() == base.getText('买入', langType) && $('.con-toBuy .sel-p').text() == base.getText('数量', langType)) {
+            if ($(this).text() == base.getText('买入', langType) && $('.con-toBuy .sel-p').text() == base.getText('count', langType)) {
                 let allMoney = $('.con-toBuy .x_num').text().trim();
                 let m_count = base.formatMoneyParse($('.con-toBuy .b-c_put input').val().trim(), '', 'FMVP');
                 changeBuyMoney(p_money, allMoney, m_count, buyNote);
@@ -840,10 +840,12 @@ define([
                             tradeAmount: allMoney,
                             remark: buyNote
                         }
+                        base.showLoadingSpin();
                         AccountCtr.buyX(buyConfig).then((data) => {
+                            base.hideLoadingSpin();
                             buyOrderCode = data.code;
                             $('#wAddressDialog').removeClass('hidden');
-                        });
+                        }, base.hideLoadingSpin);
                     } else {
                         showMsg(base.getText('输入金额不在限额之内，请重新输入！', langType));
                     }
@@ -860,12 +862,14 @@ define([
                             tradeAmount: allMoney,
                             remark: buyNote
                         }
+                        base.showLoadingSpin();
                         AccountCtr.buyX(buyConfig).then(() => {
+                            base.hideLoadingSpin();
                             showMsg();
                             setTimeout(() => {
                                 base.gohref('./wallet-jilu.html');
                             }, 1500);
-                        });
+                        }, base.hideLoadingSpin);
                     } else {
                         showMsg(base.getText('输入金额不在限额之内，请重新输入！', langType));
                     }
@@ -883,7 +887,7 @@ define([
                     changeSellMoney(p_money, allMoney, m_count, m_receiveCardNo);
                 }
 
-                if ($('.sell-c .sel-p').text() == base.getText('数量', langType)) {
+                if ($('.sell-c .sel-p').text() == base.getText('count', langType)) {
                     let allMoney = $('.con-toSell .x_num').text().trim();
                     let m_count = base.formatMoneyParse($('.con-toSell .b-c_put input').val().trim(), '', 'FMVP');
                     let m_receiveCardNo = $('.back-type input').val().trim();
@@ -905,12 +909,14 @@ define([
                                 tradeAmount: allMoney,
                                 tradePwd: moneyPow
                             }
+                            base.showLoadingSpin();
                             AccountCtr.sellX(sellConfig).then(() => {
+                                base.hideLoadingSpin();
                                 showMsg();
                                 setTimeout(() => {
                                     base.gohref('./wallet-jilu.html');
                                 }, 1500);
-                            })
+                            }, base.hideLoadingSpin)
                         } else {
                             showMsg(base.getText('输入金额不在限额之内，请重新输入！', langType));
                         }
@@ -928,12 +934,14 @@ define([
                                 tradeAmount: allMoney,
                                 tradePwd: moneyPow
                             }
+                            base.showLoadingSpin();
                             AccountCtr.sellX(sellConfig).then(() => {
+                                base.hideLoadingSpin();
                                 showMsg();
                                 setTimeout(() => {
                                     base.gohref('./wallet-jilu.html');
                                 }, 1500);
-                            })
+                            }, base.hideLoadingSpin)
                         } else {
                             showMsg(base.getText('输入金额不在限额之内，请重新输入！', langType));
                         }

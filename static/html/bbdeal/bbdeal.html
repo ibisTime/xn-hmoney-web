@@ -422,8 +422,12 @@
 
     <link rel="import" href="../footer.html?__inline">
 </body>
-<script type="text/javascript">
-    require(['app/controller/bbdeal/bbdeal']);
+<script>
+
+    require(['domReady!'], function (doc) {
+        require(['app/controller/bbdeal/bbdeal']);
+    });
+
 </script>
 
 </html>

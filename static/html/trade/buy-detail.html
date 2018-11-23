@@ -154,7 +154,9 @@
 
     <link rel="import" href="../footer.html?__inline">
     <script>
-        require(['app/controller/trade/BuyDetail']);
+        require(['domReady!'], function (doc) {
+            require(['app/controller/trade/BuyDetail']);
+        });
     </script>
 </body>
 

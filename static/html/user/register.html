@@ -123,7 +123,9 @@
 
     <link rel="import" href="../footer.html?__inline">
     <script>
-        require(['app/controller/user/Register']);
+        require(['domReady!'], function (doc) {
+            require(['app/controller/user/Register']);
+        });
     </script>
 </body>
 

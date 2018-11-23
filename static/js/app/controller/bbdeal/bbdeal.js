@@ -196,7 +196,7 @@ define([
         $('.jy-con-left .fy_ky1').text(base.getText('可用', langType));
         $('.jy-con-left .fy_cb').text(base.getText('充币', langType));
         $('.jy-con-left .fy_mrj').text(base.getText('买入价', langType));
-        $('.jy-con-left .fy_mrl').text(base.getText('买入量', langType));
+        $('.jy-con-left .fy_mrl').html(base.getText('买入量', langType));
         $('.jy-con-left .fy_jye').text(base.getText('交易额', langType));
         $('.jy-con-left .fy_mr').text(base.getText('买入', langType));
 
@@ -206,7 +206,7 @@ define([
         $('.jy-con-right .yf_mcl').text(base.getText('卖出量', langType));
         $('.jy-con-right .fy_jye').text(base.getText('交易额', langType));
 
-        $('.bb-r-new .fy_jye').text(base.getText('最新价', langType));
+        $('.bb-r-new .fy_zxj').text(base.getText('最新价', langType));
         $('.bb-r-new .fy_jg b').text(base.getText('价格', langType));
         $('.bb-r-new .fy_sl b').text(base.getText('数量', langType));
 
@@ -437,9 +437,8 @@ define([
 
     function symbolDetail() {
         getSymbolDetail().then(data => {
-            $('.bzz-con_l .txt-h').html(data.cname);
-            $('bzz-con_l .txt-p').html(data.ename);
-            $('.bzz-box .txt-p').html(langType === 'ZH' ? data.introduction : data.enIntroduction);
+            $('.bzz-con_l .txt-h').html(data.symbol);
+            $('.bzz-box').html(langType === 'ZH' ? data.introduction : data.enIntroduction);
             $('.bzz-time').html(data.icoDatetime ? new Date(data.icoDatetime).toLocaleDateString() : '');
             $('.bzz-f_all').html(data.maxSupply);
             $('.bzz-l_all').html(data.totalSupply);
@@ -865,7 +864,7 @@ define([
                 jyType = 'xj';
                 $('.yj-m>input').eq(0).val('').prop('disabled', false).removeClass('dis-inp');
                 $('.jy-r>input').val('').prop('disabled', false).removeClass('dis-inp');
-                $('.yj-btc').css('opacity', '1').eq(0).next().text('买入量');
+                $('.yj-btc').css('opacity', '1').eq(0).next().text(base.getText('买入量'));
                 $('.btc-toSm span').text(setBazDeal.symbol); // 当前交易对 sm
                 $('.jy-btc1 .r-b').text(setBazDeal.symbol);
                 $('.bb-jiaoyi input').css('border-color', '#e5e5e5').val('');

@@ -202,7 +202,8 @@ var requirejs, require, define;
                 //will run faster if there is no default.
                 waitSeconds: 30,
                 baseUrl: './',
-                paths: {},
+                paths: {
+                },
                 bundles: {},
                 pkgs: {},
                 shim: {},

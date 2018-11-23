@@ -75,11 +75,11 @@ define([
             let realName = userCTSList.user.nickname;
             // 类型 买入
             if(userCTSList.type === '0') {
-                realName = 'otc商家';
+                realName = base.getText('otc商家');
             }
             $('.u-name').text(realName);
             $('.u-kcode').text(userCTSList.receiveCardNo);
-            $('.u-khu').text(userCTSList.receiveInfo);
+            $('.u-khu').text(zfType[userCTSList.receiveType]);
             $('.u-type').text(zfType[userCTSList.receiveType]);
             if(userCTSList.receiveType === 'alipay'){
                 $('.l-khu').addClass('hidden');

@@ -29,7 +29,9 @@
 
     <link rel="import" href="../footer.html?__inline">
     <script>
-        require(['app/controller/public/Article']);
+        require(['domReady!'], function (doc) {
+            require(['app/controller/public/Article']);
+        });
     </script>
 </body>
 

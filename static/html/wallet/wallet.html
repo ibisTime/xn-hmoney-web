@@ -134,7 +134,9 @@
     <link rel="import" href="../footer.html?__inline">
     <script src="../../js/lib/qrcode.js"></script>
     <script>
-        require(['app/controller/wallet/Wallet']);
+        require(['domReady!'], function (doc) {
+            require(['app/controller/wallet/Wallet']);
+        });
     </script>
 </body>
 

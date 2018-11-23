@@ -74,7 +74,9 @@
     <link rel="import" href="../footer.html?__inline">
 </body>
 <script>
-    require(['app/controller/store/store']);
+    require(['domReady!'], function (doc) {
+        require(['app/controller/store/store']);
+    });
 </script>
 
 </html>

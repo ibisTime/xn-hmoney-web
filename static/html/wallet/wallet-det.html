@@ -44,7 +44,9 @@
 
     <link rel="import" href="../footer.html?__inline">
     <script>
-        require(['app/controller/wallet/wallet_det']);
+        require(['domReady!'], function (doc) {
+            require(['app/controller/wallet/wallet_det']);
+        });
     </script>
 </body>
 

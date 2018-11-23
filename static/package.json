@@ -6,8 +6,8 @@
         "dist": "fis3 release -d ../dist",
         "prod": "fis3 release -d ../dist prod",
         "test": "echo \"Error: no test specified\" && exit 1",
-        "dev": "fis3 release -d ../dist -w",
-        "build": "fis3 release -d F:/work/happyManey/happyMoney/happy_code/xn-hmoney-build/dist prod"
+        "start": "fis3 release -d ../dist -w",
+        "build": "fis3 release -d ../dist"
     },
     "author": "",
     "license": "ISC",

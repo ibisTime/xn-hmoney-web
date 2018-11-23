@@ -100,7 +100,9 @@
 
 <link rel="import" href="../footer.html?__inline">
 <script>
-    require(['app/controller/trade/BuyList']);
+    require(['domReady!'], function (doc) {
+        require(['app/controller/trade/BuyList']);
+    });
 </script>
 </body>
 
