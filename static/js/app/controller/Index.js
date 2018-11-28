@@ -66,6 +66,9 @@ define([
             sessionStorage.setItem("mobile",item.mobile ? item.mobile : '');
             sessionStorage.setItem("email",item.email ? item.email : '');
             sessionStorage.setItem("inviteCode", item.userId);
+
+            $("#head-user-wrap .nickname").text(item.nickname);
+            $("#head-user-wrap").removeClass("hidden");
         })
     }
 

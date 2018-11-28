@@ -73,8 +73,10 @@ define([
         $("#footTeTui").html(FOOT_TETUI)
         $("#footEmail").html(FOOT_EMAIL)
         if (base.isLogin()) {
-            $("#head-user-wrap .nickname").text(sessionStorage.getItem("nickname"))
-            $("#head-user-wrap").removeClass("hidden");
+            if(sessionStorage.getItem("nickname")) {
+                $("#head-user-wrap .nickname").text(sessionStorage.getItem("nickname"))
+                $("#head-user-wrap").removeClass("hidden");
+            }
             $.when(
                 getAccount()
             )

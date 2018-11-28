@@ -182,7 +182,7 @@ define([
          * type=1 信任，type=0，屏蔽
          */
         getInvitation(refresh) {
-            return Ajax.get("802397", {
+            return Ajax.get("805913", {
                 userId: base.getUserId(),
             }, refresh);
         },
