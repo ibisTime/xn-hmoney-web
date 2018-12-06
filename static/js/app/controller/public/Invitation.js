@@ -43,8 +43,8 @@ define([
     function setHtml() {
         $('title').text(base.getText('邀请好友') + '-' +base.getText('FUNMVP区块链技术应用实验平台'));
         $('.invi-en_yq').text(base.getText('成功邀请', langType));
-        $('.invi-en_sy').text(base.getText('注册奖励', langType));
-        $('.invi-en_first_sy').text(base.getText('第一次币币交易奖励', langType));
+        $('.invi-en_sy').text(base.getText('注册分佣奖励', langType));
+        $('.invi-en_first_sy').text(base.getText('第一次币币交易分佣奖励', langType));
         $('#qrcodeBtn').text(base.getText('二维码推荐', langType));
         $('#invitationBtn').text(base.getText('文字推荐', langType));
         $('.sel-span').text(base.getText('邀请记录', langType));
@@ -55,7 +55,7 @@ define([
         $('.fy_hdgz').text(base.getText('活动规则', langType));
         $('.fy_smewm').text(base.getText('扫描二维码邀请注册', langType));
         $('.fy_fzljsm').text(base.getText('复制下面这段文字...', langType));
-        $('.invi-en_yjn').text(`${base.getText('注册奖励')}(FMVP)`);
+        $('.invi-en_yjn').text(`${base.getText('注册分佣奖励')}(FMVP)`);
     }
 
     // 获取邀请好友的链接
@@ -153,7 +153,6 @@ define([
                     html += `<tr>
                         <td>${item.nickname}</td>
                         <td>${base.datetime(item.createDatetime)}</td>
-                        // <td>${base.formatMoney(`${item.tradeCount}`, '', 'FMVP')} FMVP</td>
                         <td>${regAwardCount} FMVP</td>
                     </tr>`;
                 });

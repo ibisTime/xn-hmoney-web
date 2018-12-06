@@ -1196,12 +1196,12 @@ var LANGUAGE = {
         'ZH': '已得收益',
         'EN': 'Proceeds'
     },
-    '注册奖励': {
-        'ZH': '注册奖励',
+    '注册分佣奖励': {
+        'ZH': '注册分佣奖励',
         'EN': 'Registration Proceeds'
     },
-    '第一次币币交易奖励': {
-        'ZH': '第一次币币交易奖励',
+    '第一次币币交易分佣奖励': {
+        'ZH': '第一次币币交易分佣奖励',
         'EN': 'First Currency Exchange Proceeds'
     },
     '二维码推荐': {
