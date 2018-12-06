@@ -57,7 +57,7 @@ define([
         // $('.wamx-en_sxf').text(base.getText('交易手续费', langType));
         // $('.wamx-en_tx').text(base.getText('提现手续费', langType));
         $('.wamx-en_fee').text(base.getText('手续费', langType));
-        $('.wamx-en_zryx').text(base.getText('转入游戏', langType));
+        $('.wamx-en_zryx').text(base.getText('游戏充值', langType));
         $('.wamx-en_yxtx').text(base.getText('游戏提现', langType));
         $('.wamx-en_dj').text(base.getText('冻结解冻', langType));
         $('.wamx-en_sj').text(base.getText('时间', langType));

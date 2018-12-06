@@ -44,6 +44,7 @@ define([
     function setHtml() {
         $('title').text(base.getText('商城') + '-' +base.getText('FUNMVP区块链技术应用实验平台'));
         $('.store_en').text(base.getText('商城', langType));
+        $('.txt-yxye').text(base.getText('游戏余额', langType));
         $('.store_gm').text(base.getText('区块链游戏', langType));
         $('.zb-btn').text(base.getText('转入游戏', langType));
         $('.go_en').text(base.getText('进入游戏', langType));

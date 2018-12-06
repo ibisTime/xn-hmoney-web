@@ -495,7 +495,7 @@ define([
                         <h5>${base.getText('温馨提示', langType)}</h5>
                         <ul class="ts-ul">
                             <li class="w-zh"> ${item.currency} 地址只能充值 ${item.currency} 资产，任何充入 ${item.currency} 地址的非 ${item.currency} 资产将不可找回。</li>
-                            <li class="w-en none"> ${item.currency} address can only recharge ${item.currency} assets, any non - ${item.currency} assets that fill the ${item.currency} address will not be recovered.</li>
+                            <li class="w-en none"> ${item.currency} address can only recharge ${item.currency} assets, any non - ${item.currency} assets will not be recovered..</li>
                             <li> ${base.getText('在平台内相互转账是实时到账且免费的。', langType)}</li>
                         </ul>
                     </div>

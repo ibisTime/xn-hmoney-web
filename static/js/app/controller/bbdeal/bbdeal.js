@@ -222,8 +222,9 @@ define([
 
         $('.cur-table .fy_time').text(base.getText('时间', langType));
         $('.cur-table .fy_jyd').text(base.getText('交易对', langType));
+        $('.cur-table .fy_fx').text(base.getText('方向', langType));
         $('.cur-table .fy_jg').text(base.getText('价格', langType));
-        $('.cur-table .fy_sl').text(base.getText('数量', langType));
+        $('.cur-table .fy_sl').text(base.getText('Amt', langType));
         $('.cur-table .fy_wtze').text(base.getText('委托总额', langType));
         $('.cur-table .fy_ycj').text(base.getText('已成交', langType));
         $('.cur-table .fy_wcj').text(base.getText('未成交', langType));
@@ -1223,6 +1224,7 @@ define([
                 widget.changingInterval = false;
             });
             btnList.forEach(function (item) {
+
                 let button = widget.createButton({
                     align: "left"
                 });

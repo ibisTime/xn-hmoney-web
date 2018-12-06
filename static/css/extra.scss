@@ -7,6 +7,10 @@
     font-size: 13px;
 }
 
+.fs30 {
+    font-size:30px;
+}
+
 .ml5 {
     margin-left: 5px;
 }
@@ -1045,16 +1049,18 @@ table {
             font-weight: 400;
             color: #333333;
             letter-spacing: 0.3px;
-            height: 60px;
-            line-height: 60px;
-        }
-        >h4:last-child {
-            margin-bottom: 14px;
+            height: 56px;
+            line-height: 56px;
+
+            &:last-child {
+                margin-bottom: 18px;
+            }
         }
         >p {
             color: #333;
             font-size: 20px;
             letter-spacing: 0.17px;
+            line-height: 1.4;
         }
     }
     .bb-hq_r {

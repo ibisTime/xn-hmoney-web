@@ -29,13 +29,18 @@ define([
     function init() {
         base.showLoadingSpin();
         // 英文隐藏
-        if(langType == 'EN'){
+        if(langType === 'EN'){
             $('.i-zh').addClass('none');
             $('.i-en').removeClass('none').css({
-                'font-size': '36px',
-                'line-height': '1.2'
+                'font-size': '30px',
+                'line-height': '1.8'
             });
             $('.contact-txt').css('width', '39%');
+            $('.sxjymmzy').html('&nbsp;');
+            $('.en_space').html('&nbsp;');
+            $('.title_txt').removeClass('none').css({
+                'margin-bottom': '70px',
+            });
         }
         $(".head-nav-wrap .index").addClass("active");
         $('.in-en_jq').text(base.getText('尽情游戏 无尽精彩', langType));
@@ -46,7 +51,13 @@ define([
         $('.in-en_jjtc').text(base.getText('即将推出，敬请期待', langType));
         $('.in-en_ksdh').text(base.getText('开始兑换', langType));
         $('.in-en_wsm').text(base.getText('为什么要选择FUNMVP？', langType));
-        $('.in-en_mm').text(base.getText('买卖自由', langType));
+        $('.fy_safe').text(base.getText('买卖自由', langType));
+        $('.fy_safe_con').html(base.getText('支持多种数字货币的币币交易与场外交易，买卖自由、双向交易、快速方便', langType));
+        $('.fy_teliable').text(base.getText('安全可靠', langType));
+        $('.fy_teliable_con').html(base.getText('SSL、多重加密等银行级别安全技术，十年技术安全团队、多重保障资产安全', langType));
+        $('.fy_convenient').text(base.getText('交易便捷', langType));
+        $('.fy_convenient_con').html(base.getText('支持多终端交易，WEB、APP行情及时掌握，快速交易，贴心服务，全球市场，交易随时随地', langType));
+
         $.when(
             getBanner(),
             getPageAdvertiseUser(),

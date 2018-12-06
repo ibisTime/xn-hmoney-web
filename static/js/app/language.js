@@ -58,7 +58,7 @@ var LANGUAGE = {
     },
     '查看更多': {
         'ZH': '查看更多',
-        'EN': 'more'
+        'EN': 'More'
     },
     '场外交易订单': {
         'ZH': '场外交易订单',
@@ -70,11 +70,11 @@ var LANGUAGE = {
     },
     '用户中心': {
         'ZH': '用户中心',
-        'EN': 'user center'
+        'EN': 'User center'
     },
     '退出登录': {
         'ZH': '退出登录',
-        'EN': 'log out '
+        'EN': 'Log out '
     },
     // *****/ 尾部
     '客服': {
@@ -169,15 +169,15 @@ var LANGUAGE = {
     },
     '进入游戏': {
         'ZH': '进入游戏',
-        'EN': 'enter the game'
+        'EN': 'Enter'
     },
     '二手车兑换': {
         'ZH': '二手车兑换',
-        'EN': 'Used-car exchange'
+        'EN': 'Exchange'
     },
     '开始兑换': {
         'ZH': '开始兑换',
-        'EN': 'began to change'
+        'EN': 'Began to change'
     },
     '即将推出': {
         'ZH': '即将推出',
@@ -185,7 +185,7 @@ var LANGUAGE = {
     },
     '即将推出，敬请期待': {
         'ZH': '即将推出，敬请期待',
-        'EN': 'Coming soon, Coming soon'
+        'EN': 'Coming soon'
     },
     '敬请期待': {
         'ZH': '敬请期待',
@@ -201,11 +201,11 @@ var LANGUAGE = {
     },
     '买卖自由': {
         'ZH': '买卖自由',
-        'EN': 'safe and reliable'
+        'EN': 'Safe'
     },
     '安全可靠': {
         'ZH': '安全可靠',
-        'EN': 'reliable'
+        'EN': 'Teliable'
     },
     '为什么要选择FUNMVP？': {
         'ZH': '为什么要选择FUNMVP？',
@@ -213,19 +213,19 @@ var LANGUAGE = {
     },
     '支持多种数字货币的币币交易与场外交易，买卖自由、双向交易、快速方便': {
         'ZH': '支持多种数字货币的币币交易与场外交易，买卖自由、双向交易、快速方便',
-        'EN': 'transactions of fiat and exchange which support multiple digital currency, safesafe、two-way trading、quick and easy'
+        'EN': 'Transactions support multiple digital currency;<br/>safe, two-way trading, quick and easy'
     },
     'SSL、多重加密等银行级别安全技术，十年技术安全团队、多重保障资产安全': {
         'ZH': 'SSL、多重加密等银行级别安全技术，十年技术安全团队、多重保障资产安全',
-        'EN': 'SSL、Multiple encryption and other bank-level security technologies，10 years\' technical security team、Multiple safeguards of fund security'
+        'EN': 'Bank-level security technologies, such as SSL, multiple encryption;<br/>multiple safeguards of fund security'
     },
     '支持多终端交易，WEB、APP行情及时掌握，快速交易，贴心服务，全球市场，交易随时随地': {
         'ZH': '支持多终端交易，WEB、APP行情及时掌握，快速交易，贴心服务，全球市场，交易随时随地',
-        'EN': 'Support multi-terminal transactions,WEB、APP grasp market timely,transact fast,caring service,global market,Trading anywhere, anytime'
+        'EN': 'support multi-terminal transactions, grasp market information timely, transact fast & trade anywhere, anytime'
     },
     '支持多种数字货币的币币交易与场外交易': {
         'ZH': '支持多种数字货币的币币交易与场外交易',
-        'EN': 'transactions of fiat and exchange which support multiple digital currency'
+        'EN': 'Transactions of fiat and exchange which support multiple digital currency'
     },
     '快速方便': {
         'ZH': '快速方便',
@@ -249,7 +249,7 @@ var LANGUAGE = {
     },
     '交易便捷': {
         'ZH': '交易便捷',
-        'EN': 'convenient'
+        'EN': 'Convenient'
     },
     '支持多终端交易': {
         'ZH': '支持多终端交易',
@@ -279,7 +279,7 @@ var LANGUAGE = {
     /////////////////////////////////////////////////// 商城
     '商城': {
         'ZH': '商城',
-        'EN': 'Store'
+        'EN': 'Mall'
     },
     '区块链游戏': {
         'ZH': '区块链游戏',
@@ -287,7 +287,7 @@ var LANGUAGE = {
     },
     '游戏余额': {
         'ZH': '游戏余额',
-        'EN': 'game balances'
+        'EN': 'Balances'
     },
     '转入游戏': {
         'ZH': '转入游戏',
@@ -299,7 +299,7 @@ var LANGUAGE = {
     },
     '请输入充值数量': {
         'ZH': '请输入充值数量',
-        'EN': 'please enter the recharge amount'
+        'EN': 'Please enter the recharge amount'
     },
     '充值数量不能为空': {
         'ZH': '充值数量不能为空',
@@ -413,11 +413,11 @@ var LANGUAGE = {
     },
     'count': {
         'ZH': '数量',
-        'EN': 'count'
+        'EN': 'Count'
     },
     '剩余数量': {
         'ZH': '剩余数量',
-        'EN': 'Quantity'
+        'EN': 'Available'
     },
     '当前委托': {
         'ZH': '当前委托',
@@ -447,9 +447,13 @@ var LANGUAGE = {
         'ZH': '方向',
         'EN': 'Type'
     },
+    'Amt': {
+        'ZH': '数量',
+        'EN': 'Amt'
+    },
     '委托总额': {
         'ZH': '委托总额',
-        'EN': 'Total amount'
+        'EN': 'Total'
     },
     '已成交': {
         'ZH': '已成交',
@@ -564,7 +568,7 @@ var LANGUAGE = {
     },
     '全部货币，全部付款方式': {
         'ZH': '全部货币，全部付款方式',
-        'EN': 'All currencies, all payment methods'
+        'EN': 'Select'
     },
     '支付宝': {
         'ZH': '支付宝',
@@ -576,7 +580,7 @@ var LANGUAGE = {
     },
     '银行卡转账': {
         'ZH': '银行卡转账',
-        'EN': 'bankcard transfer'
+        'EN': 'Bankcard'
     },
     '请输入完整用户名': {
         'ZH': '请输入完整用户名',
@@ -588,15 +592,15 @@ var LANGUAGE = {
     },
     '昵称': {
         'ZH': '昵称',
-        'EN': 'nickname'
+        'EN': 'Merchant'
     },
     '付款方式': {
         'ZH': '付款方式',
-        'EN': 'Payment mehod'
+        'EN': 'Payment Method'
     },
     '限额': {
         'ZH': '限额',
-        'EN': 'quota'
+        'EN': 'Limits'
     },
     'Avaliable': {
         'ZH': '数量',
@@ -618,7 +622,11 @@ var LANGUAGE = {
     },
     '交易数量': {
         'ZH': '交易数量',
-        'EN': 'Volume'
+        'EN': 'Quantity'
+    },
+    'Quantity': {
+        'ZH': '数量',
+        'EN': 'Quantity'
     },
     '交易金额': {
         'ZH': '交易金额',
@@ -650,7 +658,7 @@ var LANGUAGE = {
     },
     '实名认证': {
         'ZH': '实名认证',
-        'EN': 'certification'
+        'EN': 'Certification'
     },
     '用户创建时间': {
         'ZH': '用户创建时间',
@@ -662,11 +670,11 @@ var LANGUAGE = {
     },
     '订单编号': {
         'ZH': '订单编号',
-        'EN': 'order number'
+        'EN': 'No.'
     },
     '广告留言': {
         'ZH': '广告留言',
-        'EN': 'The advertising message'
+        'EN': 'Message'
     },
     '标记付款': {
         'ZH': '标记付款',
@@ -760,19 +768,19 @@ var LANGUAGE = {
     // *****/ 场外交易-广告管理
     '广告管理': {
         'ZH': '广告管理',
-        'EN': 'Advertisement Management'
+        'EN': 'Ads'
     },
     '购买广告': {
         'ZH': '购买广告',
-        'EN': 'Buy advertisement'
+        'EN': 'Buy Ad'
     },
     '出售广告': {
         'ZH': '出售广告',
-        'EN': 'Sell advertisement'
+        'EN': 'Sell Ad'
     },
     '编号': {
         'ZH': '编号',
-        'EN': 'Serial number'
+        'EN': 'No.'
     },
     '广告类型': {
         'ZH': '广告类型',
@@ -784,7 +792,7 @@ var LANGUAGE = {
     },
     '创建时间': {
         'ZH': '创建时间',
-        'EN': 'Date'
+        'EN': 'Time'
     },
     '交易状态': {
         'ZH': '交易状态',
@@ -798,25 +806,25 @@ var LANGUAGE = {
     ///////////////////////////////////////////////// 场外交易-信任管理
     '信任管理': {
         'ZH': '信任管理',
-        'EN': 'Trust Management'
+        'EN': 'Trust'
     },
     '我信任的': {
         'ZH': '我信任的',
-        'EN': 'trusted by me'
+        'EN': 'Trust'
     },
     '信任我的': {
         'ZH': '信任我的',
-        'EN': 'trust me'
+        'EN': 'Trusted'
     },
     '我屏蔽的': {
         'ZH': '我屏蔽的',
-        'EN': 'blocked by me'
+        'EN': 'Blacklist'
     },
 
     // *****/ 发布广告
     '发布广告': {
         'ZH': '发布广告',
-        'EN': 'Release Advertisement'
+        'EN': 'Create Ad'
     },
     '发布': {
         'ZH': '发布',
@@ -836,7 +844,7 @@ var LANGUAGE = {
     },
     '请确保您在本网站的钱包中可用余额充足': {
         'ZH': '请确保您在本网站的钱包中可用余额充足',
-        'EN': 'Please ensure enough available balances'
+        'EN': 'Please ensure enough amount.'
     },
     '交易类型': {
         'ZH': '交易类型',
@@ -852,15 +860,15 @@ var LANGUAGE = {
     },
     '在线出售': {
         'ZH': '在线出售',
-        'EN': 'on-line sell'
+        'EN': 'On-line sell'
     },
     '在线购买': {
         'ZH': '在线购买',
-        'EN': 'on-line buy'
+        'EN': 'On-line buy'
     },
     '更多信息': {
         'ZH': '更多信息',
-        'EN': 'more information'
+        'EN': 'More information'
     },
     '您希望交易付款的货币类型': {
         'ZH': '您希望交易付款的货币类型',
@@ -868,15 +876,15 @@ var LANGUAGE = {
     },
     '溢价': {
         'ZH': '溢价',
-        'EN': 'premium'
+        'EN': 'Premium'
     },
     '价格': {
         'ZH': '价格',
-        'EN': 'price'
+        'EN': 'Price'
     },
     '选填': {
         'ZH': '选填',
-        'EN': 'optional'
+        'EN': 'Optional'
     },
     '广告最高可成交的价格': {
         'ZH': '广告最高可成交的价格',
@@ -884,7 +892,7 @@ var LANGUAGE = {
     },
     '最小限额': {
         'ZH': '最小限额',
-        'EN': 'the minimum limit'
+        'EN': 'Minumum limit'
     },
     '请输入最小限额': {
         'ZH': '请输入最小限额',
@@ -892,7 +900,7 @@ var LANGUAGE = {
     },
     '最大限额': {
         'ZH': '最大限额',
-        'EN': 'the maximum limit'
+        'EN': 'Maximum limit'
     },
     '请输入最大限额': {
         'ZH': '请输入最大限额',
@@ -940,11 +948,11 @@ var LANGUAGE = {
     },
     '启用': {
         'ZH': '启用',
-        'EN': 'enable'
+        'EN': 'On'
     },
     '开放时间': {
         'ZH': '开放时间',
-        'EN': 'opening hours'
+        'EN': 'Opening hours'
     },
     '任何时候': {
         'ZH': '任何时候',
@@ -988,7 +996,7 @@ var LANGUAGE = {
     },
     '下架': {
         'ZH': '下架',
-        'EN': 'unrelease'
+        'EN': 'Off'
     },
 
     // ***** 购买详情
@@ -998,19 +1006,19 @@ var LANGUAGE = {
     },
     '已认证': {
         'ZH': '已认证',
-        'EN': 'certified'
+        'EN': 'Certified'
     },
     '交易次数': {
         'ZH': '交易次数',
-        'EN': 'transactions no.s'
+        'EN': 'Transactions'
     },
     '信任人数': {
         'ZH': '信任人数',
-        'EN': 'trusted by'
+        'EN': 'Trusted'
     },
     '好评率': {
         'ZH': '好评率',
-        'EN': 'feedback'
+        'EN': 'Feedback'
     },
     '历史成交': {
         'ZH': '历史成交',
@@ -1022,7 +1030,7 @@ var LANGUAGE = {
     },
     '分钟': {
         'ZH': '分钟',
-        'EN': 'minute'
+        'EN': 'Minute'
     },
     '付款期限': {
         'ZH': '付款期限',
@@ -1030,11 +1038,11 @@ var LANGUAGE = {
     },
     '卖家留言': {
         'ZH': '卖家留言',
-        'EN': 'message from seller'
+        'EN': 'Message from seller'
     },
     '买家留言': {
         'ZH': '卖家留言',
-        'EN': 'message from buyer'
+        'EN': 'Message from buyer'
     },
     '你想买卖多少': {
         'ZH': '你想买卖多少',
@@ -1070,15 +1078,15 @@ var LANGUAGE = {
     },
     '交易密码': {
         'ZH': '交易密码',
-        'EN': 'capital password'
+        'EN': 'Trading password'
     },
     '确认': {
         'ZH': '确认',
-        'EN': 'confirm'
+        'EN': 'Confirm'
     },
     '取消': {
         'ZH': '取消',
-        'EN': 'cancel'
+        'EN': 'Cancel'
     },
     '下单确认': {
         'ZH': '下单确认',
@@ -1086,7 +1094,7 @@ var LANGUAGE = {
     },
     '购买价格': {
         'ZH': '购买价格',
-        'EN': 'purchase price'
+        'EN': 'Purchase price'
     },
     '购买金额': {
         'ZH': '购买金额',
@@ -1110,7 +1118,7 @@ var LANGUAGE = {
     },
     '提醒': {
         'ZH': '提醒',
-        'EN': 'remind'
+        'EN': 'Remind'
     },
     '请确认价格再下单': {
         'ZH': '请确认价格再下单',
@@ -1172,7 +1180,7 @@ var LANGUAGE = {
     },
     '发布的广告': {
         'ZH': '发布的广告',
-        'EN': 'releasing advertisement'
+        'EN': 'Releasing advertisement'
     },
     '交易币种': {
         'ZH': '交易币种',
@@ -1186,7 +1194,7 @@ var LANGUAGE = {
     },
     '成功邀请': {
         'ZH': '成功邀请',
-        'EN': 'Successfully invited'
+        'EN': 'Invited'
     },
     '人': {
         'ZH': '人',
@@ -1206,11 +1214,11 @@ var LANGUAGE = {
     },
     '二维码推荐': {
         'ZH': '二维码推荐',
-        'EN': 'Exclusive QR code'
+        'EN': 'Share QR Code'
     },
     '文字推荐': {
         'ZH': '文字推荐',
-        'EN': 'Exclusive registration link'
+        'EN': 'Share Link'
     },
     '邀请记录': {
         'ZH': '邀请记录',
@@ -1258,13 +1266,13 @@ var LANGUAGE = {
     },
     '复制下面这段文字...': {
         'ZH': '复制下面这段文字给好友，好友通过你的专属链接注册成功，你就可以享受好友的交易提成了',
-        'EN': 'copy and link to share, Friends registered through your exclusive link successfully, You can then get cashback from your friends.'
+        'EN': 'Copy and link to share, Friends registered through your exclusive link successfully, You can then get cashback from your friends.'
     },
 
     /////////////////////////////////////////////////// 订单管理
     '进行中': {
         'ZH': '进行中',
-        'EN': 'In progress'
+        'EN': 'Processing'
     },
     '已结束': {
         'ZH': '已结束',
@@ -1272,7 +1280,7 @@ var LANGUAGE = {
     },
     '交易伙伴': {
         'ZH': '交易伙伴',
-        'EN': 'Trading partners'
+        'EN': 'Merchant'
     },
     '类型': {
         'ZH': '类型',
@@ -1286,15 +1294,15 @@ var LANGUAGE = {
     // ***** 钱包
     '钱包-FUNMVP区块链技术应用实验平台': {
         'ZH': '钱包-FUNMVP区块链技术应用实验平台',
-        'EN': 'wallet-FUNMVP blockchain technology application experimental platform'
+        'EN': 'Wallet-FUNMVP blockchain technology application experimental platform'
     },
     '钱包': {
         'ZH': '钱包',
-        'EN': 'wallet'
+        'EN': 'Wallet'
     },
     '总资产折合': {
         'ZH': '总资产折合',
-        'EN': 'total estimated value'
+        'EN': 'Total estimated value'
     },
     '币币账户与场外账户均可支持充币提币': {
         'ZH': '币币账户与场外账户均可支持充币提币',
@@ -1302,7 +1310,7 @@ var LANGUAGE = {
     },
     '冻结': {
         'ZH': '冻结',
-        'EN': 'freeze'
+        'EN': 'Freeze'
     },
     '暂无明细': {
         'ZH': '暂无明细',
@@ -1310,11 +1318,11 @@ var LANGUAGE = {
     },
     '地址': {
         'ZH': '地址',
-        'EN': 'address'
+        'EN': 'Address'
     },
     '添加新地址': {
         'ZH': '添加新地址',
-        'EN': 'add the address'
+        'EN': 'Add the address'
     },
     '确认地址': {
         'ZH': '确认地址',
@@ -1323,7 +1331,7 @@ var LANGUAGE = {
 
     '订单记录': {
         'ZH': '订单记录',
-        'EN': 'orders records'
+        'EN': 'Records'
     },
     '币数量': {
         'ZH': '币数量',
@@ -1331,7 +1339,7 @@ var LANGUAGE = {
     },
     '订单号': {
         'ZH': '订单号',
-        'EN': 'order number'
+        'EN': 'No.'
     },
     '订单总额': {
         'ZH': '订单总额',
@@ -1339,15 +1347,15 @@ var LANGUAGE = {
     },
     '手续费': {
         'ZH': '手续费',
-        'EN': 'charges rates'
+        'EN': 'Fee rate'
     },
     '手续费率': {
         'ZH': '手续费率',
-        'EN': 'charges rates'
+        'EN': 'Charges rates'
     },
     '下单时间': {
         'ZH': '下单时间',
-        'EN': 'order time'
+        'EN': 'Order time'
     },
     '收款信息': {
         'ZH': '收款信息',
@@ -1359,11 +1367,11 @@ var LANGUAGE = {
     },
     '账号': {
         'ZH': '账号',
-        'EN': 'account'
+        'EN': 'Account'
     },
     '开户行': {
         'ZH': '开户行',
-        'EN': 'bank of deposit'
+        'EN': 'Bank of deposit'
     },
     '我已完成付款': {
         'ZH': '我已完成付款',
@@ -1371,11 +1379,11 @@ var LANGUAGE = {
     },
     '总金额': {
         'ZH': '总金额',
-        'EN': 'the total amount'
+        'EN': 'Total'
     },
     '下单日期': {
         'ZH': '下单日期',
-        'EN': 'date of order'
+        'EN': 'Date'
     },
     '场外交易明细': {
         'ZH': '场外交易明细',
@@ -1387,51 +1395,55 @@ var LANGUAGE = {
     },
     '提现': {
         'ZH': '提现',
-        'EN': 'withdraw'
+        'EN': 'Withdraw'
     },
     '交易买入': {
         'ZH': '交易买入',
-        'EN': 'buy'
+        'EN': 'Buy'
     },
     '交易卖出': {
         'ZH': '交易卖出',
-        'EN': 'sell'
+        'EN': 'Sell'
     },
     '场外承兑商购买': {
         'ZH': '场外承兑商购买',
-        'EN': 'assurer to buy'
+        'EN': 'Assurer to buy'
     },
     '场外承兑商出售': {
         'ZH': '场外承兑商出售',
-        'EN': 'assurer to sell'
+        'EN': 'Assurer to sell'
     },
     '交易手续费': {
         'ZH': '交易手续费',
-        'EN': 'transaction charges'
+        'EN': 'Transaction charges'
     },
     '提现手续费': {
         'ZH': '提现手续费',
-        'EN': 'withdrawal charges'
+        'EN': 'Withdrawal charges'
     },
     '手续费': {
         'ZH': '手续费',
-        'EN': 'fee'
+        'EN': 'Fee'
+    },
+    '游戏充值': {
+        'ZH': '转入游戏',
+        'EN': 'Charge for game'
     },
     '游戏提现': {
         'ZH': '游戏提现',
-        'EN': 'withdrawal'
+        'EN': 'Withdraw from game'
     },
     '冻结解冻': {
         'ZH': '冻结解冻',
-        'EN': 'freezing and thaw'
+        'EN': 'Release/Unrelease'
     },
     '邀请好友收入': {
         'ZH': '邀请好友收入',
-        'EN': 'cashback from invitiation'
+        'EN': 'Aashback from invitiation'
     },
     '冻结记录': {
         'ZH': '冻结记录',
-        'EN': 'freezing records'
+        'EN': 'Freezing records'
     },
     '说明': {
         'ZH': '说明',
@@ -1440,7 +1452,7 @@ var LANGUAGE = {
     //////////////////////////////////////////////// public
     '订单管理': {
         'ZH': '订单管理',
-        'EN': 'Order Management'
+        'EN': 'Orders'
     },
     '我要买入': {
         'ZH': '我要买入',
@@ -1453,29 +1465,29 @@ var LANGUAGE = {
     ////////////////////////////////////////////////币币交易订单
     '委托价': {
         'ZH': '委托价',
-        'EN': 'order price'
+        'EN': 'Order price'
     },
     '总额': {
         'ZH': '总额',
-        'EN': 'total amount'
+        'EN': 'Total amount'
     },
     '已成交量': {
         'ZH': '已成交量',
-        'EN': 'executed quantity'
+        'EN': 'Executed quantity'
     },
     '未成交量': {
         'ZH': '未成交量',
-        'EN': 'unexecuted quantity'
+        'EN': 'Unexecuted quantity'
     },
     '已成交额': {
         'ZH': '已成交额',
-        'EN': 'executed amount'
+        'EN': 'Executed amount'
     },
 
     ///////////////////////////////////////////// 用户中心
     '用户资料': {
         'ZH': '用户资料',
-        'EN': 'profile'
+        'EN': 'Profile'
     },
     '基本信息': {
         'ZH': '基本信息',
@@ -1627,31 +1639,28 @@ var LANGUAGE = {
     },
     '为确保交易安全...': {
         'ZH': '为确保交易安全，保障您的合法权益，请您完成身份验证！我们提供安全高效实时联网的官方身份认证服务，具有更高级别的安全保证。身份验证一旦成功，不予修改和解除认证。建议您慎重选择，真实填写。',
-        'EN': 'To secure the transaction, Protect your legal rights and interests, Please complete your authentication!' +
-            'We provide an official identity authentication service for secure and efficient real-time networking,' +
-            'A higher level of security assurance. A higher level of security assurance, Certification shall not be modified or revoked.' +
-            ' Suggest you choose carefully, Fill in the real.'
+        'EN': 'To secure the transaction and protect your legal rights and interests, please complete your authentication！'
     },
     // ***** 安全设置
     '提现、修改安全设置时输入': {
         'ZH': '提现、修改安全设置时输入',
-        'EN': 'Enter and modify security settings when input'
+        'EN': 'Enter when withdraw and modify security settings'
     },
     '修改': {
         'ZH': '修改',
-        'EN': 'Modification'
+        'EN': 'Edit'
     },
     '立即设置': {
         'ZH': '立即设置',
-        'EN': 'set immediately'
+        'EN': 'Bind'
     },
     '绑定邮箱': {
         'ZH': '绑定邮箱',
-        'EN': 'bind email address'
+        'EN': 'Bind email address'
     },
     '已绑定': {
         'ZH': '已绑定',
-        'EN': 'bound'
+        'EN': 'Bound'
     },
     '绑定手机号': {
         'ZH': '绑定手机号',
@@ -1659,7 +1668,7 @@ var LANGUAGE = {
     },
     '登录密码': {
         'ZH': '登录密码',
-        'EN': 'login password'
+        'EN': 'Login password'
     },
     '用户登录账户时输入': {
         'ZH': '用户登录账户时输入',
@@ -1675,7 +1684,7 @@ var LANGUAGE = {
     },
     '绑定后': {
         'ZH': '绑定后',
-        'EN': 'after binding'
+        'EN': ''
     },
     '提现时需要谷歌二次验证': {
         'ZH': '提现时需要谷歌二次验证',
@@ -1691,7 +1700,7 @@ var LANGUAGE = {
     },
     '请输入交易密码': {
         'ZH': '请输入交易密码',
-        'EN': 'Please enter fund password'
+        'EN': 'Please enter trading password.'
     },
     '验证码': {
         'ZH': '验证码',
@@ -2039,11 +2048,11 @@ var LANGUAGE = {
 	},
 	'最低价格': {
         'ZH': '最低价格',
-        'EN': 'The lowest price'
+        'EN': 'Lowest price'
     },
     '最低价（选填）': {
         'ZH': '最低价（选填）',
-        'EN': 'The lowest price (Selection)'
+        'EN': 'Lowest price (Selection)'
     },
 	'广告最低可成交的价格': {
         'ZH': '广告最低可成交的价格',
@@ -2051,11 +2060,11 @@ var LANGUAGE = {
 	},
 	'出售总量': {
         'ZH': '出售总量',
-        'EN': 'total selling amount'
+        'EN': 'Total available amount'
 	},
 	'请输入售卖币的总量': {
         'ZH': '请输入售卖币的总量',
-        'EN': 'Please enter the total amount of coins sold'
+        'EN': 'Please enter total available amount'
 	},
 	'隐藏高级设置': {
         'ZH': '隐藏高级设置',
@@ -2119,7 +2128,7 @@ var LANGUAGE = {
 	},
 	'查看详情': {
         'ZH': '查看详情',
-        'EN': 'see details'
+        'EN': 'Details'
 	},
 	'注册成功': {
         'ZH': '注册成功',
@@ -2215,7 +2224,7 @@ var LANGUAGE = {
 	},
 	'已完成': {
         'ZH': '已完成',
-        'EN': 'completed'
+        'EN': 'Completed'
 	},
 	'已取消': {
         'ZH': '已取消',
@@ -2227,7 +2236,7 @@ var LANGUAGE = {
     },
 	'单价': {
         'ZH': '单价',
-        'EN': 'unit price'
+        'EN': 'Unit price'
 	},
 	'金额': {
         'ZH': '金额',
@@ -2261,25 +2270,29 @@ var LANGUAGE = {
         'ZH': '请输入出售金额',
         'EN': 'Please enter the selling amount'
     },
+    '请输入出售数量': {
+        'ZH': '请输入出售金额数量',
+        'EN': 'Please enter the selling quantity'
+    },
 	'请输入账号或卡号': {
         'ZH': '请输入账号或卡号',
-        'EN': 'Please enter your account number or bank card number'
+        'EN': 'Please enter your account number.'
 	},
 	'提币': {
         'ZH': '提币',
-        'EN': 'withdraw'
+        'EN': 'Withdraw'
 	},
 	'交易明细': {
         'ZH': '交易明细',
-        'EN': 'transaction detail'
+        'EN': 'Transaction details'
 	},
 	'去交易': {
         'ZH': '去交易',
-        'EN': 'to trade'
+        'EN': 'To trade'
     },
 	'接收地址': {
         'ZH': '接收地址',
-        'EN': 'receiving address'
+        'EN': 'Receiving address'
 	},
 	'温馨提示': {
         'ZH': '温馨提示',
@@ -2303,7 +2316,7 @@ var LANGUAGE = {
 	},
 	'提现地址': {
         'ZH': '提现地址',
-        'EN': 'Withdrawal address'
+        'EN': 'Address'
 	},
 	'请输入提现地址': {
         'ZH': '请输入提现地址',
@@ -2311,7 +2324,7 @@ var LANGUAGE = {
 	},
 	'提现数量': {
         'ZH': '提现数量',
-        'EN': 'Withdrawal amount'
+        'EN': 'Amount'
     },
     '请输入提现数量': {
         'ZH': '请输入提现数量',
@@ -2335,11 +2348,11 @@ var LANGUAGE = {
 	},
 	'请输入提现备注': {
         'ZH': '请输入提现备注',
-        'EN': 'Please enter the withdrawal note'
+        'EN': 'Please enter the notes'
 	},
 	'确定提现': {
         'ZH': '确定提现',
-        'EN': 'confirm to withdrawal'
+        'EN': 'Confirm'
 	},
 	'暂无地址': {
         'ZH': '暂无地址',
@@ -2363,11 +2376,11 @@ var LANGUAGE = {
 	},
 	'加载失败': {
         'ZH': '加载失败',
-        'EN': 'loading fail'
+        'EN': 'Loading fail'
 	},
 	'加载中': {
         'ZH': '加载中',
-        'EN': 'loading'
+        'EN': 'Loading'
 	},
 	'图片文件': {
         'ZH': '图片文件',
@@ -2483,7 +2496,7 @@ var LANGUAGE = {
     },
     '页': {
         'ZH': '页',
-        'EN': 'page'
+        'EN': ''
     },
     '区块链技术应用实验平台': {
         'ZH': '区块链技术应用实验平台',
@@ -2577,11 +2590,11 @@ var LANGUAGE = {
     },
     '提交卖出[FMVP/BTC]委托单': {
         'ZH': '提交卖出[FMVP/BTC]委托单',
-        'EN': 'Commit sell FMVP/BTC order'
+        'EN': 'Selling orders [FMVP/BTC]'
     },
     '提交购买[FMVP/BTC]委托单': {
         'ZH': '提交购买[FMVP/BTC]委托单',
-        'EN': 'Commit buy FMVP/BTC order'
+        'EN': 'Buy FMVP/BTC order'
     },
     '充币-来自地址': {
         'ZH': '充币-来自地址',

@@ -55,7 +55,7 @@ define([
         $('.buy').text(base.getText('购买广告', langType));
         $('.sell').text(base.getText('出售广告', langType));
         $('.code').text(base.getText('编号', langType));
-        $('.en_gg').text(base.getText('广告类型', langType));
+        $('.fy_type').text(base.getText('广告类型', langType));
         $('.en_jg').text(base.getText('价格', langType));
         $('.quantity').text(base.getText('剩余数量', langType));
         $('.en_yj').text(base.getText('溢价比例', langType));

@@ -3,9 +3,7 @@
     "version": "2.0.0",
     "description": "",
     "scripts": {
-        "dist": "fis3 release -d ../dist",
         "prod": "fis3 release -d ../dist prod",
-        "test": "echo \"Error: no test specified\" && exit 1",
         "start": "fis3 release -d ../dist -w",
         "build": "fis3 release -d ../dist"
     },
