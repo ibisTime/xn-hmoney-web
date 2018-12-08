@@ -711,7 +711,9 @@ define([
             $('.b-c_h p').eq(0).addClass('sel-p').siblings().removeClass('sel-p');
             $('.b-c_put input').val('');
             $('.x_num').text('0.00');
-            $('.b-c_put p').text(base.getText('请输入购买金额', langType));
+            let minMoney = $('.con-toSell .min-money').text();
+            let moneyType = $('.con-toSell .x-p_money').eq(0).text();
+            $('.b-c_put p').text(base.getText('请输入购买金额', langType) + ', ' + base.getText('最低额度', langType) + ' ' + minMoney + moneyType);
             isSell = false;
             if ($(this).hasClass('sel-sp')) {
                 $('.con-toBuy').hide();

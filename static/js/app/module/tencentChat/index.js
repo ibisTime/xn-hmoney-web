@@ -66,7 +66,7 @@ define([
 
     // 被其他登录实例踢下线
     function onKickedEventCall() {
-        base.showMsg('登陆失效，请重新登录');
+        base.showMsg('登录失效，请重新登录');
         base.clearSessionUser();
         setTimeout(() => {
             base.showLoadingSpin();

@@ -14,7 +14,7 @@ var LANGUAGE = {
     },
     '交易': {
         'ZH': '交易',
-        'EN': 'Trades'
+        'EN': 'Trading'
     },
     '场外交易': {
         'ZH': '场外交易',
@@ -54,7 +54,7 @@ var LANGUAGE = {
     },
     '订单': {
         'ZH': '订单',
-        'EN': 'Order'
+        'EN': 'Orders'
     },
     '查看更多': {
         'ZH': '查看更多',
@@ -177,7 +177,7 @@ var LANGUAGE = {
     },
     '开始兑换': {
         'ZH': '开始兑换',
-        'EN': 'Began to change'
+        'EN': 'Exchange'
     },
     '即将推出': {
         'ZH': '即将推出',
@@ -291,25 +291,25 @@ var LANGUAGE = {
     },
     '转入游戏': {
         'ZH': '转入游戏',
-        'EN': 'Recharge'
+        'EN': 'Deposit'
     },
     '充值': {
         'ZH': '充值',
-        'EN': 'Recharge'
+        'EN': 'Deposit'
     },
     '请输入充值数量': {
         'ZH': '请输入充值数量',
-        'EN': 'Please enter the recharge amount'
+        'EN': 'Please enter the deposit amount'
     },
     '充值数量不能为空': {
         'ZH': '充值数量不能为空',
-        'EN': 'The amount of recharge can not be empty'
+        'EN': 'The amount of deposit can not be empty'
     },
 
     /////////////////////////////////////////////////// 币币交易
     '邀请好友注册': {
         'ZH': '邀请好友注册',
-        'EN': 'invite friends to register'
+        'EN': 'Invite friends to register'
     },
     '轻松获得交易返佣': {
         'ZH': '轻松获得交易返佣',
@@ -329,11 +329,11 @@ var LANGUAGE = {
     },
     '开始交易': {
         'ZH': '开始交易',
-        'EN': 'start trading'
+        'EN': 'Start trading'
     },
     '币种': {
         'ZH': '币种',
-        'EN': 'currency'
+        'EN': 'Currency'
     },
     '最新价': {
         'ZH': '最新价',
@@ -361,11 +361,11 @@ var LANGUAGE = {
     },
     '限价交易': {
         'ZH': '限价交易',
-        'EN': 'Limit transaction'
+        'EN': 'Limit'
     },
     '市价交易': {
         'ZH': '市价交易',
-        'EN': 'Market transaction'
+        'EN': 'Market'
     },
     '费率': {
         'ZH': '费率',
@@ -425,7 +425,7 @@ var LANGUAGE = {
     },
     '交易额': {
         'ZH': '交易额',
-        'EN': 'Amount'
+        'EN': 'Total'
     },
     '历史委托': {
         'ZH': '历史委托',
@@ -437,7 +437,7 @@ var LANGUAGE = {
     },
     '时间': {
         'ZH': '时间',
-        'EN': 'Time'
+        'EN': 'Date'
     },
     '交易对': {
         'ZH': '交易对',
@@ -478,7 +478,7 @@ var LANGUAGE = {
     },
     '成交均价': {
         'ZH': '成交均价',
-        'EN': 'Average price'
+        'EN': 'Avg price'
     },
     '状态': {
         'ZH': '状态',
@@ -518,15 +518,15 @@ var LANGUAGE = {
     },
     '白皮书': {
         'ZH': '白皮书',
-        'EN': 'white paper'
+        'EN': 'White paper'
     },
     '官网': {
         'ZH': '官网',
-        'EN': 'official website'
+        'EN': 'Official website'
     },
     '区块查询': {
         'ZH': '区块查询',
-        'EN': 'block explorer'
+        'EN': 'Block explorer'
     },
     '单位跳动基数为': {
         'ZH': '单位跳动基数为',
@@ -540,19 +540,19 @@ var LANGUAGE = {
     },
     '全部付款方式': {
         'ZH': '全部付款方式',
-        'EN': 'all payment methods'
+        'EN': 'All payment methods'
     },
     '搜广告': {
         'ZH': '搜广告',
-        'EN': 'search advertisement'
+        'EN': 'Search advertisement'
     },
     '搜用户': {
         'ZH': '搜用户',
-        'EN': 'search user'
+        'EN': 'Search user'
     },
     '货币': {
         'ZH': '货币',
-        'EN': 'currency'
+        'EN': 'Currency'
     },
     '请选择': {
         'ZH': '请选择',
@@ -588,7 +588,7 @@ var LANGUAGE = {
     },
     '搜索': {
         'ZH': '搜索',
-        'EN': 'search'
+        'EN': 'Search'
     },
     '昵称': {
         'ZH': '昵称',
@@ -908,11 +908,11 @@ var LANGUAGE = {
     },
     '购买总量': {
         'ZH': '购买总量',
-        'EN': 'total amount'
+        'EN': 'Total amount'
     },
     '账户可用余额': {
         'ZH': '账户可用余额',
-        'EN': 'available amount'
+        'EN': 'Available amount'
     },
     '请输入购买币的总量': {
         'ZH': '请输入购买币的总量',
@@ -920,7 +920,7 @@ var LANGUAGE = {
     },
     '收款方式': {
         'ZH': '收款方式',
-        'EN': 'payment methods'
+        'EN': 'Payment Methods'
     },
     '请输入有关您交易的相关条款或备注您的支付方式': {
         'ZH': '请输入有关您交易的相关条款或备注您的支付方式',
@@ -956,43 +956,43 @@ var LANGUAGE = {
     },
     '任何时候': {
         'ZH': '任何时候',
-        'EN': 'anytime'
+        'EN': 'Anytime'
     },
     '自定义': {
         'ZH': '自定义',
-        'EN': 'user-defined'
+        'EN': 'User-defined'
     },
     '星期一': {
         'ZH': '星期一',
-        'EN': 'monday'
+        'EN': 'Monday'
     },
     '星期二': {
         'ZH': '星期二',
-        'EN': 'tuesday'
+        'EN': 'Tuesday'
     },
     '星期三': {
         'ZH': '星期三',
-        'EN': 'wednesday'
+        'EN': 'Wednesday'
     },
     '星期四': {
         'ZH': '星期四',
-        'EN': 'thursday'
+        'EN': 'Thursday'
     },
     '星期五': {
         'ZH': '星期五',
-        'EN': 'friday'
+        'EN': 'Friday'
     },
     '星期六': {
         'ZH': '星期六',
-        'EN': 'saturday'
+        'EN': 'Saturday'
     },
     '星期日': {
         'ZH': '星期日',
-        'EN': 'sunday'
+        'EN': 'Sunday'
     },
     '立即发布': {
         'ZH': '立即发布',
-        'EN': 'release immediately'
+        'EN': 'Release immediately'
     },
     '下架': {
         'ZH': '下架',
@@ -1158,7 +1158,7 @@ var LANGUAGE = {
     },
     '未认证': {
         'ZH': '未认证',
-        'EN': 'uncertified'
+        'EN': 'Uncertified'
     },
     '你想出售多少': {
         'ZH': '你想出售多少',
@@ -1343,7 +1343,7 @@ var LANGUAGE = {
     },
     '订单总额': {
         'ZH': '订单总额',
-        'EN': 'order amount'
+        'EN': 'Order amount'
     },
     '手续费': {
         'ZH': '手续费',
@@ -1359,11 +1359,11 @@ var LANGUAGE = {
     },
     '收款信息': {
         'ZH': '收款信息',
-        'EN': 'collection information'
+        'EN': 'Collection information'
     },
     '收款人': {
         'ZH': '收款人',
-        'EN': 'payee'
+        'EN': 'Payee'
     },
     '账号': {
         'ZH': '账号',
@@ -1499,7 +1499,7 @@ var LANGUAGE = {
     },
     '更换头像': {
         'ZH': '更换头像',
-        'EN': 'change profile'
+        'EN': 'Change'
     },
     '身份验证': {
         'ZH': '身份验证',
@@ -1507,7 +1507,7 @@ var LANGUAGE = {
     },
     '电子邮件': {
         'ZH': '电子邮件',
-        'EN': 'email address'
+        'EN': 'Email address'
     },
     '累计交易次数': {
         'ZH': '累计交易次数',
@@ -1523,15 +1523,15 @@ var LANGUAGE = {
     },
     '展开': {
         'ZH': '展开',
-        'EN': 'unfold'
+        'EN': 'Unfold'
     },
     '正面图片': {
         'ZH': '正面图片',
-        'EN': 'the front of ID card'
+        'EN': 'The front of ID card'
     },
     '反面图片': {
         'ZH': '反面图片',
-        'EN': 'the back of ID card'
+        'EN': 'The back of ID card'
     },
     '姓名': {
         'ZH': '姓名',
@@ -1599,7 +1599,7 @@ var LANGUAGE = {
     },
     '护照': {
         'ZH': '护照',
-        'EN': 'passport'
+        'EN': 'Passport'
     },
     '适用于中国港澳台及其他外国用户': {
         'ZH': '适用于中国港澳台及其他外国用户',
@@ -1660,7 +1660,7 @@ var LANGUAGE = {
     },
     '已绑定': {
         'ZH': '已绑定',
-        'EN': 'Bound'
+        'EN': 'Bind'
     },
     '绑定手机号': {
         'ZH': '绑定手机号',
@@ -1682,13 +1682,9 @@ var LANGUAGE = {
         'ZH': '谷歌验证码',
         'EN': 'Google verification code'
     },
-    '绑定后': {
-        'ZH': '绑定后',
-        'EN': ''
-    },
-    '提现时需要谷歌二次验证': {
-        'ZH': '提现时需要谷歌二次验证',
-        'EN': 'Google second verification is required when withdrawing'
+    '绑定后,登录、提现时需要谷歌密码二次验证': {
+        'ZH': '绑定后,登录、提现时需要谷歌密码二次验证',
+        'EN': 'After binding, login and withdrawal need to be re-validated by Google password.'
     },
     '当前位置': {
         'ZH': '当前位置',
@@ -1928,15 +1924,15 @@ var LANGUAGE = {
 	},
 	'已验证': {
         'ZH': '已验证',
-        'EN': 'authenticated'
+        'EN': 'Verified'
     },
     '未验证': {
         'ZH': '未验证',
-        'EN': 'unauthenticated'
+        'EN': 'Unverified'
 	},
 	'建立连接成功': {
         'ZH': '建立连接成功',
-        'EN': 'connect successfully'
+        'EN': 'Connect successfully'
     },
     '连接已断开，无法收到新消息，请检查下你的网络是否正常': {
         'ZH': '连接已断开，无法收到新消息，请检查下你的网络是否正常',
@@ -2016,7 +2012,7 @@ var LANGUAGE = {
 	},
 	'确认解冻货币？': {
         'ZH': '确认解冻货币？',
-        'EN': 'confirm unfrozen currency？'
+        'EN': 'Confirm unfrozen currency？'
 	},
 	'操作成功, 其中含有关键字，需平台进行审核': {
         'ZH': '操作成功, 其中含有关键字，需平台进行审核',
@@ -2076,7 +2072,7 @@ var LANGUAGE = {
     },
 	'确认下架此广告？': {
         'ZH': '确认下架此广告？',
-        'EN': 'confirm unrelease advertisement?'
+        'EN': 'Confirm unrelease advertisement?'
 	},
 	'下单成功': {
         'ZH': '下单成功',
@@ -2136,27 +2132,27 @@ var LANGUAGE = {
 	},
 	'重新发送': {
         'ZH': '重新发送',
-        'EN': 'resend'
+        'EN': 'Resend'
 	},
 	'设置成功': {
         'ZH': '设置成功',
-        'EN': 'success'
+        'EN': 'Success'
 	},
 	'开启成功': {
         'ZH': '开启成功',
-        'EN': 'success'
+        'EN': 'Success'
     },
 	'关闭成功': {
         'ZH': '关闭成功',
-        'EN': 'success'
+        'EN': 'Success'
 	},
 	'修改成功': {
         'ZH': '修改成功',
-        'EN': 'success'
+        'EN': 'Success'
 	},
 	'未绑定': {
         'ZH': '未绑定',
-        'EN': 'unbound'
+        'EN': 'Unbound'
 	},
 	'请选择图片': {
         'ZH': '请选择图片',
@@ -2164,15 +2160,15 @@ var LANGUAGE = {
     },
 	'已信任': {
         'ZH': '已信任',
-        'EN': 'trusted'
+        'EN': 'Trusted'
     },
 	'已拉黑': {
         'ZH': '已拉黑',
-        'EN': 'blacklisted'
+        'EN': 'Blacklisted'
 	},
 	'屏蔽': {
         'ZH': '屏蔽',
-        'EN': 'block'
+        'EN': 'Block'
 	},
 	'邮箱已验证': {
         'ZH': '邮箱已验证',
@@ -2184,19 +2180,19 @@ var LANGUAGE = {
 	},
 	'手机已验证': {
         'ZH': '手机已验证',
-        'EN': 'cellphone verified'
+        'EN': 'Cellphone verified'
 	},
 	'手机未验证': {
         'ZH': '手机未验证',
-        'EN': 'cellphone unverified'
+        'EN': 'Cellphone unverified'
     },
 	'身份已验证': {
         'ZH': '身份已验证',
-        'EN': 'authenticated'
+        'EN': 'Authenticated'
 	},
 	'身份未验证': {
         'ZH': '身份未验证',
-        'EN': 'unauthenticated'
+        'EN': 'Unauthenticated'
 	},
 	'已取消信任': {
         'ZH': '已取消信任',
@@ -2204,7 +2200,7 @@ var LANGUAGE = {
 	},
 	'已取消拉黑': {
         'ZH': '已取消拉黑',
-        'EN': 'unblacklisted'
+        'EN': 'Unblacklisted'
     },
 	'是': {
         'ZH': '是',
@@ -2216,11 +2212,11 @@ var LANGUAGE = {
 	},
 	'待支付': {
         'ZH': '待支付',
-        'EN': 'pending to pay'
+        'EN': 'Pending to pay'
 	},
 	'待确认': {
         'ZH': '待确认',
-        'EN': 'pending to confirm'
+        'EN': 'Pending to confirm'
 	},
 	'已完成': {
         'ZH': '已完成',
@@ -2248,7 +2244,7 @@ var LANGUAGE = {
 	},
     '最低额度': {
         'ZH': '最低额度',
-        'EN': 'min'
+        'EN': 'Min'
     },
 	'请输入购买金额': {
         'ZH': '请输入购买金额',
@@ -2344,7 +2340,7 @@ var LANGUAGE = {
     },
 	'备注': {
         'ZH': '备注',
-        'EN': 'remark'
+        'EN': 'Remark'
 	},
 	'请输入提现备注': {
         'ZH': '请输入提现备注',
@@ -2360,7 +2356,7 @@ var LANGUAGE = {
     },
 	'标签': {
         'ZH': '标签',
-        'EN': 'label'
+        'EN': 'Label'
     },
 	'请输入卖出数量': {
         'ZH': '请输入卖出数量',
@@ -2460,7 +2456,7 @@ var LANGUAGE = {
 	},
 	'手机格式错误': {
         'ZH': '手机格式错误',
-        'EN': 'cell phone format error'
+        'EN': 'Cell phone format error'
 	},
 	'邮箱或手机格式错误': {
         'ZH': '邮箱或手机格式错误',
@@ -2468,7 +2464,7 @@ var LANGUAGE = {
 	},
 	'电话或手机格式错误': {
         'ZH': '电话或手机格式错误',
-        'EN': 'cellphone format error'
+        'EN': 'Cellphone format error'
 	},
 	'验证码格式错误': {
         'ZH': '验证码格式错误',
@@ -2488,11 +2484,11 @@ var LANGUAGE = {
     },
     '跳转': {
         'ZH': '跳转',
-        'EN': 'skip'
+        'EN': 'Skip'
     },
     '共': {
         'ZH': '共',
-        'EN': 'all'
+        'EN': 'All'
     },
     '页': {
         'ZH': '页',
@@ -2504,11 +2500,11 @@ var LANGUAGE = {
     },
     '已取消支付': {
         'ZH': '已取消支付',
-        'EN': 'cancelled payment'
+        'EN': 'Cancelled payment'
     },
     '取消支付': {
         'ZH': '取消支付',
-        'EN': 'cancel the payment'
+        'EN': 'Cancel the payment'
     },
     '出售详情': {
         'ZH': '出售详情',

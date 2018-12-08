@@ -75,10 +75,10 @@ define([
         $('.en-o_lt').text(base.getText('聊天'));
         $('#msgedit').attr('placeholder', base.getText('按回车发送消息'));
         $('#send').html(base.getText('发送'));
-        $('.fy_dzyx').html(base.getText('电子邮箱'));
-        $('.fy_sjhm').html(base.getText('手机号码'));
-        $('.fy_smrz').html(base.getText('实名认证'));
-        $('.fy_yhcjsj').html(base.getText('用户创建时间'));
+        $('.fy_dzyx').html(base.getText('电子邮箱') + '：');
+        $('.fy_sjhm').html(base.getText('手机号码') + '：');
+        $('.fy_smrz').html(base.getText('实名认证') + '：');
+        $('.fy_yhcjsj').html(base.getText('用户创建时间') + '：');
         $('.payBtn').html(base.getText('标记付款'));
         $('.cancelBtn').html(base.getText('取消交易'));
         $('.commentBtn').html(base.getText('交易评价'));
@@ -249,11 +249,10 @@ define([
                 getTencunLogin(); // 测试
                 firstLoad = true;
             }
-
             $("#mobile").html(user.mobile != "" && user.mobile ? base.getText('已验证') : base.getText('未验证'))
             $("#email").html(user.email != "" && user.email ? base.getText('已验证') : base.getText('未验证'))
             $("#identity").html(user.realname != "" && user.realName ? base.getText('已验证') : base.getText('未验证'))
-            $("#createDatetime").html(base.formateDatetime(user.createDatetime))
+            $("#createDatetime").html(base.formateDatetime(user.createDatetime));
 
             base.hideLoadingSpin();
         }, base.hideLoadingSpin)
@@ -314,7 +313,7 @@ define([
     }
     // 被其他登录实例踢下线
     function onKickedEventCall() {
-        base.showMsg('登陆失效，请重新登录');
+        base.showMsg('登录失效，请重新登录');
         base.clearSessionUser();
         setTimeout(() => {
             base.showLoadingSpin();

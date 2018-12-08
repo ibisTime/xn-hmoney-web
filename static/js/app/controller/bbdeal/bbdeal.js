@@ -308,11 +308,11 @@ define([
             autoGetData();
             setTimeout(function () {
                 sdFn();
-                    clearInterval(timeGet);
-                    var timeGet = setInterval(() => {
-                        autoGetData();
-                        sdFn()
-                    }, 4000);
+                clearInterval(timeGet);
+                var timeGet = setInterval(() => {
+                    autoGetData();
+                    sdFn()
+                }, 4000);
             }, 1);
 
             $('.c-b').text(setBazDeal.symbol);

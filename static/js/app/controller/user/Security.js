@@ -35,7 +35,7 @@ define([
         $('.sec-en_dlsr').text(base.getText('用户登录账户时输入', langType));
         $('.sec-en_xg').text(base.getText('修改', langType));
         $('.sec-en_gg').text(base.getText('谷歌验证', langType));
-        $('.sec-en_bd').text(base.getText('绑定后', langType) + ',');
+        $('.sec-en_bd').text(base.getText('绑定后,登录、提现时需要谷歌密码二次验证', langType));
         $('.sec-en_dl').text(base.getText('登录', langType));
         $('.fy_ljsz').text(base.getText('立即设置', langType));
         $('.fy_ybd').text(base.getText('已绑定', langType));
