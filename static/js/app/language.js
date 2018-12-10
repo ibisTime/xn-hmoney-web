@@ -131,7 +131,7 @@ var LANGUAGE = {
     },
     '费率说明': {
         'ZH': '费率说明',
-        'EN': 'Fee rate'
+        'EN': 'Fee Rate'
     },
 
     // *****///// 首页
@@ -465,7 +465,7 @@ var LANGUAGE = {
     },
     '操作': {
         'ZH': '操作',
-        'EN': 'Operations'
+        'EN': 'Action'
     },
     '暂无记录': {
         'ZH': '暂无记录',
@@ -666,7 +666,7 @@ var LANGUAGE = {
     },
     '交易操作': {
         'ZH': '交易操作',
-        'EN': 'Operations'
+        'EN': 'Action'
     },
     '订单编号': {
         'ZH': '订单编号',
@@ -1465,23 +1465,23 @@ var LANGUAGE = {
     ////////////////////////////////////////////////币币交易订单
     '委托价': {
         'ZH': '委托价',
-        'EN': 'Order price'
+        'EN': 'Price'
     },
     '总额': {
         'ZH': '总额',
-        'EN': 'Total amount'
+        'EN': 'Total'
     },
     '已成交量': {
         'ZH': '已成交量',
-        'EN': 'Executed quantity'
+        'EN': 'Executed Qty'
     },
     '未成交量': {
         'ZH': '未成交量',
-        'EN': 'Unexecuted quantity'
+        'EN': 'Unexecuted Qty'
     },
     '已成交额': {
         'ZH': '已成交额',
-        'EN': 'Executed amount'
+        'EN': 'Executed amt'
     },
 
     ///////////////////////////////////////////// 用户中心
@@ -1884,15 +1884,15 @@ var LANGUAGE = {
     },
     '分时': {
         'ZH': '分时',
-        'EN': 'time-sharing'
+        'EN': 'Time-sharing'
 	},
 	'详情': {
         'ZH': '详情',
-        'EN': 'details'
+        'EN': 'Details'
     },
     '成交额': {
         'ZH': '成交额',
-        'EN': 'turnover'
+        'EN': 'Turnover'
     },
     '订单將在拖管中保持至': {
         'ZH': '订单將在拖管中保持至',
@@ -1916,7 +1916,7 @@ var LANGUAGE = {
     },
     '购买订单': {
         'ZH': '购买订单',
-        'EN': 'purchase order'
+        'EN': 'Purchase order'
     },
     '出售订单': {
         'ZH': '出售订单',
@@ -2004,7 +2004,7 @@ var LANGUAGE = {
     },
 	'操作成功': {
         'ZH': '操作成功',
-        'EN': 'Operate successfully'
+        'EN': 'Action successfully'
 	},
 	'确认标记打款？': {
         'ZH': '确认标记打款？',
@@ -2016,7 +2016,7 @@ var LANGUAGE = {
 	},
 	'操作成功, 其中含有关键字，需平台进行审核': {
         'ZH': '操作成功, 其中含有关键字，需平台进行审核',
-        'EN': 'The successful operation contains key words, which need FUNMVP approve.'
+        'EN': 'Successful action, which contains keywords, needs FUNMVP audit.'
     },
 	'购买': {
         'ZH': '购买',
@@ -2152,7 +2152,7 @@ var LANGUAGE = {
 	},
 	'未绑定': {
         'ZH': '未绑定',
-        'EN': 'Unbound'
+        'EN': 'Unbind'
 	},
 	'请选择图片': {
         'ZH': '请选择图片',

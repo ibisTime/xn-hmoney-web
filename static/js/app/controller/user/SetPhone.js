@@ -7,7 +7,7 @@ define([
     'app/controller/foo'
 ], function(base, Validate, smsCaptcha, UserCtr, Top, Foo) {
     let langType = localStorage.getItem('langType') || 'ZH';
-    var type = base.getUrlParam("type");//设置类型： 0,设置  1，修改 
+    var type = base.getUrlParam("type");//设置类型： 0,设置  1，修改
     if (!base.isLogin()) {
         base.goLogin()
     } else {
@@ -16,6 +16,11 @@ define([
     }
 
     function init() {
+        $('.left-title').text(base.getText('用户中心'));
+        $('.en_yhzl').text(base.getText('用户资料'));
+        $('.uleft_en').text(base.getText('基本信息'));
+        $('.identity').text(base.getText('身份验证'));
+        $('.security').text(base.getText('安全设置'));
         $('.position').text(base.getText('当前位置', langType) + '：');
         $('.ph-en_yh').text(base.getText('用户中心', langType) + '>');
         $('.ph-en_aq').text(base.getText('安全设置', langType) + '>');

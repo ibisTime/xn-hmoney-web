@@ -13,8 +13,13 @@ define([
 		$("#left-wrap .security").addClass("on")
     	init();
 	}
-    
+
     function init() {
+        $('.left-title').text(base.getText('用户中心'));
+        $('.en_yhzl').text(base.getText('用户资料'));
+        $('.uleft_en').text(base.getText('基本信息'));
+        $('.identity').text(base.getText('身份验证'));
+        $('.security').text(base.getText('安全设置'));
     	$('.position').text(base.getText('当前位置', langType) + '：');
         $('.pwd-en_yh').text(base.getText('用户中心', langType) + '>');
         $('.pwd-en_aq').text(base.getText('安全设置', langType) + '>');
@@ -31,7 +36,7 @@ define([
         base.hideLoadingSpin();
         addListener();
     }
-    
+
     //重置密码
     function changePwd(oldLoginPwd, newLoginPwd){
     	return UserCtr.changePwd(oldLoginPwd, newLoginPwd).then(()=>{
@@ -42,7 +47,7 @@ define([
 			},800)
 		},base.hideLoadingSpin)
     }
-    
+
     function addListener() {
     	var _formWrapper = $("#form-wrapper");
 	    _formWrapper.validate({
@@ -66,7 +71,7 @@ define([
     		if(_formWrapper.valid()){
 	    		base.showLoadingSpin();
 	    		var params=_formWrapper.serializeObject()
-	    		
+
     			changePwd(params.oldLoginPwd,params.newLoginPwd)
 	    	}
 	    })

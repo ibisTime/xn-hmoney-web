@@ -19,6 +19,11 @@ define([
 
     function init() {
 		base.showLoadingSpin();
+        $('.left-title').text(base.getText('用户中心'));
+        $('.en_yhzl').text(base.getText('用户资料'));
+        $('.uleft_en').text(base.getText('基本信息'));
+        $('.identity').text(base.getText('身份验证'));
+        $('.security').text(base.getText('安全设置'));
 		$('.tr-en_dq').text(base.getText('当前位置', langType));
 		$('.tr-en_zx').text(base.getText('用户中心', langType));
 		$('.tr-en_sz').text(base.getText('安全设置', langType));

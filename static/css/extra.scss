@@ -15,6 +15,9 @@
     margin-left: 5px;
 }
 
+.ml15 {
+    margin-left: 15px;
+}
 .ml20 {
     margin-left: 20px;
 }
@@ -5638,7 +5641,7 @@ table {
                                 color: #d53d3d;
                                 cursor: pointer;
                             }
-                            .sy_all{
+                            .sy_all, .baz-all{
                                 display: inline-block;
                                 max-width: 180px;
                                 overflow: hidden;
@@ -6083,16 +6086,21 @@ table {
     }
     .bborder-p {
         width: 100%;
-        height: 48px;
-        line-height: 48px;
         display: flex;
         overflow: hidden;
+        padding: 15px 0;
+
         span {
             display: inline-block;
             width: 8.5%;
             text-align: center;
             word-spacing: normal;
             float: left;
+            font-size: 12px;
+            i{
+                font-style: normal;
+                font-size: 12px;
+            }
         }
         span:last-child {
             width: 4%;
@@ -6183,10 +6191,8 @@ table {
 }
 .bbOrder-wrap .bborder-p span:nth-of-type(3),
 .bbOrder-wrap .bborder-ul li .list-l span:nth-of-type(3){
-  width: 70px;
+  width: 60px;
 }
-.bbOrder-wrap .bborder-p span:nth-of-type(4),
-.bbOrder-wrap .bborder-ul li .list-l span:nth-of-type(4),
 .bbOrder-wrap .bborder-p span:nth-of-type(5),
 .bbOrder-wrap .bborder-ul li .list-l span:nth-of-type(5),
 .bbOrder-wrap .bborder-p span:nth-of-type(6),
@@ -6494,7 +6500,9 @@ html {
 .fy_xgtx{
     white-space: nowrap;
 }
-
+.jy-con-left .fy_ky1{
+  margin-right: 5px;
+}
 
 // 媒体查询
 @media screen and (max-width: 1600px) {

@@ -99,6 +99,7 @@ define([
                 clearInterval(timeReal);
                 var timeReal = setInterval(() => {
                     // autoRealData();
+                    // console.log(base.formatDate(new Date, 'hh:mm:ss') + '*******---getBazaarDataBbZxj---*******');
                     getBazaarDataBbZxj();
                 }, 3900);
             }, 1);
@@ -135,10 +136,13 @@ define([
                 clearInterval(timeReal);
                 var timeReal = setInterval(() => {
                     // autoRealData();
+                    // console.log(base.formatDate(new Date, 'hh:mm:ss') + '*******---getBazaarDataBbZxj---*******');
                     getBazaarDataBbZxj();
                 }, 3900);
                 var timeHis = setInterval(() => {
+                    // console.log(base.formatDate(new Date, 'hh:mm:ss') + '*******---autoGetMyDatata---*******');
                     autoGetMyDatata();
+                    // console.log(base.formatDate(new Date, 'hh:mm:ss') + '*******---autoGetHisData---*******');
                     autoGetHisData();
                 }, 3400);
             }, 1);
@@ -310,7 +314,9 @@ define([
                 sdFn();
                 clearInterval(timeGet);
                 var timeGet = setInterval(() => {
+                    // console.log(base.formatDate(new Date, 'hh:mm:ss') + '*******---autoGetData---*******');
                     autoGetData();
+                    // console.log(base.formatDate(new Date, 'hh:mm:ss') + '*******---sdFn---*******');
                     sdFn()
                 }, 4000);
             }, 1);
@@ -660,7 +666,6 @@ define([
             getExchange();
             // symbol资料
             symbolDetail();
-
 
             $('.yj-m span').text(setBazDeal.toSymbol);
             $('.jy-b').text(setBazDeal.toSymbol);

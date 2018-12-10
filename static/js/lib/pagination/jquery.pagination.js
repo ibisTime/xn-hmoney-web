@@ -7,7 +7,7 @@
  * @调用方法
  * $(selector).pagination(option, callback);
  * -此处callback是初始化调用，option里的callback才是点击页码后调用
- * 
+ *
  * -- example --
  * $(selector).pagination({
  *     ...
@@ -42,7 +42,7 @@
     }
 }(function ($) {//skip
     let langType = localStorage.getItem('langType') || 'ZH';
-	var css = __inline('pagination.css');
+    var css = __inline('pagination.css');
     $('<style>' + css + '</style>').appendTo('head');
     //配置参数
     var defaults = {
@@ -65,7 +65,8 @@
         jumpIptCls: 'jump-ipt', //文本框内容
         jumpBtnCls: 'jump-btn', //跳转按钮
         jumpBtn: langType == 'ZH' ? '跳转' : 'skip', //跳转按钮文本
-        callback: function () {} //回调
+        callback: function () {
+        } //回调
     };
 
     var Pagination = function (element, options) {
@@ -143,9 +144,9 @@
                 }
             }
             let all = langType == 'ZH' ? '共' : 'total ';
-            let page = langType == 'ZH' ? '页' : ' page';
-            let topage = langType == 'EN' ? '</samp><samp>to page</samp><input type="text" class="'+opts.jumpIptCls+'"><a href="javascript:;" class="'+opts.jumpBtnCls+'">' : '</samp><samp>到第</samp><input type="text" class="'+opts.jumpIptCls+'"><samp>页</samp><a href="javascript:;" class="'+opts.jumpBtnCls+'">';
-            let allpage = '<samp>'+all+opts.pageCount+page+topage+opts.jumpBtn+'</a>';
+            let page = langType == 'ZH' ? '页' : ' pages';
+            let topage = langType == 'EN' ? '</samp><samp>to page</samp><input type="text" class="' + opts.jumpIptCls + '"><a href="javascript:;" class="ml15 ' + opts.jumpBtnCls + '">' : '</samp><samp>到第</samp><input type="text" class="' + opts.jumpIptCls + '"><samp>页</samp><a href="javascript:;" class="' + opts.jumpBtnCls + '">';
+            let allpage = '<samp>' + all + opts.pageCount + page + topage + opts.jumpBtn + '</a>';
             html += opts.jump ? allpage : '';
             $obj.empty().html(html);
         };
@@ -217,7 +218,8 @@
             parameter = {};
         } else {
             parameter = parameter || {};
-            callback = callback || function () {};
+            callback = callback || function () {
+            };
         }
         var options = $.extend({}, defaults, parameter);
         return this.each(function () {
