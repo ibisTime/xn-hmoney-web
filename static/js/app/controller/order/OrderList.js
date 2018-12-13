@@ -55,7 +55,7 @@ define([
         base.getDealLeftText();
         $('.progress').text(base.getText('进行中'));
         $('.end').text(base.getText('已结束'));
-        $('.nickname').text(base.getText('交易伙伴'));
+        $('.right-wrap .nickname').text(base.getText('交易伙伴'));
         $('.code').text(base.getText('订单编号'));
         $('.type').text(base.getText('类型'));
         $('.amount').text(base.getText('交易金额'));

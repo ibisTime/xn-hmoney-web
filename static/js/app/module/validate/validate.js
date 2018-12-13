@@ -142,8 +142,10 @@ define([
 
     //小数最后2位
     $.validator.addMethod("pwd", function(value, element) {
+        var pwd = /[A-Za-z].*[0-9]|[0-9].*[A-Za-z]/;
+        return this.optional(element) || (pwd.test(value) && 5 < value.length && value.length < 16);
         return this.optional(element) || /[A-Za-z].*[0-9]|[0-9].*[A-Za-z]/.test(value);
-    }, base.getText('必须由数字和大小写字母组成', langType));
+    }, base.getText('字母数字组合6-16位', langType));
 
 
 

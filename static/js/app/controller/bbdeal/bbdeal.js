@@ -1097,6 +1097,7 @@ define([
             fullscreen: false,
             symbol: 'FMVP',
             interval: '1', // 时间
+            user_id: 'public_user_id',
             container_id: "tv_chart_container",
             datafeed: new Datafeeds.UDFCompatibleDatafeed("https://demo_feed.tradingview.com"),
             library_path: "/static/js/app/module/charting_library/",
@@ -1160,7 +1161,6 @@ define([
             toolbar_bg: '#ffffff'
         });
         widget.onChartReady(() => {
-
             const _self = this;
             let chart = widget.chart();
             let activeChart = widget.activeChart();
@@ -1174,44 +1174,53 @@ define([
                     class: '',
                     label: '1min',
                     resolution: "1",
+                    chartType: 1
                 },
                 {
                     class: '',
                     label: '5min',
                     resolution: "5",
+                    chartType: 1
                 },
                 {
                     class: '',
                     label: '15min',
                     resolution: "15",
+                    chartType: 1
                 },
                 {
                     class: '',
                     label: '30min',
                     resolution: "30",
+                    chartType: 1
                 },
                 {
                     class: '',
                     label: '1hour',
                     resolution: "60",
+                    chartType: 1
                 },
                 {
                     class: '',
                     label: '4hour',
                     resolution: "240",
+                    chartType: 1
                 },
                 {
                     class: '',
                     label: '1day',
-                    resolution: "1D"
+                    resolution: "1D",
+                    chartType: 1
                 }, {
                     class: '',
                     label: '1week',
-                    resolution: "1W"
+                    resolution: "1W",
+                    chartType: 1
                 }, {
                     class: '',
                     label: '1month',
-                    resolution: "1M"
+                    resolution: "1M",
+                    chartType: 1
                 }
             ];
             activeChart.setTimezone('Asia/Shanghai');

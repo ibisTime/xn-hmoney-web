@@ -1852,7 +1852,7 @@ var LANGUAGE = {
     },
     '市价': {
         'ZH': '市价',
-        'EN': 'market price'
+        'EN': 'Market price'
 	},
 	'价格不能小于等于': {
         'ZH': '价格不能小于等于',
@@ -2474,9 +2474,9 @@ var LANGUAGE = {
         'ZH': '交易密码长度为6位且为数字',
         'EN': 'The password length is 6 digits'
 	},
-	'必须由数字和大小写字母组成': {
-        'ZH': '必须由数字和大小写字母组成',
-        'EN': 'Password Must be consisted by Numbers and upper and lower case letters'
+	'字母数字组合6-16位': {
+        'ZH': '字母数字组合6-16位',
+        'EN': 'Alphanumeric combination 6-16 bits'
 	},
 	'登录超时，请重新登录': {
         'ZH': '登录超时，请重新登录',

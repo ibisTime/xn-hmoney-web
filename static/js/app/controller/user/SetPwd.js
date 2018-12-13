@@ -58,7 +58,7 @@ define([
 	        	},
 	        	"newLoginPwd": {
 	        		required: true,
-	        		minlength: 6,
+					pwd: true
 	        	},
 	        	"renewLoginPwd": {
 	        		required: true,
