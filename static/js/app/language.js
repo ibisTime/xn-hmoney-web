@@ -16,6 +16,10 @@ var LANGUAGE = {
         'ZH': '交易',
         'EN': 'Trading'
     },
+    'Trades': {
+        'ZH': '交易',
+        'EN': 'Trades'
+    },
     '场外交易': {
         'ZH': '场外交易',
         'EN': 'Fiat'
@@ -173,11 +177,11 @@ var LANGUAGE = {
     },
     '二手车兑换': {
         'ZH': '二手车兑换',
-        'EN': 'Exchange'
+        'EN': 'Used-car Trade'
     },
     '开始兑换': {
         'ZH': '开始兑换',
-        'EN': 'Exchange'
+        'EN': 'Used-car Trade'
     },
     '即将推出': {
         'ZH': '即将推出',
@@ -1010,7 +1014,7 @@ var LANGUAGE = {
     },
     '交易次数': {
         'ZH': '交易次数',
-        'EN': 'Transactions'
+        'EN': 'Trades'
     },
     '信任人数': {
         'ZH': '信任人数',
@@ -1022,7 +1026,7 @@ var LANGUAGE = {
     },
     '历史成交': {
         'ZH': '历史成交',
-        'EN': 'Transaction history'
+        'EN': 'Trades history'
     },
     '联系对方': {
         'ZH': '联系对方',
@@ -1176,7 +1180,7 @@ var LANGUAGE = {
     },
     '历史交易': {
         'ZH': '历史交易',
-        'EN': 'Transaction history'
+        'EN': 'Trades history'
     },
     '发布的广告': {
         'ZH': '发布的广告',
@@ -1310,7 +1314,7 @@ var LANGUAGE = {
     },
     '冻结': {
         'ZH': '冻结',
-        'EN': 'Freeze'
+        'EN': 'Frozen'
     },
     '暂无明细': {
         'ZH': '暂无明细',
@@ -1391,7 +1395,7 @@ var LANGUAGE = {
     },
     '交易明细': {
         'ZH': '交易明细',
-        'EN': 'Transaction details'
+        'EN': 'Details'
     },
     '提现': {
         'ZH': '提现',
@@ -1700,7 +1704,7 @@ var LANGUAGE = {
     },
     '验证码': {
         'ZH': '验证码',
-        'EN': 'Verification code'
+        'EN': 'Please enter the code'
     },
     '获取验证码': {
         'ZH': '获取验证码',
@@ -2092,7 +2096,7 @@ var LANGUAGE = {
 	},
 	'信任': {
         'ZH': '信任',
-        'EN': 'Trust'
+        'EN': 'Trusted'
 	},
 	'出售成功': {
         'ZH': '出售成功',
@@ -2277,10 +2281,6 @@ var LANGUAGE = {
 	'提币': {
         'ZH': '提币',
         'EN': 'Withdraw'
-	},
-	'交易明细': {
-        'ZH': '交易明细',
-        'EN': 'Transaction details'
 	},
 	'去交易': {
         'ZH': '去交易',
@@ -2512,7 +2512,11 @@ var LANGUAGE = {
     },
     '您有未读消息': {
         'ZH': '您有未读消息',
-        'EN': 'You have new news'
+        'EN': 'New message'
+    },
+    '您有其他未读消息': {
+        'ZH': '您有其他未读消息',
+        'EN': 'New message'
     },
     '个人主页': {
         'ZH': '个人主页',

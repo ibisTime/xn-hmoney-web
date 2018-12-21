@@ -68,11 +68,17 @@ define([
                 return res.data;
             }).fail(function(error, eCode, eTxt) {
                 if (eCode == "error" || eCode == "timeout") {
-                    showMsg(eCode + "(" + error.status + "):" + eTxt, 10000);
-                    console.log(eCode + "(" + error.status + "):" + eTxt)
+                    if(error.status === '502') {
+                        showMsg(eCode + "(" + error.status + "):" + eTxt, 10000);
+                    }
+                    console.log(eCode + "(" + error.status + "):" + eTxt);
                 } else {
                     showMsg(error)
                 }
+                console.log('*** time:'+ new Date() +' ******************************');
+                console.log('code:' + code);
+                console.log('cache_url:' + cache_url);
+                console.log('*********************************************');
 
                 if (eCode && eCode == "4") {
                     setTimeout(function() {

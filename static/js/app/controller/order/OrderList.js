@@ -327,8 +327,8 @@ define([
         $("#arbitrationDialog .subBtn").click(function() {
             var orderCode = $(this).attr("data-ocode");
             var params = _formWrapper.serializeObject();
-            if (_formWrapper.valid()) {
-                base.showLoadingSpin()
+            if (_formWrapper.valid() ) {
+                base.showLoadingSpin();
                 TradeCtr.arbitrationlOrder({
                     code: orderCode,
                     reason: params.reason
@@ -343,7 +343,7 @@ define([
                     }, 1500)
                 }, base.hideLoadingSpin)
             }
-        })
+        });
 
         //交易评价按钮 点击
         $("#content").on("click", ".operation .commentBtn", function() {

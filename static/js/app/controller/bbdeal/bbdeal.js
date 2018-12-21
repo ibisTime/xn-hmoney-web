@@ -134,7 +134,7 @@ define([
             setTimeout(function () {
                 clearInterval(timeHis);
                 clearInterval(timeReal);
-                var timeReal = setInterval(() => {
+                var timeReal = (() => {
                     // autoRealData();
                     // console.log(base.formatDate(new Date, 'hh:mm:ss') + '*******---getBazaarDataBbZxj---*******');
                     getBazaarDataBbZxj();
@@ -416,16 +416,16 @@ define([
             buyHandicapData.forEach((item, i) => {
                 buyHtml += `<li>
             <p class="b-p">${buytype}<span>${i + 1}</span></p>
-                        <p>${item.price ? base.formatMoney(item.price, '', setBazDeal.toSymbol, false) : '--'}</p>
-                        <p>${item.count ? base.formatMoney(item.count, '', setBazDeal.symbol, false) : '--'}</p>
+                        <p>${item.price ? base.formatMoney(item.price, 7, setBazDeal.toSymbol, false) : '--'}</p>
+                        <p>${item.count ? base.formatMoney(item.count, 4, setBazDeal.symbol, false) : '--'}</p>
                     </li>`
             })
             $('.b-new_ul').html(buyHtml);
             for (let i = 6; i >= 0; i--) {
                 sellHtml += `<li>
             <p class="s-p">${selltype}<span>${i + 1}</span></p>
-                        <p>${sellHandicapData[i].price ? base.formatMoney(sellHandicapData[i].price, '', setBazDeal.toSymbol, false) : '--'}</p>
-                        <p>${sellHandicapData[i].count ? base.formatMoney(sellHandicapData[i].count, '', setBazDeal.symbol, false) : '--'}</p>
+                        <p>${sellHandicapData[i].price ? base.formatMoney(sellHandicapData[i].price, 7, setBazDeal.toSymbol, false) : '--'}</p>
+                        <p>${sellHandicapData[i].count ? base.formatMoney(sellHandicapData[i].count, 4, setBazDeal.symbol, false) : '--'}</p>
                     </li>`
             }
             $('.s-new_ul').html(sellHtml)
@@ -630,7 +630,7 @@ define([
 
     // 系统公告
     function notice() {
-        return Ajax.post('805305', {
+        return Ajax.post('805308', {
             start: '1',
             limit: '10',
             status: '1'
@@ -1091,6 +1091,10 @@ define([
 
     // k线图
     function getCandles() {
+        var locale = "zh";
+        if(langType === 'EN') {
+            locale = 'en';
+        }
         var widget = new TradingView.widget({
             width: '100%',
             height: '500px',
@@ -1101,7 +1105,7 @@ define([
             container_id: "tv_chart_container",
             datafeed: new Datafeeds.UDFCompatibleDatafeed("https://demo_feed.tradingview.com"),
             library_path: "/static/js/app/module/charting_library/",
-            locale: base.getUrlParam('lang') || "zh",
+            locale: locale,
             disabled_features: ["compare_symbol", "display_market_status", "go_to_date", "header_chart_type", "header_compare", "header_interval_dialog_button", "header_resolutions", "header_screenshot", "header_symbol_search", "header_undo_redo", "legend_context_menu", "show_hide_button_in_legend", "show_interval_dialog_on_key_press", "snapshot_trading_drawings", "symbol_info", "timeframes_toolbar", "use_localstorage_for_settings", "volume_force_overlay"],
             enabled_features: ['hide_left_toolbar_by_default', "dont_show_boolean_study_arguments", "hide_last_na_study_output", "move_logo_to_main_pane", "same_data_requery", "side_toolbar_in_fullscreen_mode", "disable_resolution_rebuild"],
             overrides: {

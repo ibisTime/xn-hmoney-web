@@ -1325,6 +1325,10 @@
                 if ( this.checkable( element ) ) {
                     return this.getLength( value, element ) > 0;
                 }
+                if(value.trim() === '') {
+                    return val && val.length > 0;
+                }
+
                 return value.length > 0;
             },
 

@@ -43,7 +43,7 @@ define([
 
     // 系统公告
     function notice() {
-        return Ajax.post('805305', {
+        return Ajax.post('805308', {
             start: '1',
             limit: '10',
             status: '1'

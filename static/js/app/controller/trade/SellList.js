@@ -213,7 +213,7 @@ define([
 							<div class="dot ${loginStatus}"></div>
 						</div>
                         <samp class="name">${item.user.nickname ? item.user.nickname : '-'}</samp>
-                        <p class="n-dist"><samp>${base.getText('交易', langType)}<i>${item.userStatistics.jiaoYiCount}</i></samp> ·
+                        <p class="n-dist"><samp>${base.getText('Trades', langType)}<i>${item.userStatistics.jiaoYiCount}</i></samp> ·
                             <samp>${base.getText('好评度', langType)}<i>${hpCount}</i></samp> ·
                             <samp>${base.getText('信任', langType)}<i>${item.userStatistics.beiXinRenCount}</i></samp>
                         </p>

@@ -33,7 +33,7 @@ define([
          * @param config {start, limit}
          */
         getPageSysNotice(config, refresh) {
-            return Ajax.get("804040", {
+            return Ajax.get("805308", {
                 "pushType": 41,
                 "toKind": 'C',
                 "channelType": 4,

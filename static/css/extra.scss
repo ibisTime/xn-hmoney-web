@@ -3823,6 +3823,14 @@ table {
         }
     }
 }
+.arbitration-content .form-item-textarea{
+    padding: 15px 20px !important;
+    label.error {
+        top: 21px;
+        right: 30px !important;
+        margin: 0;
+    }
+}
 
 .statistics {
     overflow: hidden;
@@ -4173,7 +4181,8 @@ table {
             display: inline-block;
             font-size: 16px;
             line-height: 50px;
-            margin-right: 50px;
+            margin-right: 20px;
+            width: 94px;
         }
         .selectWrap {
             width: 220px;
@@ -5560,7 +5569,7 @@ table {
                     }
                 }
                 >p {
-                    font-size: 14px;
+                    font-size: 13px;
                     color: #333;
                     .t-rmb,
                     .t-zf,
@@ -5789,6 +5798,7 @@ table {
                     }
                     >span:nth-of-type(1) {
                         width: 10%;
+                        min-width: 35px;
                     }
                 }
                 .s-new_ul,
@@ -5807,10 +5817,11 @@ table {
                         p {
                             text-align: center;
                             width: 39%;
-                        }
-                        >p:nth-of-type(1) {
-                            width: 13%;
-                            padding-left: 2%;
+                            &:nth-of-type(1) {
+                                width: 13%;
+                                min-width: 40px;
+                                padding-left: 2%;
+                            }
                         }
                         .s-p {
                             color: #d53d3d;
@@ -6142,6 +6153,10 @@ table {
                     span {
                         display: inline-block;
                         width: 18%;
+
+                        i{
+                            font-style: normal;
+                        }
                     }
                 }
             }
