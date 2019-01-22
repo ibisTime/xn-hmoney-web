@@ -6,7 +6,8 @@ var THUMBNAIL_SUFFIX = "";
 // web 域名 邀请好友
 var DOMAIN_NAME = 'http://www.funmvp.com';
 // h5 域名 邀请好友
-var INVITATION_HREF = 'http://m.funmvp.com';
+// var INVITATION_HREF = 'http://m.funmvp.com';
+var INVITATION_HREF = 'http://localhost:2812';
 //帮助中心
 var HELPCONTENT = 'https://funmvp.zendesk.com/hc/zh-cn/';
 var ZENDESK_LABEL = 'search';
@@ -26,7 +27,7 @@ var COIN_DEFAULTDATALIST = [
 // 当前langType
 var NOWLANG = localStorage.getItem('langType') || 'ZH';
 (function() {
-    var userId, token, gameFlag = false;
+    var userId = '', token = '', gameFlag = false;
     // 游戏跳转
     // 只跳转首页
     if (/\/index\.html/.test(location.href)) {
@@ -50,7 +51,7 @@ var NOWLANG = localStorage.getItem('langType') || 'ZH';
                     setConfigCookie("userId", userId);
                     setConfigCookie("token", token);
                 }
-                var thisPage = getThispage(window.location.href, gameFlag);
+                var thisPage = getThispage(window.location.href, gameFlag, userId, token);
                 if (/Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent)) {
                     window.location.href = INVITATION_HREF + thisPage;
                 } else
@@ -68,18 +69,18 @@ var NOWLANG = localStorage.getItem('langType') || 'ZH';
         }
     }
 })();
-function getThispage(href, gameFlag) {
+function getThispage(href, gameFlag, userId, token) {
     if (href.indexOf('/login.html') > -1) {
         return '/login';
     } else if(href.indexOf('/register.html') > -1) {
         return '/registered';
     } else if(href.indexOf('/index.html') > -1) {
         if (gameFlag) {
-            return '/page?gF=1';
+            return '/page?userId=' + userId + '&token=' + token;
         } else {
             return '/page';
         }
-    }  {
+    } else  {
         return '';
     }
 }
